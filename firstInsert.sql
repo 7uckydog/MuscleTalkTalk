@@ -1,3 +1,14 @@
+-- 게시판 카테고리
+INSERT INTO TB_BOARD_CATEGORY (BOARD_CATEGORY_NO)
+    VALUES (
+        (SELECT nvl(max(BOARD_CATEGORY_NO),0)+1 from TB_BOARD_CATEGORY)
+    );
+
+INSERT INTO TB_BOARD_CATEGORY (BOARD_CATEGORY_NO)
+    VALUES (
+        (SELECT nvl(max(BOARD_CATEGORY_NO),0)+1 from TB_BOARD_CATEGORY)
+    );
+
 --회원 테이블 1~10 관리자 11~20 일반 회원
 INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_NAME,
     MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_HEIGHT, MEMBER_WEIGHT, MEMBER_PURPOSE, MEMBER_CONCERN, MEMBER_TRAINER, MEMBER_ABSENCE, MEMBER_JOIN_DATE) VALUES(
@@ -149,215 +160,107 @@ INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, M
     (SELECT nvl(max(member_no),0)+1 from tb_member), 'trainer10', '1234', '트레이너10', 'trainer10@gmail.com', '아무개', '010-0000-0000', 'M', 0, 
     0, 0, 0, 0, 'T', DEFAULT, DEFAULT);
     
---운동
 --가슴
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '벤치 프레스', 'C');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '인클라인 벤치 프레스', 'C');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '딥스', 'C');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '체스트 프레스', 'C');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '펙 덱 플라이', 'C');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '덤벨 프레스', 'C');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '인클라인 덤벨 프레스', 'C');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '푸쉬업', 'C');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '머신 플라이', 'C');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '케이블 플라이', 'C');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '케이블 크로스오버', 'C');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '덤벨 플라이', 'C');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '덤벨 벤치 프레스', 'C');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '인클라인 덤벨 벤츠 프레스', 'C');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '바벨 벤치 프레스', 'C');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '인클라인 체스트 프레스', 'C');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '디클라인 벤치 프레스', 'C');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '클로즈그립 벤치 프레스', 'C');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '웨이티드 딥스', 'C');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '버터플라이', 'C');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '풀오버', 'C');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '인클라인 덤벨 플라이', 'C');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '정지 벤치 프레스', 'C');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '디클라인 덤벨 프레스', 'C');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '벤치 프레스 5T2P', 'C');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '벤치 프레스 3T1P', 'C');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '라슨 프레스', 'C');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '스포토 프레스', 'C');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '스탠딩 케이블 플라이 프레스', 'C');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '시티드 케이블 플라이 프레스', 'C');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '3:2:0 벤치 프레스', 'C');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '플랫 벤치 케이블 플라이', 'C');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '1CT 클로즈그립 벤치 프레스', 'C');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '팔로프 프리스 (1min)', 'C');
-
-
-
+INSERT INTO TB_EXERCISE VALUES(1, '벤치 프레스', 'C');
+INSERT INTO TB_EXERCISE VALUES(2, '인클라인 벤치 프레스', 'C');
+INSERT INTO TB_EXERCISE VALUES(3, '딥스', 'C');
+INSERT INTO TB_EXERCISE VALUES(4, '펙 덱 플라이', 'C');
+INSERT INTO TB_EXERCISE VALUES(5, '덤벨 프레스', 'C');
+INSERT INTO TB_EXERCISE VALUES(6, '인클라인 덤벨 프레스', 'C');
+INSERT INTO TB_EXERCISE VALUES(7, '푸쉬업', 'C');
+INSERT INTO TB_EXERCISE VALUES(8, '케이블 플라이', 'C');
+INSERT INTO TB_EXERCISE VALUES(9, '덤벨 플라이', 'C');
+INSERT INTO TB_EXERCISE VALUES(10, '인클라인 덤벨프레스', 'C');
+INSERT INTO TB_EXERCISE VALUES(11, '디클라인 벤치 프레스', 'C');
+INSERT INTO TB_EXERCISE VALUES(12, '클로즈 그립 벤치 프레스', 'C');
+INSERT INTO TB_EXERCISE VALUES(13, '디클라인 덤벨 프레스', 'C');
+INSERT INTO TB_EXERCISE VALUES(14, '인클라인 덤벨 플라이', 'C');
+INSERT INTO TB_EXERCISE VALUES(15, '풀오버', 'C');
 --등
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '랫 풀다운', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '풀업', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '바벨 로우', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '시티드 로우', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '원암 덤벨 로우', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '시티드 케이블 로우', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '암 풀다운', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '컨벤셔널 데드리프트', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '원암 시티드 로우', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '루마니안 데드리프트', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '티바 로우', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '펜들레이 로우', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '어시스트 풀업', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '롱풀', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '클로즈그립 렛 풀다운', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '친업', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '덤벨 로우', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '케이블 로우', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '풀다운', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '언더그립 풀다운', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '백 익스텐션', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '스모 데드리프트', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '와이드그립 랫 풀다운', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '풀오버', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '바벨 데드리프트', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '턱걸이', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '케이블 원암 풀다운', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '렉풀', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '머신 로우', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '인버티드 로우', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '벤트오버 바벨 로우', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '와이드그립 시티드 케이블 로우', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '체스트 서포티드 덤벨 로우', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '굿모닝', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '체스트 서포티드 덤벨 프론 로우', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '스티프레그 데드리프트', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '웨이티드 풀업', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '하이로우', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '벤트오버 덤벨 로우', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '클로즈그립 풀다운', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '하이퍼 익스텐션', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '슈퍼맨', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '벨트리스 데드리프트', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '랙 친', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '덤벨 프론 로우', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '로우 로우', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '로우 머신', 'B');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '씰로우', 'B');
+INSERT INTO TB_EXERCISE VALUES(17, '렛 풀다운', 'B');
+INSERT INTO TB_EXERCISE VALUES(18, '풀업', 'B');
+INSERT INTO TB_EXERCISE VALUES(19, '바벨 로우', 'B');
+INSERT INTO TB_EXERCISE VALUES(20, '시티드 로우', 'B');
+INSERT INTO TB_EXERCISE VALUES(21, '원암 덤벨 로우', 'B');
+INSERT INTO TB_EXERCISE VALUES(22, '시티드 케이블 로우', 'B');
+INSERT INTO TB_EXERCISE VALUES(23, '암 풀 다운', 'B');
+INSERT INTO TB_EXERCISE VALUES(24, '컨벤셔널 데드리프트', 'B');
+INSERT INTO TB_EXERCISE VALUES(25, '원암 시티드 로우', 'B');
+INSERT INTO TB_EXERCISE VALUES(26, '티바 로우', 'B');
+INSERT INTO TB_EXERCISE VALUES(27, '펜들레이 로우', 'B');
+INSERT INTO TB_EXERCISE VALUES(28, '클로즈그립 렛 풀다운', 'B');
+INSERT INTO TB_EXERCISE VALUES(29, '친업', 'B');
+INSERT INTO TB_EXERCISE VALUES(30, '루마니안 데드리프트', 'B');
+INSERT INTO TB_EXERCISE VALUES(31, '케이블 로우', 'B');
+INSERT INTO TB_EXERCISE VALUES(32, '백 익스텐션', 'B');
+INSERT INTO TB_EXERCISE VALUES(33, '스모 데드리프트', 'B');
 --하체
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '스쿼트', 'L');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '레그 익스텐션', 'L');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '레그 프레스', 'L');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '레그 컬', 'L');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '데드리프트', 'L');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '바벨 스쿼트', 'L');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '런지', 'L');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '프론트 스쿼트', 'L');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '핵 스쿼트', 'L');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '스티프레그 데드리프트', 'L');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '브이 스쿼트', 'L');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '로우바 스쿼트', 'L');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '카프 레이즈', 'L');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '하이바 스쿼트', 'L');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '라이 레그 컬', 'L');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '스모 데드리프트', 'L');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '바벨 루마니안 데드리프트', 'L');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '스탠딩 카프 레이즈', 'L');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '시티드 레그 컬', 'L');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '파워레그프레스', 'L');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '레그컬', 'L');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '데드리프트(1인치 데피싯)', 'L');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '정지 스쿼트', 'L');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '데드리프트(2초 정지)', 'L');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '시티드 카프 레이즈', 'L');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '바벨 워킹 런지', 'L');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '점프 스쿼트', 'L');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '스쿼트 3T1P', 'L');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '굿모닝', 'L');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '스플릿 스쿼트', 'L');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '렉 풀 데드리프트', 'L');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '스쿼트 5T2P', 'L');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '카프 프레스', 'L');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '컨벤셔널 데드리프트', 'L');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '시미스 런지', 'L');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '불가리안 스플릿 스쿼트', 'L');
+INSERT INTO TB_EXERCISE VALUES(34, '스쿼트', 'L');
+INSERT INTO TB_EXERCISE VALUES(35, '레그 익스텐션', 'L');
+INSERT INTO TB_EXERCISE VALUES(36, '레그 프레스', 'L');
+INSERT INTO TB_EXERCISE VALUES(37, '레그 컬', 'L');
+INSERT INTO TB_EXERCISE VALUES(38, '컨벤셔널 데드리프트', 'L');
+INSERT INTO TB_EXERCISE VALUES(39, '스모 데드리프트', 'L');
+INSERT INTO TB_EXERCISE VALUES(40, '루마니안 데드리프트', 'L');
+INSERT INTO TB_EXERCISE VALUES(41, '런지', 'L');
+INSERT INTO TB_EXERCISE VALUES(42, '카프 레이즈', 'L');
+INSERT INTO TB_EXERCISE VALUES(43, '시티드 카프 레이즈', 'L');
+INSERT INTO TB_EXERCISE VALUES(44, '시티드 레그 컬', 'L');
+INSERT INTO TB_EXERCISE VALUES(45, '바벨 런지', 'L');
+INSERT INTO TB_EXERCISE VALUES(46, '덤벨 런지', 'L');
+INSERT INTO TB_EXERCISE VALUES(47, '이너 타이', 'L');
+INSERT INTO TB_EXERCISE VALUES(48, '아웃 타이', 'L');
 --힙
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '이너 타이', 'H');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '아웃 타이', 'H');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '힙 어덕션', 'H');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '힙 쓰러스트', 'H');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '덩키 킥', 'H');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '워킹 런지', 'H');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '바벨 런지', 'H');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '원 레그 데드리프트', 'H');
+INSERT INTO TB_EXERCISE VALUES(49, '이너 타이', 'H');
+INSERT INTO TB_EXERCISE VALUES(50, '아웃 타이', 'H');
+INSERT INTO TB_EXERCISE VALUES(51, '힙 어덕션', 'H');
+INSERT INTO TB_EXERCISE VALUES(52, '힙 쓰러스트', 'H');
+INSERT INTO TB_EXERCISE VALUES(53, '덩키 킥', 'H');
+INSERT INTO TB_EXERCISE VALUES(54, '워킹 런지', 'H');
+INSERT INTO TB_EXERCISE VALUES(55, '바벨 런지', 'H');
+INSERT INTO TB_EXERCISE VALUES(56, '원 레그 데드리프트', 'H');
 --어깨
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '사이드 레터럴 레이즈', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '오버헤드 프레스', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '숄더 프레스', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '리버스 펙 덱 플라이', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '밀리터리 프레스', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '덤벨 숄더 프레스', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '덤벨 프레스', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '페이슬풀', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '벤트 오버 레터럴 레이즈', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '프론트 레이즈', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '비하인드 넥 프레스', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '아놀드 프레스', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '업라이트 로우', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '숄더 프레스 머신', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '리버스 플라이', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '시티드 덤벨 오버헤드 프레스', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '덤벨 프론트 레이즈', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '덤벨 레터럴 레이즈', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '바벨 슈러그', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '시티드 벤트오버 레터럴 레이즈', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '슈러그', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '스탠딩 바벨 오버헤드 프레스', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '바벨 숄더 프레스', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '스탠딩 밀리터리 프레스', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '덤벨 슈러그', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '벤트오버 덤벨 레이즈', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '정지 오버헤드 프레스', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '케이블 와이(Y) 레이즈', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '푸쉬 프레스', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '케이블 45도 프론트 레이즈', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '체스트 서포티드 덤벨 리어 델트 로우', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '체스트 서포티드 덤벨 델트 레이즈', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '오버헤드 프레스 3T1P', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '시티드 벤트오버 리어 델트 레이즈', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '핸드스탠드 푸쉬업', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '체스트 서포티드 덤벨 레터럴 레이즈', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '벤트오버 덤벨 로우', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '러닝 덤벨 레터럴 레이즈', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '오버헤드 프레스 5T2P', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '머신 숄더프레스', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '사이드 레터럴 레이즈 머신', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '케이블 레터럴 레이즈', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '덤벨 프론트 레이즈', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '바벨 프론트 레이즈', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '오버 헤드 프레스', 'S');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '파이크 푸쉬업', 'S');
+INSERT INTO TB_EXERCISE VALUES(57, '사이드 레터럴 레이즈', 'S');
+INSERT INTO TB_EXERCISE VALUES(58, '덤벨 숄더 프레스', 'S');
+INSERT INTO TB_EXERCISE VALUES(59, '벤트 오버 레터럴 레이즈', 'S');
+INSERT INTO TB_EXERCISE VALUES(60, '페이스 풀', 'S');
+INSERT INTO TB_EXERCISE VALUES(61, '비하인드 넥 프레스', 'S');
+INSERT INTO TB_EXERCISE VALUES(62, '아놀드 프레스', 'S');
+INSERT INTO TB_EXERCISE VALUES(63, '업라이트 로우', 'S');
+INSERT INTO TB_EXERCISE VALUES(64, '케이블 레터럴 레이즈', 'S');
+INSERT INTO TB_EXERCISE VALUES(65, '덤벨 프론트 레이즈', 'S');
+INSERT INTO TB_EXERCISE VALUES(66, '바벨 프론트 레이즈', 'S');
+INSERT INTO TB_EXERCISE VALUES(67, '밀리터리 프레스', 'S');
+INSERT INTO TB_EXERCISE VALUES(68, '오버 헤드 프레스', 'S');
+INSERT INTO TB_EXERCISE VALUES(69, '파이크 푸쉬업', 'S');
 --팔
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '케이블 푸쉬 다운', 'E');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '바벨 컬', 'E');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '덤벨 컬', 'E');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '해머 컬', 'E');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '라잉 트라이셉스 익스텐션', 'E');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '이지바 컬', 'E');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '덤벨 킥백', 'E');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '프리쳐 컬', 'E');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '딥스', 'E');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '리스트 컬', 'E');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '케이블 킥백', 'E');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '인클라인 덤벨 컬', 'E');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '리버스 컬', 'E');
+INSERT INTO TB_EXERCISE VALUES(70, '케이블 푸쉬 다운', 'E');
+INSERT INTO TB_EXERCISE VALUES(71, '바벨 컬', 'E');
+INSERT INTO TB_EXERCISE VALUES(72, '덤벨 컬', 'E');
+INSERT INTO TB_EXERCISE VALUES(73, '해머 컬', 'E');
+INSERT INTO TB_EXERCISE VALUES(74, '라잉 트라이셉스 익스텐션', 'E');
+INSERT INTO TB_EXERCISE VALUES(75, '이지바 컬', 'E');
+INSERT INTO TB_EXERCISE VALUES(76, '덤벨 킥백', 'E');
+INSERT INTO TB_EXERCISE VALUES(77, '프리쳐 컬', 'E');
+INSERT INTO TB_EXERCISE VALUES(78, '딥스', 'E');
+INSERT INTO TB_EXERCISE VALUES(79, '리스트 컬', 'E');
+INSERT INTO TB_EXERCISE VALUES(80, '케이블 킥백', 'E');
+INSERT INTO TB_EXERCISE VALUES(81, '인클라인 덤벨 컬', 'E');
+INSERT INTO TB_EXERCISE VALUES(82, '리버스 컬', 'E');
 --복근
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '행잉 레그 레이즈', 'A');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '크런치', 'A');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '레그 레이즈', 'A');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '싯업', 'A');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '플랭크', 'A');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '로프 크런치', 'A');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '러시안 트위스트', 'A');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '사이드 플랭크', 'A');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), 'AB슬라이드', 'A');
+INSERT INTO TB_EXERCISE VALUES(83, '행잉 레그 레이즈', 'A');
+INSERT INTO TB_EXERCISE VALUES(84, '크런치', 'A');
+INSERT INTO TB_EXERCISE VALUES(85, '레그 레이즈', 'A');
+INSERT INTO TB_EXERCISE VALUES(86, '싯업', 'A');
+INSERT INTO TB_EXERCISE VALUES(87, '플랭크', 'A');
+INSERT INTO TB_EXERCISE VALUES(88, '로프 크런치', 'A');
+INSERT INTO TB_EXERCISE VALUES(89, '러시안 트위스트', 'A');
+INSERT INTO TB_EXERCISE VALUES(90, '사이드 플랭크', 'A');
+INSERT INTO TB_EXERCISE VALUES(91, 'AB슬라이드', 'A');
 --유산소
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '런닝머신', 'T');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '버피 테스트', 'T');
-INSERT INTO TB_EXERCISE VALUES((SELECT nvl(max(exercise_no),0)+1 from tb_exercise), '사이클 머신', 'T');    
+INSERT INTO TB_EXERCISE VALUES(92, '런닝머신', 'T');
+INSERT INTO TB_EXERCISE VALUES(93, '버피 테스트', 'T');
+INSERT INTO TB_EXERCISE VALUES(94, '사이클 머신', 'T'); 
     
     
     
@@ -546,7 +449,867 @@ INSERT INTO TB_EXERCISE_RECORD (RECORD_NO,
     TO_DATE('20220418175500','YYYYMMDDHH24MISS'), TO_DATE('20220418180500','YYYYMMDDHH24MISS'), 11, 6
     );
     
-SELECT * FROM TB_EXERCISE_RECORD;
+-- 자유게시물
+
+INSERT INTO TB_BOARD (
+        BOARD_NO, MEMBER_NO, BOARD_TITLE, 
+        BOARD_CONTENT, BOARD_COUNT, BOARD_DATE, BOARD_CATEGORY_NO) 
+    VALUES (
+        (SELECT nvl(max(board_no),0)+1 from tb_board), 11, '테스트 제목',
+        '테스트 내용',DEFAULT, DEFAULT, DEFAULT
+    );
+
+INSERT INTO TB_BOARD (
+        BOARD_NO, MEMBER_NO, BOARD_TITLE, 
+        BOARD_CONTENT, BOARD_COUNT, BOARD_DATE, BOARD_CATEGORY_NO) 
+    VALUES (
+        (SELECT nvl(max(board_no),0)+1 from tb_board), 12, '테스트 제목2',
+        '테스트 내용2',DEFAULT, DEFAULT, DEFAULT
+    );
+
+INSERT INTO TB_BOARD (
+        BOARD_NO, MEMBER_NO, BOARD_TITLE, 
+        BOARD_CONTENT, BOARD_COUNT, BOARD_DATE, BOARD_CATEGORY_NO) 
+    VALUES (
+        (SELECT nvl(max(board_no),0)+1 from tb_board), 14, '테스트 제목4',
+        '테스트 내용4',DEFAULT, DEFAULT, DEFAULT
+    );
+
+INSERT INTO TB_BOARD (
+        BOARD_NO, MEMBER_NO, BOARD_TITLE, 
+        BOARD_CONTENT, BOARD_COUNT, BOARD_DATE, BOARD_CATEGORY_NO) 
+    VALUES (
+        (SELECT nvl(max(board_no),0)+1 from tb_board), 15, '테스트 제목5',
+        '테스트 내용5',DEFAULT, DEFAULT, DEFAULT
+    );
+
+INSERT INTO TB_BOARD (
+        BOARD_NO, MEMBER_NO, BOARD_TITLE, 
+        BOARD_CONTENT, BOARD_COUNT, BOARD_DATE, BOARD_CATEGORY_NO) 
+    VALUES (
+        (SELECT nvl(max(board_no),0)+1 from tb_board), 16, '테스트 제목6',
+        '테스트 내용6',DEFAULT, DEFAULT, DEFAULT
+    );
+
+
+
+-- 루틴 게시물
+INSERT INTO TB_ROUTINE_BOARD (
+        ROUTINE_BOARD_NO, MEMBER_NO, 
+        ROUTINE_NO, ROUTINE_BOARD_TITLE, ROUTINE_BOARD_CONTENT, ROUTINE_BOARD_COUNT, 
+        ROUTINE_BOARD_DATE,ROUTINE_BOARD_SHARE, BOARD_CATEGORY_NO)
+    VALUES (
+        (SELECT nvl(max(routine_board_no),0)+1 from tb_routine_board), 11,
+        1, '서유빈 루틴 게시물', '서유빈 루틴 게시물 내용', DEFAULT,
+        DEFAULT, DEFAULT, DEFAULT
+    );
+
+-- 자유게시물 댓글
+
+INSERT INTO TB_COMMENT (
+        COMMENT_NO, BOARD_NO, ROUTINE_BOARD_NO, 
+        MEMBER_NO, COMMENT_CONTENT, 
+        COMMENT_DATE, COMMENT_EDIT_DATE) 
+    VALUES (
+        (SELECT nvl(max(comment_no),0)+1 from tb_comment), 1, NULL,
+        12, '테스트용 댓글',
+        SYSDATE, NULL
+    );
+
+INSERT INTO TB_COMMENT (
+        COMMENT_NO, BOARD_NO, ROUTINE_BOARD_NO, 
+        MEMBER_NO, COMMENT_CONTENT, 
+        COMMENT_DATE, COMMENT_EDIT_DATE) 
+    VALUES (
+        (SELECT nvl(max(comment_no),0)+1 from tb_comment), 1, NULL,
+        13, '테스트용 댓글',
+        SYSDATE, NULL
+    );
+
+INSERT INTO TB_COMMENT (
+        COMMENT_NO, BOARD_NO, ROUTINE_BOARD_NO, 
+        MEMBER_NO, COMMENT_CONTENT, 
+        COMMENT_DATE, COMMENT_EDIT_DATE) 
+    VALUES (
+        (SELECT nvl(max(comment_no),0)+1 from tb_comment), 1, NULL,
+        14, '테스트용 댓글',
+        SYSDATE, NULL
+    );
+
+INSERT INTO TB_COMMENT (
+        COMMENT_NO, BOARD_NO, ROUTINE_BOARD_NO, 
+        MEMBER_NO, COMMENT_CONTENT, 
+        COMMENT_DATE, COMMENT_EDIT_DATE) 
+    VALUES (
+        (SELECT nvl(max(comment_no),0)+1 from tb_comment), 2, NULL,
+        12, '테스트용 댓글',
+        SYSDATE, NULL
+    );
+
+INSERT INTO TB_COMMENT (
+        COMMENT_NO, BOARD_NO, ROUTINE_BOARD_NO, 
+        MEMBER_NO, COMMENT_CONTENT, 
+        COMMENT_DATE, COMMENT_EDIT_DATE) 
+    VALUES (
+        (SELECT nvl(max(comment_no),0)+1 from tb_comment), 2, NULL,
+        13, '테스트용 댓글',
+        SYSDATE, NULL
+    );
+
+INSERT INTO TB_COMMENT (
+        COMMENT_NO, BOARD_NO, ROUTINE_BOARD_NO, 
+        MEMBER_NO, COMMENT_CONTENT, 
+        COMMENT_DATE, COMMENT_EDIT_DATE) 
+    VALUES (
+        (SELECT nvl(max(comment_no),0)+1 from tb_comment), 2, NULL,
+        14, '테스트용 댓글',
+        SYSDATE, NULL
+    );
+
+-- 루틴 게시물 댓글
+
+INSERT INTO TB_COMMENT (
+        COMMENT_NO, BOARD_NO, ROUTINE_BOARD_NO, 
+        MEMBER_NO, COMMENT_CONTENT, 
+        COMMENT_DATE, COMMENT_EDIT_DATE) 
+    VALUES (
+        (SELECT nvl(max(comment_no),0)+1 from tb_comment), NULL, 1,
+        14, '테스트용 루틴 댓글',
+        SYSDATE, NULL
+    );
+
+INSERT INTO TB_COMMENT (
+        COMMENT_NO, BOARD_NO, ROUTINE_BOARD_NO, 
+        MEMBER_NO, COMMENT_CONTENT, 
+        COMMENT_DATE, COMMENT_EDIT_DATE) 
+    VALUES (
+        (SELECT nvl(max(comment_no),0)+1 from tb_comment), NULL, 1,
+        12, '테스트용 루틴 댓글',
+        SYSDATE, NULL
+    );
+
+INSERT INTO TB_COMMENT (
+        COMMENT_NO, BOARD_NO, ROUTINE_BOARD_NO, 
+        MEMBER_NO, COMMENT_CONTENT, 
+        COMMENT_DATE, COMMENT_EDIT_DATE) 
+    VALUES (
+        (SELECT nvl(max(comment_no),0)+1 from tb_comment), NULL, 1,
+        13, '테스트용 루틴 댓글',
+        SYSDATE, NULL
+    );
+
+-- 게시물 신고
+
+INSERT INTO TB_BOARD_REPORT (
+        BOARD_REPORT_NO, BOARD_REPORT_CONTENT, 
+        BOARD_REPORT_TIME, MEMBER_NO, 
+        BOARD_NO, ROUTINE_BOARD_NO) 
+    VALUES (
+        (SELECT nvl(max(board_report_no),0)+1 from tb_board_report), '신고 내용',
+        DEFAULT, 14,
+        1, NULL
+    );
+
+INSERT INTO TB_BOARD_REPORT (
+        BOARD_REPORT_NO, BOARD_REPORT_CONTENT, 
+        BOARD_REPORT_TIME, MEMBER_NO, 
+        BOARD_NO, ROUTINE_BOARD_NO) 
+    VALUES (
+        (SELECT nvl(max(board_report_no),0)+1 from tb_board_report), '신고 내용',
+        DEFAULT, 15,
+        1, NULL
+    );
+
+
+INSERT INTO TB_BOARD_REPORT (
+        BOARD_REPORT_NO, BOARD_REPORT_CONTENT, 
+        BOARD_REPORT_TIME, MEMBER_NO, 
+        BOARD_NO, ROUTINE_BOARD_NO) 
+    VALUES (
+        (SELECT nvl(max(board_report_no),0)+1 from tb_board_report), '신고 내용',
+        DEFAULT, 14,
+        4, NULL
+    );
+
+INSERT INTO TB_BOARD_REPORT (
+        BOARD_REPORT_NO, BOARD_REPORT_CONTENT, 
+        BOARD_REPORT_TIME, MEMBER_NO, 
+        BOARD_NO, ROUTINE_BOARD_NO) 
+    VALUES (
+        (SELECT nvl(max(board_report_no),0)+1 from tb_board_report), '신고 내용',
+        DEFAULT, 15,
+        4, NULL
+    );
+
+-- 댓글 신고
+
+INSERT INTO TB_COMMENT_REPORT (
+        COMMENT_REPORT_NO, COMMENT_REPORT_CONTENT, 
+        COMMENT_REPORT_TIME, COMMENT_NO, MEMBER_NO) 
+    VALUES (
+         (SELECT nvl(max(comment_report_no),0)+1 from tb_comment_report), '신고 내용',
+         DEFAULT, 1, 13
+    );
+
+INSERT INTO TB_COMMENT_REPORT (
+        COMMENT_REPORT_NO, COMMENT_REPORT_CONTENT, 
+        COMMENT_REPORT_TIME, COMMENT_NO, MEMBER_NO) 
+    VALUES (
+         (SELECT nvl(max(comment_report_no),0)+1 from tb_comment_report), '신고 내용',
+         DEFAULT, 3, 14
+    );
+
+-- 쪽지
+
+INSERT INTO TB_LETTER (
+        LETTER_NO, MEMBER_NO, LETTER_TITILE, 
+        LETTER_CONTENT, LETTER_SEND_TIME, LETTER_READ, LETTER_READ_TIME) 
+    VALUES (
+        (SELECT nvl(max(LETTER_NO),0)+1 from TB_LETTER), 11, '테스트용 쪽지 제목',
+        '테스트용 쪽지 내용', DEFAULT, DEFAULT, NULL
+    );
+
+INSERT INTO TB_LETTER (
+        LETTER_NO, MEMBER_NO, LETTER_TITILE, 
+        LETTER_CONTENT, LETTER_SEND_TIME, LETTER_READ, LETTER_READ_TIME) 
+    VALUES (
+        (SELECT nvl(max(LETTER_NO),0)+1 from TB_LETTER), 11, '테스트용 쪽지 제목2',
+        '테스트용 쪽지 내용2', DEFAULT, DEFAULT, NULL
+    );
+
+INSERT INTO TB_LETTER (
+        LETTER_NO, MEMBER_NO, LETTER_TITILE, 
+        LETTER_CONTENT, LETTER_SEND_TIME, LETTER_READ, LETTER_READ_TIME) 
+    VALUES (
+        (SELECT nvl(max(LETTER_NO),0)+1 from TB_LETTER), 11, '테스트용 쪽지 제목3',
+        '테스트용 쪽지 내용3', DEFAULT, DEFAULT, NULL
+    );
+
+-- 문의 사항
+
+INSERT INTO TB_INQUIRY (
+        INQUIRY_NO, MEMBER_NO, INQUIRY_TITLE, 
+        INQUIRY_CONTENT, INQUIRY_DATE, INQUIRY_CHECK, INQUIRY_ANSER) 
+    VALUES (
+        (SELECT nvl(max(INQUIRY_NO),0)+1 from TB_INQUIRY), 14, '테스트 문의',
+        '테스트 문의 내용', DEFAULT, DEFAULT, NULL
+    );
+
+INSERT INTO TB_INQUIRY (
+        INQUIRY_NO, MEMBER_NO, INQUIRY_TITLE, 
+        INQUIRY_CONTENT, INQUIRY_DATE, INQUIRY_CHECK, INQUIRY_ANSER) 
+    VALUES (
+        (SELECT nvl(max(INQUIRY_NO),0)+1 from TB_INQUIRY), 16, '테스트 문의2',
+        '테스트 문의 내용2', DEFAULT, DEFAULT, NULL
+    );
+
+INSERT INTO TB_INQUIRY (
+        INQUIRY_NO, MEMBER_NO, INQUIRY_TITLE, 
+        INQUIRY_CONTENT, INQUIRY_DATE, INQUIRY_CHECK, INQUIRY_ANSER) 
+    VALUES (
+        (SELECT nvl(max(INQUIRY_NO),0)+1 from TB_INQUIRY), 11, '테스트 문의3',
+        '테스트 문의 내용3', DEFAULT, DEFAULT, NULL
+    );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
