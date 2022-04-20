@@ -1,4 +1,14 @@
-
+@font-face {
+	    font-family: THEmpgtM;
+	    src: url("<%= request.getContextPath() %>/cssfolder/fonts/THEmpgtM.woff");
+	}
+	body{
+	    width: 1200px;
+	    margin: 0 auto;
+	}
+	*{
+	    text-decoration: none;
+	}
 header{
     font-family:'THEmpgtM';
     font-weight: light;

@@ -14,11 +14,11 @@ footer > div > ul{
     color: gray;
     line-height: 15px;
 }
-#go_to_top {
+#go_to_top > img {
     width: 30px;
-    height: 45px;
+    height: 20px;
     position: fixed;
-    bottom: 35px;
+    bottom: 40px;
     right: 45px;
     cursor: pointer;
 }
