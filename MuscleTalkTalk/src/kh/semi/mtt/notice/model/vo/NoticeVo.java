@@ -22,6 +22,10 @@ public class NoticeVo {
 		this.notiDate = notiDate;
 	}
 	
+	public NoticeVo() {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public String toString() {
 		return "NoticeVo [noticeNo=" + noticeNo + ", memberNo=" + memberNo + ", notiTitle=" + notiTitle
