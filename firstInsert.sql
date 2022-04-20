@@ -956,7 +956,7 @@ INSERT INTO TB_BLACKLIST (
         MEMBER_NO, BLACKLIST_DATE
     ) 
     VALUES (
-        (SELECT nvl(max(BLACK_LIST_NO),0)+1 from TB_BLACKLIST), 21,
+        (SELECT nvl(max(BLACK_LIST_NO),0)+1 from TB_BLACKLIST), 1,
         12, DEFAULT
     );
 
@@ -965,7 +965,7 @@ INSERT INTO TB_BLACKLIST (
         MEMBER_NO, BLACKLIST_DATE
     ) 
     VALUES (
-        (SELECT nvl(max(BLACK_LIST_NO),0)+1 from TB_BLACKLIST), 22,
+        (SELECT nvl(max(BLACK_LIST_NO),0)+1 from TB_BLACKLIST), 2,
         13, DEFAULT
     );
 
