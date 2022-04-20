@@ -1,3 +1,4 @@
+<%@page import="kh.semi.mtt.member.model.vo.MemberVo"%>
 <link rel="stylesheet" href="<%= request.getContextPath() %>/cssfolder/css/reset.css">
 <link rel="stylesheet" href="<%= request.getContextPath() %>/cssfolder/css/header.css">
 <link rel="stylesheet" href="<%= request.getContextPath() %>/cssfolder/css/aside.css">
@@ -16,6 +17,7 @@
 	    font-family: THEmpgtM;
 	    src: url("<%= request.getContextPath() %>/cssfolder/fonts/THEmpgtM.woff");
 	}
+	
 	body{
 	    width: 1200px;
 	    margin: 0 auto;
@@ -28,7 +30,7 @@
 <body bgcolor=" #ECECEC">
     <header id="header_all">
         <div id="header_logo">
-            <a href="">
+            <a href="main">
                 <img src="<%= request.getContextPath() %>/cssfolder/images/logo.png">
             </a>
         </div>
@@ -49,19 +51,32 @@
                 </a>
             </div>
         </div>
-
         <!-- 멤버 아이콘 영역 -->
         <div id="member_icon_menu">
             <div>
                 <a href="">    
-                   <img src="<%= request.getContextPath() %>/cssfolder/images/login.png" id="login_icon">
-                   <p style="padding-bottom: 25px;">로그인</p>
+                   <img src="<%= request.getContextPath() %>/cssfolder/images/login.png" id="login_icon"> 
+<%
+	MemberVo ssMvo = (MemberVo)session.getAttribute("ssMvo");
+	if(ssMvo == null){
+%>
+				<p style="padding-bottom: 25px;" id="login">로그인</p>
+<% } else { %>
+				<p style="padding-bottom: 25px;" id="logout">로그아웃</p>
+<% } %>
                 </a>
             </div>
             <div>
                 <a href="">    
                    <img src="<%= request.getContextPath() %>/cssfolder/images/join.png" id="sign_icon">
-                   <p>회원가입</p>
+<%
+	ssMvo = (MemberVo)session.getAttribute("ssMvo");
+	if(ssMvo == null){
+%>
+                   <p id="join">회원가입</p>
+<% } else { %>
+					<p id="mypage">마이페이지</p>
+<% } %>            
                 </a>
             </div>
         </div>
@@ -204,6 +219,10 @@
             console.log($(this).next().remove());
             $(this).remove();
         });
+        
+        $("#login").click(function(){
+        	location.href = "login"
+        })
     </script>
 </body>
 </html>

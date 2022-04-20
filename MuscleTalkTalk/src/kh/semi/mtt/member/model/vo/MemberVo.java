@@ -23,6 +23,8 @@ public class MemberVo {
 	private String memberAbsence;
 	private String memberJoinDate;
 	private String memberLeaveDate;
+	private String memberNickname;
+	
 	@Override
 	public String toString() {
 		return "MemberVo [memberId=" + memberId + ", memberPassword=" + memberPassword + ", memberEmail=" + memberEmail
@@ -30,8 +32,10 @@ public class MemberVo {
 				+ ", memberAge=" + memberAge + ", memberHeight=" + memberHeight + ", memberWeight=" + memberWeight
 				+ ", memberPurpose=" + memberPurpose + ", memberConcern=" + memberConcern + ", memberPhoto="
 				+ memberPhoto + ", memberTrainer=" + memberTrainer + ", memberAbsence=" + memberAbsence
-				+ ", memberJoinDate=" + memberJoinDate + ", memberLeaveDate=" + memberLeaveDate + "]";
+				+ ", memberJoinDate=" + memberJoinDate + ", memberLeaveDate=" + memberLeaveDate + ", memberNickname="
+				+ memberNickname + "]";
 	}
+	
 	public String getMemberId() {
 		return memberId;
 	}
@@ -127,6 +131,14 @@ public class MemberVo {
 	}
 	public void setMemberLeaveDate(String memberLeaveDate) {
 		this.memberLeaveDate = memberLeaveDate;
+	}
+
+	public String getMemberNickname() {
+		return memberNickname;
+	}
+
+	public void setMemberNickname(String memberNickname) {
+		this.memberNickname = memberNickname;
 	}
 	
 	

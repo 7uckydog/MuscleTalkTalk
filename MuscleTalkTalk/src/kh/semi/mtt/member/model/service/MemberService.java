@@ -18,4 +18,13 @@ public class MemberService {
 		close(conn);
 		return retVo;
 	}
+	
+	public MemberVo login(String memeberId, String memberPassword) {
+		MemberVo retVo = null;
+		Connection conn = null;
+		conn = getConnection();
+		
+		retVo = dao.login(conn, memeberId, memberPassword);
+		return retVo;
+	}
 }

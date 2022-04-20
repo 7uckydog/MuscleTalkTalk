@@ -38,4 +38,46 @@ public class MemberDao {
 		}
 		return retVo;
 	}
+	
+	public MemberVo login(Connection conn, String memeberId, String memberPassword) {
+		MemberVo retVo = null;
+		String sql = "select * from tb_member where member_id = ? and member_password = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memeberId);
+			pstmt.setString(2, memberPassword);
+			rs = pstmt.executeQuery();
+			System.out.println("dao");
+			
+			if(rs!=null) {
+				if(rs.next()) {
+					retVo = new MemberVo();
+					retVo.setMemberId(rs.getString("member_id"));
+					retVo.setMemberPassword(rs.getString("member_password"));
+					retVo.setMemberNickname(rs.getString("member_nickname"));
+					retVo.setMemberEmail(rs.getString("member_email"));
+					retVo.setMemberName(rs.getString("member_name"));
+					retVo.setMemberPhone(rs.getString("member_phone"));
+					retVo.setMemberGender(rs.getString("member_gender"));
+					retVo.setMemberAge(rs.getString("member_age"));
+					retVo.setMemberHeight(rs.getString("member_height"));
+					retVo.setMemberWeight(rs.getString("member_weight"));
+					retVo.setMemberPurpose(rs.getString("member_purpose"));
+					retVo.setMemberConcern(rs.getString("member_concern"));
+					retVo.setMemberPhoto(rs.getString("member_photo"));
+					retVo.setMemberTrainer(rs.getString("member_trainer"));
+					retVo.setMemberAbsence(rs.getString("member_absence"));
+					retVo.setMemberJoinDate(rs.getString("member_join_date"));
+					retVo.setMemberLeaveDate(rs.getString("member_leave_date"));
+				}
+			}
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return retVo;
+	}
 }
