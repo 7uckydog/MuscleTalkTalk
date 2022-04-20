@@ -17,6 +17,7 @@ public class JdbcTemplate {
 			Context initContext = new InitialContext();
 			Context evnContext = (Context)initContext.lookup("java:/comp/env");
 			DataSource ds = (DataSource)evnContext.lookup("jdbc/MTTLocal");
+//			DataSource ds = (DataSource)evnContext.lookup("jdbc/MTTPclass");
 			conn = ds.getConnection();
 		} catch (SQLException e) {
 			e.printStackTrace();
