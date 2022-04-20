@@ -10,13 +10,22 @@
 </head>
 <body>
 	main<br>
-	<button id="testpjm">testpjm</button>
+	<button id="testpjm">testpjm</button> <br>
+	<button id="testjjlee">testjjlee</button>
+	
 	<script>
     {// Test Pjm
     	$("#testpjm").click(function() {
 			location.href="testpjm";
 		});
     }
+    {// Test jjlee
+    	$("#testjjlee").click(function() {
+			location.href="testjjlee";
+		});
+    }
+    
 	</script>
+	
 </body>
 </html>

@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class TestViewPagePJMControllerServlet
+ * Servlet implementation class TestViewPageJJLController
  */
-@WebServlet("/testpjm")
-public class TestViewPagePJMControllerServlet extends HttpServlet {
+@WebServlet("/testjjlee")
+public class TestViewPageJJLController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TestViewPagePJMControllerServlet() {
+    public TestViewPageJJLController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +26,7 @@ public class TestViewPagePJMControllerServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("WEB-INF/view/testpjm/mainpjm.jsp").forward(request, response);
+		request.getRequestDispatcher("WEB-INF/view/testjjlee/jjleemain.jsp").forward(request, response);
 	}
 
 	/**
