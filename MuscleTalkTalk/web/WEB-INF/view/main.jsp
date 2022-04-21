@@ -46,7 +46,7 @@
                 </div>
             </div>
             <div id="home_icon">
-                <a href="">
+                <a href="main">
                     <img src="<%= request.getContextPath() %>/cssfolder/images/home.png">
                 </a>
             </div>
@@ -54,7 +54,6 @@
         <!-- 멤버 아이콘 영역 -->
         <div id="member_icon_menu">
             <div>
-                <a href="">    
                    <img src="<%= request.getContextPath() %>/cssfolder/images/login.png" id="login_icon"> 
 <%
 	MemberVo ssMvo = (MemberVo)session.getAttribute("ssMvo");
@@ -64,10 +63,8 @@
 <% } else { %>
 				<p style="padding-bottom: 25px;" id="logout">로그아웃</p>
 <% } %>
-                </a>
             </div>
             <div>
-                <a href="">    
                    <img src="<%= request.getContextPath() %>/cssfolder/images/join.png" id="sign_icon">
 <%
 	ssMvo = (MemberVo)session.getAttribute("ssMvo");
@@ -77,7 +74,6 @@
 <% } else { %>
 					<p id="mypage">마이페이지</p>
 <% } %>            
-                </a>
             </div>
         </div>
 
@@ -92,21 +88,21 @@
 
                 <div>
                     <img src="<%= request.getContextPath() %>/cssfolder/images/x_icon.png" style="width: 10px;" class="bell_notice_x">  
-                    <a href="" class="header_notice">
+                    <a class="header_notice">
                         <div>알림 1</div>
                         <div>알림 내용 1</div> 
                     </a>  
                 </div>
                 <div>
                     <img src="<%= request.getContextPath() %>/cssfolder/images/x_icon.png" style="width: 10px;" class="bell_notice_x">
-                    <a href="" class="header_notice">
+                    <a class="header_notice">
                         <div>알림 2</div>
                         <div>알림 내용 2 알림 내용 2 알림 내용 2 알림 내용 2 알림 내용 2 알림 내용 2 알림 내용 2 알림 내용 2</div> 
                     </a>
                 </div>
                 <div>
                     <img src="<%= request.getContextPath() %>/cssfolder/images/x_icon.png" style="width: 10px;" class="bell_notice_x">
-                    <a href="" class="header_notice">
+                    <a class="header_notice">
                         <div>알림 3</div>
                         <div>새로운 공지사항이 등록되었습니다. 알림을 클릭하여 확인해 주세요.</div> 
                     </a>
@@ -220,9 +216,11 @@
             $(this).remove();
         });
         
+        // 회원 아이콘 내, 로그인 클릭 시 로그인 페이지로 이동
         $("#login").click(function(){
         	location.href = "login"
-        })
+        	console.log("아하하하하하하ㅏ");
+        });
     </script>
 </body>
 </html>

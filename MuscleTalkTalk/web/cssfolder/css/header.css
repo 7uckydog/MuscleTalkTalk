@@ -1,132 +1,121 @@
-@font-face {
-	    font-family: THEmpgtM;
-	    src: url("<%= request.getContextPath() %>/cssfolder/fonts/THEmpgtM.woff");
-	}
-	body{
-	    width: 1200px;
-	    margin: 0 auto;
-	}
-	*{
-	    text-decoration: none;
-	}
 header{
-    font-family:'THEmpgtM';
-    font-weight: light;
-    margin: 0 auto;
-    height: 140px;
-    background-color: #ECECEC;
-    position: relative;
-}
-#header_logo{
-    margin-left: 50px;
-    margin-top: 40px;
-    float: left;
-    transition: .3s;
-}
-#header_logo:hover, #member_icon:hover, #bell_icon:hover, #home_icon:hover{
-    opacity: 0.3;
-}
-#icon_menu{
-    position: absolute;
-    right: 50px;
-}
-#member_icon{
-    float: left;
-    /* padding-left: 18px; */
-    /* padding-right: 18px; */
-    margin-right: 18px;
-    margin-top: 58px;
-    padding-bottom: 58px;
-    /* margin-bottom: 58px; */
-    transition: .3s;
-    width: 24px;
-}
-#bell_icon{
-    float: left;
-    margin-right: 20px;
-    margin-top: 58px;
-    transition: .3s;
-    width: 24px;
-}
-#home_icon{
-    float: left;
-    margin-right: 20px;
-    margin-top: 58px;
-    transition: .3s;
-    width: 24px;
-}
-#member_icon_menu{
-    display: none;
-    overflow: hidden;
-    position: absolute;
-    right: 93px;
-    top: 100px;
-    background-color: white;
-    box-shadow: 5px 5px 10px lightgray;
-    border-radius: 10px;
-    width: 140px;
-    height: 100px;
-    text-align: center;
-    font-size: 12px;
-    z-index: 9999999;
-}
-#member_icon_menu > :first-child{
-    margin-top: 15px;
-    margin-bottom: -6px;
-}
-#member_icon_menu > :first-child > a > p, #member_icon_menu > :nth-of-type(2) > a > p {
-    padding-top: 8px;
-    color: #4B4DB2;
-    font-weight: lighter;
-}
-#login_icon{
-    float: left; 
-    margin-left: 30px; 
-    margin-right: -10px;
-}
-#sign_icon{
-    float: left;
-    margin-left: 30px; 
-    margin-right: -10px;
-}
+            font-family:'THEmpgtM';
+            font-weight: light;
+            margin: 0 auto;
+            height: 140px;
+            background-color: #ECECEC;
+            position: relative;
+        }
+        #header_logo{
+            margin-left: 50px;
+            margin-top: 40px;
+            float: left;
+            transition: .3s;
+        }
+        #header_logo:hover, #member_icon:hover, #bell_icon:hover, #home_icon:hover{
+            opacity: 0.3;
+        }
+        #icon_menu{
+            position: absolute;
+            right: 50px;
+        }
+        #member_icon{
+            float: left;
+            /* padding-left: 18px; */
+            /* padding-right: 18px; */
+            margin-right: 18px;
+            margin-top: 58px;
+            padding-bottom: 58px;
+            /* margin-bottom: 58px; */
+            transition: .3s;
+            width: 24px;
+        }
+        #bell_icon{
+            float: left;
+            margin-right: 20px;
+            margin-top: 58px;
+            transition: .3s;
+            width: 24px;
+        }
+        #home_icon{
+            float: left;
+            margin-right: 20px;
+            margin-top: 58px;
+            transition: .3s;
+            width: 24px;
+        }
+        #member_icon_menu{
+            display: none;
+            overflow: hidden;
+            position: absolute;
+            right: 93px;
+            top: 100px;
+            background-color: white;
+            box-shadow: 5px 5px 10px lightgray;
+            border-radius: 10px;
+            width: 140px;
+            height: 100px;
+            text-align: center;
+            font-size: 12px;
+            z-index: 9999999;
+        }
+        #member_icon_menu > :first-child{
+            margin-top:18px;
+            margin-bottom: -6px;
+        }
+        #member_icon_menu > div > p{
+            padding-top: 7px;
+            color: #4B4DB2;
+            font-weight: lighter;
+        }
+        #login_icon{
+            float: left; 
+            margin-left: 30px; 
+            margin-right: -10px;
+        }
+        #sign_icon{
+            float: left;
+            margin-left: 30px; 
+            margin-right: -10px;
+        }
 
-#bell_icon_notice{
-    display: none;
-    overflow: hidden;
-    position: absolute;
-    right: 38px;
-    top: 100px;
-    background-color: white;
-    box-shadow: 5px 5px 10px lightgray;
-    border-radius: 10px;
-    width: 180px;
-    z-index: 9999;
-}
-#header_notice_all{
-    margin-left: 20px;
-}
-#header_notice_all > div{
-    position: relative;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-#header_notice_all > div > img{
-    position: absolute;
-    right: 15px;
-}
-.header_notice{
-    color: #4B4DB2;
-    font-size: 12px;
-    overflow: hidden;
-    width: 120px;
-}
-.header_notice > :nth-child(1){
-    font-weight: bolder;
-    margin-bottom: 5px;
-}
-.header_notice > :nth-child(2){
-    color: #4B4DB2;
-    font-size: 9px;
-    width: 125px;
-    line-height: 12px;
-}
+        #bell_icon_notice{
+            display: none;
+            overflow: hidden;
+            position: absolute;
+            right: 38px;
+            top: 100px;
+            background-color: white;
+            box-shadow: 5px 5px 10px lightgray;
+            border-radius: 10px;
+            width: 180px;
+            z-index: 9999;
+        }
+        #header_notice_all{
+            margin-left: 20px;
+        }
+        #header_notice_all > div{
+            position: relative;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        #header_notice_all > div > img{
+            position: absolute;
+            right: 15px;
+        }
+        .header_notice{
+            color: #4B4DB2;
+            font-size: 12px;
+            overflow: hidden;
+            width: 120px;
+        }
+        .header_notice > :nth-child(1){
+            font-weight: bolder;
+            margin-bottom: 5px;
+        }
+        .header_notice > :nth-child(2){
+            color: #4B4DB2;
+            font-size: 9px;
+            width: 125px;
+            line-height: 12px;
+        }

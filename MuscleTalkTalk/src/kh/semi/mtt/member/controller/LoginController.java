@@ -25,6 +25,7 @@ public class LoginController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("왜 안 가냐고 씨");
 		request.getRequestDispatcher("WEB-INF/view/testsyb/login.jsp").forward(request, response);
 	}
 }
