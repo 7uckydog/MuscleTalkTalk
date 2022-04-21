@@ -11,11 +11,13 @@ public class BoardVo {
 	private int boardCount;
 	private Date boardDate;
 	private int boardType;
-	
+	private String memberNickname;
 	public BoardVo() {}
 	
 	
-	public BoardVo(int boardNo, String boardTitle, String boardContent, int boardCount, Date boardDate, int boardType) {
+	
+	public BoardVo(int boardNo, String boardTitle, String boardContent, int boardCount, Date boardDate, int boardType,
+			int memberNo) {
 		super();
 		this.boardNo = boardNo;
 		this.boardTitle = boardTitle;
@@ -23,14 +25,18 @@ public class BoardVo {
 		this.boardCount = boardCount;
 		this.boardDate = boardDate;
 		this.boardType = boardType;
+		this.memberNickname = memberNickname;
 	}
-	
+
+
 	@Override
 	public String toString() {
 		return "BoardVo [boardNo=" + boardNo + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
-				+ ", boardCount=" + boardCount + ", boardDate=" + boardDate + ", boardType=" + boardType + "]";
+				+ ", boardCount=" + boardCount + ", boardDate=" + boardDate + ", boardType=" + boardType + ", memberNickname="
+				+ memberNickname + "]";
 	}
-	
+
+
 	public int getBoardNo() {
 		return boardNo;
 	}
@@ -67,6 +73,14 @@ public class BoardVo {
 	public void setBoardType(int boardType) {
 		this.boardType = boardType;
 	}
+	public String getMemberNickname() {
+		return memberNickname;
+	}
+	public void setMemberNickname(String memberNickname) {
+		this.memberNickname = memberNickname;
+	}
+	
+	
 	
 	
 	
