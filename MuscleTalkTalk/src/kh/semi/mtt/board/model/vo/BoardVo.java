@@ -12,6 +12,7 @@ public class BoardVo {
 	private Date boardDate;
 	private int boardType;
 	private String memberNickname;
+	private int boardCategoryNumber;
 	public BoardVo() {}
 	
 	
@@ -28,13 +29,6 @@ public class BoardVo {
 		this.memberNickname = memberNickname;
 	}
 
-
-	@Override
-	public String toString() {
-		return "BoardVo [boardNo=" + boardNo + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
-				+ ", boardCount=" + boardCount + ", boardDate=" + boardDate + ", boardType=" + boardType + ", memberNickname="
-				+ memberNickname + "]";
-	}
 
 
 	public int getBoardNo() {
@@ -79,6 +73,41 @@ public class BoardVo {
 	public void setMemberNickname(String memberNickname) {
 		this.memberNickname = memberNickname;
 	}
+
+
+
+	@Override
+	public String toString() {
+		return "BoardVo [boardNo=" + boardNo + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
+				+ ", boardCount=" + boardCount + ", boardDate=" + boardDate + ", boardType=" + boardType
+				+ ", memberNickname=" + memberNickname + ", boardCategoryNumber=" + boardCategoryNumber + "]";
+	}
+
+	public BoardVo(int boardNo, String boardTitle, String boardContent, int boardCount, Date boardDate, int boardType,
+			String memberNickname, int boardCategoryNumber) {
+		super();
+		this.boardNo = boardNo;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.boardCount = boardCount;
+		this.boardDate = boardDate;
+		this.boardType = boardType;
+		this.memberNickname = memberNickname;
+		this.boardCategoryNumber = boardCategoryNumber;
+	}
+
+
+
+	public int getBoardCategoryNumber() {
+		return boardCategoryNumber;
+	}
+
+
+
+	public void setBoardCategoryNumber(int boardCategoryNumber) {
+		this.boardCategoryNumber = boardCategoryNumber;
+	}
+	
 	
 	
 	

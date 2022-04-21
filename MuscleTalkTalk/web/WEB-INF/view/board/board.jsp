@@ -32,8 +32,8 @@
 			</tr>
 			<c:forEach items="${boardreadall}" var = "vo">
 			<tr>
-				<td>${vo.boardNo }</td>
-				<td>${vo.boardTitle } </td>	
+				<td><a href="boardread?bno=${vo.boardNo}">${vo.boardNo }</a></td>
+				<td><a href="boardread?bno=${vo.boardNo }">${vo.boardTitle }</a> </td>	
 				<td>${vo.boardDate } </td>	
 				<td>0 </td>
 				<td>${vo.boardCount } </td>
@@ -41,11 +41,22 @@
 			</tr>
 			</c:forEach>
 		</table>
+		<p>
+			<c:if test="${startPage > 1 }">
+			<a href="boardreadall?page=${startPage-1 }">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;
+			</c:if>
+			<c:forEach begin="${startPage }" end="${endPage }" var="p">
+				<a href="boardreadall?page=${p }">${p }</a>&nbsp;&nbsp;&nbsp;&nbsp;
+			</c:forEach>
+			<c:if test="${endPage < totalpageCnt}">
+			<a href="boardreadall?page=${endPage+1 }">다음</a>
+			</c:if>
+		</p>
 		<button id="list_button">글불러오기 버튼</button>
 	</div>
 	<script type="text/javascript">
 		$("#list_button").on("click", function(){
-			location.href="BoardReadAll";
+			location.href="boardreadall";
 		});
 	</script>
 </body>

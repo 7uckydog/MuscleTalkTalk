@@ -18,7 +18,7 @@ import kh.semi.mtt.board.model.vo.BoardVo;
 /**
  * Servlet implementation class BoardReadAllControllerServlet
  */
-@WebServlet("/BoardReadAll")
+@WebServlet("/boardreadall")
 public class BoardReadAllControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private BoardService service = new BoardService();
