@@ -18,7 +18,7 @@
 	
 	
 	private ArrayList<BoardReCommentVo> reCommentList; -->
-	<form action="noticewrite.do" method="post">   <!-- 길이가 길어 post로 -->
+	<form action="noticeinsert.do" method="post">   <!-- 길이가 길어 post로 -->
 		제목: <input type="text" name="notiTitle" maxlength="100" required><br>
 		내용: <textarea name="notiContent" placeholder="한글 1000자까지" maxlength="1000" required></textarea><br>
 		<button type="submit">글등록</button>

@@ -15,15 +15,15 @@ import kh.semi.mtt.notice.model.vo.NoticeVo;
 /**
  * Servlet implementation class BoardListController
  */
-@WebServlet("/boardlist")
-public class NoticeListController extends HttpServlet {
+@WebServlet("/noticereadall")
+public class NoticeReadAllController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private NoticeService service = new NoticeService();
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeListController() {
+    public NoticeReadAllController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -78,7 +78,7 @@ public class NoticeListController extends HttpServlet {
 		}
 		System.out.println("rnum:"+ startNnum + "~"+endNnum);
 		
-		ArrayList<NoticeVo> result = service.listBoard(startNnum, endNnum);
+		ArrayList<NoticeVo> result = service.readAllNotice(startNnum, endNnum);
 		System.out.println(result);
 		
 		request.setAttribute("boardlist", result);
@@ -86,7 +86,7 @@ public class NoticeListController extends HttpServlet {
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("totalPageCnt", totalPageCnt);
-		request.getRequestDispatcher("WEB-INF/view/board/list.jsp").forward(request, response);
+		request.getRequestDispatcher("WEB-INF/view/board/notice/notilist.jsp").forward(request, response);
 	}
 
 	/**

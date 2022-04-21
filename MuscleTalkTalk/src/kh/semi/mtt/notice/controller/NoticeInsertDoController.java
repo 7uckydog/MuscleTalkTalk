@@ -14,14 +14,14 @@ import kh.semi.mtt.member.model.vo.MemberVo;
 /**
  * Servlet implementation class BoardWriteDoController
  */
-@WebServlet("/noticewrite.do")
-public class NoticeWriteDoController extends HttpServlet {
+@WebServlet("/noticeinsert.do")
+public class NoticeInsertDoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeWriteDoController() {
+    public NoticeInsertDoController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -69,6 +69,7 @@ public class NoticeWriteDoController extends HttpServlet {
 		if(result < 1) { //글등록 실패
 			response.sendRedirect("main");
 		} else { //글등록 성공
+			System.out.println("글등록 성공!");
 			response.sendRedirect("main");
 		}
 		

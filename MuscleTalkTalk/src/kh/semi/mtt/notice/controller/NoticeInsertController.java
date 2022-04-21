@@ -13,13 +13,13 @@ import kh.semi.mtt.member.model.vo.MemberVo;
  * Servlet implementation class BoardWriteController
  */
 @WebServlet("/insertNotice")
-public class NoticeWriteController extends HttpServlet {
+public class NoticeInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public NoticeWriteController() {
+	public NoticeInsertController() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -31,7 +31,7 @@ public class NoticeWriteController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("doGet - noticewrite");
-		request.getRequestDispatcher("WEB-INF/view/board/noticeBoard/notiwrite.jsp").forward(request, response);
+		request.getRequestDispatcher("WEB-INF/view/board/notice/notiwrite.jsp").forward(request, response);
 		// 로그인 상태 확인코드
 //		MemberVo ssvo = (MemberVo) request.getSession().getAttribute("ssMV");
 //		

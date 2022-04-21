@@ -19,10 +19,19 @@ public class NoticeService {
 		
 	}
 	
-	public ArrayList<NoticeVo> listBoard(int startNnum, int endNnum){   //오버로딩
+	public NoticeVo readNotice(int noticeNo) {
 		Connection conn=null;
 		conn = getConnection();
-		ArrayList<NoticeVo> result = dao.listNotice(conn, startNnum, endNnum);
+		NoticeVo vo = dao.readNotice(conn, noticeNo);
+//		vo.setReCommentList(dao.readNotice(conn, noticeNo));
+		close(conn);
+		return vo;
+	}
+	
+	public ArrayList<NoticeVo> readAllNotice(int startNnum, int endNnum){   //오버로딩
+		Connection conn=null;
+		conn = getConnection();
+		ArrayList<NoticeVo> result = dao.readAllNotice(conn, startNnum, endNnum);
 		close(conn);
 		return result;
 	}
