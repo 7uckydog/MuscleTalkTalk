@@ -8,23 +8,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class LoginController
+ * Servlet implementation class LogoutController
  */
-@WebServlet("/login")
-public class LoginController extends HttpServlet {
+@WebServlet("/logout")
+public class LogoutController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginController() {
+    public LogoutController() {
         super();
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("WEB-INF/view/testsyb/login.jsp").forward(request, response);
+		request.getSession().removeAttribute("ssMvo");
+		response.sendRedirect(request.getContextPath()+"/main");
 	}
+
 }

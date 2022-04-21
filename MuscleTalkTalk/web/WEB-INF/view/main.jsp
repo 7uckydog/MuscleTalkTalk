@@ -221,10 +221,14 @@
             $(this).remove();
         });
         
-        // 회원 아이콘 내, 로그인 클릭 시 로그인 페이지로 이동
+        // 회원 아이콘 내, 로그인 클릭 시 로그인 컨트롤러로 이동
         $("#login").click(function(){
         	location.href = "login"
-        	console.log("아하하하하하하ㅏ");
+        });
+        
+        // 회원 아이콘 내, 로그아웃 클릭 시 로그아웃 컨트롤러로 이동 (세션 삭제)
+        $("#logout").click(function(){
+        	location.href = "logout"
         });
     </script>
 </body>

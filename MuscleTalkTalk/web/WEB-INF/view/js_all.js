@@ -1,4 +1,4 @@
-		$("#member_icon_img").mouseenter(function(event){
+$("#member_icon_img").mouseenter(function(event){
             // console.log(event);
             $("#member_icon_menu").fadeIn("fast");
         });
@@ -49,6 +49,12 @@
             $(this).remove();
         });
         
+        // 회원 아이콘 내, 로그인 클릭 시 로그인 컨트롤러로 이동
         $("#login").click(function(){
         	location.href = "login"
-        })
+        });
+        
+        // 회원 아이콘 내, 로그아웃 클릭 시 로그아웃 컨트롤러로 이동 (세션 삭제)
+        $("#logout").click(function(){
+        	location.href = "logout"
+        });
