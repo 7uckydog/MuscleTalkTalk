@@ -10,13 +10,13 @@
 </head>
     <style>
         @font-face {
-            font-family: THEmpgtM;
-            src: url("./fonts/THEmpgtM.woff");
-        }
-        @font-face {
-            font-family: THEmpgtB;
-            src: url("./fonts/THEmpgtB.woff");
-        }
+	       font-family: "THEmpgtM";
+	       src: url("<%= request.getContextPath() %>/cssfolder/fonts/THEmpgtM.woff");
+	   }
+	   @font-face {
+	       font-family: "THEmpgtB";
+	       src: url("<%= request.getContextPath() %>/cssfolder/fonts/THEmpgtB.woff");
+	   }
         body{
             width: 1200px;
             margin: 0 auto;

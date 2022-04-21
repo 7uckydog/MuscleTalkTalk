@@ -1,5 +1,6 @@
 <%@page import="kh.semi.mtt.member.model.vo.MemberVo"%>
 <link rel="stylesheet" href="<%= request.getContextPath() %>/cssfolder/css/reset.css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/cssfolder/css/basic.css">
 <link rel="stylesheet" href="<%= request.getContextPath() %>/cssfolder/css/header.css">
 <link rel="stylesheet" href="<%= request.getContextPath() %>/cssfolder/css/aside.css">
 <link rel="stylesheet" href="<%= request.getContextPath() %>/cssfolder/css/section.css">
@@ -13,11 +14,15 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
-	@font-face {
-	    font-family: THEmpgtM;
-	    src: url("<%= request.getContextPath() %>/cssfolder/fonts/THEmpgtM.woff");
-	}
-	
+/* 모두 해당 스타일 넣어주세요  */
+@font-face {
+       font-family: "THEmpgtM";
+       src: url("<%= request.getContextPath() %>/cssfolder/fonts/THEmpgtM.woff");
+   }
+   @font-face {
+       font-family: "THEmpgtB";
+       src: url("<%= request.getContextPath() %>/cssfolder/fonts/THEmpgtB.woff");
+   }
 	body{
 	    width: 1200px;
 	    margin: 0 auto;

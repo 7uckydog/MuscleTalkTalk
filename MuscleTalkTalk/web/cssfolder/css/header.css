@@ -67,6 +67,7 @@ header{
             padding-top: 7px;
             color: #4B4DB2;
             font-weight: lighter;
+            cursor: pointer;
         }
         #login_icon{
             float: left; 
