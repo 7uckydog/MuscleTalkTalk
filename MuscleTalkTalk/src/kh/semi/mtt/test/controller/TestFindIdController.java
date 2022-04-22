@@ -1,4 +1,4 @@
-package kh.semi.mtt.member.controller;
+package kh.semi.mtt.test.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,23 +8,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class LoginController
+ * Servlet implementation class TestFindIdController
  */
-@WebServlet("/login")
-public class LoginController extends HttpServlet {
+@WebServlet("/TestFindId")
+public class TestFindIdController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginController() {
+    public TestFindIdController() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("WEB-INF/view/member/login.jsp").forward(request, response);
+		request.getRequestDispatcher("WEB-INF/view/testsyb/findId.jsp").forward(request, response);
 	}
+
+
 }
