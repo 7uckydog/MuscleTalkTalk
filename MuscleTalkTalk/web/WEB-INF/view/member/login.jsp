@@ -49,6 +49,7 @@
             border-radius: 10px 10px 0 0;
             width: 930px;
             height: 580px;
+            margin: 0 auto;
         }
         #noti_text{
             padding-top: 70px;
@@ -145,6 +146,7 @@
             border-radius: 0 0 10px 10px;
             font-size: 9px;
             margin-bottom: 15%;
+            margin: 0 auto;
         }
         footer > div > ul{
             margin-left: 20px;
@@ -196,7 +198,7 @@
         </div>
 
         <div id="find_some">
-            <a href="" id="findId">아이디 찾기</a>
+            <a href="TestFindId" id="findId">아이디 찾기</a>
              / <a href="" id="findPwd">비밀번호 찾기</a>
         </div>
     </section>
@@ -216,9 +218,10 @@
     </footer>
     
     <script>
-		/* $("#join").click(function(){
-			location.href = "";
-		});
+		/* $("#findId").click(function(){
+			location.href = "TestFindId";
+		}); */
+		/*
 		$("#findId").click(function(){
 			location.href = "";
 		});
