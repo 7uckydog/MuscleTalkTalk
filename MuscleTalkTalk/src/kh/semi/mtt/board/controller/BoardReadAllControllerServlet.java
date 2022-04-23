@@ -18,7 +18,7 @@ import kh.semi.mtt.board.model.vo.BoardVo;
 /**
  * Servlet implementation class BoardReadAllControllerServlet
  */
-@WebServlet("/boardreadall")
+@WebServlet("/BoardReadAll")
 public class BoardReadAllControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private BoardService service = new BoardService();
@@ -74,6 +74,13 @@ public class BoardReadAllControllerServlet extends HttpServlet {
 		if (endRnum > totalCnt) {
 			endRnum = totalCnt;
 		}
+		//검색기능 미완
+		String search_ = request.getParameter("s");
+		String search = "";
+		if(search_ != null) {
+			search = search_; 
+		}
+		//
 		System.out.println("rnum:" + startRnum + "~" + endRnum);
 		ArrayList<BoardVo> result = service.readAllBoard(startRnum, endRnum);
 		System.out.println(result);

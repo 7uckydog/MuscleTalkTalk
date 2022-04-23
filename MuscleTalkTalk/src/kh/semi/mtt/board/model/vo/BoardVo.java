@@ -28,6 +28,7 @@ public class BoardVo {
 		this.boardType = boardType;
 		this.memberNickname = memberNickname;
 	}
+	
 
 
 

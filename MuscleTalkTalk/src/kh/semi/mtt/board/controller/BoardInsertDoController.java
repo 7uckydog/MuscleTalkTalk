@@ -48,10 +48,10 @@ public class BoardInsertDoController extends HttpServlet {
 		vo.setBoardContent(boardContent);
 		int result = new BoardService().insertBoard(vo);
 		if(result < 1) { //글등록 실패
-			response.sendRedirect("main");
+			response.sendRedirect("boardinsert");
 			System.out.println("자유게시글 등록실패");
 		}else { // 글등록
-			response.sendRedirect("main");
+			response.sendRedirect("boardreadall");
 			System.out.println("자유게시글 등록성공");
 		}
 	}
