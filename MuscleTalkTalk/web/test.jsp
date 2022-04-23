@@ -8,6 +8,7 @@
 <title>템플릿 테스트</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <%@ include file="/WEB-INF/view/font.jsp" %>
+
 </head>
 <body>
 	<%@ include file="/WEB-INF/view/template.jsp" %>
