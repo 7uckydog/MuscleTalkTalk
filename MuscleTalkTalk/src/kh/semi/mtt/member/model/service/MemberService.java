@@ -27,4 +27,14 @@ public class MemberService {
 		retVo = dao.login(conn, memeberId, memberPassword);
 		return retVo;
 	}
+	
+	public MemberVo findIdfromNameAndEmail(String memberName, String memberEmail) {
+		MemberVo retVo = null;
+		Connection conn = null;
+		conn = getConnection();
+		System.out.println("service- name:" + memberName);
+		System.out.println("service- email:" + memberEmail);
+		retVo = dao.findIdfromNameAndEmail(conn, memberName, memberEmail);
+		return retVo;
+	}
 }

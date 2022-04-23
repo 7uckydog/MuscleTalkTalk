@@ -9,13 +9,13 @@
 </head>
     <style>
          @font-face {
-	       font-family: "THEmpgtM";
-	       src: url("<%= request.getContextPath() %>/cssfolder/fonts/THEmpgtM.woff");
-	   }
-	   @font-face {
-	       font-family: "THEmpgtB";
-	       src: url("<%= request.getContextPath() %>/cssfolder/fonts/THEmpgtB.woff");
-	   }
+          font-family: "THEmpgtM";
+          src: url("<%= request.getContextPath() %>/cssfolder/fonts/THEmpgtM.woff");
+      }
+      @font-face {
+          font-family: "THEmpgtB";
+          src: url("<%= request.getContextPath() %>/cssfolder/fonts/THEmpgtB.woff");
+      }
         body{
             width: 1200px;
             margin: 0 auto;
@@ -113,7 +113,7 @@
         #modal_cancel{
             color: #9E9E9E;
         }
-        #modal_email{
+        #modal_code{
             width: 200px;
             height: 30px;
             margin-bottom: 5px;
@@ -172,7 +172,7 @@
         #second_line{
             margin-left: 105px;
         }
-        #mail_check{
+        #mail_check, #mail_check2{
             color: rgb(64, 64, 64);
             background-color: rgb(224, 224, 224);
             border: none;
@@ -182,6 +182,9 @@
             font-size: 11px;
             margin-left: 10px;
             cursor: pointer;
+        }
+        #mail_check2{
+        	display:none;
         }
     
 
@@ -233,13 +236,14 @@
                 아이디 찾기를 위해, 회원 정보에 등록된 성명과 이메일을 작성해 주세요.
             </p>
         </div>
-	
+   
         <div id="user_input">
             <form>
                 <input type="text" id="member_name" name="member_name" placeholder="성명 입력" required><br>
                 <div id="second_line">
                     <input type="text" id="member_email" name="member_email" placeholder="이메일 입력" required>
                     <input type="button" id="mail_check" name="mail_check" value="인증하기">
+                    <input type="button" id="mail_check2" name="mail_check2" value="인증완료">
                 </div>
                 <input type="submit" id="find_id" name="find_id" value="확인">
                 <input type="button" id="find_password" name="find_password" value="비밀번호 찾기">
@@ -256,7 +260,7 @@
                             이메일 인증을 위해,<br>
                             이메일로 발송된 인증번호를 입력해 주세요.
                         </p>
-                        <input type="text" id="modal_email" name="modal_email" placeholder="이메일 입력" required class="modal"><br>
+                        <input type="text" id="modal_code" name="modal_code" placeholder="인증번호" required class="modal"><br>
                         <hr id="modal_hr" class="modal">
                         <input type="button" id="modal_cancel" name="modal_cancel" value="취소" class="modal">
                         <input type="submit" id="modal_accept" name="modal_accept" value="확인" class="modal">
@@ -281,32 +285,74 @@
     </footer>
     <script>
     // 이메일 인증 버튼 클릭 시
+    var memberName = $("#member_name").val();
+    var memberEmail = $("#member_email").val();
+
         $("#mail_check").on("click", function(){
-        	if($('#member_name').is(":empty")) {
-        		alert("아이디 입력하세요");
-        		return;
-        	}
-        	if($('#member_email').is(":empty")) {
-        		alert("이메일 입력하세요");
-        		return;
-			}
-					$("#modal_all").show(); // 이메일 번호 입력용 모달 생성
-            		$.ajax({ 			// 이메일 번호 전송을 위한 난수 insert - ajax
-            			url: "insertmail",
-            			type: "post",
-            			data:{email_certification_email: $("#member_email").val()},
-            			success: function(result){
-            				console.log("난수 insert 성공");
-            			} ,
-            			error: function(request, status, error){
-            				console.log(error);
-            			}
-            		});	
-        });
+           memberName = $("#member_name").val();
+           memberEmail = $("#member_email").val();
+           console.log(memberName);
+           console.log(memberEmail);
+           if(memberName == "") {
+              alert("아이디를 입력하세요");
+              return;
+           }
+           if(memberEmail == "") {
+              alert("이메일를 입력하세요");
+              return;
+           }
+               $("#modal_all").show(); // 이메일 번호 입력용 모달 생성
+               
+                  $.ajax({          // 이메일 번호 전송을 위한 난수 insert - ajax
+                     url: "insertmail",
+                     type: "post",
+                     data:{email_certification_email: $("#member_email").val()},
+                     success: function(result){
+                        console.log("난수 insert 성공");
+                     },
+                     error: function(request, status, error){
+                        console.log(error);
+                     }
+                  });   
+        
+                  // 이메일 전송
+                  $.ajax({
+                	 url:"sendEmail",
+                	 type:"post",
+                	 data:{member_name:$("#member_name").val(), member_email:$("#member_email").val()},
+                	 success: function(result){
+                		 console.log("메일 발송 성공");
+                		 $("#modal_accept").on("click", function(){
+                			// 인증번호 입력 후 확인 버튼 클릭 시, 이메일과 난수 번호 일치 확인 - ajax -> 테이블에 정보 삭제
+                           	$.ajax({
+                              	 url:"checkemailandcode",
+                              	 type:"post",
+                              	 data:{modal_code:$("#modal_code").val(), member_email:$("#member_email").val()},
+                              	 success: function(result){
+                              		 console.log("이메일, 번호 일치 확인 & 테이블 정보 삭제 완료");
+                              		 // 모달창 닫기
+                              		 $("#modal_all").hide();
+                              		 // 인증하기 버튼 => 인증 완료 버튼으로 변경
+                              		 $("#mail_check2").show();
+                              		 $("#mail_check").hide();
+                              	 },
+                              	 error: function(request, status, error){
+                                       console.log(error);
+                                    }
+                                });
+                           })
+                	 },
+                	 error: function(request, status, error){
+                         console.log(error);
+                      }
+                  });
+
+        })
     
-    // 이메일 전송
+    // 모달 내 취소 버튼 클릭 시, 테이블에서 정보 삭제
     
-    // 이메일과 난수 번호 일치 확인 - ajax
+    // 아이디 찾기 확인 시, 이메일 인증 여부 확인
+    
     
     // 모달 내, x 버튼 누를 시 모달 숨기기
         $("#modal_cancel").on("click", function(){

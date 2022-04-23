@@ -47,7 +47,6 @@ public class MemberDao {
 			pstmt.setString(1, memeberId);
 			pstmt.setString(2, memberPassword);
 			rs = pstmt.executeQuery();
-			System.out.println("dao");
 			
 			if(rs!=null) {
 				if(rs.next()) {
@@ -80,4 +79,32 @@ public class MemberDao {
 		}
 		return retVo;
 	}
+	
+	public MemberVo findIdfromNameAndEmail(Connection conn, String memberName, String memberEmail) {
+		MemberVo retVo = null;
+		String sql = "select * from tb_member where member_name = ? and member_email = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberName);
+			pstmt.setString(2, memberEmail);
+			rs = pstmt.executeQuery();
+			System.out.println("service- name:" + memberName);
+			if(rs!=null) {
+				if(rs.next()) {
+					retVo = new MemberVo();
+					retVo.setMemberEmail(rs.getString("member_email"));
+					retVo.setMemberName(rs.getString("member_name"));
+				}
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return retVo;
+	}
+	
+	
 }
