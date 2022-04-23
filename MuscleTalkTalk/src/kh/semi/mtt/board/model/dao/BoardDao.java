@@ -21,7 +21,7 @@ public class BoardDao {
 	
 	public int insertBoard(Connection conn, BoardVo vo) {
 //		String m_nickname = "aaa";
-		int memberNo = 1;
+		int memberNo = 13;
 		int board_count = 20;
 		int result = 0;
 //		BOARD_NO          NOT NULL NUMBER         
@@ -52,8 +52,8 @@ public class BoardDao {
 	public BoardVo readBoard(Connection conn, int boardNo) {
 		BoardVo vo = null;
 		String sql = "select b.BOARD_NO, m.MEMBER_nickname, b.BOARD_TITLE, b.BOARD_CONTENT, b.BOARD_COUNT, b.BOARD_DATE "
-			   +" from tb_board b, tb_member m"
-			   +" where b.MEMBER_NO = m.MEMBER_NO";
+				   +" from tb_board b , tb_member m "
+				   +" WHERE b.MEMBER_NO = m.MEMBER_NO AND BOARD_NO=? ";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -78,13 +78,6 @@ public class BoardDao {
 		return vo;
 		
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	public ArrayList<BoardVo> readAllBoard(Connection conn, int startRnum, int endRnum){

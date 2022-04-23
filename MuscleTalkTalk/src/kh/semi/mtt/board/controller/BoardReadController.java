@@ -1,14 +1,18 @@
 package kh.semi.mtt.board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import kh.test.first.board.model.service.BoardService;
-import kh.test.first.board.model.vo.BoardVo;
+import kh.semi.mtt.board.model.service.BoardService;
+import kh.semi.mtt.board.model.vo.BoardVo;
+import kh.semi.mtt.comment.model.service.CommentService;
+import kh.semi.mtt.comment.model.vo.CommentVo;
 
 /**
  * Servlet implementation class BoardReadController
@@ -29,7 +33,7 @@ public class BoardReadController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String bNoStr = request.getParameter("bno");
+		String bNoStr = request.getParameter("bno"); //<td><a href="boardread?bno=${vo.boardNo}">
 		int bNo = 0;
 		try {
 			bNo = Integer.parseInt(bNoStr);
@@ -38,11 +42,14 @@ public class BoardReadController extends HttpServlet {
 		}
 		BoardVo result = new BoardService().readBoard(bNo);
 		System.out.println(result);
-		result.setbContent(result.getbContent().replaceAll("(\r\n|\n)", "<br>"));
-		result.setbContent(result.getbContent().replaceAll("", "&nbsp;"));
+		result.setBoardContent(result.getBoardContent().replaceAll("(\r\n|\n)", "<br>"));
+		result.setBoardContent(result.getBoardContent().replaceAll("", "&nbsp;"));
 		System.out.println(result);
+		ArrayList<CommentVo> cVoList = new CommentService().readBoardReComment(bNo);
+		System.out.println(cVoList);
 		request.setAttribute("bvo", result);
-		request.getRequestDispatcher("WEB-INF/view/board/read.jsp").forward(request, response);
+		request.setAttribute("cVoList", cVoList);
+		request.getRequestDispatcher("WEB-INF/view/board/boardread.jsp").forward(request, response);
 	}
 	}
 
@@ -54,4 +61,4 @@ public class BoardReadController extends HttpServlet {
 //		doGet(request, response);
 //	}
 
-}
+

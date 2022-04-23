@@ -51,7 +51,7 @@ public class BoardInsertDoController extends HttpServlet {
 			response.sendRedirect("boardinsert");
 			System.out.println("자유게시글 등록실패");
 		}else { // 글등록
-			response.sendRedirect("boardreadall");
+			response.sendRedirect("BoardReadAll");
 			System.out.println("자유게시글 등록성공");
 		}
 	}

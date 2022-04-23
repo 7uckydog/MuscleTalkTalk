@@ -1,5 +1,5 @@
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/cssfolder/css/board.css">
+<%-- <link rel="stylesheet"
+	href="<%=request.getContextPath()%>/cssfolder/css/board.css"> --%>
 <%@page import="kh.semi.mtt.member.model.vo.MemberVo"%>
 <%@page import="kh.semi.mtt.board.model.vo.BoardVo"%>
 <%@page import="java.util.ArrayList"%>
@@ -59,7 +59,7 @@ section {
 }
 
 #note_title {
-	margin-top: 19.5px;
+	margin-top: 20.5px;
 	margin-bottom: 20px;
 	font-size: 12px;
 }
@@ -173,33 +173,51 @@ section {
 	display: inline-block;
 	float: right;
 }
-.Pageing{
+
+.Pageing {
 	text-align: center;
 }
-.Pageing a{
+
+.Pageing a {
 	border: 1px solid #4B4DB2;
 }
-.Pageingclick{
+
+.Pageingclick {
 	background-color: #4B4DB2;
 }
-.Page{
+
+.Page {
 	width: 30px;
 	height: 30px;
 	box-sizing: content-box;
 }
+
+#write_btn {
+	color: white;
+	border: 1px solid white;
+	background-color: #4B4DB2;
+	width: 152px;
+	height: 28px;
+	float: right;
+	font-size: 12px;
+	margin-right: 60px;
+	/* position: absolute; */
+	/* right: 60px; */
+}
+
 </style>
-	<script>
-		$(function() {
-			$(".Page").click(function() {
-				$(this).toggleClass("Pageingclick");
-			});	
+<script>
+	$(function() {
+		$(".Page").click(function() {
+			$(this).toggleClass("Pageingclick");
 		});
-	</script>
+	});
+</script>
 </head>
 <body bgcolor=" #ECECEC">
 
 	<%@ include file="/WEB-INF/view/template.jsp"%>
-	
+
 	<section>
 		<div id="board_main">게시판</div>
 		<div id="board_category">
@@ -249,8 +267,7 @@ section {
 			<c:forEach items="${boardreadall}" var="vo">
 				<tr class="table_content">
 					<td><a href="boardread?bno=${vo.boardNo}">${vo.boardNo }</a></td>
-					<td><a href="boardread?bno=${vo.boardNo }">${vo.boardTitle }</a>
-					</td>
+					<td><a href="boardread?bno=${vo.boardNo }">${vo.boardTitle }</a></td>
 					<td>${vo.boardDate }</td>
 					<td>&nbsp;&nbsp;&nbsp;0</td>
 					<td>&nbsp;&nbsp;&nbsp;${vo.boardCount }</td>
@@ -259,18 +276,19 @@ section {
 			</c:forEach>
 		</table>
 		<div class="Pageing">
-		<p>
-			<c:if test="${startPage > 1 }">
-			<a class="Page" href="BoardReadAll?page=${startPage-1 }">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;
+			<p>
+				<c:if test="${startPage > 1 }">
+					<a class="Page" href="BoardReadAll?page=${startPage-1 }">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;
 			</c:if>
-			<c:forEach begin="${startPage }" end="${endPage }" var="p">
-				<a class="Page" href="BoardReadAll?page=${p }">${p }</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<c:forEach begin="${startPage }" end="${endPage }" var="p">
+					<a class="Page" href="BoardReadAll?page=${p }">${p }</a>&nbsp;&nbsp;&nbsp;&nbsp;
 			</c:forEach>
-			<c:if test="${endPage < totalpageCnt}">
-			<a class="Page" href="BoardReadAll?page=${endPage+1 }">다음</a>
-			</c:if>
-		</p>
+				<c:if test="${endPage < totalpageCnt}">
+					<a class="Page" href="BoardReadAll?page=${endPage+1 }">다음</a>
+				</c:if>
+			</p>
 		</div>
+			<button onclick="location.href = 'boardinsert';" id="write_btn">글쓰기</button>
 	</section>
 
 
