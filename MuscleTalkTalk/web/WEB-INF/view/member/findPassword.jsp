@@ -4,18 +4,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>아이디 찾기</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-</head>
-    <style>
-         @font-face {
-          font-family: "THEmpgtM";
-          src: url("<%= request.getContextPath() %>/cssfolder/fonts/THEmpgtM.woff");
-      }
-      @font-face {
-          font-family: "THEmpgtB";
-          src: url("<%= request.getContextPath() %>/cssfolder/fonts/THEmpgtB.woff");
-      }
+<title>비밀번호 찾기</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+        @font-face {
+            font-family: "THEmpgtM";
+            src: url("<%= request.getContextPath() %>/cssfolder/fonts/THEmpgtM.woff");
+        }
+        @font-face {
+            font-family: "THEmpgtB";
+            src: url("<%= request.getContextPath() %>/cssfolder/fonts/THEmpgtB.woff");
+        }
         body{
             width: 1200px;
             margin: 0 auto;
@@ -110,10 +109,15 @@
         #modal_accept{
             color: #4B4DB2;
         }
+        #modal_code{
+            width: 200px;
+            height: 30px;
+            margin-bottom: 5px;
+        }
         #modal_cancel{
             color: #9E9E9E;
         }
-        #modal_code{
+        #modal_email{
             width: 200px;
             height: 30px;
             margin-bottom: 5px;
@@ -126,7 +130,7 @@
             text-align: center;
         }
         
-        #member_name, #member_email{
+        #member_name, #member_email, #member_id{
             width: 415px;
             height: 40px;
             margin-bottom: 15px;
@@ -144,7 +148,7 @@
         input:focus {
             outline:none;
         }
-        #find_id{
+        #find_password{
             width: 200px;
             height: 40px;
             margin-right: 15px;
@@ -159,7 +163,7 @@
             opacity: 0.6;
             transition: 0.3s;
         }
-        #find_password{
+        #find_id{
             width: 200px;
             height: 40px;
             border: 1px solid #4B4DB2;
@@ -240,24 +244,25 @@
     <section>
         <div id="noti_text">
             <p id="title">
-                아이디 찾기
+                비밀번호 찾기
             </p>
             <p id="subtext">
-                안녕하세여, 아이디를 찾으시나요? <br>
-                아이디 찾기를 위해, 회원 정보에 등록된 성명과 이메일을 작성해 주세요.
+                안녕하세요, 비밀번호를 찾으시나요? <br>
+                비밀번호 찾기를 위해, 회원 정보에 등록된 아이디와 성명 그리고 이메일을 작성해 주세요.
             </p>
         </div>
-   
+
         <div id="user_input">
-            <form id="submit" action="successfindidcontroller" method="post">
+            <form id="submit" action="successfindpwdcontroller" method="post">
+                <input type="text" id="member_id" name="member_id" placeholder="아이디 입력" required><br>
                 <input type="text" id="member_name" name="member_name" placeholder="성명 입력" required><br>
                 <div id="second_line">
                     <input type="text" id="member_email" name="member_email" placeholder="이메일 입력" required>
                     <input type="button" id="mail_check" name="mail_check" value="인증하기">
                     <input type="button" id="mail_check2" name="mail_check2" value="인증완료">
                 </div>
-                <input type="submit" id="find_id" name="find_id" value="확인">
-                <input type="button" id="find_password" name="find_password" value="비밀번호 찾기">
+                <input type="submit" id="find_password" name="find_password" value="확인">
+                <input type="button" id="find_id" name="find_id" value="아이디 찾기">
             </form>
 
             <div id="modal_all" class="modal">
@@ -290,20 +295,25 @@
                 <li>Copyright © 2022 MuscleTalkTalk All Right Reserved</li>
             </ul>
         </div>
-        <a href="" id="go_to_top">
+        <a href="#header_all" id="go_to_top">
             <img src="<%= request.getContextPath() %>/cssfolder/images/gototop.png">
         </a>
     </footer>
     <script>
-    // 이메일 인증 버튼 클릭 시
+    var memberId = $("#member_id").val();
     var memberName = $("#member_name").val();
     var memberEmail = $("#member_email").val();
 
         $("#mail_check").on("click", function(){
+           memberId = $("#member_id").val();
            memberName = $("#member_name").val();
            memberEmail = $("#member_email").val();
-           console.log(memberName);
-           console.log(memberEmail);
+			
+           if(memberId == ""){
+        	  alert("아이디를 입력하세요");
+              return;
+           }
+           
            if(memberName == "") {
               alert("성명를 입력하세요");
               return;
@@ -314,18 +324,22 @@
            }
            // 이메일 번호 전송을 위한 난수 insert - ajax
                   $.ajax({
-                     url: "insertmail",
+                     url: "insertForPwd",
                      type: "post",
-                     data:{member_name:$("#member_name").val(), email_certification_email: $("#member_email").val()},
+                     data:{member_id: $("#member_id").val(),
+                    	   member_name:$("#member_name").val(), 
+                    	   email_certification_email: $("#member_email").val()},
                      success: function(result){
                         console.log("난수 insert 성공");
                         $("#modal_all").show(); // 이메일 번호 입력용 모달 생성
                     
                      	// 이메일 전송
                         $.ajax({
-                      	 url:"sendEmail",
+                      	 url:"sendEmailForPwd",
                       	 type:"post",
-                      	 data:{member_name:$("#member_name").val(), member_email:$("#member_email").val()},
+                      	 data:{member_id: $("#member_id").val(),
+                      		   member_name:$("#member_name").val(), 
+                      		   member_email:$("#member_email").val()},
                       	 success: function(result){
 								console.log("이메일 전송 완료");
 								
@@ -338,7 +352,7 @@
 		                              success: function(result){
 			                                console.log("이메일, 번호 일치 확인 & 테이블 정보 삭제 완료");
 			                                // 모달창 닫기
-			                                location.href="FindId";
+			                                location.href="findpwd";
 			                                return;
 		                              },
 		                              error: function(request, status, error){
@@ -370,7 +384,7 @@
 			                                },
 			                                error: function(request, status, error){
 			                                  console.log(error);
-			                                  location.href="FindId";
+			                                  location.href="findpwd";
 			                                }
 			                           });
 		                       		}
@@ -383,25 +397,26 @@
                      },
                      error: function(request, status, error){
                         console.log(error);
-                        location.href="FindId";
+                        location.href="findpwd";
                         return;
                      }
                   });   
         }) 
-        
-    // 인증을 하지 않고 submit 했을 시, submit 불가
+    
+    
+ 	// 인증을 하지 않고 submit 했을 시, submit 불가
 	$("#submit").submit(function(){
-            var rt = true;
-            if($("#mail_check").is(":visible")){
-                alert("아메일 인증을 완료해주세요.");
-                return rt = false;
-            }
+        var rt = true;
+        if($("#mail_check").is(":visible")){
+            alert("아메일 인증을 완료해주세요.");
+            return rt = false;
+        }
 	})
-	    
-	// 비밀번호 찾기 버튼 클릭 시, 비밀번호 찾기 페이지로 이동
-	$("#find_password").click(function(){
-		location.href="findpwd";
-	})
+    
+    // 아이디 찾기 버튼 클릭 시 아이디 찾기 페이지로 이동
+    $("#find_id").click(function(){
+    	location.href="FindId";
+    })
     </script>
 </body>
 </html>

@@ -92,7 +92,7 @@
        opacity: 0.6;
        transition: 0.3s;
    }
-   #find_password{
+   #find_id{
        width: 200px;
        height: 40px;
        border: 1px solid #4B4DB2;
@@ -108,7 +108,7 @@
    #result{
        padding-bottom: 114px;
    }
-   #idis{
+   .idis{
        width: 100px;
        margin-left: 255px;
        margin-right: 90px;
@@ -116,7 +116,7 @@
        font-family:'THEmpgtB';
        font-size: 12px;
    }
-   #idresult{
+   .idresult{
        float: left;
        font-family:'THEmpgtM';
        font-size: 12px;
@@ -167,26 +167,36 @@
     <section>
         <div id="noti_text">
             <p id="title">
-                아이디 찾기
+                비밀번호 찾기
             </p>
             <p id="subtext">
-                아이디 찾기 완료! <br>
-                아이디 확인 후, 올바른 회원 정보로 로그인 해주세요.
+                비밀번호 찾기 완료! <br>
+                아이디 및 비밀번호 확인 후, 올바른 회원 정보로 로그인 해주세요.
             </p>
         </div>
    
         <div id="result">
-            <p id="idis">
+            <p class="idis">
                 아이디
              </p>
-            <p id="idresult">
+            <p class="idresult">
                 <!-- 회원 아이디 출력 -->
                 ${vo.memberId}
+            </p>
+            <br>
+            <br>
+            <p class="idis">
+            
+                비밀번호
+             </p>
+            <p class="idresult">
+                <!-- 회원 비밀번호 출력 -->
+                ${vo.memberPassword}
             </p>
         </div>
         <div id="buttons">
             <input type="button" id="login" name="login" value="로그인">
-            <input type="button" id="find_password" name="find_password" value="비밀번호 찾기">
+            <input type="button" id="find_id" name="find_id" value="아이디 찾기">
         </div>        
     </section>
     <footer>
@@ -208,8 +218,8 @@
     $("#login").click(function(){
 		location.href = "login";
 	});
-    $("#find_password").click(function(){
-		location.href = "findpwd";
+    $("#find_id").click(function(){
+		location.href = "FindId";
 	});
     </script>
 </body>

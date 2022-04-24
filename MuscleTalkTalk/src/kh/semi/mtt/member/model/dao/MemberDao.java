@@ -20,13 +20,9 @@ public class MemberDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, memberId);
 			rs = pstmt.executeQuery();
-			System.out.println("memberId:" + memberId);
-			System.out.println("rs First: " + rs);
 			if (rs != null) {
 				rs.next();
-				System.out.println("rs Second: " + rs);
 				retVo = new MemberVo();
-				System.out.println("retVo: " + retVo);
 				retVo.setMemberId(rs.getString("member_id"));
 				retVo.setMemberPassword(rs.getString("member_password"));
 			}
@@ -87,6 +83,33 @@ public class MemberDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, memberName);
 			pstmt.setString(2, memberEmail);
+			rs = pstmt.executeQuery();
+			if(rs!=null) {
+				if(rs.next()) {
+					retVo = new MemberVo();
+					retVo.setMemberEmail(rs.getString("member_email"));
+					retVo.setMemberName(rs.getString("member_name"));
+					retVo.setMemberId(rs.getString("member_Id"));
+				}
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return retVo;
+	}
+	
+	public MemberVo findPwdfromIdAndNameAndEmail(Connection conn, String memberId, String memberName, String memberEmail) {
+		MemberVo retVo = null;
+		String sql = "select * from tb_member where member_name = ? and member_email = ? and member_id = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberName);
+			pstmt.setString(2, memberEmail);
+			pstmt.setString(3, memberId);
 			rs = pstmt.executeQuery();
 			if(rs!=null) {
 				if(rs.next()) {

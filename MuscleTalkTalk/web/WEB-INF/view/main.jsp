@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>머슬톡톡</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
 /* 모두 해당 스타일 넣어주세요  */
@@ -164,7 +164,7 @@
                 <li>Copyright © 2022 MuscleTalkTalk All Right Reserved</li>
             </ul>
         </div>
-        <a href="" id="go_to_top">
+        <a href="#header_all" id="go_to_top">
             <img src="<%= request.getContextPath() %>/cssfolder/images/gototop.png">
         </a>
     </footer>

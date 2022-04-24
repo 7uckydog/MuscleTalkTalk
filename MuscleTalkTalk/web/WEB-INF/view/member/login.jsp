@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>로그인</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
     <style>
@@ -199,7 +199,7 @@
 
         <div id="find_some">
             <a href="FindId" id="findId">아이디 찾기</a>
-             / <a href="" id="findPwd">비밀번호 찾기</a>
+             / <a href="findpwd" id="findPwd">비밀번호 찾기</a>
         </div>
     </section>
     <footer>
@@ -212,7 +212,7 @@
                 <li>Copyright © 2022 MuscleTalkTalk All Right Reserved</li>
             </ul>
         </div>
-        <a href="" id="go_to_top">
+        <a href="#header_all" id="go_to_top">
             <img src="<%= request.getContextPath() %>/cssfolder/images/gototop.png">
         </a>
     </footer>

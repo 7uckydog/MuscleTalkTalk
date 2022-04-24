@@ -70,7 +70,6 @@ public class EmailDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, emailCertificationCode);
 			pstmt.setString(2, emailCertificationEmail);
-			System.out.println("코드 일치하는지 확인 디에이오");
 			rs = pstmt.executeQuery();
 			if(rs!=null) {
 				if(rs.next()) {

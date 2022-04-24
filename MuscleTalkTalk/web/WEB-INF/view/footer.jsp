@@ -10,7 +10,7 @@
                 <li>Copyright © 2022 MuscleTalkTalk All Right Reserved</li>
             </ul>
         </div>
-        <a href="" id="go_to_top">
+        <a href="#header_all" id="go_to_top">
             <img src="<%= request.getContextPath() %>/cssfolder/images/gototop.png">
         </a>
     </footer>
@@ -70,6 +70,5 @@
         // 회원 아이콘 내, 로그인 클릭 시 로그인 페이지로 이동
         $("#login").click(function(){
         	location.href = "login"
-        	console.log("아하하하하하하ㅏ");
         });
     </script>

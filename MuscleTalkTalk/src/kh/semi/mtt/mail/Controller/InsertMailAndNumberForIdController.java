@@ -23,13 +23,13 @@ import kh.semi.mtt.member.model.vo.MemberVo;
  * Servlet implementation class TestInsertMail
  */
 @WebServlet("/insertmail")
-public class InsertMailAndNumber extends HttpServlet {
+public class InsertMailAndNumberForIdController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertMailAndNumber() {
+    public InsertMailAndNumberForIdController() {
         super();
     }
 

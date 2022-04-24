@@ -36,4 +36,13 @@ public class MemberService {
 		close(conn);
 		return retVo;
 	}
+	
+	public MemberVo findPwdfromIdAndNameAndEmail(String memberId, String memberName, String memberEmail) {
+		MemberVo retVo = null;
+		Connection conn = null;
+		conn = getConnection();
+		retVo = dao.findPwdfromIdAndNameAndEmail(conn, memberId, memberName, memberEmail);
+		close(conn);
+		return retVo;
+	}
 }
