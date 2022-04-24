@@ -1,23 +1,28 @@
-package kh.semi.mtt.pt;
+package kh.semi.mtt.pt.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kh.semi.mtt.pt.model.service.PtService;
+import kh.semi.mtt.pt.model.vo.PtVo;
+
 /**
- * Servlet implementation class PtInsertControllerServlet
+ * Servlet implementation class PtListController
  */
-@WebServlet("/ptinsert")
-public class PtInsertControllerServlet extends HttpServlet {
+@WebServlet("/ptlist")
+public class PtListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PtInsertControllerServlet() {
+    public PtListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +31,10 @@ public class PtInsertControllerServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("WEB-INF/view/ptpage/ptinsertpage.jsp").forward(request, response);
+		System.out.println("/ptlist doGet 방식 호출");
+		ArrayList<PtVo> ptVoList = new PtService().readAllPt();
+		request.setAttribute("ptVoList", ptVoList);
+		request.getRequestDispatcher("WEB-INF/view/ptpage/ptlistpage.jsp").forward(request, response);
 	}
 
 	/**
