@@ -1,4 +1,4 @@
-package kh.semi.mtt.test.controller;
+package kh.semi.mtt.mail.model.dao;
 
 
 import java.sql.Connection;
@@ -98,10 +98,7 @@ public class EmailDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, emailCertificationCode);
 			pstmt.setString(2, emailCertificationEmail);
-			System.out.println(emailCertificationCode + emailCertificationEmail);
-			System.out.println("테이블 정보 삭제 디에이오");
 			result = pstmt.executeUpdate();
-			System.out.println("삭제 완료 디에이오");
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -111,4 +108,26 @@ public class EmailDao {
 		System.out.println("회원정보 삭제 성공~");
 		return result;
 	}
+	
+	// 이메일 테이블에 정보 삭제하기 (인증 완료 전)
+		public int deleteTableInfo2(Connection conn, String emailCertificationEmail) {
+			int result = 0;
+			
+			String sql = "delete from tb_email_certification where email_certification_email = ?";
+			
+			try {
+				System.out.println(emailCertificationEmail);
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, emailCertificationEmail);
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			System.out.println("인증 전, 회원정보 삭제 성공~");
+			System.out.println(result);
+			return result;
+		}
 }

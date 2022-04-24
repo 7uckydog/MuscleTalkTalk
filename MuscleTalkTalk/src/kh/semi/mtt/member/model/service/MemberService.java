@@ -23,8 +23,8 @@ public class MemberService {
 		MemberVo retVo = null;
 		Connection conn = null;
 		conn = getConnection();
-		
 		retVo = dao.login(conn, memeberId, memberPassword);
+		close(conn);
 		return retVo;
 	}
 	
@@ -32,9 +32,8 @@ public class MemberService {
 		MemberVo retVo = null;
 		Connection conn = null;
 		conn = getConnection();
-		System.out.println("service- name:" + memberName);
-		System.out.println("service- email:" + memberEmail);
 		retVo = dao.findIdfromNameAndEmail(conn, memberName, memberEmail);
+		close(conn);
 		return retVo;
 	}
 }

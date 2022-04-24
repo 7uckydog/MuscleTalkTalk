@@ -88,12 +88,12 @@ public class MemberDao {
 			pstmt.setString(1, memberName);
 			pstmt.setString(2, memberEmail);
 			rs = pstmt.executeQuery();
-			System.out.println("service- name:" + memberName);
 			if(rs!=null) {
 				if(rs.next()) {
 					retVo = new MemberVo();
 					retVo.setMemberEmail(rs.getString("member_email"));
 					retVo.setMemberName(rs.getString("member_name"));
+					retVo.setMemberId(rs.getString("member_Id"));
 				}
 			}
 		}

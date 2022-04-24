@@ -172,9 +172,20 @@
         #second_line{
             margin-left: 105px;
         }
-        #mail_check, #mail_check2{
+        #mail_check{
             color: rgb(64, 64, 64);
             background-color: rgb(224, 224, 224);
+            border: none;
+            width: 90px;
+            height: 40px;
+            font-family: "THEmpgtM";
+            font-size: 11px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        #mail_check2{
+        	color: white;
+            background-color: #4B4DB2;
             border: none;
             width: 90px;
             height: 40px;
@@ -221,7 +232,7 @@
 <body bgcolor=" #ECECEC">
     <header id="header_all">
         <div id="header_logo">
-            <a href="">
+            <a href="main">
                 <img src="<%= request.getContextPath() %>/cssfolder/images/logo.png">
             </a>
         </div>
@@ -238,7 +249,7 @@
         </div>
    
         <div id="user_input">
-            <form>
+            <form id="submit" action="successfindidcontroller" method="post">
                 <input type="text" id="member_name" name="member_name" placeholder="성명 입력" required><br>
                 <div id="second_line">
                     <input type="text" id="member_email" name="member_email" placeholder="이메일 입력" required>
@@ -301,64 +312,91 @@
               alert("이메일를 입력하세요");
               return;
            }
-               $("#modal_all").show(); // 이메일 번호 입력용 모달 생성
-               
-                  $.ajax({          // 이메일 번호 전송을 위한 난수 insert - ajax
+           // 이메일 번호 전송을 위한 난수 insert - ajax
+                  $.ajax({
                      url: "insertmail",
                      type: "post",
-                     data:{email_certification_email: $("#member_email").val()},
+                     data:{member_name:$("#member_name").val(), email_certification_email: $("#member_email").val()},
                      success: function(result){
                         console.log("난수 insert 성공");
+                        $("#modal_all").show(); // 이메일 번호 입력용 모달 생성
+                    
+                     	// 이메일 전송
+                        $.ajax({
+                      	 url:"sendEmail",
+                      	 type:"post",
+                      	 data:{member_name:$("#member_name").val(), member_email:$("#member_email").val()},
+                      	 success: function(result){
+								console.log("이메일 전송 완료");
+								
+								// 모달 내 취소 버튼 클릭 시, 테이블에서 정보 삭제
+		                        $("#modal_cancel").on("click", function(){
+		                        	$.ajax({
+		                          	url:"deleteemailtablecontroller",
+		                              type:"post",
+		                              data:{member_email:$("#member_email").val()},
+		                              success: function(result){
+			                                console.log("이메일, 번호 일치 확인 & 테이블 정보 삭제 완료");
+			                                // 모달창 닫기
+			                                location.href="FindId";
+			                                return;
+		                              },
+		                              error: function(request, status, error){
+		                              	 console.log(error);
+		                              }
+		                         });
+		                       })
+		                      		
+		                       // 모달 내 확인 버튼 클릭 시,
+		                       $("#modal_accept").on("click", function(){
+		                       // 인증번호를 미입력하고 확인버튼 클릭 시, 경고창
+		                       		if($("#modal_code").val()==""){
+		                        		alert("인증번호를 입력해주세요.");
+		                        		return;
+		                        	}
+		                       		else{
+		                        	// 인증번호 입력 후 확인 버튼 클릭 시, 이메일과 난수 번호 일치 확인 - ajax -> 테이블에 정보 삭제
+			                            $.ajax({
+			                                url:"checkemailandcode",
+			                                type:"post",
+			                                data:{modal_code:$("#modal_code").val(), member_email:$("#member_email").val()},
+			                                success: function(result){
+			                                  console.log("이메일, 번호 일치 확인 & 테이블 정보 삭제 완료");
+			                                  // 모달창 닫기
+			                                  $("#modal_all").hide();
+			                                  // 인증하기 버튼 => 인증 완료 버튼으로 변경
+			                                  $("#mail_check2").show();
+			                                  $("#mail_check").hide();
+			                                },
+			                                error: function(request, status, error){
+			                                  console.log(error);
+			                                  location.href="FindId";
+			                                }
+			                           });
+		                       		}
+		                       }) 
+                      	 },
+                      	 error: function(request, status, error){
+                               console.log(error);
+                            }
+                        });
                      },
                      error: function(request, status, error){
                         console.log(error);
+                        location.href="FindId";
+                        return;
                      }
                   });   
+        }) 
         
-                  // 이메일 전송
-                  $.ajax({
-                	 url:"sendEmail",
-                	 type:"post",
-                	 data:{member_name:$("#member_name").val(), member_email:$("#member_email").val()},
-                	 success: function(result){
-                		 console.log("메일 발송 성공");
-                		 $("#modal_accept").on("click", function(){
-                			// 인증번호 입력 후 확인 버튼 클릭 시, 이메일과 난수 번호 일치 확인 - ajax -> 테이블에 정보 삭제
-                           	$.ajax({
-                              	 url:"checkemailandcode",
-                              	 type:"post",
-                              	 data:{modal_code:$("#modal_code").val(), member_email:$("#member_email").val()},
-                              	 success: function(result){
-                              		 console.log("이메일, 번호 일치 확인 & 테이블 정보 삭제 완료");
-                              		 // 모달창 닫기
-                              		 $("#modal_all").hide();
-                              		 // 인증하기 버튼 => 인증 완료 버튼으로 변경
-                              		 $("#mail_check2").show();
-                              		 $("#mail_check").hide();
-                              	 },
-                              	 error: function(request, status, error){
-                                       console.log(error);
-                                    }
-                                });
-                           })
-                	 },
-                	 error: function(request, status, error){
-                         console.log(error);
-                      }
-                  });
-
-        })
-    
-    // 모달 내 취소 버튼 클릭 시, 테이블에서 정보 삭제
-    
-    // 아이디 찾기 확인 시, 이메일 인증 여부 확인
-    
-    
-    // 모달 내, x 버튼 누를 시 모달 숨기기
-        $("#modal_cancel").on("click", function(){
-                $("#modal_all").hide();
-        });  
-
+    // 인증을 하지 않고 submit 했을 시, submit 불가
+	$("#submit").submit(function(){
+            var rt = true;
+            if($("#mail_check").is(":visible")){
+                alert("아메일 인증을 완료해주세요.");
+                return rt = false;
+            }
+	    })
     </script>
 </body>
 </html>

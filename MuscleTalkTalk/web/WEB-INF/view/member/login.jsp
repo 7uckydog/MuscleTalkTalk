@@ -198,7 +198,7 @@
         </div>
 
         <div id="find_some">
-            <a href="TestFindId" id="findId">아이디 찾기</a>
+            <a href="FindId" id="findId">아이디 찾기</a>
              / <a href="" id="findPwd">비밀번호 찾기</a>
         </div>
     </section>

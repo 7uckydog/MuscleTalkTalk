@@ -1,4 +1,4 @@
-package kh.semi.mtt.test.controller;
+package kh.semi.mtt.mail.Controller;
 import java.util.Properties;
 
 import javax.mail.Address;
@@ -14,13 +14,13 @@ public class SendMail {
 	private static class SMTPAuthenticator extends Authenticator {
 		public PasswordAuthentication getPasswordAuthentication() {
 			//지메일 아이디 , 비밀번호
-			return new PasswordAuthentication("muscleTalkTalk@gmail.com", "ajtmfxhrxhr123");
+			return new PasswordAuthentication("muscletalktalk@gmail.com", "ajtmfxhrxhr123");
 		}
 	}
 	
 	public static void send(String title, String content, String toEmail) {
 		Properties p = new Properties();
-		p.put("mail.smtp.user", "muscleTalkTalk@gmail.com"); //본인 지메일
+		p.put("mail.smtp.user", "muscletalktalk@gmail.com");
 		p.put("mail.smtp.host", "smtp.gmail.com");
 		p.put("mail.smtp.port", "465");
 		p.put("mail.smtp.starttls.enable", "true");
@@ -36,16 +36,18 @@ public class SendMail {
 			MimeMessage msg = new MimeMessage(session);
 			String message = content;
 			msg.setSubject(title);
-			//InternetAddress(메일주소, 보내는사람 이름, 문자셋)
-			Address fromAddr = new InternetAddress("muscleTalkTalk@gmail.com"); 
+			Address fromAddr = new InternetAddress("muscletalktalk@gmail.com"); 
 			msg.setFrom(fromAddr);
 			Address toAddr = new InternetAddress(toEmail); 
 			msg.addRecipient(Message.RecipientType.TO, toAddr);
 			msg.setContent(message, "text/html;charset=KSC5601");
 			Transport.send(msg);
+			System.out.println("send메소드");
+			return;
 			
 		} catch (Exception e) { 
 			e.printStackTrace();
+			System.out.println("이메일 전송 실패");
 		}
 	}
 	
