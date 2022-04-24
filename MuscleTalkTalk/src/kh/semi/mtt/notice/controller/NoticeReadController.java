@@ -7,10 +7,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kh.semi.mtt.notice.model.service.NoticeService;
+import kh.semi.mtt.notice.model.vo.NoticeVo;
+
 /**
  * Servlet implementation class NoticeReadController
  */
-@WebServlet("/NoticeReadController")
+@WebServlet("/noticeread")
 public class NoticeReadController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -26,6 +29,19 @@ public class NoticeReadController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String noticeNoStr = request.getParameter("noticeNo");
+		int noticeNo = 0;
+		try {
+			noticeNo = Integer.parseInt(noticeNoStr);
+		}catch(NumberFormatException e) {
+			e.printStackTrace();
+		}
+		NoticeVo result = new NoticeService().readNotice(noticeNo);
+		System.out.println(result);
+		result.setNotiContent(result.getNotiContent().replaceAll("(\r\n|\n)", "<br>")); 
+		result.setNotiContent(result.getNotiContent().replaceAll(" ", "&nbsp;")); 
+		request.setAttribute("nvo", result);
+		
 		request.getRequestDispatcher("WEB-INF/view/board/notice/notiread.jsp").forward(request, response);
 	}
 

@@ -12,7 +12,7 @@
 </head>
 <body>
 <%
-	NoticeVo vo = (NoticeVo)request.getAttribute("bvo");
+	NoticeVo vo = (NoticeVo)request.getAttribute("nvo");
 	/* if(vo!=null){ */
 %>
 	<p><%= vo.getNotiTitle() %></p>
