@@ -1,6 +1,7 @@
 package kh.semi.mtt.board.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -8,6 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import kh.semi.mtt.board.model.service.BoardService;
 import kh.semi.mtt.board.model.vo.BoardVo;
@@ -35,6 +39,7 @@ public class BoardReadAllControllerServlet extends HttpServlet {
 		
 		
 		int currentPage = 1;
+		int filter = 0;
 		
 		String currentPageStr = request.getParameter("page");
 		try {
@@ -82,7 +87,7 @@ public class BoardReadAllControllerServlet extends HttpServlet {
 		}
 		//
 		System.out.println("rnum:" + startRnum + "~" + endRnum);
-		ArrayList<BoardVo> result = service.readAllBoard(startRnum, endRnum);
+		ArrayList<BoardVo> result = service.readAllBoard(startRnum, endRnum,filter);
 		System.out.println(result);
 		request.setAttribute("boardreadall", result);
 		request.setAttribute("startPage", startPage);
@@ -97,9 +102,8 @@ public class BoardReadAllControllerServlet extends HttpServlet {
 			return result;
 		}
 
-}
 
 //	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		// TODO Auto-generated method stub
-//		doGet(request, response);
+//		
 //	}
+}

@@ -17,6 +17,54 @@ public class BoardDao {
 	private ResultSet rs = null;
 	private PreparedStatement pstmt = null;
 	
+	public int deleteBoard(Connection conn, BoardVo vo) {
+		int result = 0;
+		String sql = "delete from tb_board where board_no = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, vo.getBoardNo());
+			
+			result = pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public int updateBoard(Connection conn, BoardVo vo) {
+		int result = 0;
+		String sql = "update tb_board set BOARD_TITLE=?, BOARD_CONTENT=? where BOARD_NO=?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getBoardTitle());
+			pstmt.setString(2, vo.getBoardContent());
+			pstmt.setInt(3, vo.getBoardNo());
+			result = pstmt.executeUpdate();
+			
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	
+	
 	
 	
 	public int insertBoard(Connection conn, BoardVo vo) {
@@ -79,7 +127,7 @@ public class BoardDao {
 				pstmt.setInt(1, boardNo);
 				result = pstmt.executeUpdate();
 				if(result == 1) {
-					System.out.println("BoardDaoø°º≠ ¡∂»∏ºˆ 1¡ı∞° µ ");
+					System.out.println("BoardDaoÏóêÏÑú Ï°∞ÌöåÏàò 1Ï¶ùÍ∞Ä Îê®");
 				}
 			}
 			
@@ -94,19 +142,45 @@ public class BoardDao {
 	}
 	
 	
-	public ArrayList<BoardVo> readAllBoard(Connection conn, int startRnum, int endRnum){
+	public ArrayList<BoardVo> readAllBoard(Connection conn, int startRnum, int endRnum, int filterint){ //Îß§Í∞úÏù∏ÏûêÎ°ú ÌïÑÌÑ∞ Ï∂îÍ∞ÄÌï¥ÏÑú Ï†ïÎ†¨Í∏∞Îä•Ï∂îÍ∞Ä
 		ArrayList<BoardVo> volist = null;
 //		String sql = "select * from(select rownum r, t1.* from "
 //		        + " (select b1.*,(select count(*) from tb_comment r1 where r1.board_no = b1.board_no) r_cnt " 
 //		        + " from tb_board b1 order by board_no desc) t1)"
 //		        + " where r between ? and ?";
-		
 		String sql = "select R, board_no, member_nickname, board_title, board_content, board_count, board_date, board_category_no, r_cnt from "
 				+ " (select rownum r, t1.* from (select b1.*,(select count(*) from "
 				+ " tb_comment r1 where r1.board_no = b1.board_no) r_cnt "
 				+ " from tb_board b1 order by board_no desc) t1)tba join tb_member tbm on tba.member_no = tbm.member_no "
 				+ " where r between ? and ?"
-				+ " order by r";
+				+ " order by board_date desc";
+		if(filterint == 1) {
+			sql = "select R, board_no, member_nickname, board_title, board_content, board_count, board_date, board_category_no, r_cnt from "
+				+ " (select rownum r, t1.* from (select b1.*,(select count(*) from "
+				+ " tb_comment r1 where r1.board_no = b1.board_no) r_cnt "
+				+ " from tb_board b1 order by board_no desc) t1)tba join tb_member tbm on tba.member_no = tbm.member_no "
+				+ " where r between ? and ?"
+				+ " order by board_date desc";
+			
+		}else if(filterint == 2) {
+			sql = "select R, board_no, member_nickname, board_title, board_content, board_count, board_date, board_category_no, r_cnt from "
+					+ " (select rownum r, t1.* from (select b1.*,(select count(*) from "
+					+ " tb_comment r1 where r1.board_no = b1.board_no) r_cnt "
+					+ " from tb_board b1 order by board_no desc) t1)tba join tb_member tbm on tba.member_no = tbm.member_no "
+					+ " where r between ? and ?"
+					+ " order by board_count desc";
+			
+		}else if(filterint == 3) {
+			sql = "select R, board_no, member_nickname, board_title, board_content, board_count, board_date, board_category_no, r_cnt from "
+					+ " (select rownum r, t1.* from (select b1.*,(select count(*) from "
+					+ " tb_comment r1 where r1.board_no = b1.board_no) r_cnt "
+					+ " from tb_board b1 order by board_no desc) t1)tba join tb_member tbm on tba.member_no = tbm.member_no "
+					+ " where r between ? and ?"
+					+ " order by r_cnt desc";
+		}
+		
+		
+		System.out.println(sql);
 		
 		
 		try {
@@ -114,7 +188,6 @@ public class BoardDao {
 			pstmt.setInt(1, startRnum);		
 			pstmt.setInt(2, endRnum);
 			rs = pstmt.executeQuery();
-			
 			if(rs != null) {
 				volist = new ArrayList<BoardVo>();
 				while (rs.next()) {
@@ -125,7 +198,8 @@ public class BoardDao {
 					vo.setBoardContent(rs.getString("BOARD_CONTENT"));
 					vo.setBoardCount(rs.getInt("BOARD_COUNT"));
 					vo.setMemberNickname(rs.getString("MEMBER_NICKNAME"));
-					
+					vo.setrCnt(rs.getInt("R_CNT"));
+//					System.out.println("ÎåìÍ∏ÄÏàò"+rs.getInt("R_CNT"));
 					volist.add(vo);
 					
 				}
@@ -137,8 +211,6 @@ public class BoardDao {
 			close(rs);
 			close(pstmt);
 		}
-		
-		
 		return volist;
 	}
 	public int boardViewCount(Connection conn ,BoardVo vo) {
@@ -150,7 +222,7 @@ public class BoardDao {
 			pstmt.setInt(1, vo.getBoardNo());
 			result = pstmt.executeUpdate();
 			
-			System.out.println("¡∂»∏ºˆ 1¡ı∞°");
+			System.out.println("Ï°∞ÌöåÏàò 1Ï¶ùÍ∞Ä");
 		} catch (SQLException e) {
 			
 			e.printStackTrace();

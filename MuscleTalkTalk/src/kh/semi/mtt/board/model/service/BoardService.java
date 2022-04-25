@@ -12,6 +12,33 @@ public class BoardService {
 	
 	
 	
+	public int deleteBoard(BoardVo vo) {
+		Connection conn = null;
+		conn = getConnection();
+		
+		int result = dao.deleteBoard(conn, vo);
+		close(conn);
+		
+		return result;
+	}
+	
+	
+	
+	public int updateBoard(BoardVo vo) {
+		Connection conn = null;
+		conn = getConnection();
+		System.out.println("updateBoard vo : " + vo);
+		
+		int result = dao.updateBoard(conn, vo);
+		
+		close(conn);
+		return result;
+	}
+	
+	
+	
+	
+	
 	public int insertBoard(BoardVo vo) {
 		Connection conn = null;
 		
@@ -33,12 +60,12 @@ public class BoardService {
 	}
 	
 
-	public ArrayList<BoardVo> readAllBoard(int startRnum, int endRnum){
+	public ArrayList<BoardVo> readAllBoard(int startRnum, int endRnum,int filterint){
 		
 		Connection conn = null;
 		conn = getConnection();
 		
-		ArrayList<BoardVo> result = dao.readAllBoard(conn, startRnum, endRnum);
+		ArrayList<BoardVo> result = dao.readAllBoard(conn, startRnum, endRnum,filterint);
 		close(conn);
 		return result;
 		
