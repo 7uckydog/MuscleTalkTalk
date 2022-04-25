@@ -230,6 +230,11 @@
         $("#logout").click(function(){
         	location.href = "logout"
         });
+        
+     // 회원 아이콘 내, 회원가입 클릭 시 회원가입 컨트롤러로 이동
+        $("#join").click(function(){
+        	location.href = "memberjoin"
+        });
     </script>
 </body>
 </html>
