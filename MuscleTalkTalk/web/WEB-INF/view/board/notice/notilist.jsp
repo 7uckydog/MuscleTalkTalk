@@ -24,15 +24,34 @@ section {
 	position: relative;
 	}
 
-#board_main {
+#notice_main {
 	/* margin-top: 65px; */
 	/* margin-left: 65px; */
 	padding-top: 65px;
 	margin-left: 65px;
 	font-weight: bold;
 	display: inline-block;
-	margin-bottom: 40px;
+	/* margin-bottom: 40px; */
 	font-size: 15px;
+}
+
+#notice_top_button{
+	padding-top: 65px;
+	/* margin-bottom: 40px; */
+	float: right;
+}
+#write_btn {
+	color: white;
+	border: 1px solid white;
+	background-color: #4B4DB2;
+	width: 152px;
+	height: 28px;
+	
+	font-size: 12px;
+	margin-right: 60px;
+	cursor: pointer;
+	/* position: absolute; */
+	/* right: 60px; */
 }
 
 #board_category {
@@ -144,13 +163,19 @@ section {
 	width: 30px;
 	height: 30px;
 	box-sizing: content-box;
+	
 }
+
 
 </style>
 </head>
 <body bgcolor="#ECECEC">
 <%@ include file="/WEB-INF/view/template.jsp"%>
 	<section>
+		<div id="notice_main">공지사항 관리</div>
+		<div id="notice_top_button">
+		<button onclick="location.href = 'noticeinsert';" id="write_btn">공지사항 작성</button>
+		</div>
 		<table id="notice_table">
 			<tr>
 				<td colspan="3" class="table_line"></td>
@@ -184,6 +209,11 @@ section {
 				</c:if>
 			<p>
 		</div>
+		<form class="search_notice">
+				<button type="submit" id="btn_search">검색</button>
+				<input id="input_search" type="text" name="s" value=""
+					placeholder="검색어입력">
+			</form>
 	</section>
 	<%@ include file="/WEB-INF/view/footer.jsp"%>
 </body>

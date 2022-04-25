@@ -67,10 +67,10 @@ public class NoticeInsertDoController extends HttpServlet {
 		//db저장;    위에 else 안에 넣어줘도됨.
 		int result = new NoticeService().insertNotice(vo);
 		if(result < 1) { //글등록 실패
-			response.sendRedirect("main");
+			response.sendRedirect("noticereadall");
 		} else { //글등록 성공
 			System.out.println("글등록 성공!");
-			response.sendRedirect("main");
+			response.sendRedirect("noticereadall");
 		}
 		
 		

@@ -28,6 +28,7 @@ if(vo.getbFilePath() != null && ! vo.getbFilePath().equals("")){
 	</c:if>
 	<hr> --%>
  	<button onclick="location.href='noticeupdate?noticeNo=${nvo.noticeNo}'">수정</button> 
+ 	<button onclick="location.href='noticedelete?noticeNo=${nvo.noticeNo}'">삭제</button> 
 	
 
 

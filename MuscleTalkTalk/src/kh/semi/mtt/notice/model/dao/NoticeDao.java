@@ -74,9 +74,19 @@ public class NoticeDao {
 	
 	public ArrayList<NoticeVo> readAllNotice(Connection conn, int startNnum, int endNnum){
 		ArrayList<NoticeVo> volist = null;
-		String sql = "select notice_no, notice_title, notice_date from tb_notice "
-				+ "where notice_no between? and ?"
-				+ "order by notice_no desc";
+		String sql = "select * "
+				+ "from (select rownum rn, notice_no, notice_title, notice_date "
+				+ "from tb_notice "
+				+ "order by notice_no desc) "
+				+ "where rn between ? and ?";
+		
+//		select * 
+//	    from (select rownum rn, notice_no, notice_title, notice_date 
+//	        from tb_notice 
+//	        order by notice_no)
+//	    where rn between 1 and 6
+//	    ;
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startNnum);
@@ -135,6 +145,23 @@ public class NoticeDao {
 			System.out.println("noticeNo:" +vo.getNoticeNo());
 			result = pstmt.executeUpdate(); // int형으로 리턴함. 밑에리턴추가. 값 담아주는부분 매우중요!!
 			System.out.println("update result: " + result);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int deleteNotice(Connection conn, int noticeNo) {
+		int result = 0;
+		String sql = "delete from tb_notice where notice_NO=?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, noticeNo);
+			System.out.println("noticeNo:" +noticeNo);
+			result = pstmt.executeUpdate(); // int형으로 리턴함. 밑에리턴추가. 값 담아주는부분 매우중요!!
+			System.out.println("delete result: " + result);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

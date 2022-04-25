@@ -52,4 +52,12 @@ public class NoticeService {
 		return result;
 	}
 	
+	public int deleteNotice(int noticeNo) {
+		Connection conn=null;
+		conn = getConnection();
+		int result = dao.deleteNotice(conn, noticeNo);
+		close(conn);
+		return result;
+	}
+	
 }

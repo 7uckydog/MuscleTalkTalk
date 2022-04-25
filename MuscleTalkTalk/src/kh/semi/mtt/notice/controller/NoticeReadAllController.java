@@ -39,7 +39,7 @@ public class NoticeReadAllController extends HttpServlet {
 			if(currentPageStr !=null){
 				currentPage = Integer.parseInt(currentPageStr);
 			} else {
-				System.out.println("널이에요");
+				System.out.println("Read all notice page null 널이에요");
 			}
 		}catch(NumberFormatException e) {
 			e.printStackTrace();
