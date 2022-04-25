@@ -13,7 +13,7 @@
 </head>
 <body>
 	<%@ include file="/WEB-INF/view/template.jsp" %>
-	<section>
+	<section id="pt_insert_page_section">
 		<div id="pt_write_title">
 			<p>프로그램 등록</p>
 		</div>

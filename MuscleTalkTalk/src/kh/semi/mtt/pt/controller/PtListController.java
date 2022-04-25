@@ -33,6 +33,7 @@ public class PtListController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("/ptlist doGet 방식 호출");
 		ArrayList<PtVo> ptVoList = new PtService().readAllPt();
+		System.out.println("/ptlist doGet ptVoList 결과:  " + ptVoList);
 		request.setAttribute("ptVoList", ptVoList);
 		request.getRequestDispatcher("WEB-INF/view/ptpage/ptlistpage.jsp").forward(request, response);
 	}

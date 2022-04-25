@@ -28,7 +28,7 @@ public class PtService {
 		conn = getConnection();
 		
 		result = dao.readAllPt(conn);
-		
+		System.out.println("PtService readAllPt()매소드 결과:  " + result);
 		close(conn);
 		return result;
 	}
