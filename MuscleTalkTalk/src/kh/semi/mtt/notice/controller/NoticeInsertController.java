@@ -12,7 +12,7 @@ import kh.semi.mtt.member.model.vo.MemberVo;
 /**
  * Servlet implementation class BoardWriteController
  */
-@WebServlet("/insertNotice")
+@WebServlet("/noticeinsert")
 public class NoticeInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -30,7 +30,7 @@ public class NoticeInsertController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("doGet - noticewrite");
+		System.out.println("doGet - noticeinsert");
 		request.getRequestDispatcher("WEB-INF/view/board/notice/notiwrite.jsp").forward(request, response);
 		// 로그인 상태 확인코드
 //		MemberVo ssvo = (MemberVo) request.getSession().getAttribute("ssMV");

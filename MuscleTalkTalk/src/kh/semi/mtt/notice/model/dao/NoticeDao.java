@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+
 import static kh.semi.mtt.common.jdbc.JdbcTemplate.*;
 
 import kh.semi.mtt.notice.model.vo.NoticeVo;
@@ -35,7 +36,7 @@ public class NoticeDao {
 	
 	public NoticeVo readNotice(Connection conn, int noticeNo) {
 		NoticeVo vo = null;            //1 첫줄 : 리턴자료형으로 변수선언
-		String sql = "select * from tb_board where notice_no= ? ";   //2 둘째줄 : sql문 
+		String sql = "select * from tb_notice where notice_no= ? ";   //2 둘째줄 : sql문 
 
 
 		try {  //4.
@@ -57,8 +58,8 @@ public class NoticeDao {
 //				pstmt = conn.prepareStatement(sql2);   //3. 
 //				pstmt.setInt(1, noticeNo);     //7 : 위 2번 물음표 있어서 작성. 
 //				rs = pstmt.executeQuery();  //8
-				
-				
+//				String sql2 = upadte tb_notice
+//				pstmt = conn.prepareStatement(sql2);
 				
 			}
 		} catch (SQLException e) {
@@ -73,8 +74,9 @@ public class NoticeDao {
 	
 	public ArrayList<NoticeVo> readAllNotice(Connection conn, int startNnum, int endNnum){
 		ArrayList<NoticeVo> volist = null;
-		String sql = "select notice_no, notice_title, notice_date from tb_notice order by notice_no desc"
-				+ "where notice_no between? and ?";
+		String sql = "select notice_no, notice_title, notice_date from tb_notice "
+				+ "where notice_no between? and ?"
+				+ "order by notice_no desc";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startNnum);
@@ -88,7 +90,7 @@ public class NoticeDao {
 					vo.setNoticeNo(rs.getInt("notice_No"));
 					vo.setNotiTitle(rs.getString("notice_Title"));
 					vo.setNotiDate(rs.getTimestamp("notice_Date"));
-					vo.setNotiContent(rs.getString("notice_Content"));
+//					vo.setNotiContent(rs.getString("notice_Content"));
 					
 					
 					volist.add(vo);
@@ -117,6 +119,25 @@ public class NoticeDao {
 			e.printStackTrace();
 		} finally {
 			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int updateNotice(Connection conn, NoticeVo vo) {
+		int result = 0;
+		String sql = "update tb_notice set notice_TITLE=?, notice_CONTENT=?  where notice_NO=?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(3, vo.getNoticeNo());
+			pstmt.setString(1, vo.getNotiTitle());
+			pstmt.setString(2, vo.getNotiContent());
+			System.out.println("noticeNo:" +vo.getNoticeNo());
+			result = pstmt.executeUpdate(); // int형으로 리턴함. 밑에리턴추가. 값 담아주는부분 매우중요!!
+			System.out.println("update result: " + result);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
 			close(pstmt);
 		}
 		return result;

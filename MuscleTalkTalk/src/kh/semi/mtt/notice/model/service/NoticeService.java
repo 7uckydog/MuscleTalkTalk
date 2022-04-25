@@ -43,4 +43,13 @@ public class NoticeService {
 		close(conn);
 		return result;
 	}
+	
+	public int updateNotice(NoticeVo vo) {
+		Connection conn=null;
+		conn = getConnection();
+		int result = dao.updateNotice(conn, vo);
+		close(conn);
+		return result;
+	}
+	
 }

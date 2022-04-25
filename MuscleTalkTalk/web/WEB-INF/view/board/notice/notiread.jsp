@@ -27,7 +27,7 @@ if(vo.getbFilePath() != null && ! vo.getbFilePath().equals("")){
 	<img src="${pageContext.request.contextPath}/${bvo.bFilePath}" width="300">
 	</c:if>
 	<hr> --%>
-<%-- 	<button onclick="location.href='boardupdate?bno=${bvo.bNo}'">수정</button> --%>
+ 	<button onclick="location.href='noticeupdate?noticeNo=${nvo.noticeNo}'">수정</button> 
 	
 
 

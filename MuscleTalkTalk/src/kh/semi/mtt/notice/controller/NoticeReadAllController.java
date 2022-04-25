@@ -36,10 +36,11 @@ public class NoticeReadAllController extends HttpServlet {
 		
 		String currentPageStr = request.getParameter("page");
 		try {
-//			if(currentPageStr = request.getParameter("page"){
-//				
-//			})
-			currentPage = Integer.parseInt(currentPageStr);
+			if(currentPageStr !=null){
+				currentPage = Integer.parseInt(currentPageStr);
+			} else {
+				System.out.println("널이에요");
+			}
 		}catch(NumberFormatException e) {
 			e.printStackTrace();
 		}
@@ -76,12 +77,12 @@ public class NoticeReadAllController extends HttpServlet {
 		if(endNnum>totalCnt) {
 			endNnum = totalCnt;
 		}
-		System.out.println("rnum:"+ startNnum + "~"+endNnum);
+		System.out.println("nnum:"+ startNnum + "~"+endNnum);
 		
 		ArrayList<NoticeVo> result = service.readAllNotice(startNnum, endNnum);
 		System.out.println(result);
 		
-		request.setAttribute("boardlist", result);
+		request.setAttribute("notilist", result);
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("currentPage", currentPage);
