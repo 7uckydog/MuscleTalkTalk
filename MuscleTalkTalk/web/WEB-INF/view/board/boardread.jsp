@@ -15,12 +15,13 @@
 	BoardVo vo = (BoardVo)request.getAttribute("bvo");
 	ArrayList<CommentVo> cVoList = (ArrayList<CommentVo>)request.getAttribute("cVoList");
 %>
-	<p>${vo.boardTitle }</p>
-	<p>%{vo.boardContent}</p>
+
+	<p>${bvo.boardTitle }</p>
+	<p>${bvo.boardContent}</p>
 	<hr>
 	<form action="commentinsert.ax" method="post">
 		<input type="hidden" name="bNo" value="<%= vo.getBoardNo() %>">
-		<input type="text" name="reComment">
+		<input type="text" name="reComment" autocomplete="off">
 		<button type="submit">댓글등록</button>
 	</form>
 	<hr>

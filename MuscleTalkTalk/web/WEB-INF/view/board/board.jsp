@@ -14,11 +14,23 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>자유게시판</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <%@ include file="/WEB-INF/view/font.jsp"%>
 <style>
 /* section boardcss */
+a{
+      text-decoration: none;
+      color: black;
+}
+a:visited {
+      text-decoration: none;
+      color: black;
+}
+a:link{
+      text-decoration: none;
+      color: black;
+} 
+
 section {
 	margin-left: 210px;
 	background-color: white;
@@ -26,6 +38,8 @@ section {
 	width: 930px;
 	height: 2000px;
 	position: relative;
+	font-family:'THEmpgtM';
+	text-decoration: none;
 }
 
 #board_main {
@@ -112,6 +126,7 @@ section {
 	font-size: 12px;
 	padding: 12px auto;
 	float: right;
+	cursor: pointer;
 }
 
 #input_search {
@@ -201,6 +216,7 @@ section {
 	float: right;
 	font-size: 12px;
 	margin-right: 60px;
+	cursor: pointer;
 	/* position: absolute; */
 	/* right: 60px; */
 }
@@ -222,7 +238,7 @@ section {
 		<div id="board_main">게시판</div>
 		<div id="board_category">
 			<a href="">통합 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="">자유 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
-				href="">루틴 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="">공지사항</a>
+				href="">루틴 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="noticereadall">공지사항</a>
 		</div>
 		<div id="board_note">
 			<div id="note_title">게시판 유의사항</div>
@@ -269,8 +285,8 @@ section {
 					<td><a href="boardread?bno=${vo.boardNo}">${vo.boardNo }</a></td>
 					<td><a href="boardread?bno=${vo.boardNo }">${vo.boardTitle }</a></td>
 					<td>${vo.boardDate }</td>
-					<td>&nbsp;&nbsp;&nbsp;0</td>
 					<td>&nbsp;&nbsp;&nbsp;${vo.boardCount }</td>
+					<td>&nbsp;&nbsp;&nbsp;0</td>
 					<td>${vo.memberNickname }</td>
 				</tr>
 			</c:forEach>
@@ -290,8 +306,7 @@ section {
 		</div>
 			<button onclick="location.href = 'boardinsert';" id="write_btn">글쓰기</button>
 	</section>
-
-
+	
 	<%@ include file="/WEB-INF/view/footer.jsp"%>
 
 

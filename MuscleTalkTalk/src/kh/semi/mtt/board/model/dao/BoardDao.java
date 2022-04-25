@@ -22,7 +22,7 @@ public class BoardDao {
 	public int insertBoard(Connection conn, BoardVo vo) {
 //		String m_nickname = "aaa";
 		int memberNo = 13;
-		int board_count = 20;
+		int board_count = 0;
 		int result = 0;
 //		BOARD_NO          NOT NULL NUMBER         
 //		MEMBER_NO         NOT NULL NUMBER         
@@ -55,6 +55,9 @@ public class BoardDao {
 				   +" from tb_board b , tb_member m "
 				   +" WHERE b.MEMBER_NO = m.MEMBER_NO AND BOARD_NO=? ";
 		
+		String sql2 = "update tb_board set board_count = board_count+1 where board_no=?";
+		int result = 0;
+				
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, boardNo);
@@ -65,15 +68,26 @@ public class BoardDao {
 				vo.setBoardTitle(rs.getString("BOARD_TITLE"));
 				vo.setMemberNickname(rs.getString("MEMBER_NICKNAME"));
 				vo.setBoardContent(rs.getString("BOARD_CONTENT"));
-				vo.setBoardCount(rs.getInt("BOARD_COUNT"));
+				vo.setBoardCount(rs.getInt("BOARD_COUNT")+1);
 				vo.setBoardDate(rs.getDate("BOARD_DATE"));
+				
+										//
+
+				close(pstmt);
+				
+				pstmt = conn.prepareStatement(sql2);
+				pstmt.setInt(1, boardNo);
+				result = pstmt.executeUpdate();
+				if(result == 1) {
+					System.out.println("BoardDao에서 조회수 1증가 됨");
+				}
 			}
 			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
 			close(rs);
-			close(stmt);
+			close(pstmt);
 		}
 		return vo;
 		
@@ -127,6 +141,27 @@ public class BoardDao {
 		
 		return volist;
 	}
+	public int boardViewCount(Connection conn ,BoardVo vo) {
+		String sql = "update tb_board set board_count = board_count+1 where board_no=?";
+		
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, vo.getBoardNo());
+			result = pstmt.executeUpdate();
+			
+			System.out.println("조회수 1증가");
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(conn);
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	
 	public int countBoard(Connection conn) {
 		int result = 0;
 		String sql = "select count(*) as cnt from tb_board";
