@@ -261,10 +261,47 @@ section {
 			<!-- </div> -->
 		</div>
 		<select id="sort">
-			<option value="1">최신순</option>
-			<option value="2">조회순</option>
-			<option value="3">댓글순</option>
+			<option class="Filter" name="Filter" value="1">최신순</option>
+			<option class="Filter" name="Filter" value="2">조회순</option>
+			<option class="Filter" name="Filter" value="3">댓글순</option>
 		</select>
+		<script type="text/javascript">
+		$("#sort").on("click",function(){
+					console.log("test");
+					$.ajax({
+						url:"filterAjaxController",
+						type:"post",
+						data:{filters:$(".Filter").val(), page:1},
+						datatype:"json",
+						success: function(result) {
+								console.log(result);
+								console.log("씨");
+								
+								var html = "";
+								if(result.boardlist.length !="undefined" && result.boardlist.length != null){
+								for(var i = 0; i < result.boardlist.length; i++){
+				                    var vo = result.boardlist[i];
+				                    html += '<tr>';
+				                    html += '<td><a href="boardread?bno='+vo.boardNo+'">'+vo.boardNo+'</a></td>';
+				                    html += '<td><a href="boardread?bno='+vo.boardNo+'">'+vo.boardTitle+' ['+vo.rCnt+']</a></td>';
+				                    html += '<td>'+vo.boardDate+'</td>';
+				                    html += '<td>'+vo.boardCount+'</td>';
+				                    html += '<td>'+vo.memberNickname+'</td>';
+				                    html += '<td>'+vo.rCnt+'</td>';
+				                    html += '</tr>';
+				                }
+								}
+								console.log("씨2");
+								$("#table_title").nextAll().remove();
+								$("#board_table").append(html);
+								console.log("씨3");
+						},
+						error: function(result){
+							console.log("ajax 오류");
+						}
+						});
+					});
+		</script>
 		<table id="board_table">
 			<tr>
 				<td colspan="6" class="table_line"></td>
@@ -286,7 +323,7 @@ section {
 					<td><a href="boardread?bno=${vo.boardNo }">${vo.boardTitle }</a></td>
 					<td>${vo.boardDate }</td>
 					<td>&nbsp;&nbsp;&nbsp;${vo.boardCount }</td>
-					<td>&nbsp;&nbsp;&nbsp;0</td>
+					<td>${vo.rCnt }</td>
 					<td>${vo.memberNickname }</td>
 				</tr>
 			</c:forEach>
@@ -297,7 +334,7 @@ section {
 					<a class="Page" href="BoardReadAll?page=${startPage-1 }">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;
 			</c:if>
 				<c:forEach begin="${startPage }" end="${endPage }" var="p">
-					<a class="Page" href="BoardReadAll?page=${p }">${p }</a>&nbsp;&nbsp;&nbsp;&nbsp;
+					<a class="Page" id="xxx" href="BoardReadAll?page=${p }">${p }</a>&nbsp;&nbsp;&nbsp;&nbsp;
 			</c:forEach>
 				<c:if test="${endPage < totalpageCnt}">
 					<a class="Page" href="BoardReadAll?page=${endPage+1 }">다음</a>

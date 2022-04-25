@@ -24,6 +24,7 @@
 		<input type="text" name="reComment" autocomplete="off">
 		<button type="submit">댓글등록</button>
 	</form>
+	<button onclick = "location.href = 'boardupdate?bno=${bvo.boardNo}'">수정하기</button>
 	<hr>
 	<%
 	if(cVoList !=null){

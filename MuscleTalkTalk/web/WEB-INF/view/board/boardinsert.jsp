@@ -10,7 +10,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <%@ include file="/WEB-INF/view/font.jsp"%>
 <%@ include file="/WEB-INF/view/csslink.jsp"%>
-<script type="text/javascript" src="${pageContext.request.contextPath}/ckeditor/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/4.18.0/standard/ckeditor.js"></script>
 <%-- <link href="<%= request.getContextPath() %>/css/reset.css" rel="stylesheet" type="text/css"> --%>
 <style>
         @font-face {
