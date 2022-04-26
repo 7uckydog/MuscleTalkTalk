@@ -28,7 +28,7 @@ public class PtService {
 		conn = getConnection();
 		
 		result = dao.readAllPt(conn);
-		System.out.println("PtService readAllPt()ë§¤ì†Œë“œ ê²°ê³¼:  " + result);
+		System.out.println("PtService readAllPt()¸Å¼Òµå °á°ú:  " + result);
 		close(conn);
 		return result;
 	}
