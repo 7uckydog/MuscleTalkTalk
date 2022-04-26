@@ -38,8 +38,7 @@ public class EmailDao {
 	// email 주소로 해당하는 난수 찾기 (메일 보내기용) 
 	public EmailVo findRandomNumber(Connection conn, String emailCertificationEmail) {
 		EmailVo evo = null;
-		String sql = "select email_certification_code from tb_email_certification where email_certification_email = ?";
-		System.out.println("이메일이 잘못 됬다??" + emailCertificationEmail);
+		String sql = "select email_certification_code, email_certification_email from tb_email_certification where email_certification_email = ?";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, emailCertificationEmail);
@@ -48,7 +47,7 @@ public class EmailDao {
 				if(rs.next()) {
 					evo = new EmailVo();
 					evo.setEmailCertificationCode(rs.getString("email_certification_code"));
-					System.out.println("두근두근 가져온 값음????:"+rs.getString("email_certification_code"));
+					evo.setEmailCertificationEmail(rs.getString("email_certification_email"));
 				}
 			}
 
@@ -71,6 +70,7 @@ public class EmailDao {
 			pstmt.setString(1, emailCertificationCode);
 			pstmt.setString(2, emailCertificationEmail);
 			rs = pstmt.executeQuery();
+			System.out.println("checkEmailAndCode rs: " + rs);
 			if(rs!=null) {
 				if(rs.next()) {
 					evo = new EmailVo();
@@ -84,6 +84,7 @@ public class EmailDao {
 			close(rs);
 			close(pstmt);
 		}
+		System.out.println("checkEmailAndCode evo: " + evo);
 		return evo;
 	}
 	

@@ -218,16 +218,9 @@
     </footer>
     
     <script>
-		/* $("#findId").click(function(){
-			location.href = "TestFindId";
-		}); */
-		/*
-		$("#findId").click(function(){
-			location.href = "";
+		$("#join").click(function(){
+			location.href = "memberjoin";
 		});
-		$("#findPwd").click(function(){
-			location.href = "";
-		}); */
 	</script>
 </body>
 </html>

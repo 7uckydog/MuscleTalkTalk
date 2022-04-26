@@ -38,7 +38,8 @@ public class EmailService {
 		conn = getConnection();
 		
 		System.out.println("코드 일치하는지 확인 서비스");
-			
+		System.out.println("checkEmailAndCode에서 emailCertificationCode: " + emailCertificationCode);	
+		System.out.println("checkEmailAndCode에서 emailCertificationEmail: " + emailCertificationEmail);	
 		EmailVo evo = new EmailDao().checkEmailAndCode(conn, emailCertificationCode, emailCertificationEmail);
 		close(conn);
 		return evo;

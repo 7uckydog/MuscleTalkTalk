@@ -53,7 +53,7 @@ public class SendMailForIdController extends HttpServlet {
 			request.getRequestDispatcher("WEB-INF/view/member/findId.jsp").forward(request, response);
 		} else {
 			// 회원 정보 조회 성공 -> 메일 방송
-			SendMail.send("[머슬톡톡] 아이디 찾기 인증번호", "안녕하세요 머슬톡톡입니다. 아이디 찾기를 위한 인정번호 안내드립니다. 인증번호: " + evo.getEmailCertificationCode() , memberEmail);
+			SendMail.send("[머슬톡톡] 아이디 찾기 인증번호", "안녕하세요 머슬톡톡입니다. 아이디 찾기를 위한 인증번호 안내드립니다. 인증번호: " + evo.getEmailCertificationCode() , memberEmail);
 			response.setContentType("text/html; charset=UTF-8");
 		}
 		out.flush();

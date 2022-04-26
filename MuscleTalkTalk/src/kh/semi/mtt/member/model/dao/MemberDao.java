@@ -129,5 +129,65 @@ public class MemberDao {
 		return retVo;
 	}
 	
+	// 아아디 중복 확인용
+	public int idCheck(Connection conn, String memberId) {
+		int result = 0;
+		String sql = "select count(*) from tb_member where member_id = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberId);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	// 닉네임 중복 확인용
+	public int nicknameCheck(Connection conn, String memberNickname) {
+		int result = 0;
+		String sql = "select count(*) from tb_member where member_nickname = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberNickname);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	// 이메일 중복 확인용
+	public int emailCheck(Connection conn, String memberEmail) {
+		int result = 0;
+		String sql = "select count(*) from tb_member where member_email = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberEmail);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+				System.out.println("dao:" + result);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
 	
 }

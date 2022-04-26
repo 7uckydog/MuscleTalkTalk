@@ -45,4 +45,37 @@ public class MemberService {
 		close(conn);
 		return retVo;
 	}
+	
+	// 아이디 중복 체크용
+	public int idCheck(String memberId) {
+		int result = 0;
+		Connection conn = null;
+		conn = getConnection();
+		
+		result = new MemberDao().idCheck(conn, memberId);
+		close(conn);
+		return result;
+	}
+	
+	// 닉네임 중복 체크용
+	public int nicknameCheck(String memberNickname) {
+		int result = 0;
+		Connection conn = null;
+		conn = getConnection();
+			
+		result = new MemberDao().nicknameCheck(conn, memberNickname);
+		close(conn);
+		return result;
+	}
+	
+	// 이메일 중복 체크용
+		public int emailCheck(String memberEmail) {
+			int result = 0;
+			Connection conn = null;
+			conn = getConnection();
+				
+			result = new MemberDao().emailCheck(conn, memberEmail);
+			close(conn);
+			return result;
+		}
 }
