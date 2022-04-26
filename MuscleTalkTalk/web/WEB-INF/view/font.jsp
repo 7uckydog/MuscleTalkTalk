@@ -8,6 +8,12 @@
        font-family: "THEmpgtB";
        src: url("<%= request.getContextPath() %>/cssfolder/fonts/THEmpgtB.woff");
    }
+   
+   @font-face {
+       font-family: "THEmpgtR";
+       src: url("<%= request.getContextPath() %>/cssfolder/fonts/THEmpgtR.woff");
+   }
+   
 	body{
 	    width: 1200px;
 	    margin: 0 auto;

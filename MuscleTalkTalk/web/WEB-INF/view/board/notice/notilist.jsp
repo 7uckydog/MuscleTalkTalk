@@ -3,6 +3,7 @@
 <%@page import="kh.semi.mtt.member.model.vo.MemberVo"%>
 <%@page import="kh.semi.mtt.notice.model.vo.NoticeVo"%>
 <%@ include file="/WEB-INF/view/csslink.jsp"%>
+<%@ include file="/WEB-INF/view/font.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -15,6 +16,19 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
 <style>
+a{
+      text-decoration: none;
+      color: black;
+}
+a:visited {
+      text-decoration: none;
+      color: black;
+}
+a:link{
+      text-decoration: none;
+      color: black;
+} 
+
 section {
 	margin-left: 210px;
 	background-color: white;
@@ -22,6 +36,7 @@ section {
 	width: 930px;
 	height: 2000px;
 	position: relative;
+	font-family:'THEmpgtM';
 	}
 
 #notice_main {
@@ -61,21 +76,6 @@ section {
 	font-size: 12px;
 }
 
-
-
-#board_information {
-	border: 1px solid #4B4DB2;
-	background-color: #4B4DB2;
-	width: 800px;
-	box-sizing: border-box;
-	height: 55px;
-	padding: 10px 30px 10px 50px;
-	margin: 0px auto;
-	text-align: left;
-	position: relative;
-	overflow: hidden;
-	vertical-align: middle;
-}
 
 
 
@@ -142,9 +142,10 @@ section {
 	box-sizing: border-box;
 }
 
-.search_board {
+.search_notice {
 	display: inline-block;
 	float: right;
+	margin-right: 60px;
 }
 
 .Pageing {
@@ -213,7 +214,7 @@ section {
 				<button type="submit" id="btn_search">검색</button>
 				<input id="input_search" type="text" name="s" value=""
 					placeholder="검색어입력">
-			</form>
+		</form>
 	</section>
 	<%@ include file="/WEB-INF/view/footer.jsp"%>
 </body>
