@@ -266,35 +266,37 @@ section {
 			<option class="Filter" name="Filter" value="3">댓글순</option>
 		</select>
 		<script type="text/javascript">
-		$("#sort").on("click",function(){
+		
+		$("#sort").on("change",function(){
 					console.log("test");
+					console.log($("#sort").val());
+					//$(".Filter").val()
 					$.ajax({
 						url:"filterAjaxController",
 						type:"post",
-						data:{filters:$(".Filter").val(), page:1},
-						datatype:"json",
+						data:{filters:$("#sort").val(), page:${currentPage}},
+						dataType:"json",
 						success: function(result) {
 								console.log(result);
-								console.log("씨");
-								
-								var html = "";
-								if(result.boardlist.length !="undefined" && result.boardlist.length != null){
+								//console.log(result);
+ 								var html = "";
 								for(var i = 0; i < result.boardlist.length; i++){
 				                    var vo = result.boardlist[i];
-				                    html += '<tr>';
+				                    html += '<tr class="table_content">';
 				                    html += '<td><a href="boardread?bno='+vo.boardNo+'">'+vo.boardNo+'</a></td>';
-				                    html += '<td><a href="boardread?bno='+vo.boardNo+'">'+vo.boardTitle+' ['+vo.rCnt+']</a></td>';
+				                    html += '<td><a href="boardread?bno='+vo.boardNo+'">'+vo.boardTitle+'</a></td>';
 				                    html += '<td>'+vo.boardDate+'</td>';
 				                    html += '<td>'+vo.boardCount+'</td>';
-				                    html += '<td>'+vo.memberNickname+'</td>';
 				                    html += '<td>'+vo.rCnt+'</td>';
+				                    html += '<td>'+vo.memberNickname+'</td>';
 				                    html += '</tr>';
 				                }
-								}
 								console.log("씨2");
-								$("#table_title").nextAll().remove();
+								console.log($("#table_title").next());
+								$("#table_title").next().nextAll().remove();
 								$("#board_table").append(html);
 								console.log("씨3");
+								return;
 						},
 						error: function(result){
 							console.log("ajax 오류");
