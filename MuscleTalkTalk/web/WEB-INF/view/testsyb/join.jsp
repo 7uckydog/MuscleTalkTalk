@@ -279,7 +279,7 @@
         </div>
 
         <div id="user_input">
-            <form id="submit" action="login" method="post">
+            <form id="submit" action="memberjoin.do" method="post" enctype="multipart/form-data">
                 <div id="first_line">
                     <p id="id_html">아이디 *</p>
                     <input type="text" id="member_id" name="member_id" placeholder="아이디 입력" required>
@@ -361,21 +361,21 @@
                 <hr>
                 <br>
                 <div id="thirteenth_line">
-                    <input type="checkbox" name="trainer_join" value="trainer_join" id="trainer_join"> 
-                    <label for="trainer_checkbox">
+                    <input type="checkbox" name="trainer_join" id="trainer_join"> 
+                    <label for="trainer_join">
                         트레이너용 회원가입을 원하십니까?
                     </label>
                 </div>
                 <div id="fourteenth_line">
                     <p>인증 서류</p>
-                    <input type="file" id="file_upload" onchange="f_check(this)" value="파일" name="파일" accept="image/jpg, image/jpeg, image/png"> 
+                    <input type="file" id="file_upload" onchange="f_check(this)" value="file_upload" name="file_upload" accept="image/jpg, image/jpeg, image/png"> 
                 </div>
                 <div id="fifteenth_line">
                     <p>헬스장명</p>
                     <input type="text" id="gym_name" name="gym_name" placeholder="소속된 헬스장명 입력"><br>
                 </div>
                 <div id="sixteen_line">
-                    <p>헬스장명</p>
+                    <p>헬스장 주소</p>
                     <input type="text" id="gym_location" name="gym_location" placeholder="소속된 헬스장 주소 입력"><br>
                 </div>
                 <br>
@@ -677,7 +677,8 @@
 					    						                            $("#modal_all").hide();
 					    						                        }
 			    						                           });
-		    					                       		}
+		    					                        	// 일치하지 않을 시 TODO
+ 		    					                       		}
 		    					                       });
 		    				                	 },
 		    				                	 error: function(request, status, error){
@@ -841,15 +842,20 @@
          
         // 트레이너 체크 박스 체크시 내용 확인
         if($("#trainer_join").prop("checked")){
-		    if($("#file_upload" == "")){
+        	console.log("test 시작");
+        	console.log($("#file_upload" == ""));
+        	console.log($("#gym_name" == ""));
+        	console.log($("#gym_location" == ""));
+        	console.log("test 종료");
+		    if($("#file_upload")== ""){
 		        alert("경력을 인증할 이미지를 첨부해주세요.");
 	            return rt = false;
 		    }
-		    if($("#gym_name" == "")){
+		    if($("#gym_name") == ""){
 		        alert("소속된 헬스장명을 입력해주세요.");
 		        return rt = false;
 		    }
-		    if($("#gym_location"== "")){
+		    if($("#gym_location")== ""){
 		        alert("소속된 헬스장명을 입력해주세요.");
 		        return rt = false;
 		    }  
@@ -876,6 +882,10 @@
 			return false;
 		}
 	};
+	
+	$("#trainer_join").click(function(){
+		console.log($("#trainer_join").val());
+	})
 	/* $("#file_upload").on("input", function() {
 		console.log($(this)[0].files[0].name);
 		var test1 = $(this)[0].files[0].name.lastIndexOf('.');

@@ -1,4 +1,4 @@
-package kh.semi.mtt.member.model.dao;
+package kh.semi.mtt.trainer.model.dao;
 
 import static kh.semi.mtt.common.jdbc.JdbcTemplate.close;
 
@@ -190,35 +190,4 @@ public class MemberDao {
 		return result;
 	}
 	
-	// 일반회원용 회원가입
-	public int insertMember(Connection conn, MemberVo vo) {
-		int result = 0;
-		String sql = "insert into tb_member (member_no, member_id, member_password, member_nickname, member_email, member_name, member_phone, "
-				+ "member_gender, member_age, member_height, member_weight, member_purpose, member_concern, member_trainer, "
-				+ "member_absence, member_join_date) values((select nvl(max(member_no),0)+1 from tb_member), "
-				+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default, default, default)";
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, vo.getMemberId());
-			pstmt.setString(2, vo.getMemberPassword());
-			pstmt.setString(3, vo.getMemberNickname());
-			pstmt.setString(4, vo.getMemberEmail());
-			pstmt.setString(5, vo.getMemberName());
-			pstmt.setString(6, vo.getMemberPhone());
-			pstmt.setString(7, vo.getMemberGender());
-			pstmt.setInt(8, vo.getMemberAge());
-			pstmt.setInt(9, vo.getMemberHeight());
-			pstmt.setInt(10, vo.getMemberWeight());
-			pstmt.setInt(11, vo.getMemberPurpose());
-			pstmt.setInt(12, vo.getMemberConcern());
-			
-			result = pstmt.executeUpdate();
-		} catch(SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		return result;
-	}
 }

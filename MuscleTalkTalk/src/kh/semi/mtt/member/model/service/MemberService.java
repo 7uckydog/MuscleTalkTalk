@@ -78,4 +78,16 @@ public class MemberService {
 			close(conn);
 			return result;
 		}
+		
+	// 회원가입 - 회원 정보 insert
+		public int insertMember(MemberVo vo) {
+			int result = 0;
+			Connection conn = null;
+			conn = getConnection();
+			result = new MemberDao().insertMember(conn, vo);
+			
+			return result;
+		}
+		
+		
 }

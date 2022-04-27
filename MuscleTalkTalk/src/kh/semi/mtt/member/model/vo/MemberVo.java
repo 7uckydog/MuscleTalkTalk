@@ -1,28 +1,25 @@
 package kh.semi.mtt.member.model.vo;
 
+import java.sql.Date;
+
 public class MemberVo {
-//	private String mId;
-//	private String mNickname;
-//	private String email;
-//	private String phone;
-//	private String password;
-	
+
 	private String memberId;
 	private String memberPassword;
 	private String memberEmail;
 	private String memberName;
 	private String memberPhone;
 	private String memberGender;
-	private String memberAge;
-	private String memberHeight;
-	private String memberWeight;
-	private String memberPurpose;
-	private String memberConcern;
+	private int memberAge;
+	private int memberHeight;
+	private int memberWeight;
+	private int memberPurpose;
+	private int memberConcern;
 	private String memberPhoto;
 	private String memberTrainer;
 	private String memberAbsence;
-	private String memberJoinDate;
-	private String memberLeaveDate;
+	private Date memberJoinDate;
+	private Date memberLeaveDate;
 	private String memberNickname;
 	
 	@Override
@@ -72,34 +69,34 @@ public class MemberVo {
 	public void setMemberGender(String memberGender) {
 		this.memberGender = memberGender;
 	}
-	public String getMemberAge() {
+	public int getMemberAge() {
 		return memberAge;
 	}
-	public void setMemberAge(String memberAge) {
+	public void setMemberAge(int memberAge) {
 		this.memberAge = memberAge;
 	}
-	public String getMemberHeight() {
+	public int getMemberHeight() {
 		return memberHeight;
 	}
-	public void setMemberHeight(String memberHeight) {
+	public void setMemberHeight(int memberHeight) {
 		this.memberHeight = memberHeight;
 	}
-	public String getMemberWeight() {
+	public int getMemberWeight() {
 		return memberWeight;
 	}
-	public void setMemberWeight(String memberWeight) {
+	public void setMemberWeight(int memberWeight) {
 		this.memberWeight = memberWeight;
 	}
-	public String getMemberPurpose() {
+	public int getMemberPurpose() {
 		return memberPurpose;
 	}
-	public void setMemberPurpose(String memberPurpose) {
+	public void setMemberPurpose(int memberPurpose) {
 		this.memberPurpose = memberPurpose;
 	}
-	public String getMemberConcern() {
+	public int getMemberConcern() {
 		return memberConcern;
 	}
-	public void setMemberConcern(String memberConcern) {
+	public void setMemberConcern(int memberConcern) {
 		this.memberConcern = memberConcern;
 	}
 	public String getMemberPhoto() {
@@ -120,16 +117,16 @@ public class MemberVo {
 	public void setMemberAbsence(String memberAbsence) {
 		this.memberAbsence = memberAbsence;
 	}
-	public String getMemberJoinDate() {
+	public Date getMemberJoinDate() {
 		return memberJoinDate;
 	}
-	public void setMemberJoinDate(String memberJoinDate) {
+	public void setMemberJoinDate(Date memberJoinDate) {
 		this.memberJoinDate = memberJoinDate;
 	}
-	public String getMemberLeaveDate() {
+	public Date getMemberLeaveDate() {
 		return memberLeaveDate;
 	}
-	public void setMemberLeaveDate(String memberLeaveDate) {
+	public void setMemberLeaveDate(Date memberLeaveDate) {
 		this.memberLeaveDate = memberLeaveDate;
 	}
 
