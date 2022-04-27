@@ -45,6 +45,7 @@ public class BoardReadController extends HttpServlet {
 		result.setBoardContent(result.getBoardContent().replaceAll("(\r\n|\n)", "<br>"));
 		result.setBoardContent(result.getBoardContent().replaceAll("", ""));
 		System.out.println(result);
+		
 		ArrayList<CommentVo> cVoList = new CommentService().readBoardReComment(bNo);
 		System.out.println(cVoList);
 		request.setAttribute("bvo", result);

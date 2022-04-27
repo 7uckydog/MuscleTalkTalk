@@ -251,7 +251,7 @@ section {
 
 		</div>
 		<div id="board_information">
-			<div id="board_count">전체게시물 수:</div>
+			<div id="board_count">전체게시물 수: &nbsp;${boardreadall.get(0).boardNo}</div>
 			<!-- <div id="board_search"> -->
 			<form class="search_board">
 				<button type="submit" id="btn_search">검색</button>

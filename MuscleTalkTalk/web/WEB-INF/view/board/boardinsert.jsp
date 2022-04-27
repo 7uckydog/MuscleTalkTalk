@@ -200,7 +200,7 @@
         </div>
         <form action="boardinsert.do" method="post">
         <div>
-            <input id="board_title" name="boardTitle" type="text" placeholder="게시물 제목을 입력해 주세요.(최대 10자)">
+            <input id="board_title" name="boardTitle" type="text" required placeholder="게시물 제목을 입력해 주세요.(최대 10자)">
             <select name="b" id="board_select">
                 <option id="board_select1" name="board_category" value="f">자유 게시판</option>
                 <option id="board_select1" name="board_category" value="r">루틴 게시판</option>

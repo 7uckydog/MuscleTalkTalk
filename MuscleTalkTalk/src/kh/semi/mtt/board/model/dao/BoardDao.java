@@ -34,14 +34,6 @@ public class BoardDao {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
 	public int updateBoard(Connection conn, BoardVo vo) {
 		int result = 0;
 		String sql = "update tb_board set BOARD_TITLE=?, BOARD_CONTENT=? where BOARD_NO=?";
@@ -63,9 +55,7 @@ public class BoardDao {
 		return result;
 	}
 	
-	
-	
-	
+
 	
 	public int insertBoard(Connection conn, BoardVo vo) {
 //		String m_nickname = "aaa";
@@ -99,9 +89,11 @@ public class BoardDao {
 		
 	public BoardVo readBoard(Connection conn, int boardNo) {
 		BoardVo vo = null;
-		String sql = "select b.BOARD_NO, m.MEMBER_nickname, b.BOARD_TITLE, b.BOARD_CONTENT, b.BOARD_COUNT, b.BOARD_DATE "
-				   +" from tb_board b , tb_member m "
-				   +" WHERE b.MEMBER_NO = m.MEMBER_NO AND BOARD_NO=? ";
+		String sql = "select R, board_no, member_nickname, board_title, board_content, board_count, board_date, board_category_no, r_cnt from "
+				+ " (select rownum r, t1.* from (select b1.*,(select count(*) from "
+				+ " tb_comment r1 where r1.board_no = b1.board_no) r_cnt "
+				+ " from tb_board b1 order by board_no desc) t1)tba join tb_member tbm on tba.member_no = tbm.member_no "
+				+ " where board_no=?";
 		
 		String sql2 = "update tb_board set board_count = board_count+1 where board_no=?";
 		int result = 0;
@@ -118,9 +110,7 @@ public class BoardDao {
 				vo.setBoardContent(rs.getString("BOARD_CONTENT"));
 				vo.setBoardCount(rs.getInt("BOARD_COUNT")+1);
 				vo.setBoardDate(rs.getDate("BOARD_DATE"));
-				
-										//
-
+				vo.setrCnt(rs.getInt("R_CNT"));
 				close(pstmt);
 				
 				pstmt = conn.prepareStatement(sql2);
@@ -256,7 +246,5 @@ public class BoardDao {
 		return result;
 
 	}
-	
-	
 	
 }

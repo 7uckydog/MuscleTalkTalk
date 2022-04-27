@@ -49,7 +49,7 @@ public class BoardReadAllControllerServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		final int pageSize = 16; // 한페이지에 보여줄 행
+		final int pageSize = 13; // 한페이지에 보여줄 행
 		final int pageBlock = 3; // 페이징에 나타날 페이지수
 		int startPage = 0;
 		int endPage = 0;
@@ -94,7 +94,9 @@ public class BoardReadAllControllerServlet extends HttpServlet {
 		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("totalpageCnt", totalpageCnt);
+		System.out.println("boardreadall: "+result);
 		request.getRequestDispatcher("WEB-INF/view/board/board.jsp").forward(request, response);
+	
 	}
 
 		private int countBoard() {
