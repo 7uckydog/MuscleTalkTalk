@@ -221,15 +221,18 @@ button {
 				</script>
 			</div>
 			<div id="btn_cancel_register">
-				<button onclick="location.href = 'BoardReadAll';" id="board_cancel">취소</button>
-				<button onclick="location.href = 'boarddelete?bno=${bvo.boardNo}'"
+				<button type="button" onclick="location.href = 'BoardReadAll';" id="board_cancel">취소</button>
+				<button
 					id="board_register" type="submit">글 수정</button>
 			</div>
-			<button class="btn_delete"
-				onclick="location.href = 'boarddelete?bno=${bvo.boardNo}'">글
-				삭제</button>
+			<button type="button" class="btn_delete">글삭제</button>
 		</form>
 	</section>
 	<%@ include file="/WEB-INF/view/footer.jsp"%>
+	<script type="text/javascript">
+		$(".btn_delete").click(function() {
+			location.href="boarddelete?bno=${bvo.boardNo}";
+		});
+	</script>
 </body>
 </html>

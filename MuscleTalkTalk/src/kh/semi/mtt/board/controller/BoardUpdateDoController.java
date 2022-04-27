@@ -14,13 +14,13 @@ import kh.semi.mtt.board.model.vo.BoardVo;
  * Servlet implementation class boardupdatedo
  */
 @WebServlet("/boardupdate.do")
-public class boardupdatedo extends HttpServlet {
+public class BoardUpdateDoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public boardupdatedo() {
+    public BoardUpdateDoController() {
         super();
         // TODO Auto-generated constructor stub
     }
