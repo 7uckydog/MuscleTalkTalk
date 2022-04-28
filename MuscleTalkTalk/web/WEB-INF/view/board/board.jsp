@@ -14,22 +14,25 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>자유게시판</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <%@ include file="/WEB-INF/view/font.jsp"%>
 <style>
 /* section boardcss */
-a{
-      text-decoration: none;
-      color: black;
+a {
+	text-decoration: none;
+	color: black;
 }
+
 a:visited {
-      text-decoration: none;
-      color: black;
+	text-decoration: none;
+	color: black;
 }
-a:link{
-      text-decoration: none;
-      color: black;
-} 
+
+a:link {
+	text-decoration: none;
+	color: black;
+}
 
 section {
 	margin-left: 210px;
@@ -38,7 +41,7 @@ section {
 	width: 930px;
 	height: 2000px;
 	position: relative;
-	font-family:'THEmpgtM';
+	font-family: 'THEmpgtM';
 	text-decoration: none;
 }
 
@@ -220,7 +223,10 @@ section {
 	/* position: absolute; */
 	/* right: 60px; */
 }
-
+.Pageingclick:focus {
+	background-color: #4B4DB2;
+	color: white;
+}
 </style>
 <script>
 	$(function() {
@@ -251,7 +257,8 @@ section {
 
 		</div>
 		<div id="board_information">
-			<div id="board_count">전체게시물 수: &nbsp;${boardreadall.get(0).boardNo}</div>
+			<div id="board_count">전체게시물 수:
+				&nbsp;${boardreadall.get(0).boardNo}</div>
 			<!-- <div id="board_search"> -->
 			<form class="search_board">
 				<button type="submit" id="btn_search">검색</button>
@@ -343,9 +350,9 @@ section {
 				</c:if>
 			</p>
 		</div>
-			<button onclick="location.href = 'boardinsert';" id="write_btn">글쓰기</button>
+		<button onclick="location.href = 'boardinsert';" id="write_btn">글쓰기</button>
 	</section>
-	
+
 	<%@ include file="/WEB-INF/view/footer.jsp"%>
 
 

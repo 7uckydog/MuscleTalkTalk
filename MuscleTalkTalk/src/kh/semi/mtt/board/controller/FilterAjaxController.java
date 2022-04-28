@@ -58,7 +58,7 @@ public class FilterAjaxController extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		final int pageSize = 10; // 한 페이지당 보여주는 행(글)의 갯수
+		final int pageSize = 13; // 한 페이지당 보여주는 행(글)의 갯수
 		final int pageBlock = 3; // 페이지 하단에 나타날 페이지 숫자의 수 / ex) 1 2 3 >>
 
 		int startPage = 0;

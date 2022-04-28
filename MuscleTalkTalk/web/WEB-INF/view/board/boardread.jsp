@@ -467,8 +467,10 @@ hr {
 		<div id="btn_cancel_register">
 			<button id="board_cancel">글 신고하기</button>
 			<button onclick="location.href = 'BoardReadAll'" id="board_register">확인</button>
-			<c:if test = "${empty ssMvo.memberNickname}">
+			<c:if test = "${ssMvo.memberNickname ==  bvo.memberNickname}">
+
 				<button class="btn_update" onclick="location.href = 'boardupdate?bno=${bvo.boardNo}'">수정하기</button>
+
 			</c:if>
 		</div>
 		<div class="report_modal">
