@@ -38,7 +38,7 @@ public class NoticeInsertDoController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("doPost - boardwrite.do");
+		System.out.println("doPost - noticeinsert.do");
 		
 		//한글깨짐방지
 //		request.setCharacterEncoding("UTF-8");

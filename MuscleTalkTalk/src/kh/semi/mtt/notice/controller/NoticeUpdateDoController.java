@@ -67,7 +67,7 @@ public class NoticeUpdateDoController extends HttpServlet {
 		}
 		
 		if(result < 1) { //글등록 실패
-			response.sendRedirect("noticeinsert");
+			response.sendRedirect("noticeupdate");
 		} else { //글등록 성공
 			response.sendRedirect("noticereadall");
 		}

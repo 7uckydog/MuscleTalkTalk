@@ -144,13 +144,13 @@
         </div>
         <form action="noticeupdate.do" method="post">
         <div>
-            <input id="notice_title" name="noticeTitle" type="text" placeholder="공지사항 제목 입력">
+            <input id="notice_title" name="notiTitle" type="text" placeholder="공지사항 제목 입력">
         </div>
         <div id="notice_content">
             공지사항 내용
         </div>
         <div id="textEditer">
-            <textarea id="notice_content1" name="noticeContent" placeholder="공지사항 내용을 입력해 주세요."></textarea>
+            <textarea id="notice_content1" name="notiContent" placeholder="공지사항 내용을 입력해 주세요."></textarea>
         	<script>
         		CKEDITOR.replace('notice_content1', {width :'800px', 
         											height : '360px',
@@ -165,19 +165,10 @@
             <button type="button" onclick="location.href = 'noticeReadAll';" id="notice_cancel">취소</button>
             <button id="notice_update_btn" type="submit">수정완료</button>
         </div>
+        <input type="hidden" name="noticeNo" value="${nvo.noticeNo}">
         </form>
     </section>
 
 
-
-	번호: ${nvo.noticeNo}
-	<form action="noticeupdate.do" method="post">  
-		제목: <input type="text" name="notiTitle" maxlength="100" required value="${nvo.notiTitle }"><br>
-		내용: <textarea name="notiContent" placeholder="한글 1000자까지" maxlength="1000" required value="${nvo.notiContent }"></textarea><br>
-		<hr>
-		<input type="hidden" name="noticeNo" value="${nvo.noticeNo}">
-		
-		<button type="submit">수정완료</button>
-	</form>
 </body>
 </html>

@@ -38,7 +38,6 @@ public class NoticeDao {
 		NoticeVo vo = null;            //1 첫줄 : 리턴자료형으로 변수선언
 		String sql = "select * from tb_notice where notice_no= ? ";   //2 둘째줄 : sql문 
 
-
 		try {  //4.
 			pstmt = conn.prepareStatement(sql);   //3. 
 			pstmt.setInt(1, noticeNo);     //7 : 위 2번 물음표 있어서 작성. 
@@ -54,13 +53,6 @@ public class NoticeDao {
 				
 				close(rs);
 				close(pstmt);
-				
-//				pstmt = conn.prepareStatement(sql2);   //3. 
-//				pstmt.setInt(1, noticeNo);     //7 : 위 2번 물음표 있어서 작성. 
-//				rs = pstmt.executeQuery();  //8
-//				String sql2 = upadte tb_notice
-//				pstmt = conn.prepareStatement(sql2);
-				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
