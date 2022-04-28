@@ -19,10 +19,11 @@
         }
         #member_info_read > ul {
             color: rgb(94, 94, 94);
-            width: 300px;
+            width: 400px;
             font-size: 11.5px;
             line-height: 35px;
             margin: 0 auto;
+            text-align: center;
         }
         #member_ctg{
             font-family:'THEmpgtR';
@@ -35,13 +36,12 @@
             font-family:'THEmpgtR';
             width: 75px;
             text-align: center;
+            clear: both;
+            
         }
         .info_info{
             font-family:'THEmpgtB';
             text-align: center;
-        }
-        #finally{
-        	margin-bottom: 100px;
         }
 
         #section2{

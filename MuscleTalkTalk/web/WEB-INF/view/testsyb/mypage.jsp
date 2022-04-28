@@ -48,7 +48,17 @@
             <div id="member_info_read">
             <!-- 트레이너라면 다르게 보여야 하기 때문에 추가 예정 TODO -->
                 <ul>
-                    <li id="member_ctg">회원</li>
+	                <li id="member_ctg">
+	                	<c:if test="${ssMvo.memberTrainer == 'F'}">
+		 					회원
+		 				</c:if>
+		 				<c:if test="${ssMvo.memberTrainer == 'R'}">
+		 					회원
+		 				</c:if>
+		 				<c:if test="${ssMvo.memberTrainer == 'T'}">
+		 					트레이너
+		 				</c:if>
+		 			</li>
                     <li class="info_menu">성명</li>
                     <li class="info_info">${ssMvo.memberName}</li>
                     <li class="info_menu">아이디</li>
@@ -118,13 +128,14 @@
 		                    </c:otherwise>
 	                    </c:choose>
  					</li>
- 			<!-- 트레이너라면 더 보이게 -->
- 			<c:if test="${ssMvo.memberTrainer == 'T' }">
- 				<li class="info_menu">헬스장명</li>
-                <li class="info_info">${ssMvo.gymName}</li>
-                <li class="info_menu">헬스장 주소</li>
-                <li class="info_info">${ssMvo.gymLocation}</li>
- 			</c:if>		
+		 			<!-- 트레이너라면 더 보이게 -->
+		 			<c:if test="${ssMvo.memberTrainer == 'T' }">
+		 				<li class="info_menu">헬스장명</li>
+		                <li class="info_info">${ssMvo.gymName}</li>
+		                <li class="info_menu">헬스장 주소</li>
+		                <li class="info_info">${ssMvo.gymLocation}</li>
+		 			</c:if>
+		 		</ul>		
         </section>
         <section id="section2">
             <div>
@@ -175,6 +186,9 @@
         $("#mp_logout").click(function(){
         	alert("로그아웃 되었습니다.");
         	location.href="logout";
+        })
+        $("#info_edit").click(function(){
+        	location.href="memberupdateprofile";
         })
 	</script>
         
