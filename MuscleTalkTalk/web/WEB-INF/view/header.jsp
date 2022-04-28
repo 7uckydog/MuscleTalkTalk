@@ -3,6 +3,7 @@
 <link rel="stylesheet" href="<%= request.getContextPath() %>/cssfolder/css/header.css">
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <header id="header_all">
         <div id="header_logo">
@@ -51,7 +52,7 @@
 %>
                    <p id="join">회원가입</p>
 <% } else { %>
-					<p id="mypage">마이페이지</p>
+				   <p id="mypage">마이페이지</p>
 <% } %>            
                 </a>
             </div>

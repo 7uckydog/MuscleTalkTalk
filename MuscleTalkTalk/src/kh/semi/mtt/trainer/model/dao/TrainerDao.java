@@ -19,7 +19,7 @@ public class TrainerDao {
 		sql = "insert all into tb_member (member_no, member_id, member_password, member_nickname, member_email, member_name, member_phone, "
 				+ "member_gender, member_age, member_height, member_weight, member_purpose, member_concern, member_trainer, "
 				+ "member_absence, member_join_date) "
-				+ "values((select nvl(max(member_no),0)+1 from tb_member), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default, default, default) "
+				+ "values((select nvl(max(member_no),0)+1 from tb_member), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'R', default, default) "
 				+ "into tb_trainer (trainer_no, member_no, trainer_file, trainer_confirm, gym_name, gym_location) "
 				+ "values((select nvl(max(trainer_no),0)+1 from tb_trainer), (select nvl(max(member_no),0)+1 from tb_member), ?, default, ?, ?) "
 				+ "select * from dual";
@@ -40,7 +40,6 @@ public class TrainerDao {
 			pstmt.setString(13, tvo.getTrainerFile());
 			pstmt.setString(14, tvo.getGymName());
 			pstmt.setString(15, tvo.getGymLocation());
-			System.out.println("여기는 트레이너 회원가입 dao다 오바~");
 			
 			result = pstmt.executeUpdate();
 		} catch(SQLException e) {

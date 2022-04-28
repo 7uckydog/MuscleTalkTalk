@@ -119,19 +119,19 @@ public class MemberJoinDoController extends HttpServlet {
 		int member_concern = -1;
 			switch(multi.getParameter("member_concern")) {
 			case "선택안함" :
-				member_purpose = 1; 
+				member_concern = 1; 
 				break;
 			case "웨이트트레이닝":
-				member_purpose = 2;
+				member_concern = 2;
 				break;
 			case "필라테스":
-				member_purpose = 3;
+				member_concern = 3;
 				break;
 			case "요가":
-				member_purpose = 4;
+				member_concern = 4;
 				break;
 			case "기타":
-				member_purpose = 5;
+				member_concern = 5;
 				break;
 			default : break;
 		}
@@ -153,7 +153,6 @@ public class MemberJoinDoController extends HttpServlet {
 		vo.setMemberPurpose(member_purpose);
 		vo.setMemberConcern(member_concern);
 		vo.setMemberTrainer(member_trainer);
-		System.out.println(vo);
 		
 		TrainerVo tvo = new TrainerVo();
 		tvo.setTrainerFile(filePath);

@@ -1,0 +1,94 @@
+/* 회원용 마이페이지 section css */
+
+		#section1{
+            margin-left: 210px;
+            background-color: white;
+            border-radius: 10px 10px 0 0;
+            width: 780px;
+            float: left;
+        }
+        #mp_main_text{
+            margin: 63px 0px 75px 63px;
+            font-size: 15px;
+            font-family:'THEmpgtB';
+            color: rgb(51, 51, 51);
+            line-height: 20px;
+        }
+        #member_info_read{
+        	margin-bottom: 100px;
+        }
+        #member_info_read > ul {
+            color: rgb(94, 94, 94);
+            width: 300px;
+            font-size: 11.5px;
+            line-height: 35px;
+            margin: 0 auto;
+        }
+        #member_ctg{
+            font-family:'THEmpgtR';
+            color: rgb(174, 174, 174);
+            width: 75px;
+            text-align: center;
+        }
+        .info_menu{
+            float: left;
+            font-family:'THEmpgtR';
+            width: 75px;
+            text-align: center;
+        }
+        .info_info{
+            font-family:'THEmpgtB';
+            text-align: center;
+        }
+        #finally{
+        	margin-bottom: 100px;
+        }
+
+        #section2{
+            color: rgb(94, 94, 94);
+            /* background-color: aqua; */
+            width: 120px;
+            height: 500px;
+            margin-left: 30px;
+            float: left;
+            font-size: 12px;
+            text-align: center;
+            font-family:'THEmpgtM';
+            font-weight: lighter;
+        }
+        #prifile{
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            background-color: lightgray;
+            margin-bottom: 40px;
+        }
+        #member_nickname{
+            font-size: 18px;
+            font-family:'THEmpgtB';
+            color: rgb(51, 51, 51);
+            margin-bottom: 7px;
+        }
+        #member_id{
+            font-family:'THEmpgtM';
+            font-size: 12px;
+            margin-bottom: 50px;
+        }
+        #mp_logout{
+            margin-bottom: 40px;
+            font-family:'THEmpgtM';
+            width: 90px;
+            height: 40px;
+            color: white;
+            background-color: #4B4DB2;
+            font-size: 10.5px;
+            font-weight: lighter;
+            border: 0;
+            cursor: pointer;
+        }
+        #mypage_menu > li{
+            margin: 12px;
+            font-family:'THEmpgtM';
+            font-size: 11.3px;
+            cursor: pointer;
+        }

@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import kh.semi.mtt.member.model.vo.MemberVo;
+import kh.semi.mtt.member.model.vo.TrainerVo;
 
 public class MemberDao {
 	private PreparedStatement pstmt = null;
@@ -35,9 +36,10 @@ public class MemberDao {
 		return retVo;
 	}
 	
+	// 회원 로그인용
 	public MemberVo login(Connection conn, String memeberId, String memberPassword) {
 		MemberVo retVo = null;
-		String sql = "select * from tb_member where member_id = ? and member_password = ?";
+		String sql = "select * from tb_member a, tb_trainer b where a.member_no = b.member_no(+) and member_id = ? and member_password = ?";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, memeberId);
@@ -47,6 +49,7 @@ public class MemberDao {
 			if(rs!=null) {
 				if(rs.next()) {
 					retVo = new MemberVo();
+					retVo.setMemberNo(rs.getInt("member_no"));
 					retVo.setMemberId(rs.getString("member_id"));
 					retVo.setMemberPassword(rs.getString("member_password"));
 					retVo.setMemberNickname(rs.getString("member_nickname"));
@@ -64,6 +67,11 @@ public class MemberDao {
 					retVo.setMemberAbsence(rs.getString("member_absence"));
 					retVo.setMemberJoinDate(rs.getDate("member_join_date"));
 					retVo.setMemberLeaveDate(rs.getDate("member_leave_date"));
+					retVo.setTrainerNo(rs.getInt("trainer_no"));
+					retVo.setTrainerFile(rs.getString("trainer_file"));
+					retVo.setGymName(rs.getString("gym_name"));
+					retVo.setGymLocation(rs.getString("gym_location"));
+					
 				}
 			}
 		} 

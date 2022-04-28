@@ -69,6 +69,20 @@
         
         // 회원 아이콘 내, 로그인 클릭 시 로그인 페이지로 이동
         $("#login").click(function(){
-        	location.href = "login"
+        	location.href = "login";
         });
+        
+     	// 회원 아이콘 내, 로그아웃 클릭 시 로그아웃 컨트롤러로 이동 (세션 삭제)
+        $("#logout").click(function(){
+        	location.href = "logout";
+        });
+        
+     	// 회원 아이콘 내, 회원가입 클릭 시 회원가입 컨트롤러로 이동
+        $("#join").click(function(){
+        	location.href = "memberjoin";
+        });
+     	// 회원 아이콘 내, 마이페이지 버튼 클릭 시 마이페이로 이동
+     	$("#mypage").click(function(){
+     		location.href= "membermypage";
+     	});
     </script>

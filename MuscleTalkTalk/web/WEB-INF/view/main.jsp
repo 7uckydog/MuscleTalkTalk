@@ -1,4 +1,5 @@
 <%@page import="kh.semi.mtt.member.model.vo.MemberVo"%>
+<%@ include file="/WEB-INF/view/font.jsp"%>
 <link rel="stylesheet" href="<%= request.getContextPath() %>/cssfolder/css/reset.css">
 <link rel="stylesheet" href="<%= request.getContextPath() %>/cssfolder/css/basic.css">
 <link rel="stylesheet" href="<%= request.getContextPath() %>/cssfolder/css/header.css">
@@ -15,14 +16,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
 /* 모두 해당 스타일 넣어주세요  */
-@font-face {
-       font-family: "THEmpgtM";
-       src: url("<%= request.getContextPath() %>/cssfolder/fonts/THEmpgtM.woff");
-   }
-   @font-face {
-       font-family: "THEmpgtB";
-       src: url("<%= request.getContextPath() %>/cssfolder/fonts/THEmpgtB.woff");
-   }
 	body{
 	    width: 1200px;
 	    margin: 0 auto;
@@ -223,18 +216,23 @@
         
         // 회원 아이콘 내, 로그인 클릭 시 로그인 컨트롤러로 이동
         $("#login").click(function(){
-        	location.href = "login"
+        	location.href = "login";
         });
         
         // 회원 아이콘 내, 로그아웃 클릭 시 로그아웃 컨트롤러로 이동 (세션 삭제)
         $("#logout").click(function(){
-        	location.href = "logout"
+        	location.href = "logout";
         });
         
-     // 회원 아이콘 내, 회원가입 클릭 시 회원가입 컨트롤러로 이동
+     	// 회원 아이콘 내, 회원가입 클릭 시 회원가입 컨트롤러로 이동
         $("#join").click(function(){
-        	location.href = "memberjoin"
+        	location.href = "memberjoin";
         });
+     	
+     	// 회원 아이콘 내, 마이페이지 버튼 클릭 시 마이페이로 이동
+     	$("#mypage").click(function(){
+     		location.href= "membermypage";
+     	});
     </script>
 </body>
 </html>
