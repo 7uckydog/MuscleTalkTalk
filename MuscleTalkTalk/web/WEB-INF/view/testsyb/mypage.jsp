@@ -189,6 +189,10 @@
         $("#info_edit").click(function(){
         	location.href="memberupdateprofile";
         })
+        $("#password_edit").click(function(){
+        	location.href="memberupdatepassword";
+        })
+        
 	</script>
         
 <%@ include file="/WEB-INF/view/footer.jsp"%>
