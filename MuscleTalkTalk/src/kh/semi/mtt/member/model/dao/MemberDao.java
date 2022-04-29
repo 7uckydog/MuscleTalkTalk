@@ -16,7 +16,7 @@ public class MemberDao {
 
 	public MemberVo readOneMember(Connection conn, String memberId) {
 		MemberVo retVo = null;
-		String sql = "select * from tb_member where member_id = ?";
+		String sql = "select * from tb_member a, tb_trainer b where a.member_no = b.member_no(+) and member_id = ?";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, memberId);
@@ -24,8 +24,28 @@ public class MemberDao {
 			if (rs != null) {
 				rs.next();
 				retVo = new MemberVo();
+				retVo.setMemberNo(rs.getInt("member_no"));
 				retVo.setMemberId(rs.getString("member_id"));
 				retVo.setMemberPassword(rs.getString("member_password"));
+				retVo.setMemberNickname(rs.getString("member_nickname"));
+				retVo.setMemberEmail(rs.getString("member_email"));
+				retVo.setMemberName(rs.getString("member_name"));
+				retVo.setMemberPhone(rs.getString("member_phone"));
+				retVo.setMemberGender(rs.getString("member_gender"));
+				retVo.setMemberAge(rs.getInt("member_age"));
+				retVo.setMemberHeight(rs.getInt("member_height"));
+				retVo.setMemberWeight(rs.getInt("member_weight"));
+				retVo.setMemberPurpose(rs.getInt("member_purpose"));
+				retVo.setMemberConcern(rs.getInt("member_concern"));
+				retVo.setMemberPhoto(rs.getString("member_photo"));
+				retVo.setMemberTrainer(rs.getString("member_trainer"));
+				retVo.setMemberAbsence(rs.getString("member_absence"));
+				retVo.setMemberJoinDate(rs.getDate("member_join_date"));
+				retVo.setMemberLeaveDate(rs.getDate("member_leave_date"));
+				retVo.setTrainerNo(rs.getInt("trainer_no"));
+				retVo.setTrainerFile(rs.getString("trainer_file"));
+				retVo.setGymName(rs.getString("gym_name"));
+				retVo.setGymLocation(rs.getString("gym_location"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -229,4 +249,36 @@ public class MemberDao {
 		}
 		return result;
 	}
+	
+	// 회원 정보 수정 - 업데이트
+	public int updateMember(Connection conn, MemberVo vo) {
+		int result = 0;
+		String sql = "update tb_member set member_nickname = ?, member_email = ?, member_phone = ?, member_age = ?, member_height = ?, member_weight = ?, member_purpose = ?, member_concern = ? where member_id = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, vo.getMemberNickname());
+			pstmt.setString(2, vo.getMemberEmail());
+			pstmt.setString(3, vo.getMemberPhone());
+			pstmt.setInt(4, vo.getMemberAge());
+			pstmt.setInt(5, vo.getMemberHeight());
+			pstmt.setInt(6, vo.getMemberWeight());
+			pstmt.setInt(7, vo.getMemberPurpose());
+			pstmt.setInt(8, vo.getMemberConcern());
+			pstmt.setString(9, vo.getMemberId());
+			
+			System.out.println("업데이트 전 updateMemberDao" + vo.getMemberId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	
+	
 }

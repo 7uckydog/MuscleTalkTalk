@@ -29,7 +29,6 @@
 </head>
 <body>
 <%@ include file="/WEB-INF/view/template.jsp"%>
-
 		<section id="section1">
             <div id="mp_main_text">
 	            <c:if test="${ssMvo.memberTrainer == 'F'}">

@@ -590,130 +590,8 @@
 	    	});
     
 // -----------------------------------------------------------------
-    	// 이메일 인증하기 버튼 클릭 시
-    	var checkEmailDu = 0;
-    	
-        $("#member_mail_check").on("click", function(){
-            memberEmail = $("#member_email").val();
-            console.log(memberEmail);
-            if(memberEmail == "") {
-                alert("이메일를 입력하세요");
-                return;
-            // 이메일 중복 여부 확인
-            } else {
-            	if($("#member_email").val() != "") {
-		    				$.ajax({
-		    				url:"memberduemail.ax",
-		    				type: "post",
-		    				data: {memberEmail: $("#member_email").val()},
-		    				success: function(result){
-		    					console.log(result);
-		    						if(result == 0){
-		    							checkNicknameDu = 0;
 
-		    							// 이메일 번호 전송을 위한 난수 insert - ajax
-		    				            $.ajax({
-		    				               url: "insertmailforjoin",
-		    				               type: "post",
-		    				               data:{email_certification_email: $("#member_email").val()},
-		    				               success: function(result){
-		    				                  console.log("난수 insert 성공");
-		    				                  $("#modal_all").show(); // 이메일 번호 입력용 모달 생성
-		    				              
-		    				               	  // 이메일 전송
-		    				                  $.ajax({
-		    				                	 url:"SendMailForJoinController",
-		    				                	 type:"post",
-		    				                	 data:{member_email:$("#member_email").val()},
-		    				                	 success: function(result){
-		    											console.log("이메일 전송 완료");
-		    											
-		    											// 모달 내 취소 버튼 클릭 시, 테이블에서 정보 삭제
-		    					                        $("#modal_cancel").on("click", function(){
-		    					                        	$.ajax({
-		    					                          	  url:"deleteemailtablecontroller",
-		    					                              type:"post",
-		    					                              data:{member_email:$("#member_email").val()},
-		    					                              success: function(result){
-		    						                                console.log("이메일, 번호 일치 확인 & 테이블 정보 삭제 완료");
-		    						                                // 모달창 닫기
-		    						                                $("#modal_all").hide();
-		    						                                return;
-		    					                              },
-		    					                              error: function(request, status, error){
-		    					                              	 console.log(error);
-		    					                              }
-		    					                         });
-		    					                       })
-		    					                      		
-		    					                       // 모달 내 확인 버튼 클릭 시,
-		    					                       $("#modal_accept").on("click", function(){
-		    					                       // 인증번호를 미입력하고 확인버튼 클릭 시, 경고창
-		    					                       		if($("#modal_code").val()==""){
-		    					                        		alert("인증번호를 입력해주세요.");
-		    					                        		return;
-		    					                        	}
-		    					                       		else{
-		    					                        	// 인증번호 입력 후 확인 버튼 클릭 시, 이메일과 난수 번호 일치 확인 - ajax -> 테이블에 정보 삭제
-			    						                            $.ajax({
-			    						                                url:"checkemailandcodeforjoin",
-			    						                                type:"post",
-			    						                                data:{modal_code:$("#modal_code").val(), member_email:$("#member_email").val()},
-			    						                                success: function(result){
-					    						                                  console.log("이메일, 번호 일치 확인 & 테이블 정보 삭제 완료");
-					    						                                  // 모달창 닫기
-					    						                                  $("#modal_all").hide();
-					    						                                  // 인증하기 버튼 => 인증 완료 버튼으로 변경
-					    						                                  $("#member_mail_check2").show();
-					    						                                  $("#member_mail_check").hide();
-					    						                                  
-					    						                                  $("#member_email").on("input", (function(){
-					    						                                	  $("#member_mail_check").show();
-						    						                                  $("#member_mail_check2").hide();
-					    						                                  }));
-			    						                                },
-			    						                                error: function(request, status, error){
-					    						                            console.log(error);
-					    						                            $("#modal_all").hide();
-					    						                        }
-			    						                           });
-		    					                        	// 일치하지 않을 시 TODO
- 		    					                       		}
-		    					                       });
-		    				                	 },
-		    				                	 error: function(request, status, error){
-		    				                         console.log(error);
-		    				                      }
-		    				                  });
-		    				               },
-		    				               error: function(request, status, error){
-		    				                  console.log(error);
-		    				                  location.href="memberjoin";
-		    				                  return;
-		    				               }
-		    				            });
-		    							
-		    						} else if(result = 1) {
-		    							checkNicknameDu = 1;
-		    							alert("이미 사용 중인 이메일입니다. 다시 입력해 주세요.");
-		    							$("#member_email").focus();
-		    						} else {
-		    							checkNicknameDu = 2;
-		    							alert("다시 시도해 주세요.")
-		    						}
-		    					},
-		    					error: function(){
-		    						alert("이메일 중복 확인 ajax 오류 발생");
-		    					}
-		    				})
-		    		} else {
-		        		alert("이메일을 바르게 입력해주세요.");
-		    		}	
-	    	}
-            
-        });
-        
-        // 이메일 형식 확인
+// 이메일 형식 확인
         var chkEmail = false;
         
         $("#member_email").on("input", function(){
@@ -728,6 +606,133 @@
 	    		chkEmail = true;
 	    	}
         })
+        
+    	// 이메일 인증하기 버튼 클릭 시
+    	var checkEmailDu = 0;
+    	
+        $("#member_mail_check").on("click", function(){
+        if(chkEmail == true){
+        	 memberEmail = $("#member_email").val();
+             console.log(memberEmail);
+             if(memberEmail == "") {
+                 alert("이메일를 입력하세요");
+                 return;
+             // 이메일 중복 여부 확인
+             } else {
+             	if($("#member_email").val() != "") {
+ 		    				$.ajax({
+ 		    				url:"memberduemail.ax",
+ 		    				type: "post",
+ 		    				data: {memberEmail: $("#member_email").val()},
+ 		    				success: function(result){
+ 		    					console.log(result);
+ 		    						if(result == 0){
+ 		    							checkNicknameDu = 0;
+
+ 		    							// 이메일 번호 전송을 위한 난수 insert - ajax
+ 		    				            $.ajax({
+ 		    				               url: "insertmailforjoin",
+ 		    				               type: "post",
+ 		    				
+               data:{email_certification_email: $("#member_email").val()},
+ 		    				               success: function(result){
+ 		    				                  console.log("난수 insert 성공");
+ 		    				                  $("#modal_all").show(); // 이메일 번호 입력용 모달 생성
+ 		    				              
+ 		    				               	  // 이메일 전송
+ 		    				                  $.ajax({
+ 		    				                	 url:"SendMailForJoinController",
+ 		    				                	 type:"post",
+ 		    				                	 data:{member_email:$("#member_email").val()},
+ 		    				                	 success: function(result){
+ 		    											console.log("이메일 전송 완료");
+ 		    											
+ 		    											// 모달 내 취소 버튼 클릭 시, 테이블에서 정보 삭제
+ 		    					                        $("#modal_cancel").on("click", function(){
+ 		    					                        	$.ajax({
+ 		    					                          	  url:"deleteemailtablecontroller",
+ 		    					                              type:"post",
+ 		    					                              data:{member_email:$("#member_email").val()},
+ 		    					                              success: function(result){
+ 		    						                                console.log("이메일, 번호 일치 확인 & 테이블 정보 삭제 완료");
+ 		    						                                // 모달창 닫기
+ 		    						                                $("#modal_all").hide();
+ 		    						                                return;
+ 		    					                              },
+ 		    					                              error: function(request, status, error){
+ 		    					                              	 console.log(error);
+ 		    					                              }
+ 		    					                         });
+ 		    					                       })
+ 		    					                      		
+ 		    					                       // 모달 내 확인 버튼 클릭 시,
+ 		    					                       $("#modal_accept").on("click", function(){
+ 		    					                       // 인증번호를 미입력하고 확인버튼 클릭 시, 경고창
+ 		    					                       		if($("#modal_code").val()==""){
+ 		    					                        		alert("인증번호를 입력해주세요.");
+ 		    					                        		return;
+ 		    					                        	}
+ 		    					                       		else{
+ 		    					                        	// 인증번호 입력 후 확인 버튼 클릭 시, 이메일과 난수 번호 일치 확인 - ajax -> 테이블에 정보 삭제
+ 			    						                            $.ajax({
+ 			    						                                url:"checkemailandcodeforjoin",
+ 			    						                                type:"post",
+ 			    						                                data:{modal_code:$("#modal_code").val(), member_email:$("#member_email").val()},
+ 			    						                                success: function(result){
+ 					    						                                  console.log("이메일, 번호 일치 확인 & 테이블 정보 삭제 완료");
+ 					    						                                  // 모달창 닫기
+ 					    						                                  $("#modal_all").hide();
+ 					    						                                  // 인증하기 버튼 => 인증 완료 버튼으로 변경
+ 					    						                                  $("#member_mail_check2").show();
+ 					    						                                  $("#member_mail_check").hide();
+ 					    						                                  
+ 					    						                                  $("#member_email").on("input", (function(){
+ 					    						                                	  $("#member_mail_check").show();
+ 						    						                                  $("#member_mail_check2").hide();
+ 					    						                                  }));
+ 			    						                                },
+ 			    						                                error: function(request, status, error){
+ 					    						                            console.log(error);
+ 					    						                            $("#modal_all").hide();
+ 					    						                        }
+ 			    						                           });
+ 		    					                        	// 일치하지 않을 시 TODO
+  		    					                       		}
+ 		    					                       });
+ 		    				                	 },
+ 		    				                	 error: function(request, status, error){
+ 		    				                         console.log(error);
+ 		    				                      }
+ 		    				                  });
+ 		    				               },
+ 		    				               error: function(request, status, error){
+ 		    				                  console.log(error);
+ 		    				                  location.href="memberjoin";
+ 		    				                  return;
+ 		    				               }
+ 		    				            });
+ 		    							
+ 		    						} else if(result = 1) {
+ 		    							checkNicknameDu = 1;
+ 		    							alert("이미 사용 중인 이메일입니다. 다시 입력해 주세요.");
+ 		    							$("#member_email").focus();
+ 		    						} else {
+ 		    							checkNicknameDu = 2;
+ 		    							alert("다시 시도해 주세요.")
+ 		    						}
+ 		    					},
+ 		    					error: function(){
+ 		    						alert("이메일 중복 확인 ajax 오류 발생");
+ 		    					}
+ 		    				})
+ 		    		} else {
+ 		        		alert("이메일을 바르게 입력해주세요.");
+ 		    		}	
+ 	    	}
+        } else {
+	    		alert("이메일을 형식에 맞게 입력하세요.");
+	    	}
+        });
         
         // 이름 형식 확인
         var chkName = false;
@@ -761,7 +766,7 @@
 	    	}
 	    }));
         
-        // 나이, 신장, 몸무게 형식 확인 (3자리)
+        // 나이, 신장, 몸무게 형식 확인 (3자리까지 가능)
         var chkAge = false;
         var chkHeight = false;
         var chkWeight = false;
