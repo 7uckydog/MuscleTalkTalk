@@ -167,6 +167,14 @@ public class BoardDao {
 					+ " from tb_board b1 order by board_no desc) t1)tba join tb_member tbm on tba.member_no = tbm.member_no "
 					+ " where r between ? and ?"
 					+ " order by r_cnt desc";
+		}else if (filterint == 4) {
+			sql = "select rownum r, t1.* from (select board_title, ROUTINE_BOARD_TITLE, BOARD_DATE, ROUTINE_BOARD_DATE, BOARD_COUNT, ROUTINE_BOARD_COUNT, tb.BOARD_CATEGORY_NO bcn1, trb.BOARD_CATEGORY_NO bcn2"
+					+ "    from tb_board_report tbr"
+					+ "    , tb_board tb"
+					+ "    , tb_routine_board trb"
+					+ "    where tbr.board_no = tb.board_no(+) AND tbr.routine_board_no = trb.routine_board_no(+)"
+					+ "    order by BOARD_DATE, ROUTINE_BOARD_DATE)t1"
+					+ "    order by r desc";
 		}
 		
 		
@@ -188,6 +196,7 @@ public class BoardDao {
 					vo.setBoardContent(rs.getString("BOARD_CONTENT"));
 					vo.setBoardCount(rs.getInt("BOARD_COUNT"));
 					vo.setMemberNickname(rs.getString("MEMBER_NICKNAME"));
+					vo.setBoardCategoryNumber(rs.getInt("BOARD_CATEGORY_NO"));
 					vo.setrCnt(rs.getInt("R_CNT"));
 //					System.out.println("댓글수"+rs.getInt("R_CNT"));
 					volist.add(vo);
