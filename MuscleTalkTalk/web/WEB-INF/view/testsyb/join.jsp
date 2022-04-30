@@ -497,10 +497,10 @@
 	    		
 	    	if(!pwd.test(pwdVal)){
 	    		$("#pwd_html").html("비밀번호 * &emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;비밀번호 형식이 맞지 않습니다.");
-	    		chkId = false;
+	    		chkPwd = false;
 	    	} else {
 	    		$("#pwd_html").html("비밀번호 *");
-	    		chkId = true;
+	    		chkPwd = true;
 	    		if($(this).val() == $("#member_password_check").val()) {
 	    			$("#pwd_check_html").html("비밀번호 확인 *");
 	    		}

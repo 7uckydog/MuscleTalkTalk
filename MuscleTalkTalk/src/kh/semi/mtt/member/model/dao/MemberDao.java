@@ -279,6 +279,26 @@ public class MemberDao {
 		return result;
 	}
 	
+	// 비밀번호 수정 - 업데이트
+		public int updatePassword(Connection conn, String memberPassword, String memberNewPassword) {
+			int result = 0;
+			String sql = "update tb_member set member_password = ? where member_password = ?";
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, memberNewPassword);
+				pstmt.setString(2, memberPassword);
+				
+				result = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rs);
+				close(pstmt);
+			}
+			return result;
+		}
+	
 	
 	
 }

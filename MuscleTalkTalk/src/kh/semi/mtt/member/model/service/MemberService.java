@@ -102,5 +102,18 @@ public class MemberService {
 		close(conn);
 		return result;
 	}
+	
+	// 회원 비밀번호 수정 - 업데이트
+		public int updatePassword(String memberPassword, String memberNewPassword) {
+			int result = 0;
+			Connection conn = null;
+			conn = getConnection();
+			result = new MemberDao().updatePassword(conn, memberPassword, memberNewPassword);
+			
+			MemberVo Nvo = null;
+			
+			close(conn);
+			return result;
+		}
 		
 }
