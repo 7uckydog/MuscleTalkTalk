@@ -1,6 +1,7 @@
 package kh.semi.mtt.notice.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -9,6 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kh.semi.mtt.board.model.service.BoardService;
+import kh.semi.mtt.board.model.vo.BoardVo;
+import kh.semi.mtt.common.function.PagingController;
+import kh.semi.mtt.common.function.PagingVo;
 import kh.semi.mtt.notice.model.service.NoticeService;
 import kh.semi.mtt.notice.model.vo.NoticeVo;
 
@@ -93,14 +98,39 @@ public class NoticeReadAllController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-//	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		// TODO Auto-generated method stub
-//		doGet(request, response);
-//	}
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		PrintWriter out = response.getWriter();
+		
+	}
 	
 	private int countNotice() {   //view에서 호출할일 없고 컨트롤러에서만 계산할때 사용하기때문에 private가능
 		int result =  service.countNotice();
 		return result;
+	}
+	
+	private void exec(HttpServletRequest request, HttpServletResponse response) {
+		HttpServletRequest resultRequest = null;
+		int totalCnt = new BoardService().countBoard();
+		PagingVo setVo = new PagingVo(10, 5, request.getParameter(""), request.getParameter("page"), totalCnt);
+		PagingVo pageVo = new PagingController().setPagingValue(setVo);
+		System.out.println("pageVo:" + pageVo);
+		// 검색기능 미완
+//		String search_ = request.getParameter("s");
+//		String search = "";
+//		if (search_ != null) {
+//			search = search_;
+//		}
+		//
+		ArrayList<BoardVo> result = service.readAllNotice(pageVo.getStartRnum(), pageVo.getEndRnum(), pageVo.getFilterint());
+		System.out.println(result);
+
+		request.setAttribute("boardreadall", result);
+		request.setAttribute("startPage", pageVo.getStartPage());
+		request.setAttribute("endPage", pageVo.getEndPage());
+		request.setAttribute("totalpageCnt", pageVo.getTotalpageCnt());
+		request.setAttribute("currentPage", pageVo.getCurrentPage());
+//		request.setAttribute("boardCategoryNumber", boardCategoryNumber);
 	}
 
 }

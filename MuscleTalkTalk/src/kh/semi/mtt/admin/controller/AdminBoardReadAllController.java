@@ -3,6 +3,7 @@ package kh.semi.mtt.admin.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,9 +16,8 @@ import com.google.gson.GsonBuilder;
 
 import kh.semi.mtt.board.model.service.BoardService;
 import kh.semi.mtt.board.model.vo.BoardVo;
-
-
-
+import kh.semi.mtt.common.function.PagingController;
+import kh.semi.mtt.common.function.PagingVo;
 
 /**
  * Servlet implementation class BoardReadAllControllerServlet
@@ -25,138 +25,68 @@ import kh.semi.mtt.board.model.vo.BoardVo;
 @WebServlet("/adminboard")
 public class AdminBoardReadAllController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private BoardService service = new BoardService();
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AdminBoardReadAllController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-    
+	private BoardService service = new BoardService();
 
-    
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-
-		request = test(request);
-		request.getRequestDispatcher("WEB-INF/view/admin/adminboard.jsp").forward(request, response);
-	
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public AdminBoardReadAllController() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
-		private int countBoard() {
-			int result = service.countBoard();
-			return result;
-		}
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		exec(request, response);
+		request.getRequestDispatcher("WEB-INF/view/admin/adminboard.jsp").forward(request, response);
+	}
 
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//ajax
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// ajax
 		PrintWriter out = response.getWriter();
-		
-		request = test(request);
-		
-		ArrayList<Object> testArray = new ArrayList<Object>();
-		
-		testArray.add(request.getAttribute("boardreadall"));
-		testArray.add(request.getAttribute("startPage"));
-		testArray.add(request.getAttribute("currentPage"));
-		testArray.add(request.getAttribute("endPage"));
-		testArray.add(request.getAttribute("totalpageCnt"));
-		
-		
+
+		exec(request, response);
+
+		HashMap<String, Object> mapObj = new HashMap<String, Object>();
+
+		mapObj.put("boardreadall", request.getAttribute("boardreadall"));
+		mapObj.put("startPage", request.getAttribute("startPage"));
+		mapObj.put("currentPage", request.getAttribute("currentPage"));
+		mapObj.put("endPage", request.getAttribute("endPage"));
+		mapObj.put("totalpageCnt", request.getAttribute("totalpageCnt"));
+
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		String gsonOut = gson.toJson(testArray);
+		String gsonOut = gson.toJson(mapObj);
 		System.out.println("adminboard ajax result: " + gsonOut);
 		out.print(gsonOut);
-		
+
 		out.flush();
 		out.close();
 	}
-	
-	private HttpServletRequest test(HttpServletRequest request) {
+
+	private void exec(HttpServletRequest request, HttpServletResponse response) {
 		HttpServletRequest resultRequest = null;
-		
-		
-		String filterStr = request.getParameter("filters");
-		if(filterStr == null) {
-			filterStr = "0";
-		}
-		int filterint = 0;
-		try {
-			filterint = Integer.parseInt(filterStr);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		int currentPage = 1;
-
-
-	    final int pageSize = 13; // 한페이지에 보여줄 행
-	    final int pageBlock = 3; // 페이징에 나타날 페이지수
-	    int startPage = 0;
-	    int endPage = 0;
-	    int startRnum = 0;
-	    int endRnum = 0;
-	    
-	    int totalCnt = 0; // 총 글수
-		
-		String currentPageStr = request.getParameter("page");
-		try {
-			if(currentPageStr !=null && !currentPageStr.equals(""))
-			currentPage = Integer.parseInt(currentPageStr);
-		}catch (NumberFormatException e) {
-			e.printStackTrace();
-		}
-	    
-		totalCnt = countBoard();
-		System.out.println("총" + totalCnt);
-
-		// Paging 처리
-		int totalpageCnt = (totalCnt / pageSize) + (totalCnt % pageSize == 0 ? 0 : 1);
-		if (currentPage % pageBlock == 0) {
-			startPage = ((currentPage / pageBlock) - 1) * pageBlock + 1;
-		} else {
-			startPage = (currentPage / pageBlock) * pageBlock + 1;
-		}
-		endPage = startPage + pageBlock - 1;
-		if (endPage > totalpageCnt) {
-			endPage = totalpageCnt;
-		}
-		System.out.println("page:" + startPage + "~" + endPage);
-
-		// rownum 처리
-		startRnum = (currentPage - 1) * pageSize + 1;
-		endRnum = startRnum + pageSize - 1;
-		if (endRnum > totalCnt) {
-			endRnum = totalCnt;
-		}
-		//검색기능 미완
-		String search_ = request.getParameter("s");
-		String search = "";
-		if(search_ != null) {
-			search = search_; 
-		}
+		int totalCnt = new BoardService().countBoard();
+		PagingVo setVo = new PagingVo(10, 5, request.getParameter(""), request.getParameter("page"), totalCnt);
+		PagingVo pageVo = new PagingController().setPagingValue(setVo);
+		System.out.println("pageVo:" + pageVo);
+		// 검색기능 미완
+//		String search_ = request.getParameter("s");
+//		String search = "";
+//		if (search_ != null) {
+//			search = search_;
+//		}
 		//
-		System.out.println("rnum:" + startRnum + "~" + endRnum);
-		ArrayList<BoardVo> result = service.readAllBoard(startRnum, endRnum, filterint);
+		ArrayList<BoardVo> result = service.readAllBoard(pageVo.getStartRnum(), pageVo.getEndRnum(), pageVo.getFilterint());
 		System.out.println(result);
 
-
-
-		
 		request.setAttribute("boardreadall", result);
-		request.setAttribute("startPage", startPage);
-		request.setAttribute("currentPage", currentPage);
-		request.setAttribute("endPage", endPage);
-		request.setAttribute("totalpageCnt", totalpageCnt);
+		request.setAttribute("startPage", pageVo.getStartPage());
+		request.setAttribute("endPage", pageVo.getEndPage());
+		request.setAttribute("totalpageCnt", pageVo.getTotalpageCnt());
+		request.setAttribute("currentPage", pageVo.getCurrentPage());
 //		request.setAttribute("boardCategoryNumber", boardCategoryNumber);
-		System.out.println("boardreadall: "+result);
-		
-		
-		resultRequest = request;
-		
-		return resultRequest;
 	}
-	
+
 }

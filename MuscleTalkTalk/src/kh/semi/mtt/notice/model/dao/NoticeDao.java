@@ -64,14 +64,21 @@ public class NoticeDao {
 		return vo;  //1 : 리턴함
 	}
 	
-	public ArrayList<NoticeVo> readAllNotice(Connection conn, int startNnum, int endNnum){
+	public ArrayList<NoticeVo> readAllNotice(Connection conn, int startNnum, int endNnum, String search){
 		ArrayList<NoticeVo> volist = null;
 		String sql = "select * "
 				+ "from (select rownum rn, notice_no, notice_title, notice_date "
 				+ "from tb_notice "
 				+ "order by notice_no desc) "
 				+ "where rn between ? and ?";
-		
+		if(search == "searchInput") {
+			sql = "select * "
+					+ "from (select rownum rn, notice_no, notice_title, notice_date "
+					+ "from tb_notice "
+					+ "order by notice_no desc) "
+					+ "where rn between ? and ?"
+					+ "and notice_title like '%?%' ";
+		}
 //		select * 
 //	    from (select rownum rn, notice_no, notice_title, notice_date 
 //	        from tb_notice 
@@ -83,6 +90,7 @@ public class NoticeDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startNnum);
 			pstmt.setInt(2, endNnum);
+			pstmt.setString(3, search);
 			rs = pstmt.executeQuery();
 			
 			if (rs != null) { // SQLException 외 예외상황

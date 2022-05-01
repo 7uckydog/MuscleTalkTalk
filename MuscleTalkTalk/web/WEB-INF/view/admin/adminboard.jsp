@@ -165,6 +165,64 @@ a:link{
 				dataType:"json",
 				success: function(result){
 					console.log(result);
+					//console.log(result.totalpageCnt);	
+					var html = "";
+					for(var i = 0; i < result.boardreadall.length; i++){
+	                    var vo = result.boardreadall[i];
+	                    html += '<tr class="table_content">';
+	                    html += '<td><a href="boardread?bno='+vo.boardNo+'">'+vo.boardNo+'</a></td>';
+	                    html += '<td><a href="boardread?bno='+vo.boardNo+'">'+vo.boardTitle+'</a></td>';
+	                    html += '<td>'+vo.boardDate+'</td>';
+	                    html += '<td>'+vo.boardCount+'</td>';
+	                    html += '<td>'
+	                    if(vo.boardCategoryNumber == 1) {
+	                    	html += "자유게시판";
+	                    } else if (vo.boardCategoryNumber == 2) {
+							html += "루틴게시판";
+	                    }
+						html += '</td>';
+	                    html += '</tr>';
+	                }
+					$("#table_title").next().nextAll().remove();
+					$("#board_table").append(html);
+					return;
+				},
+				error: function(result){
+					console.log("ajax 오류");
+				}
+			});
+		});
+		
+		$("#btn_read_all").click(function(){
+			console.log("btn_read_all CLICK");
+			$.ajax({
+				url:"adminboard",
+				type:"post",
+				data:{filters: "1"},
+				dataType:"json",
+				success: function(result){
+					console.log(result);
+					//console.log(result.totalpageCnt);	
+					var html = "";
+					for(var i = 0; i < result.boardreadall.length; i++){
+	                    var vo = result.boardreadall[i];
+	                    html += '<tr class="table_content">';
+	                    html += '<td><a href="boardread?bno='+vo.boardNo+'">'+vo.boardNo+'</a></td>';
+	                    html += '<td><a href="boardread?bno='+vo.boardNo+'">'+vo.boardTitle+'</a></td>';
+	                    html += '<td>'+vo.boardDate+'</td>';
+	                    html += '<td>'+vo.boardCount+'</td>';
+	                    html += '<td>'
+	                    if(vo.boardCategoryNumber == 1) {
+	                    	html += "자유게시판";
+	                    } else if (vo.boardCategoryNumber == 2) {
+							html += "루틴게시판";
+	                    }
+						html += '</td>';
+	                    html += '</tr>';
+	                }
+					$("#table_title").next().nextAll().remove();
+					$("#board_table").append(html);
+					return;
 				},
 				error: function(result){
 					console.log("ajax 오류");
@@ -172,6 +230,9 @@ a:link{
 			});
 		});
 	});
+
+
+	
 	
 </script>
 </head>
@@ -222,13 +283,13 @@ a:link{
 		<div class="page_search">
 			<div class="Pageing">
 					<c:if test="${startPage > 1 }">
-						<a class="Page" href="BoardReadAll?page=${startPage-1 }">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a class="Page" href="adminboard?page=${startPage-1 }">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;
 					</c:if>
 					<c:forEach begin="${startPage }" end="${endPage }" var="p">
-						<a class="Page" id="xxx" href="BoardReadAll?page=${p }">${p }</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a class="Page" id="xxx" href="adminboard?page=${p }">${p }</a>&nbsp;&nbsp;&nbsp;&nbsp;
 					</c:forEach>
 					<c:if test="${endPage < totalpageCnt}">
-						<a class="Page" href="BoardReadAll?page=${endPage+1 }">다음</a>
+						<a class="Page" href="adminboard?page=${endPage+1 }">다음</a>
 					</c:if>
 			</div>
 				<div class="search_board">
