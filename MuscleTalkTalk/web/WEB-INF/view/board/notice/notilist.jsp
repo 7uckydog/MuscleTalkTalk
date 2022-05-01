@@ -60,13 +60,17 @@ section {
 	border: 1px solid white;
 	background-color: #4B4DB2;
 	width: 152px;
-	height: 28px;
-	
+	height: 30px;
+	line-height: 30px;
 	font-size: 12px;
 	margin-right: 60px;
 	cursor: pointer;
-	/* position: absolute; */
-	/* right: 60px; */
+
+}
+#write_btn:hover{
+	color: #4B4DB2;
+	background-color: white;
+	border: 1px solid #4B4DB2;
 }
 
 #board_category {
@@ -212,10 +216,27 @@ section {
 		</div>
 		<form class="search_notice">
 				<button type="submit" id="btn_search">검색</button>
-				<input id="input_search" type="text" name="s" value=""
+				<input id="input_search" type="text" name="searchInput" 
 					placeholder="검색어입력">
 		</form>
 	</section>
 	<%@ include file="/WEB-INF/view/footer.jsp"%>
+	<script>
+	$("#btn_search").click(function(){
+		console.log("btn_search CLICK");
+		$.ajax({
+			url:"noticereadall",
+			type:"post"
+			data:{inputserch:$("#input_search").val(), },
+			dataType:"json",
+			success: function(result){
+				
+			}
+			error: function(result){
+				
+			}
+		});
+	});
+	</script>
 </body>
 </html>
