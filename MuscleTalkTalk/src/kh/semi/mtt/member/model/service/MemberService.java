@@ -97,20 +97,16 @@ public class MemberService {
 		conn = getConnection();
 		result = new MemberDao().updateMember(conn, vo);
 		
-		MemberVo Nvo = null;
-		
 		close(conn);
 		return result;
 	}
 	
 	// 회원 비밀번호 수정 - 업데이트
-		public int updatePassword(String memberPassword, String memberNewPassword) {
+		public int updatePassword(String memberId, String memberPassword, String memberNewPassword) {
 			int result = 0;
 			Connection conn = null;
 			conn = getConnection();
-			result = new MemberDao().updatePassword(conn, memberPassword, memberNewPassword);
-			
-			MemberVo Nvo = null;
+			result = new MemberDao().updatePassword(conn, memberId, memberPassword, memberNewPassword);
 			
 			close(conn);
 			return result;

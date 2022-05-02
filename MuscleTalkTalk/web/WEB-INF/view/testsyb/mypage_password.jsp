@@ -27,49 +27,6 @@
 	}
 </style>
 <style>
-		#section1{
-            margin-left: 210px;
-            background-color: white;
-            border-radius: 10px 10px 0 0;
-            width: 780px;
-            height : 500px;
-            float: left;
-        }
-        #mp_main_text{
-            margin: 63px 0px 75px 63px;
-            font-size: 15px;
-            font-family:'THEmpgtB';
-            color: rgb(51, 51, 51);
-            line-height: 20px;
-        }
-        #member_info_read{
-        	margin-bottom: 100px;
-        }
-        #member_info_read > ul {
-            color: rgb(94, 94, 94);
-            width: 400px;
-            font-size: 11.5px;
-            line-height: 35px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        #member_ctg{
-            font-family:'THEmpgtR';
-            color: rgb(174, 174, 174);
-            width: 75px;
-            text-align: center;
-        }
-        .info_menu{
-            float: left;
-            font-family:'THEmpgtR';
-            width: 75px;
-            text-align: center;
-            clear: both;
-        }
-        .info_info{
-            font-family:'THEmpgtB';
-            text-align: center;
-        }
         .info_ph{
             font-family:'THEmpgtB';
             font-size: 11.5px;
@@ -80,13 +37,14 @@
             border: 0px;
             border-radius: 3px;
             text-align: center;
+            vertical-align: middle;
         }
         input::placeholder{
         	font-family:'THEmpgtM';
-            font-size: 11px;
+            font-size: 10.5px;
         }
         #edit_btn{
-            margin: 50px 80px 0px 630px;
+            margin: 50px 80px 100px 630px;
             width: 70px;
             height: 30px;
             background-color: rgb(224, 224, 224);
@@ -98,7 +56,7 @@
         }
         #pwd_see_1, #pwd_see_2, #pwd_see_3{
         	position: absolute;
-        	margin-top: 3px;
+        	margin-top: 4px;
         	width: 70px; 
             margin-left: 8px; 
             height: 27px;
@@ -107,55 +65,6 @@
             font-family:'THEmpgtM';
             color: rgb(64, 64, 64);
             background-color: rgb(224, 224, 224);
-            cursor: pointer;
-        }
-
-        #section2{
-            color: rgb(94, 94, 94);
-            /* background-color: aqua; */
-            width: 120px;
-            height: 500px;
-            margin-left: 30px;
-            float: left;
-            font-size: 12px;
-            text-align: center;
-            font-family:'THEmpgtM';
-            font-weight: lighter;
-        }
-        #prifile{
-            border-radius: 50%;
-            width: 120px;
-            height: 120px;
-            background-color: lightgray;
-            margin-bottom: 40px;
-        }
-        #member_nickname{
-            font-size: 18px;
-            font-family:'THEmpgtB';
-            color: rgb(51, 51, 51);
-            margin-bottom: 7px;
-        }
-        #member_id{
-            font-family:'THEmpgtM';
-            font-size: 12px;
-            margin-bottom: 50px;
-        }
-        #mp_logout{
-            margin-bottom: 40px;
-            font-family:'THEmpgtM';
-            width: 90px;
-            height: 40px;
-            color: white;
-            background-color: #4B4DB2;
-            font-size: 10.5px;
-            font-weight: lighter;
-            border: 0;
-            cursor: pointer;
-        }
-        #mypage_menu > li{
-            margin: 12px;
-            font-family:'THEmpgtM';
-            font-size: 11.3px;
             cursor: pointer;
         }
         #password_edit{
@@ -175,22 +84,23 @@
                 <ul>
                     <li class="info_menu">기존 비밀번호</li>
                     <li class="info_info" style="float: left; margin-left: 85px;">
-                        <input class="info_ph" type="password" id="member_password_org" placeholder="기존 비밀번호 입력">
+                        <input class="info_ph" type="password" id="member_password_org" placeholder="기존 비밀번호 입력" required>
                         <input type="button" id="pwd_see_1" value="보기">
                     </li> 
                     <li class="info_menu">변경 비밀번호</li>
                     <li class="info_info" style="float: left; margin-left: 85px;">
-                        <input class="info_ph" type="password" id="member_password_edit" placeholder="변경 비밀번호 입력">
+                        <input class="info_ph" type="password" id="member_password_edit" placeholder="변경 비밀번호 입력" required>
                         <input type="button" id="pwd_see_2" value="보기">
                     </li>
                     <li class="info_menu">비밀번호 확인</li>
                     <li class="info_info" style="float: left; margin-left: 85px;">
-                        <input class="info_ph" type="password" id="member_password_edit2" placeholder="변경 비밀번호 입력">
+                        <input class="info_ph" type="password" id="member_password_edit2" placeholder="변경 비밀번호 입력" required>
                         <input type="button" id="pwd_see_3" value="보기">
                     </li>
                 </ul>
                 <input type="button" id="edit_btn" value="수정">
             </div>
+            <%@ include file="/WEB-INF/view/footer.jsp"%>
         </section>
         <section id="section2">
             <div>
@@ -215,32 +125,46 @@
         </section>
         
 <script>
-	//보기 버튼 클릭 시 TODO
+	//보기 버튼 클릭 시
 	$("#pwd_see_1").click(function(){
-		if($("#member_password_org").attr("type") == "password"){
-			$("#member_password_org").attr("type","text");
-			$("#pwd_see_1").val("숨기기");
+		if($("#member_password_org").val() == "" || $("#member_password_org").val() == null){
+			
 		} else {
-			$("#member_password_org").attr("type","password");
-			$("#pwd_see_1").val("보기");
-		}
+			if($("#member_password_org").attr("type") == "password"){
+				$("#member_password_org").attr("type","text");
+				$("#pwd_see_1").val("숨기기");
+			} else {
+				$("#member_password_org").attr("type","password");
+				$("#pwd_see_1").val("보기");
+			}			
+		}	
 	})
+	
 	$("#pwd_see_2").click(function(){
-		if($("#member_password_edit").attr("type") == "password"){
-			$("#member_password_edit").attr("type","text");
-			$("#pwd_see_2").val("숨기기");
+		if($("#member_password_edit").val() == "" || $("#member_password_edit").val() == null) {
+			
 		} else {
-			$("#member_password_edit").attr("type","password");
-			$("#pwd_see_2").val("보기");
+			if($("#member_password_edit").attr("type") == "password"){
+				$("#member_password_edit").attr("type","text");
+				$("#pwd_see_2").val("숨기기");
+			} else {
+				$("#member_password_edit").attr("type","password");
+				$("#pwd_see_2").val("보기");
+			}
 		}
 	})
+	
 	$("#pwd_see_3").click(function(){
-		if($("#member_password_edit2").attr("type") == "password"){
-			$("#member_password_edit2").attr("type","text");
-			$("#pwd_see_3").val("숨기기");
+		if($("#member_password_edit2").val() == "" || $("#member_password_edit2").val() == null){
+			
 		} else {
-			$("#member_password_edit2").attr("type","password");
-			$("#pwd_see_3").val("보기");
+			if($("#member_password_edit2").attr("type") == "password"){
+				$("#member_password_edit2").attr("type","text");
+				$("#pwd_see_3").val("숨기기");
+			} else {
+				$("#member_password_edit2").attr("type","password");
+				$("#pwd_see_3").val("보기");
+			}
 		}
 	})
 
@@ -285,25 +209,25 @@
 	    		chkPwd = true;
 	    	}
 	    }
-	    
-	    $.ajax({
-	    	url:"memberupdatepassword.ax",
-			type: "post",
-			data: {
-				memberId: "${ssMvo.memberId}",
-				memberPassword: $("#member_password_org").val(),
-				memberNewPassword: $("#member_password_edit").val(),
-			},
-			success: function(result){
-					alert("비밀번호 수정 완료");	
-					location.href= "membermypage";
-			},
-			error: function(){
-				alert("비밀번호 수정 ajax 오류 발생");
-			}
-	    })
-	    
-	    
+		
+	    if(chkPwd == true){
+	    	$.ajax({
+		    	url:"memberupdatepassword.ax",
+				type: "post",
+				data: {
+					memberId: "${ssMvo.memberId}",
+					memberPassword: $("#member_password_org").val(),
+					memberNewPassword: $("#member_password_edit").val(),
+				},
+				success: function(result){
+						alert("비밀번호 수정 완료");	
+						location.href= "membermypage";
+				},
+				error: function(){
+					alert("비밀번호 수정 ajax 오류 발생");
+				}
+		    })	    	
+	    }
 	})
 </script>        
         
@@ -320,7 +244,5 @@
     	location.href="memberupdatepassword";
     })
 </script>
-
-<%@ include file="/WEB-INF/view/footer.jsp"%>
 </body>
 </html>
