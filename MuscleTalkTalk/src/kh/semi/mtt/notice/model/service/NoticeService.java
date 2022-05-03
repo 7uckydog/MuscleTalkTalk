@@ -28,10 +28,10 @@ public class NoticeService {
 		return vo;
 	}
 	
-	public ArrayList<NoticeVo> readAllNotice(int startNnum, int endNnum){   //오버로딩
+	public ArrayList<NoticeVo> readAllNotice(int startRnum, int endRnum, String search){   //오버로딩
 		Connection conn=null;
 		conn = getConnection();
-		ArrayList<NoticeVo> result = dao.readAllNotice(conn, startNnum, endNnum);
+		ArrayList<NoticeVo> result = dao.readAllNotice(conn, startRnum, endRnum, search);
 		close(conn);
 		return result;
 	}
