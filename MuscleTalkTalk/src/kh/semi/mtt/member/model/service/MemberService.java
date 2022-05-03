@@ -1,11 +1,13 @@
 package kh.semi.mtt.member.model.service;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import static kh.semi.mtt.common.jdbc.JdbcTemplate.close;
 import static kh.semi.mtt.common.jdbc.JdbcTemplate.getConnection;
 
 import kh.semi.mtt.member.model.dao.MemberDao;
+import kh.semi.mtt.member.model.vo.AdminVo;
 import kh.semi.mtt.member.model.vo.MemberVo;
 
 public class MemberService {
@@ -108,6 +110,24 @@ public class MemberService {
 			conn = getConnection();
 			result = new MemberDao().updatePassword(conn, memberId, memberPassword, memberNewPassword);
 			
+			close(conn);
+			return result;
+		}
+		
+	//회원 전체조회
+		public ArrayList<AdminVo> readAllMember(int startRnum, int endRnum, String search){
+			Connection conn = null;
+			conn = getConnection();
+			ArrayList<AdminVo> result = dao.readAllMember(conn, startRnum, endRnum, search);
+			close(conn);
+			return result;
+		}
+	
+	//갯수세기
+		public int countMember() {
+			Connection conn = null;
+			conn = getConnection();
+			int result = dao.countMember(conn);
 			close(conn);
 			return result;
 		}

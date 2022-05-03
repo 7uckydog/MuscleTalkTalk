@@ -16,22 +16,16 @@
 section{
 font-family:'THEmpgtM';
 }
-a{
-      text-decoration: none;
-      color: black;
-}
-a:visited {
-      text-decoration: none;
-      color: black;
-}
-a:link{
-      text-decoration: none;
-      color: black;
+a, a:visited, a:link{
+    color: rgb(94, 94, 94);
 } 
 .menu>ul>li {
 	display: list-item;
 	text-align: center;
 	padding-top: 12px;
+}
+#li_3 {
+	text-decoration: underline;
 }
 #board_main {
 	padding-top: 65px;
@@ -256,18 +250,11 @@ a:link{
 			</tr>
 			<c:forEach items="${cVoList}" var="vo">
 				<tr class="table_content">
-					<td><a href="boardread?bno=${vo.commentNo}">${vo.commentNo }</a></td>
+					<td>${vo.rownum }</td>
 					<td><a href="boardread?bno=${vo.boardNo }">${vo.commentContent }</a></td>
 					<td>${vo.commentDate }</td>
 					<td>&nbsp;&nbsp;&nbsp;${vo.memberNickname }</td>
-					<td>
-						<c:if test="${empty vo.boardNo}">
-							${vo.routineboardNo}
-						</c:if>
-						<c:if test="${empty vo.routineboardNo}">
-							${vo.boardNo}
-						</c:if>
-					</td>
+					<td><a href="boardread?bno=${vo.commentNo}">${vo.commentNo }</a></td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -309,7 +296,7 @@ a:link{
 				<li id="li_2"><a href="adminboard">게시물 관리</a></li>
 				<li id="li_3"><a href="admincomment">댓글 관리</a></li>
 				<li id="li_4"><a href="adminnotice">공지사항 관리</a></li>
-				<li id="li_5">회원 관리</li>
+				<li id="li_5"><a href="adminmember">회원 관리</a></li>
 				<li id="li_6">트레이너 관리</li>
 				<li id="li_7">문의 확인</li>
 			</ul>

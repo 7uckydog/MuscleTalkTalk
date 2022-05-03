@@ -33,7 +33,7 @@ public class CommentVo {
 	private ArrayList<CommentVo> reCommentList;
 	private String memberNickname;
 	
-	
+	private int rownum;
 	
 	
 
@@ -68,12 +68,25 @@ public class CommentVo {
 	}
 
 
+	
+
+	public int getRownum() {
+		return rownum;
+	}
+
+
+	public void setRownum(int rownum) {
+		this.rownum = rownum;
+	}
+
+
 	@Override
 	public String toString() {
 		return "CommentVo [commentNo=" + commentNo + ", boardNo=" + boardNo + ", routineboardNo=" + routineboardNo
 				+ ", memberNo=" + memberNo + ", commentContent=" + commentContent + ", commentCount=" + commentCount
 				+ ", commentDate=" + commentDate + ", commentEditDate=" + commentEditDate + ", rCnt=" + rCnt
-				+ ", reCommentList=" + reCommentList + ", memberNickname=" + memberNickname + "]";
+				+ ", reCommentList=" + reCommentList + ", memberNickname=" + memberNickname + ", rownum=" + rownum
+				+ "]";
 	}
 
 

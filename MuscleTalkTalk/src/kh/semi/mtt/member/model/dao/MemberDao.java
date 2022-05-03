@@ -6,7 +6,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
+import kh.semi.mtt.member.model.vo.AdminVo;
 import kh.semi.mtt.member.model.vo.MemberVo;
 import kh.semi.mtt.member.model.vo.TrainerVo;
 
@@ -300,6 +302,77 @@ public class MemberDao {
 			return result;
 		}
 	
+	//멤버 전체조회
+		public ArrayList<AdminVo> readAllMember(Connection conn, int startRnum, int endRnum, String search){
+			ArrayList<AdminVo> volist = null;
+			String sql = "select * from (select rownum r, tm.member_name, tm.member_no, tm.MEMBER_JOIN_DATE, nvl(price_sum,0) sum_price, nvl(b_report_count,0) b_report_cnt, nvl(rb_report_count,0) rb_report_cnt "
+					+ "    from tb_member tm"
+					+ "    left outer join (select member_no, sum(PAYMENT_PRICE) price_sum"
+					+ "        from tb_payment "
+					+ "        group by MEMBER_NO) t3"
+					+ "    on tm.member_no = t3.member_no"
+					+ "    left outer join (select tb.member_no, count(tb.member_no) b_report_count"
+					+ "        from tb_board_report tbr"
+					+ "        join tb_board tb"
+					+ "        on tbr.board_no = tb.board_no"
+					+ "        group by tb.member_no) t1"
+					+ "    on tm.member_no = t1.member_no"
+					+ "    left outer join (select trb.member_no, count(trb.member_no) rb_report_count"
+					+ "        from tb_board_report tbr"
+					+ "        join tb_routine_board trb"
+					+ "        on tbr.routine_board_no = trb.routine_board_no"
+					+ "        group by trb.member_no) t2"
+					+ "    on tm.member_no = t2.member_no)"
+					+ "	   where r between ? and ? "
+					+ "    order by r desc";
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, startRnum);
+				pstmt.setInt(2, endRnum);
+				
+				rs = pstmt.executeQuery();
+				if(rs != null) {
+					volist = new ArrayList<AdminVo>();
+					while (rs.next()) {
+						AdminVo vo = new AdminVo();
+						vo.setMemberName(rs.getString("member_name"));
+						vo.setMemberNo(rs.getInt("member_no"));
+						vo.setMemberJoinDate(rs.getDate("member_join_date"));
+						vo.setSumPrice(rs.getInt("sum_price"));
+						vo.setBoardReportCnt(rs.getInt("b_report_cnt") + rs.getInt("rb_report_cnt"));
+						vo.setRownum(rs.getInt("r"));
+						volist.add(vo);
+					}
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rs);
+				close(pstmt);
+			}
+			return volist;
+		}
+
+		public int countMember(Connection conn) {
+			int result = 0;
+			String sql = "select count(*) as cnt from tb_member";
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				if (rs.next()) {
+					result = rs.getInt("cnt");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			finally {
+				close(rs);
+				close(pstmt);
+			}
+			return result;
+		}
 	
 	
 }

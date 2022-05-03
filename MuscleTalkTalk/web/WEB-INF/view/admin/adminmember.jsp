@@ -1,5 +1,5 @@
 <%@ include file="/WEB-INF/view/csslink2.jsp" %>
-<%@page import="kh.semi.mtt.board.model.vo.BoardVo"%>
+<%@page import="kh.semi.mtt.member.model.vo.MemberVo"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>admin-dashboard</title>
+<title>admin-member</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <%@ include file="/WEB-INF/view/font.jsp" %>
 
@@ -23,10 +23,10 @@ a, a:visited, a:link{
 	text-align: center;
 	padding-top: 12px;
 }
-#li_4 {
+#li_5 {
 	text-decoration: underline;
 }
-/* #notice_main {
+/* #memeber_main {
 	padding-top: 65px;
 	padding-bottom: 15px;
 	margin-left: 65px;
@@ -36,7 +36,7 @@ a, a:visited, a:link{
 	font-size: 15px;
 } */
 
-#notice_table {
+#memeber_table {
 	margin: 20px auto;
 	width: 650px;
 	font-size: 12px;
@@ -47,7 +47,7 @@ a, a:visited, a:link{
 .board_top{
 	position: relative;
 }
- #notice_main {
+ #memeber_main {
 	padding-top: 65px;
 	margin-left: 65px;
 	font-weight: bold;
@@ -56,7 +56,7 @@ a, a:visited, a:link{
 	font-size: 15px;
 } 
 
-#notice_top_button{
+#memeber_top_button{
 	padding-top: 65px;
 	margin-bottom: 0;
 	float: right;
@@ -149,7 +149,7 @@ a, a:visited, a:link{
 	box-sizing: border-box;
 }
 
-.search_notice {
+.search_memeber {
 	display: inline-block;
 	float: right;
 	margin-right: 65px;
@@ -174,58 +174,62 @@ a, a:visited, a:link{
 	
 }
 
-
-
-
 </style>
 
 </head>
 <body>
 	<%
-		BoardVo vo = (BoardVo) request.getAttribute("bvo");
+		MemberVo vo = (MemberVo) request.getAttribute("mvo");
 	%>
 	<%@ include file="/WEB-INF/view/template.jsp" %>
 	<section id="section1">
 		<div class="board_top">
-			<div id="notice_main">공지사항 관리</div>
-			<div id="notice_top_button">
-				<button onclick="location.href = 'noticeinsert';" id="write_btn">공지사항 작성</button>
+	
+			<div id="memeber_main">회원 관리</div>
+			<div id="memeber_top_button">
+				<button onclick="location.href = 'memeberinsert';" id="write_btn">임시자리</button>
 			</div>
 		</div>
-		<table id="notice_table">
+		<table id="memeber_table">
 			<tr>
-				<td colspan="3" class="table_line"></td>
+				<td colspan="6" class="table_line"></td>
 			</tr>
 			<tr id="table_title">
-				<td class="first_col"></td>
-				<td style="width: 50%;">&nbsp;&nbsp;&nbsp;&nbsp;제목</td>
-				<td>&nbsp;&nbsp;&nbsp;&nbsp;등록일</td>
+				<td class="first_col" style="width: 10%;"></td>
+				<td style="width: 15%;">회원명</td>
+				<td style="width: 15%;">회원번호</td>
+				<td style="width: 20%;">가입일</td>
+				<td style="width: 20%;">누적결제액(원)</td>
+				<td style="width: 20%;">누적신고횟수</td>
 			</tr>
 			<tr>
-				<td colspan="3" class="table_line"></td>
-			</tr>
-			<c:forEach var="vo" items="${noticereadall}">
+				<td colspan="6" class="table_line"></td>
+			</tr>						 
+			<c:forEach var="vo" items="${memberreadall}">
 				<tr class="table_content">
-					<td><a href="noticeread?noticeNo=${vo.noticeNo}">${vo.noticeNo }</a></td>
-					<td><a href="noticeread?noticeNo=${vo.noticeNo}">${vo.notiTitle}</a></td>
-					<td>${vo.notiDate}</td>
+					<td>${vo.rownum}</td>
+					<td><a href="memberread?memeberNo=${vo.memberNo}">${vo.memberName }</a></td>
+					<td><a href="memberread?memeberNo=${vo.memberNo}">${vo.memberNo}</a></td>
+					<td>${vo.memberJoinDate}</td>
+					<td>${vo.sumPrice}</td>
+					<td>${vo.boardReportCnt}</td>
 				</tr>
 			</c:forEach>
 		</table>
 		<div class="Pageing">
 			<p>
 				<c:if test="${startPage > 1 }">
-					<a class="Page" href="adminnotice?page=${startPage-1 }">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<a class="Page" href="adminmember?page=${startPage-1 }">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				</c:if>
 				<c:forEach begin="${startPage }" end="${endPage }" var="p">
-					<a class="Page" href="adminnotice?page=${p }">${p }</a>&nbsp;&nbsp;&nbsp;&nbsp;
+					<a class="Page" href="adminmember?page=${p }">${p }</a>&nbsp;&nbsp;&nbsp;&nbsp;
 				</c:forEach>
 				<c:if test="${endPage < totalPageCnt }">
-					<a class="Page" href="adminnotice?page=${endPage+1 }">다음</a>
+					<a class="Page" href="adminmember?page=${endPage+1 }">다음</a>
 				</c:if>
 			<p>
 		</div>
-		<div class="search_notice">
+		<div class="search_memeber">
 				<button type="button" id="btn_search">검색</button>
 				<input id="input_search" type="text" name="searchInput" 
 					placeholder="검색어입력">
@@ -252,7 +256,7 @@ a, a:visited, a:link{
 				<li id="li_2"><a href="adminboard">게시물 관리</a></li>
 				<li id="li_3"><a href="admincomment">댓글 관리</a></li>
 				<li id="li_4"><a href="adminnotice">공지사항 관리</a></li>
-				<li id="li_5"><a href="adminmember">회원 관리</a></li>
+				<li id="li_5"><a href="adminmemeber">회원 관리</a></li>
 				<li id="li_6">트레이너 관리</li>
 				<li id="li_7">문의 확인</li>
 			</ul>
@@ -262,23 +266,23 @@ a, a:visited, a:link{
 	$("#btn_search").click(function(){
 		console.log("btn_search CLICK");
 		$.ajax({
-			url:"noticereadall",
+			url:"memeberreadall",
 			type:"post",
 			data:{inputsearch:$("#input_search").val()},
 			dataType:"json",
 			success: function(result){
 				console.log(result);
 				var html = "";
-				for(var i = 0; i < result.noticereadall.length; i++){
-                    var vo = result.noticereadall[i];
+				for(var i = 0; i < result.memeberreadall.length; i++){
+                    var vo = result.memeberreadall[i];
                     html += '<tr class="table_content">';
-                    html += '<td><a href="noticeread?noticeNo='+vo.noticeNo+'">'+vo.noticeNo+'</a></td>';
-                    html += '<td><a href="noticeread?noticeNo='+vo.noticeNo+'">'+vo.notiTitle+'</a></td>';
+                    html += '<td><a href="memeberread?memeberNo='+vo.memeberNo+'">'+vo.memeberNo+'</a></td>';
+                    html += '<td><a href="memeberread?memeberNo='+vo.memeberNo+'">'+vo.notiTitle+'</a></td>';
                     html += '<td>'+vo.notiDate+'</td>';
                     html += '</tr>';
                 }
 				$("#table_title").next().nextAll().remove();
-				$("#notice_table").append(html);
+				$("#memeber_table").append(html);
 			},
 			error: function(result){
 				
