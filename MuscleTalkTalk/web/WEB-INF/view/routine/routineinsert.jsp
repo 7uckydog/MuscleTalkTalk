@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ include file="/WEB-INF/view/csslink.jsp"%>
 <!DOCTYPE html>
 <html lang="en">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <head>
+<%@ include file="/WEB-INF/view/font.jsp"%>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -365,6 +365,9 @@
         .taget_sort > input:nth-child(7),.taget_sort > input:nth-child(8) {
             display: none;
         }
+        .taget_sort > button:nth-child(9){
+            margin-left: 0px;
+        }
 
         .taget_sort>label {
             width: 50px;
@@ -435,7 +438,7 @@
             margin-left: 213px;
         }
         .set_timeup{
-            margin-left: 33px;
+            margin-left: 51px;
         }
         .set_timeup,.set_timedawn{
             width: 28px;
@@ -684,24 +687,52 @@
             line-height: 30px;
             background-color: #4B4DB2;
             color: white;
-            display: none;
+            /* display: none; */
             float: left;
         }
-        .aw1,.aw2,.aw3,.aw4,.aw5,.aw6,.aw7,.aw8{
-            display: none;
+        .addworkoutPart{
+            /* display: none; */
             margin-left: 10px;
             width: 50px;
-            height: 23px;
-            line-height: 25px;
+            height: 26px;
+            line-height: 26px;
             text-align: center;
             border: 1px solid #4B4DB2;
             background-color: white;
             color: #4B4DB2;
-            padding-top: 5px;
             border-radius: 2.5px;
             outline: none;
+            float: left;
         }
+        .addworkoutDiv{
+            margin-left: 65px;
+            overflow: hidden;
+        }
+        .addworkoutTable td{
+            width: 140px;
+            height: 30px;
+            line-height: 30px;
+            color: #4B4DB2;
+            background-color: white;
+            border: 1px solid #4B4DB2;
+            text-align: center;
+        }
+        .addworkoutTable td:nth-child(2),.addworkoutTable td:nth-child(3),.addworkoutTable td:nth-child(4){
+            border-left: 0px;
+        }
+        .addworkoutTable{
+            /* display: none; */
+            box-sizing: border-box;
+            height: auto;
+            float: left;
 
+        }
+        .addworkoutAllDiv{
+            overflow: hidden;
+        }
+        .addworkoutAllDivTop{
+            overflow: hidden;
+        }
 
 
 
@@ -736,114 +767,8 @@
 </head>
 
 <body bgcolor=" #ECECEC">
-    <header id="header_all">
-        <div id="header_logo">
-            <a href="">
-                <img src="./images/logo.png">
-            </a>
-        </div>
-        <div id="icon_menu">
-            <div id="member_icon">
-                <div>
-                    <img src="./images/회원.svg" id="member_icon_img">
-                </div>
-            </div>
-            <div id="bell_icon">
-                <div>
-                    <img src="./images/알림.svg" id="bell_icon_img">
-                </div>
-            </div>
-            <div id="home_icon">
-                <a href="">
-                    <img src="./images/메인홈.svg">
-                </a>
-            </div>
-        </div>
-
-        <!-- 멤버 아이콘 영역 -->
-        <div id="member_icon_menu">
-            <div>
-                <a href="">
-                    <img src="./images/login.png" id="login_icon">
-                    <p style="padding-bottom: 25px;">로그인</p>
-                </a>
-            </div>
-            <div>
-                <a href="">
-                    <img src="./images/join.png" id="sign_icon">
-                    <p>회원가입</p>
-                </a>
-            </div>
-        </div>
-
-        <!-- 알림 아이콘 영역 -->
-        <!-- Flexbox 사용 예정-->
-        <div id="bell_icon_notice">
-            <div id="header_notice_all">
-                <div>
-                    <a class="header_notice">
-                        <div style="color: gray; text-align: center; margin-left: -20px; font-weight:normal;">알림 없음
-                        </div>
-                    </a>
-                </div>
-
-                <div>
-                    <img src="./images/x_icon.svg" style="width: 10px;" class="bell_notice_x">
-                    <a href="" class="header_notice">
-                        <div>알림 1</div>
-                        <div>알림 내용 1</div>
-                    </a>
-                </div>
-                <div>
-                    <img src="./images/x_icon.svg" style="width: 10px;" class="bell_notice_x">
-                    <a href="" class="header_notice">
-                        <div>알림 2</div>
-                        <div>알림 내용 2 알림 내용 2 알림 내용 2 알림 내용 2 알림 내용 2 알림 내용 2 알림 내용 2 알림 내용 2</div>
-                    </a>
-                </div>
-                <div>
-                    <img src="./images/x_icon.svg" style="width: 10px;" class="bell_notice_x">
-                    <a href="" class="header_notice">
-                        <div>알림 3</div>
-                        <div>새로운 공지사항이 등록되었습니다. 알림을 클릭하여 확인해 주세요.</div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <aside>
-        <div id="aside_all">
-            <div>
-                <a href="">
-                    <img src="./images/exe.png">
-                    <p>운동관리</p>
-                </a>
-            </div>
-            <div>
-                <a href="">
-                    <img src="./images/cal.png">
-                    <p>캘린더</p>
-                </a>
-            </div>
-            <div>
-                <a href="">
-                    <img src="./images/com.png">
-                    <p>커뮤니티</p>
-                </a>
-            </div>
-            <div>
-                <a href="">
-                    <img src="./images/pt.png">
-                    <p>PT프로그램</p>
-                </a>
-            </div>
-        </div>
-
-        <div id="triangle_4">
-        </div>
-    </aside>
-
+    <%@ include file="/WEB-INF/view/template.jsp"%>
+    
     <section>
         <div id="routinecreat_main">
             루틴생성
@@ -1051,10 +976,10 @@
                     <tr class="workoutSettingTr">
                         <td class="workoutSettingName">운동명</td>
                         <td>
-                            <input class="workoutSettingWeight" value="0kg">
+                            <input maxlength="5" class="workoutSettingWeight" value="0kg">
                         </td>
                         <td>
-                            <input class="workoutSettingNumber" value="0회">
+                            <input maxlength="3" class="workoutSettingNumber" value="0회">
                         </td>
                     </tr>
                 </form>
@@ -1072,33 +997,26 @@
         <div class="addworkoutTitle">
             추가된 운동
         </div>
-        <div class="addworkoutDay">요일</div>
-        <input class="aw1" type="text" readonly value="등">
-        <input class="aw2" type="text" readonly value="가슴">
-        <input class="aw3" type="text" readonly value="어깨">
-        <input class="aw4" type="text" readonly value="하체">
-        <input class="aw5" type="text" readonly value="복근">
-        <input class="aw6" type="text" readonly value="팔">
-        <input class="aw7" type="text" readonly value="엉덩이">
-        <input class="aw8" type="text" readonly value="유산소">
-        
+        <!-- <div class="addworkoutAllDiv"> -->
+             <!-- <div class="addworkoutDay">요일</div> -->
+            <!-- <input class="aw1" type="text" readonly value="등">
+            <input class="aw2" type="text" readonly value="가슴">
+            <input class="aw3" type="text" readonly value="어깨">
+            <input class="aw4" type="text" readonly value="하체">
+            <input class="aw5" type="text" readonly value="복근">
+            <input class="aw6" type="text" readonly value="팔">
+            <input class="aw7" type="text" readonly value="엉덩이">
+            <input class="aw8" type="text" readonly value="유산소"> -->
+        <!-- </div> -->
 
     </section>
 
-    <footer>
-        <div>
-            <ul>
-                <li>대한민국 &copy; 주식회사 머슬톡톡 무단 전재와 무단 복제를 금함.</li>
-                <li>Muscle TalkTalk Co.Ltd ㅣ 주소 및 연락처 : 화성시 무슨로 몇몇 (031)-000-0000</li>
-                <li>대표자 : 박재민 ㅣ사업자등록번호 : 124-82-10324</li>
-                <li>메일문의 : muscleTalkTalk@gmail.com ㅣ호스팅서비스 : aws</li>
-                <li>Copyright © 2022 MuscleTalkTalk All Right Reserved</li>
-            </ul>
-        </div>
-        <a href="" id="go_to_top">
-            <img src="./images/gototop.svg">
-        </a>
-    </footer>
+
+
+
+	<%@ include file="/WEB-INF/view/footer.jsp"%>
+
+    
 
     <script>
         $("#member_icon_img").mouseenter(function (event) {
@@ -1310,13 +1228,14 @@
             }
         });
 
-        // 추가버튼 클릭 이벤트 - 요일
-        $(".routine_daySelect").change(function(){
-            if($(".addworkoutDay").html() =="요일"){
-            $(".addworkoutDay").html($(".routine_daySelect").val());
-            // console.log("확인용"+$(".routine_daySelect").val());
-            }
-        });
+        // 루틴요일 클릭 이벤트 - 요일 
+        // $(".routine_daySelect").change(function(){
+        //     if($(".addworkoutDay").html() =="요일"){
+        //     $(".addworkoutDay").html($(".routine_daySelect").val());
+        //     // console.log("확인용"+$(".routine_daySelect").val());
+        //     }
+
+        // });
         // show -요일 - 부위 -선택부위를 true,faluse로 알아냄 *중요*
         var partArray = [false,false,false,false,false,false,false,false];
         $(".taget_value").click(function(){
@@ -1325,26 +1244,70 @@
             for(var i = 0; i<$(".taget_value").length; i++){
                 if($(".taget_value").eq(i)[0]==$(this)[0]){  //왜 .eq(i)[0] 이렇게 써야하는지 .eq(i)로 비교하면 안되는지
                     partBtnIndex = i;
+
                 }
             }
             partArray[partBtnIndex] = !partArray[partBtnIndex];
+            console.log($("partArray[partBtnIndex]"))
         });
         // show -요일 - 부위 -위를 토대로 선택부위를 보여줌
+        // 추가버튼 클릭 이벤트 - 요일, - 추가된 운동명
         $(".workout_inputBtn").on("click",function(){
-            if($(".addworkoutDay").html()=="요일"){
+            console.log($(".routine_daySelect").val());
+            if($(".addworkoutDay").text()=="요일 선택"){
                 alert("요일을 선택해주세요");
+
+                return;
+            }
+ 
+            var arrayLength = $(".workoutSettingTr").length;
+            console.log($(".workoutSettingTr").length);
+            if($(".addworkoutAllDiv").length ==0){
+                $(".addworkoutTitle").after('<div class="addworkoutAllDiv"><div class="addworkoutAllDivTop"></div></div>');
             }else{
-                $(".addworkoutDay").show();
-                for(var i =0; i<partArray.length;i++){
-                    if(partArray[i]){
-                        var awStr = '.aw' + (i + 1);
-                        $(awStr).show();
-                    }
+                $('.addworkoutDiv').eq($('.addworkoutDiv').length-1).after('<div class="addworkoutAllDiv"><div class="addworkoutAllDivTop"></div></div>');
+            }
+            $(".addworkoutAllDivTop").eq($(".addworkoutAllDivTop").length-1).append('<div class="addworkoutDay">'+($(".routine_daySelect").val())+'</div>');
+            for(var i = 0; i < partArray.length; i++){
+                if(partArray[i]){
+                    $(".addworkoutAllDivTop").eq($(".addworkoutAllDivTop").length-1).append('<div class="addworkoutPart">'+($(".taget_value").eq(i).text())+'</div>')
                 }
             }
+            $(".addworkoutAllDivTop").eq($(".addworkoutAllDivTop").length-1).after('<div class="addworkoutDiv"><table class="addworkoutTable"></table></div>');
+            var prevTrLength = $(".addworkoutTr").length;
+            for(var i = 0; i < arrayLength; i++) {
+                $('.addworkoutTable').append('<tr class="addworkoutTr"></tr>');
+                $('.addworkoutTr').eq(prevTrLength+i).append('<td class="addworkoutname">'+($(".workoutSettingName").eq(i).text())+'</td>');
+                $('.addworkoutTr').eq(i).append('<td class="addworkoutweight">'+($(".workoutSettingWeight").eq(i).val())+'</td>');
+                $('.addworkoutTr').eq(i).append('<td class="addworkoutsettingname">'+($(".workoutSettingNumber").eq(i).val())+'</td>');
+                $('.addworkoutTr').eq(i).append('<td class="addworkoutset">'+(i+1)+'세트</td>');
+            }
+            
+            for(var i = 0;i<arrayLength - 1;i++){
+                //tr 삭제
+                count3("minus3");
+                // $(".workoutSettingTr").eq(length + 1).remove();
+                $(".workoutSettingTr").eq(length).remove();
+            }
+            $(".workoutSettingName").text('운동명');
+            return;
         });
 
+            
 
+            // - 요일, - 추가된 운동명
+
+
+        // <div class="addworkoutDiv">
+        //     <table class="addworkoutTable">
+        //         <tr class="addworkoutTr">
+        //             <td class="addworkoutname">추가된운동</td>
+        //             <td class="addworkoutweight">추가된운동무게</td>
+        //             <td class="addworkoutsettingname">추가된운동횟수</td>
+        //             <td class="addworkoutset">추가된운동세트</td> 
+        //         </tr>
+        //     </table>
+        // </div>
 
 
 

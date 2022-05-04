@@ -48,7 +48,11 @@ public class CommentDao {
 //		String sql = "select * from tb_comment where BOARD_NO = ?";  //이 테이블에서 b_no는 fk임
 //		select comment_no, board_no, member_nickname, comment_content, comment_date, comment_edit_date
 //	    from tb_comment join tb_member on tb_comment.member_no = tb_member.member_no where board_no = 1;
-		String sql = "select comment_no, board_no, member_nickname, comment_content, comment_date, comment_edit_date from tb_comment join tb_member on tb_comment.member_no = tb_member.member_no where board_no = ? order by comment_date desc";
+		String sql = "select rownum r, t1.* from(select comment_no, board_no, member_nickname, comment_content, comment_date, comment_edit_date "
+				+ "from tb_comment "
+				+ "join tb_member on tb_comment.member_no = tb_member.member_no "
+				+ "where board_no = ? order by comment_date desc) t1 "
+				+ "order by r desc";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, boardNo);
@@ -63,6 +67,7 @@ public class CommentDao {
 				vo.setCommentDate(rs.getTimestamp("COMMENT_DATE"));
 				vo.setCommentEditDate(rs.getTimestamp("COMMENT_EDIT_DATE"));
 				vo.setMemberNickname(rs.getString("MEMBER_NICKNAME"));
+				vo.setRownum(rs.getInt("r"));
 				volist.add(vo);  //리턴 변수에 값 채우기
 			} 
 		} catch (SQLException e) {

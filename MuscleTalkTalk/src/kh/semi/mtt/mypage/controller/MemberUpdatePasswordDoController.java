@@ -47,7 +47,7 @@ public class MemberUpdatePasswordDoController extends HttpServlet {
 		String memberNewPassword = request.getParameter("memberNewPassword");
 		System.out.println(memberId);
 		
-		int result = new MemberService().updatePassword(memberPassword, memberNewPassword);
+		int result = new MemberService().updatePassword(memberId, memberPassword, memberNewPassword);
 		
 		if(result == 0) {
 			System.out.println("회원정보 수정 실패");

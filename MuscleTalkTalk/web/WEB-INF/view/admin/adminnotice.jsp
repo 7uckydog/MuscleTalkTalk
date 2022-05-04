@@ -1,60 +1,86 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@page import="kh.semi.mtt.member.model.vo.MemberVo"%>
-<%@page import="kh.semi.mtt.notice.model.vo.NoticeVo"%>
-<%@ include file="/WEB-INF/view/csslink.jsp"%>
-<%@ include file="/WEB-INF/view/font.jsp"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="/WEB-INF/view/csslink2.jsp" %>
+<%@page import="kh.semi.mtt.board.model.vo.BoardVo"%>
+<%@page import="java.util.ArrayList"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ReadAllNotice</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<%@ include file="/WEB-INF/view/font.jsp"%>
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<title>admin-dashboard</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<%@ include file="/WEB-INF/view/font.jsp" %>
 
 <style>
-a{
-      text-decoration: none;
-      color: black;
+section{
+font-family:'THEmpgtM';
 }
-a:visited {
-      text-decoration: none;
-      color: black;
+a, a:visited, a:link{
+    color: rgb(94, 94, 94);
 }
-a:link{
-      text-decoration: none;
-      color: black;
-} 
+.menu>ul>li {
+	display: list-item;
+	text-align: center;
+	padding-top: 12px;
+}
+#li_4 {
+	text-decoration: underline;
+}
+/* #notice_main {
+	padding-top: 65px;
+	padding-bottom: 15px;
+	margin-left: 65px;
+	font-weight: bold;
+	display: inline-block;
+	margin-bottom: 0;
+	font-size: 15px;
+} */
 
-section {
-	margin-left: 210px;
-	background-color: white;
-	border-radius: 10px 10px 0 0;
-	width: 930px;
-	height: 2000px;
+#notice_table {
+	margin: 20px auto;
+	width: 650px;
+	font-size: 12px;
+	clear: both;
+}
+
+
+.board_top{
 	position: relative;
-	font-family:'THEmpgtM';
-	}
-
-#notice_main {
-	/* margin-top: 65px; */
-	/* margin-left: 65px; */
+}
+ #notice_main {
 	padding-top: 65px;
 	margin-left: 65px;
 	font-weight: bold;
 	display: inline-block;
-	/* margin-bottom: 40px; */
+	padding-bottom: 15px;
 	font-size: 15px;
-}
+} 
 
 #notice_top_button{
 	padding-top: 65px;
-	/* margin-bottom: 40px; */
+	margin-bottom: 0;
 	float: right;
+	position: absolute;
+    bottom: 0;
+    right: 0;
 }
+#write_btn {
+	color: white;
+	border: 1px solid white;
+	background-color: #4B4DB2;
+	width: 152px;
+	height: 30px;
+	line-height: 30px;
+	font-size: 12px;
+	margin-right: 65px;
+	cursor: pointer;
 
+}
+#write_btn:hover{
+	color: #4B4DB2;
+	background-color: white;
+	border: 1px solid #4B4DB2;
+}
 
 #board_category {
 	padding-top: 65px;
@@ -101,12 +127,6 @@ section {
 	font-size: 12px;
 }
 
-#notice_table {
-	margin: 50px auto;
-	width: 800px;
-	font-size: 12px;
-}
-
 .table_line {
 	background: gray;
 	background-clip: content-box;
@@ -125,14 +145,14 @@ section {
 
 .table_content :first-child {
 	width: 60px;
-	padding-left: 17px;
+	padding-left: 10px;
 	box-sizing: border-box;
 }
 
 .search_notice {
 	display: inline-block;
 	float: right;
-	margin-right: 60px;
+	margin-right: 65px;
 }
 
 .Pageing {
@@ -155,12 +175,23 @@ section {
 }
 
 
+
+
 </style>
+
 </head>
-<body bgcolor="#ECECEC">
-<%@ include file="/WEB-INF/view/template.jsp"%>
-	<section>
-		<div id="notice_main">공지사항</div>
+<body>
+	<%
+		BoardVo vo = (BoardVo) request.getAttribute("bvo");
+	%>
+	<%@ include file="/WEB-INF/view/template.jsp" %>
+	<section id="section1">
+		<div class="board_top">
+			<div id="notice_main">공지사항 관리</div>
+			<div id="notice_top_button">
+				<button onclick="location.href = 'noticeinsert';" id="write_btn">공지사항 작성</button>
+			</div>
+		</div>
 		<table id="notice_table">
 			<tr>
 				<td colspan="3" class="table_line"></td>
@@ -184,13 +215,13 @@ section {
 		<div class="Pageing">
 			<p>
 				<c:if test="${startPage > 1 }">
-					<a class="Page" href="noticereadall?page=${startPage-1 }">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<a class="Page" href="adminnotice?page=${startPage-1 }">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				</c:if>
 				<c:forEach begin="${startPage }" end="${endPage }" var="p">
-					<a class="Page" href="noticereadall?page=${p }">${p }</a>&nbsp;&nbsp;&nbsp;&nbsp;
+					<a class="Page" href="adminnotice?page=${p }">${p }</a>&nbsp;&nbsp;&nbsp;&nbsp;
 				</c:forEach>
 				<c:if test="${endPage < totalPageCnt }">
-					<a class="Page" href="noticereadall?page=${endPage+1 }">다음</a>
+					<a class="Page" href="adminnotice?page=${endPage+1 }">다음</a>
 				</c:if>
 			<p>
 		</div>
@@ -201,7 +232,32 @@ section {
 		</div>
 		
 	</section>
-	<%@ include file="/WEB-INF/view/footer.jsp"%>
+	<section id="section2">
+		<div class="profile">
+			<img src="">
+			<div id="camera">
+				<img src="<%=request.getContextPath()%>/cssfolder/images/camera.png">
+			</div>
+		</div>
+		<div class="my_info">
+			<div>Admin</div>
+			<div>admin 2</div>
+		</div>
+		<div class="logout">
+			<button>로그아웃</button>
+		</div>
+		<div class="menu">
+			<ul>
+				<li id="li_1"><a href="dashboard">대시보드</a></li>
+				<li id="li_2"><a href="adminboard">게시물 관리</a></li>
+				<li id="li_3"><a href="admincomment">댓글 관리</a></li>
+				<li id="li_4"><a href="adminnotice">공지사항 관리</a></li>
+				<li id="li_5"><a href="adminmember">회원 관리</a></li>
+				<li id="li_6">트레이너 관리</li>
+				<li id="li_7">문의 확인</li>
+			</ul>
+		</div>
+	</section>
 	<script>
 	$("#btn_search").click(function(){
 		console.log("btn_search CLICK");
@@ -230,5 +286,8 @@ section {
 		});
 	});
 	</script>
+	<%@ include file="/WEB-INF/view/footer.jsp" %>
+	
+	
 </body>
 </html>

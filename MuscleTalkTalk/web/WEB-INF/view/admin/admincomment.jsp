@@ -1,5 +1,6 @@
 <%@ include file="/WEB-INF/view/csslink2.jsp" %>
 <%@page import="kh.semi.mtt.board.model.vo.BoardVo"%>
+<%@page import="kh.semi.mtt.comment.model.vo.CommentVo"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -17,13 +18,13 @@ font-family:'THEmpgtM';
 }
 a, a:visited, a:link{
     color: rgb(94, 94, 94);
-}  
+} 
 .menu>ul>li {
 	display: list-item;
 	text-align: center;
 	padding-top: 12px;
 }
-#li_2 {
+#li_3 {
 	text-decoration: underline;
 }
 #board_main {
@@ -109,18 +110,8 @@ a, a:visited, a:link{
 	height: 30px;
 	box-sizing: content-box;
 }
-.search_notice {
-	display: inline-block;
-	float: right;
-	margin-right: 60px;
-}
-/* .page_search{
-	display: inline-blick;
-	overflow: hidden;
-	margin-right: 65px;
-	position: relative;
-} */
-.search_board{
+
+.search_comment{
 	display: inline-block;
 	float: right;
 	margin-right: 65px;
@@ -132,17 +123,6 @@ a, a:visited, a:link{
 	padding: 12px auto;
 	float: right;
 }
-/* #btn_search {
-	height: 27px;
-	width: 63px;
-	font-size: 12px;
-	padding: 12px auto;
-	float: right;
-	cursor: pointer;
-	position: absolute;
-	bottom:0;
-	right:0;
-} */
 
 #input_search {
 	height: 24px;
@@ -243,15 +223,15 @@ a, a:visited, a:link{
 </head>
 <body>
 	<%
-		BoardVo vo = (BoardVo) request.getAttribute("bvo");
+		CommentVo vo = (CommentVo) request.getAttribute("cvo");
 	%>
 	<%@ include file="/WEB-INF/view/template.jsp" %>
 	<section id="section1">
 		<div class="board_top">
-			<div id="board_main">게시물 관리</div>
+			<div id="board_main">댓글 관리</div>
 			<div class="btn_readall_readallreport">
-	            <button type="button"  id="btn_read_all">전체 게시물 조회</button>
-	            <button type="button"  id="btn_read_all_report">신고 게시물 조회</button>
+	            <button type="button"  id="btn_read_all">전체 댓글 조회</button>
+	            <button type="button"  id="btn_read_all_report">신고 댓글 조회</button>
 	        </div>
 		</div>
 		<table id="board_table">
@@ -260,32 +240,24 @@ a, a:visited, a:link{
 			</tr>
 			<tr id="table_title">
 				<td class="first_col"></td>
-				<td style="width: 50%;">&nbsp;&nbsp;&nbsp;&nbsp;제목</td>
+				<td style="width: 50%;">&nbsp;&nbsp;&nbsp;&nbsp;내용</td>
 				<td>&nbsp;&nbsp;&nbsp;&nbsp;등록일</td>
-				<td>조회수</td>
-				<td>&nbsp;게시판명</td>
+				<td>작성자</td>
+				<td>&nbsp;글번호</td>
 			</tr>
 			<tr>
 				<td colspan="5" class="table_line"></td>
 			</tr>
-			<c:forEach items="${boardreadall}" var="vo">
+			<c:forEach items="${cVoList}" var="vo">
 				<tr class="table_content">
-					<td><a href="boardread?bno=${vo.boardNo}">${vo.boardNo }</a></td>
-					<td><a href="boardread?bno=${vo.boardNo }">${vo.boardTitle }</a></td>
-					<td>${vo.boardDate }</td>
-					<td>&nbsp;&nbsp;&nbsp;${vo.boardCount }</td>
-					<td>
-						<c:if test="${vo.boardCategoryNumber == 1}">
-							자유게시판
-						</c:if>
-						<c:if test="${vo.boardCategoryNumber == 2}">
-							루틴게시판
-						</c:if>
-					</td>
+					<td>${vo.rownum }</td>
+					<td><a href="boardread?bno=${vo.boardNo }">${vo.commentContent }</a></td>
+					<td>${vo.commentDate }</td>
+					<td>&nbsp;&nbsp;&nbsp;${vo.memberNickname }</td>
+					<td><a href="boardread?bno=${vo.commentNo}">${vo.commentNo }</a></td>
 				</tr>
 			</c:forEach>
 		</table>
-		
 			<div class="Pageing">
 					<c:if test="${startPage > 1 }">
 						<a class="Page" href="adminboard?page=${startPage-1 }">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -297,12 +269,11 @@ a, a:visited, a:link{
 						<a class="Page" href="adminboard?page=${endPage+1 }">다음</a>
 					</c:if>
 			</div>
-			<div class="search_board">
+			<div class="search_comment">
 				<button type="button" id="btn_search">검색</button>
 				<input id="input_search" type="text" name="searchInput" 
 					placeholder="검색어입력">
 			</div>
-		
 	
 	</section>
 	<section id="section2">

@@ -3,9 +3,10 @@
 		#section1{
             margin-left: 210px;
             background-color: white;
-            border-radius: 10px 10px 0 0;
+            border-radius: 10px;
             width: 780px;
             float: left;
+            margin-bottom: 15%;
         }
         #mp_main_text{
             margin: 63px 0px 75px 63px;
@@ -14,9 +15,7 @@
             color: rgb(51, 51, 51);
             line-height: 20px;
         }
-        #member_info_read{
-        	margin-bottom: 100px;
-        }
+
         #member_info_read > ul {
             color: rgb(94, 94, 94);
             width: 400px;

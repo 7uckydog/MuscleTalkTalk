@@ -13,7 +13,7 @@
         <a href="#header_all" id="go_to_top">
             <img src="<%= request.getContextPath() %>/cssfolder/images/gototop.png">
         </a>
-    </footer>
+</footer>
 
     <script>
         $("#member_icon_img").mouseenter(function(event){

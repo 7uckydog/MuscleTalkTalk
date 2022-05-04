@@ -20,11 +20,14 @@
 	    text-decoration: none;
 	}
 	footer > div > ul{
-    margin-left: 20px;
-    padding: 30px;
-    color: gray;
-    line-height: 15px;
-}
+    	margin-left: 20px;
+    	padding: 30px;
+    	color: gray;
+    	line-height: 15px;
+	}
+	#member_info_read{
+		margin-bottom: 100px;
+	}
 </style>
 </head>
 <body>
@@ -134,7 +137,9 @@
 		                <li class="info_menu">헬스장 주소</li>
 		                <li class="info_info">${ssMvo.gymLocation}</li>
 		 			</c:if>
-		 		</ul>		
+		 		</ul>
+		 	</div>
+		 	<%@ include file="/WEB-INF/view/footer.jsp"%>		
         </section>
         <section id="section2">
             <div>
@@ -195,6 +200,5 @@
         
 	</script>
         
-<%@ include file="/WEB-INF/view/footer.jsp"%>
 </body>
 </html>

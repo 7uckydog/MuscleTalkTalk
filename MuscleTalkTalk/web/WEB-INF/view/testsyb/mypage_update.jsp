@@ -73,7 +73,7 @@
             margin-left: 4px;
         }
         #edit_btn{
-            margin: 50px 80px 0px 630px;
+            margin: 50px 80px 100px 630px;
             width: 70px;
             height: 30px;
             background-color: rgb(224, 224, 224);
@@ -154,7 +154,6 @@
 </head>
 <body>
 <%@ include file="/WEB-INF/view/template.jsp"%>
-
 		<section id="section1">
             <div id="mp_main_text">
                 <p>회원 정보 수정
@@ -261,6 +260,7 @@
                 </div>
             </div>
             <input type="button" id="edit_btn" value="수정">                    		
+        <%@ include file="/WEB-INF/view/footer.jsp"%>
         </section>
         <section id="section2">
             <div>
@@ -305,9 +305,8 @@
                     <li id="secession">탈퇴하기</li>
                 </ul>
             </div>
-        </div>    
+			          
         </section>
-        <%@ include file="/WEB-INF/view/footer.jsp"%>
 	<script>
 		// 마이페이지 내 로그아웃 버튼 클릭
         $("#mp_logout").click(function(){
@@ -525,7 +524,8 @@
    	    	}
         }
     });
-
+        
+        
 // 수정 버튼 클릭 시
 	$("#edit_btn").click(function(){
 			if($("#member_phone").val() == null || $("#member_phone").val() == ""){
@@ -559,6 +559,28 @@
 	                return;
 	            }
 	        }
+	     	
+	     	// 나이, 신장, 몸무게에 number만 넣을 수 있도록 유효성 검사
+	    	var ageVal = $("#member_age").val();
+	    	var age = /^[0-9]{1,3}$/;
+	    	if(!age.test(ageVal)){
+	    	    alert("나이를 0이상의 숫자 값으로 입력해 주세요.");
+	    	    return;
+	    	}
+	    	
+	    	var heightVal = $("#member_height").val();
+	    	var height = /^[0-9]{1,3}$/;
+	    	if(!height.test(heightVal)){
+	    	    alert("신장을 0이상의 숫자 값으로 입력해 주세요.");
+	    	    return;
+	    	}
+	    	
+	    	var weightVal = $("#member_weight").val();
+	    	var weight = /^[0-9]{1,3}$/;
+	    	if(!height.test(heightVal)){
+	    	    alert("몸무게를 0이상의 숫자 값으로 입력해 주세요.");
+	    	    return;
+	    	}
 		
 		$.ajax({
 			url:"memberupdateprofile.ax",

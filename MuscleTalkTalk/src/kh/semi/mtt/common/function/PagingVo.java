@@ -13,6 +13,7 @@ public class PagingVo {
 	private String pageStr;
 	private int currentPage = 1;
 	private int totalCnt = 0; // 총 글수
+	private String search;
 	
 	public PagingVo(int pageSize, int pageBlock, String filterintStr, String pageStr, int totalCnt) {
 		// paging - start, end 등 정보를 알기 위한 세팅
@@ -23,6 +24,22 @@ public class PagingVo {
 		this.pageStr = pageStr;
 		this.totalCnt = totalCnt;
 	}
+	
+	
+	public PagingVo(int startPage, int endPage, int totalpageCnt, int startRnum, int endRnum, int currentPage,
+			String search) {
+		// paging - start, end 등 정보를 싣어주는 생성-두번째 서치용만든거
+		super();
+		this.startPage = startPage;
+		this.endPage = endPage;
+		this.totalpageCnt = totalpageCnt;
+		this.startRnum = startRnum;
+		this.endRnum = endRnum;
+		this.currentPage = currentPage;
+		this.search = search;
+	}
+
+
 	public PagingVo(int startPage, int endPage, int startRnum, int endRnum, int filterint, int currentPage, int totalpageCnt) {
 		// paging - start, end 등 정보를 싣어주는 생성
 		super();
@@ -34,15 +51,17 @@ public class PagingVo {
 		this.currentPage = currentPage;
 		this.totalpageCnt = totalpageCnt;
 	}
+	
+	
 	@Override
 	public String toString() {
 		return "PagingVo [pageSize=" + pageSize + ", pageBlock=" + pageBlock + ", startPage=" + startPage + ", endPage="
-				+ endPage + ", startRnum=" + startRnum + ", endRnum=" + endRnum + ", filterintStr=" + filterintStr
-				+ ", filterint=" + filterint + ", pageCtr=" + pageStr + ", currentPage=" + currentPage + ", totalCnt="
-				+ totalCnt + "]";
+				+ endPage + ", totalpageCnt=" + totalpageCnt + ", startRnum=" + startRnum + ", endRnum=" + endRnum
+				+ ", filterintStr=" + filterintStr + ", filterint=" + filterint + ", pageStr=" + pageStr
+				+ ", currentPage=" + currentPage + ", totalCnt=" + totalCnt + ", search=" + search + "]";
 	}
-	
-	
+
+
 	public int getTotalpageCnt() {
 		return totalpageCnt;
 	}
@@ -118,6 +137,12 @@ public class PagingVo {
 	}
 	public void setTotalCnt(int totalCnt) {
 		this.totalCnt = totalCnt;
+	}
+	public String getSearch() {
+		return search;
+	}
+	public void setSearch(String search) {
+		this.search = search;
 	}
 	
 }

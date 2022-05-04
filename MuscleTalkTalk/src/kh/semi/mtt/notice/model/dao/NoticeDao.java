@@ -64,20 +64,21 @@ public class NoticeDao {
 		return vo;  //1 : 리턴함
 	}
 	
-	public ArrayList<NoticeVo> readAllNotice(Connection conn, int startNnum, int endNnum, String search){
+	public ArrayList<NoticeVo> readAllNotice(Connection conn, int startRnum, int endRnum, String search){
 		ArrayList<NoticeVo> volist = null;
+		System.out.println("안녕안녕안녕" + search);
 		String sql = "select * "
 				+ "from (select rownum rn, notice_no, notice_title, notice_date "
 				+ "from tb_notice "
 				+ "order by notice_no desc) "
 				+ "where rn between ? and ?";
-		if(search == "searchInput") {
+		if(search != null ) {
 			sql = "select * "
 					+ "from (select rownum rn, notice_no, notice_title, notice_date "
 					+ "from tb_notice "
 					+ "order by notice_no desc) "
-					+ "where rn between ? and ?"
-					+ "and notice_title like '%?%' ";
+					+ "where rn between ? and ? "
+					+ "and notice_title like ? ";
 		}
 //		select * 
 //	    from (select rownum rn, notice_no, notice_title, notice_date 
@@ -88,9 +89,14 @@ public class NoticeDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, startNnum);
-			pstmt.setInt(2, endNnum);
-			pstmt.setString(3, search);
+			pstmt.setInt(1, startRnum);
+			pstmt.setInt(2, endRnum);
+			System.out.println("search dao" +search);
+			if(search != null) {
+				System.out.println("pstmt.setString(3,search):" + search);
+				pstmt.setString(3, "%"+search+"%");
+			}
+				
 			rs = pstmt.executeQuery();
 			
 			if (rs != null) { // SQLException 외 예외상황
