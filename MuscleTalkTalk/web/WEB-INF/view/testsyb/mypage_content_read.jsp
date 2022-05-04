@@ -334,6 +334,7 @@
 	                <c:if test="${not empty membercomment}">
 	                	<c:forEach items="${membercomment}" var="volist">
 							<tr class="table_content">
+																		<!-- href 수정 예정 TODO -->
 								<td style="width: 10%;" class="tb"><a href="memberCommentRead?bno=${volist.rCnt}">${volist.rCnt }</a></td>
 								<td style="width: 43%;" class="tb"><a href="boardread?bno=${volist.boardNo }">${volist.commentContent }</a></td>
 								<td style="width: 25%;" class="tb">${volist.commentDate }</td>
@@ -528,7 +529,6 @@
 			}
 		});
 	})
-
-</script>
+	</script>
 </body>
 </html>

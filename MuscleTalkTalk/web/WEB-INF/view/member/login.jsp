@@ -165,6 +165,84 @@
             cursor: pointer;
         }
     </style>
+<script type="text/javascript">
+    $(function(){
+	    // 쿠키값을 가져온다.
+	    var cookie_user_id = getLogin();
+	
+	    /**
+	    * 쿠키값이 존재하면 id에 쿠키에서 가져온 id를 할당한 뒤
+	    * 체크박스를 체크상태로 변경
+	    */
+	    if(cookie_user_id != "") {
+	    	$("#memberId").val(cookie_user_id);
+	    	$("#idSave").attr("checked", true);
+	    }
+	
+	    // 아이디 저장 체크시
+	    $("#idSave").on("click", function(){
+		    var _this = this;
+		    var isRemember;
+		    if($(_this).is(":checked")) {
+		    	isRemember = confirm("이 PC에 로그인 정보를 저장하시겠습니까? PC방등의 공공장소에서는 개인정보가 유출될 수 있으니 주의해주십시오.");
+		    	if(!isRemember) {
+		    		 $(_this).attr("checked", false);
+		    	}
+		    }
+	    });
+	
+	    // 로그인 버튼 클릭시
+	    $("#login").on("click", function(){
+		    if($("#idSave").is(":checked")){ // 저장 체크시
+		    	saveLogin($("#memberId").val());
+		    } else{ // 체크 해제시는 공백
+		    	saveLogin("");
+		    }
+	    });
+    });
+
+    /**
+    * 로그인 정보 저장
+    */
+    function saveLogin(id) {
+	    if(id != "") {
+		    // userid 쿠키에 id 값을 7일간 저장
+		    setSave("memberId", id, 7);
+	    }else{
+	    // userid 쿠키 삭제
+	    	setSave("memberId", id, -1);
+	    }
+    }
+
+    /**
+    * Cookie에 user_id를 저장
+    */
+    function setSave(name, value, expiredays) {
+    	var today = new Date();
+    	today.setDate( today.getDate() + expiredays );
+    	document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + today.toGMTString() + ";"
+    }
+
+    /**
+    * 쿠키값을 가져오기
+    */
+
+    function getLogin() {
+    // userid 쿠키에서 id 값을 가져온다.
+	    var cook = document.cookie + ";";
+	    var idx = cook.indexOf("memberId", 0);
+	    var val = "";
+
+	    if(idx != -1) {
+		    cook = cook.substring(idx, cook.length);
+		    begin = cook.indexOf("=", 0) + 1;
+		    end = cook.indexOf(";", begin);
+		    val = unescape(cook.substring(begin, end));
+	    }
+	    return val;
+    }
+    
+    </script>
 <body bgcolor=" #ECECEC">
     <header id="header_all">
         <div id="header_logo">
@@ -186,7 +264,8 @@
 
         <div id="user_input">
             <form action="login.do" method="post">
-                <input type="text" id="memberId" name="memberId" placeholder="아이디 입력" required><br>
+
+                <input type="text" id="memberId" name="memberId" placeholder="아이디 입력"  required><br>
                 <input type="password" id="memberPassword" name="memberPassword" placeholder="비밀번호 입력" required><br>
                 <input type="submit" id="login" name="login" value="로그인">
                 <input type="button" id="join" name="join" value="회원가입">
