@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.StringTokenizer;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -75,12 +76,15 @@ public class PtInsertDoController extends HttpServlet {
 		String ptNotice = multi.getParameter("pt_notice");
 		String ptTimeInfo = multi.getParameter("pt_time_info");
 		String ptPriceStr = multi.getParameter("pt_price");
+		String ptStartDate = multi.getParameter("pt_start_date");
+		String ptEndDate = multi.getParameter("pt_end_date");
 		int ptPrice = -1;
 		try {
 			ptPrice = Integer.parseInt(ptPriceStr);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 		
 		PtVo ptVo = new PtVo();
 		ptVo.setPtName(ptName);
@@ -92,6 +96,8 @@ public class PtInsertDoController extends HttpServlet {
 		ptVo.setPtNotice(ptNotice);
 		ptVo.setPtTimeInfo(ptTimeInfo);
 		ptVo.setPtPrice(ptPrice);
+		ptVo.setPtStartDate(ptStartDate);
+		ptVo.setPtEndDate(ptEndDate);
 		System.out.println("ptinsert.do에서 입력받은 ptVo 데이터 값:  " + ptVo);
 		
 		ArrayList<String> ptFilePathList = new ArrayList<String>();
@@ -105,7 +111,7 @@ public class PtInsertDoController extends HttpServlet {
 		int result = new PtService().insertPt(ptVo);
 		System.out.println("ptinsert.do에서의 result값:  " + result);
 		
-		if(result == 4) {
+		if(result != 0) {
 			System.out.println("ptinsert.do에서 pt프로그램 insert 성공함");
 			System.out.println("ptinsert.do에서 ptlist페이지로 이동함");
 			response.sendRedirect("ptlist");

@@ -68,11 +68,19 @@
 			</div>
 			<div id="pt_list_page_container">
 				<c:forEach var="ptVo" items="${ptVoList }">
-					<div class="pt_list_page_grid_content">${ptVo.ptFilePathList[0] }
-						<img alt="" src="${ptVo.ptFilePathList[0] }">
+					<div class="pt_list_page_grid_content">
+						<div class="pt_list_page_cursor">
+							<input type="hidden" class="pt_list_page_pt_no" value="${ptVo.ptNo }">
+							<img alt="" src="${ptVo.ptFilePathList[0] }">
+							<p>${ptVo.ptLocation }</p>
+							<p>${ptVo.ptName }</p>
+							<p>${ptVo.ptTrainerName },,,,${ptVo.ptCategoryStr}</p>
+							<p>1회: ${ptVo.ptPrice }원</p>
+							<p>즐겨찾기 수: TODO</p>
+						</div>
 					</div>
 				</c:forEach>
-				<div class="pt_list_page_grid_content">${ptVoList[0].ptNo }</div>
+				<div class="pt_list_page_grid_content"></div>
 				<div class="pt_list_page_grid_content"></div>
 				<div class="pt_list_page_grid_content"></div>
 				<div class="pt_list_page_grid_content"></div>
@@ -193,18 +201,13 @@
 	
 	window.onclick = function(event) {
 		var temp_category = true;
-		console.log(event.target);
-		console.log(event.target != $("#pt_list_page_category_div").children('p')[0]);
 		if(event.target != $("#pt_list_page_category_div").children('p')[0]){
 			for(var i = 0; i < $("#pt_list_page_category_list_box").children().length; i++) {
 				if(event.target == $("#pt_list_page_category_list_box").children()[i]) {
-					console.log("여기로 들어옴");
 					temp_category = false;
 				}
 			}
-			console.log(temp_category);
 			if(temp_category) {
-				console.log("sdfsdf");
 				$("#pt_list_page_category_div").css("border", '1px solid rgba(75, 77, 178, 0.3)');
 				$("#pt_list_page_category_list").css("height", "0px");
 				$("#pt_list_page_category_list").css("border-color", "rgba(75, 77, 178, 0.0)");
@@ -237,6 +240,15 @@
 			}
 		}
 	};
+	
+
+	
+	$(".pt_list_page_cursor").click(function() {
+		console.log("div click test");
+		console.log($(this).children(".pt_no").text());
+		var ptNo = $(this).children(".pt_list_page_pt_no").val();
+		location.href = "ptread?ptNo=" + ptNo;
+	});
 	
 	</script>
 </body>

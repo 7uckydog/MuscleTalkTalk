@@ -7,6 +7,7 @@ public class PtVo {
 	private int trainerNo;
 	private String ptName;
 	private int ptCategory;
+	private String ptCategoryStr;
 	private int ptPrice;
 	private String ptIntroduce;
 	private String ptInformation;
@@ -16,16 +17,18 @@ public class PtVo {
 	private String ptTimeInfo;
 	private ArrayList<String> ptFilePathList = null;
 	private String ptTrainerName;
+	private String ptGymName;
 	private String ptLocation;
 	private int ptFavorite;
-
+	private String ptStartDate;
+	private String ptEndDate;
+	
 	@Override
 	public String toString() {
-		return "PtVo [ptNo=" + ptNo + ", trainerNo=" + trainerNo + ", ptName=" + ptName + ", ptCategory=" + ptCategory
-				+ ", ptPrice=" + ptPrice + ", ptIntroduce=" + ptIntroduce + ", ptInformation=" + ptInformation
-				+ ", ptTargetStudent=" + ptTargetStudent + ", ptNotice=" + ptNotice + ", ptTrainerInfo=" + ptTrainerInfo
-				+ ", ptTimeInfo=" + ptTimeInfo + ", ptFilePathList=" + ptFilePathList + ", ptTrainerName="
-				+ ptTrainerName + ", ptLocation=" + ptLocation + ", ptFavorite=" + ptFavorite + "]";
+		return "PtVo [ptNo=" + ptNo + ", trainerNo=" + trainerNo + ", ptName=" + ptName + ", ptCategory=" + ptCategory + ", ptCategoryStr=" + ptCategoryStr + ", ptPrice=" + ptPrice + ", ptIntroduce="
+				+ ptIntroduce + ", ptInformation=" + ptInformation + ", ptTargetStudent=" + ptTargetStudent + ", ptNotice=" + ptNotice + ", ptTrainerInfo=" + ptTrainerInfo + ", ptTimeInfo="
+				+ ptTimeInfo + ", ptFilePathList=" + ptFilePathList + ", ptTrainerName=" + ptTrainerName + ", ptGymName=" + ptGymName + ", ptLocation=" + ptLocation + ", ptFavorite=" + ptFavorite
+				+ ", ptStartDate=" + ptStartDate + ", ptEndDate=" + ptEndDate + "]";
 	}
 
 	public int getPtNo() {
@@ -58,6 +61,14 @@ public class PtVo {
 
 	public void setPtCategory(int ptCategory) {
 		this.ptCategory = ptCategory;
+	}
+
+	public String getPtCategoryStr() {
+		return ptCategoryStr;
+	}
+
+	public void setPtCategoryStr(String ptCategoryStr) {
+		this.ptCategoryStr = ptCategoryStr;
 	}
 
 	public int getPtPrice() {
@@ -115,7 +126,7 @@ public class PtVo {
 	public void setPtTimeInfo(String ptTimeInfo) {
 		this.ptTimeInfo = ptTimeInfo;
 	}
-	
+
 	public ArrayList<String> getPtFilePathList() {
 		return ptFilePathList;
 	}
@@ -123,13 +134,21 @@ public class PtVo {
 	public void setPtFilePathList(ArrayList<String> ptFilePathList) {
 		this.ptFilePathList = ptFilePathList;
 	}
-	
+
 	public String getPtTrainerName() {
 		return ptTrainerName;
 	}
 
 	public void setPtTrainerName(String ptTrainerName) {
 		this.ptTrainerName = ptTrainerName;
+	}
+
+	public String getPtGymName() {
+		return ptGymName;
+	}
+
+	public void setPtGymName(String ptGymName) {
+		this.ptGymName = ptGymName;
 	}
 
 	public String getPtLocation() {
@@ -148,4 +167,22 @@ public class PtVo {
 		this.ptFavorite = ptFavorite;
 	}
 
+	public String getPtStartDate() {
+		return ptStartDate;
+	}
+
+	public void setPtStartDate(String ptStartDate) {
+		this.ptStartDate = ptStartDate;
+	}
+
+	public String getPtEndDate() {
+		return ptEndDate;
+	}
+
+	public void setPtEndDate(String ptEndDate) {
+		this.ptEndDate = ptEndDate;
+	}
+	
+	
+	
 }

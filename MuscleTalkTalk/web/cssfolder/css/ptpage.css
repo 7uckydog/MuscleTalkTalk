@@ -857,38 +857,7 @@
 	line-height: 2;
 }
 
-
-/* pt예약 일정 생성 확인 페이지 */
-/* pt예약 일정 생성 확인 페이지 */
-/* pt예약 일정 생성 확인 페이지 */
-/* pt예약 일정 생성 확인 페이지 */
-/* pt예약 일정 생성 확인 페이지 */
-/* pt예약 일정 생성 확인 페이지 */
-/* pt예약 일정 생성 확인 페이지 */
-/* pt예약 일정 생성 확인 페이지 */
-/* pt예약 일정 생성 확인 페이지 */
-/* pt예약 일정 생성 확인 페이지 */
-/* pt예약 일정 생성 확인 페이지 */
-/* pt예약 일정 생성 확인 페이지 */
-/* pt예약 일정 생성 확인 페이지 */
-/* pt예약 일정 생성 확인 페이지 */
-/* pt예약 일정 생성 확인 페이지 */
-/* pt예약 일정 생성 확인 페이지 */
-/* pt예약 일정 생성 확인 페이지 */
-/* pt예약 일정 생성 확인 페이지 */
-/* pt예약 일정 생성 확인 페이지 */
-/* pt예약 일정 생성 확인 페이지 */
-/* pt예약 일정 생성 확인 페이지 */
-/* pt예약 일정 생성 확인 페이지 */
-/* pt예약 일정 생성 확인 페이지 */
-/* pt예약 일정 생성 확인 페이지 */
-/* pt예약 일정 생성 확인 페이지 */
-/* pt예약 일정 생성 확인 페이지 */
-/* pt예약 일정 생성 확인 페이지 */
-/* pt예약 일정 생성 확인 페이지 */
-/* pt예약 일정 생성 확인 페이지 */
-
-#pt_insert_calendar_modal_div {
+#pt_reservation_time_info_modal_div {
 	z-index: 2;
 	background-color: rgba(128, 128, 128, 0.356);
 	position: fixed;
@@ -898,72 +867,210 @@
 	height: 100%;
 	overflow: auto;
 	font-family:'THEmpgtM';
-	font-size: 12px;
 	display: none;
+	font-size: 0px;
 }
 
-#pt_insert_calendar_input_div {
+#pt_reservation_time_info_div {
 	border: 1px solid rgba(75, 77, 178, 0.7);
 	position: fixed;
 	top: 50%;
 	left: 50%;
+	width: 450px;
+
 	transform: translate(-50%, -50%);
-	width: 1000px;
-	height: 800px;
 	background-color: white;
+	font-size: 0px;
+}
+
+#time_info_title {
+	width: 125px;
+	font-family:'THEmpgtB';
+	font-size: 15px;
+	height: 30px;
+	line-height: 30px;
+	margin: 45px auto;
+}
+
+#time_info_day_hour {
+	width: 260px;
+	margin: 0 auto;
+	font-size: 12px;
+	margin-bottom: 50px;
+}
+#pt_reservation_time_info_cancle {
+	border-top: 1px solid rgba(75, 77, 178, 0.7);
+	border-right: 0.5px solid rgba(75, 77, 178, 0.7);
+	width: 225px;
+	height: 50px;
 	box-sizing: border-box;
 	font-size: 12px;
-	text-align: center;
-	padding: 10px;
 }
 
-#pt_insert_calendar_modal_title {
+#pt_reservation_time_info_select {
+	border-top: 1px solid rgba(75, 77, 178, 0.7);
+	border-left: 0.5px solid rgba(75, 77, 178, 0.7);
+	width: 225px;
+	height: 50px;
+	box-sizing: border-box;
+	font-size: 12px;
+}
+
+
+
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+
+
+#pt_calendar_page_section {
+	border-radius: 10px 10px 0 0;
+	/* user-select: none; */
+	font-size: 0px;
+	height: auto;
+}
+
+#pt_calendar_page_div {
+	padding: 60px;
+}
+
+#pt_calendar_title {
+	margin-bottom: 20px;
+}
+
+#pt_calendar_title p {
+	font-family:'THEmpgtB';
+	font-size: 15px;
+}
+
+#calendar_wrap {
+	width: 600px;
+	height: auto;
+	display: inline-block;
+}
+
+#pt_reservation_calendar {
+	font-size: 12px;
+}
+
+#pt_calendar_time_info {
+	font-family:'THEmpgtM';
+	font-size: 0px;
+	width: 210px;
+	padding-left: 20px;
+}
+
+#pt_calendar_time_info i {
+	font-size: 20px;
+	color: white;
+	line-height: 20px;
+	border: 2px solid rgba(75, 77, 178, 0.3);
+	border-radius: 6px;
+	width: 20px;
+	text-align: center;
+	transition: 0.3s;
+	cursor: pointer;
+	display: inline-block;
+}
+
+#pt_calendar_time_info p {
+	display: inline-block;
+	vertical-align: top;
+}
+
+#pt_reservation_data {
+	font-family:'THEmpgtM';
+	font-size: 12px;
+}
+
+.fc-event-main {
+	font-family:'THEmpgtM';
+	font-size: 10px;
+}
+
+#pt_calendar_page_container {
+	display: grid;
+	grid-template-columns: 600px 210px;
+}
+
+.pt_calendar_time_info_select {
+	font-size: 12px;
+	font-family:'THEmpgtM';
+	display: block;
+	line-height: 24px;
+	height: 24px;
+	margin-bottom: 10px;
+}
+
+#pt_calendar_hr {
+	margin: 50px 0;
+}
+
+#pt_calendar_summary_timtle {
 	font-size: 15px;
 	font-family:'THEmpgtB';
-	line-height: 30px;
-} 
+	margin-bottom: 10px;
+}
 
-#pt_insert_calendar_input_div label, pt_insert_calendar_input_div input {
+#pt_calendar_summary_container {
+	margin: 0 auto;
+	width: 500px;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	row-gap: 20px;
+	text-align: center;
+}
+
+#pt_calendar_summary_container .summary_left{
 	font-size: 12px;
-	display: block;
-	line-height: 30px;
+	font-family:'THEmpgtM';
 }
 
-
-#pt_insert_calendar_input_div button {
-	display: inline-block;
-	font-size: 12px
+#pt_calendar_summary_container .summary_right{
+	font-size: 12px;
+	font-family:'THEmpgtB';
 }
 
-#pt_calendar_modal_btn_div {
-	border-top: 1px solid rgba(75, 77, 178, 0.7);
-	margin-top: 20px; 
+#pt_calendar_trade_wrap {
+	margin: 0 auto;
+	margin-top: 40px;
+	width: 155px;
 }
 
-#pt_calendar_cancle_btn {
-	background-color: white;
-	width: 50%;
-	height: 40px;
+#pt_calendar_tarde_btn {
+	font-size: 12px;
+	font-family:'THEmpgtM';
+	width: 155px;
+	height: 30px;
+	color: white;
+	background-color: #4B4DB2;
 }
-
-#pt_calendar_add_btn {
-	background-color: white;
-	width: 50%;
-	height: 40px;
-	color: #4B4DB2;
-}
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

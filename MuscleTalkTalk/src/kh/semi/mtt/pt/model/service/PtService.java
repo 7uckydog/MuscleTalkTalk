@@ -22,14 +22,34 @@ public class PtService {
 		return result;
 	}
 	
+	public PtVo readPt(int ptNo) {
+		PtVo result = null;
+		Connection conn = null;
+		conn = getConnection();
+		
+		result = dao.readPt(conn, ptNo);
+		System.out.println("PtService readPt()매소드 결과:  " + result);
+		close(conn);
+		return result;
+	}
+	
 	public ArrayList<PtVo> readAllPt() {
 		ArrayList<PtVo> result = null;
 		Connection conn = null;
 		conn = getConnection();
 		
 		result = dao.readAllPt(conn);
-		System.out.println("PtService readAllPt()메소드 결과 " + result);
+		System.out.println("PtService readAllPt()매소드 결과:  " + result);
 		close(conn);
 		return result;
+	}
+	
+	public void testPJM() {
+		Connection conn = null;
+		conn = getConnection();
+		
+		dao.testPJM(conn);
+		
+		close(conn);
 	}
 }
