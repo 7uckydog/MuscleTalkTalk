@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import kh.semi.mtt.board.model.vo.BoardVo;
+import kh.semi.mtt.comment.model.vo.CommentVo;
 
 public class BoardDao {
 	private Statement stmt = null;
@@ -33,7 +34,6 @@ public class BoardDao {
 		return result;
 	}
 	
-	
 	public int updateBoard(Connection conn, BoardVo vo) {
 		int result = 0;
 		String sql = "update tb_board set BOARD_TITLE=?, BOARD_CONTENT=? where BOARD_NO=?";
@@ -54,8 +54,6 @@ public class BoardDao {
 		}
 		return result;
 	}
-	
-
 	
 	public int insertBoard(Connection conn, BoardVo vo) {
 //		String m_nickname = "aaa";
@@ -176,11 +174,7 @@ public class BoardDao {
 					+ "    order by BOARD_DATE, ROUTINE_BOARD_DATE)t1"
 					+ "    order by r desc";
 		}
-		
-		
 		System.out.println(sql);
-		
-		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startRnum);		
@@ -232,7 +226,90 @@ public class BoardDao {
 		return result;
 	}
 	
+	// 특정 회원이 작성한 게시물 리스트 조회 - 서유빈 작성
+	public ArrayList<BoardVo> readOneMemberBoard(Connection conn, int startRnum, int endRnum, String memberId) {
+		ArrayList<BoardVo> volist = null;
+		String sql = "select R, board_no, board_title, board_count, board_date, r_cnt "
+				+ "from (select rownum r, t1.* "
+				+ "from (select b1.*,(select count(*) "
+				+ "from tb_comment r1 where r1.board_no = b1.board_no) r_cnt "
+				+ "from tb_board b1 order by board_no desc) t1)tba "
+				+ "join tb_member tbm on tba.member_no = tbm.member_no "
+				+ "where r between ? and ? and member_id = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRnum);		
+			pstmt.setInt(2, endRnum);
+			pstmt.setString(3, memberId);		
+			rs = pstmt.executeQuery();
+			if(rs != null) {
+				volist = new ArrayList<BoardVo>();
+				while (rs.next()) {
+					BoardVo vo = new BoardVo();
+					vo.setBoardNo(rs.getInt("BOARD_NO"));
+					vo.setBoardTitle(rs.getString("BOARD_TITLE"));
+					vo.setBoardCount(rs.getInt("BOARD_COUNT"));
+					vo.setBoardDate(rs.getDate("BOARD_DATE"));
+					vo.setrCnt(rs.getInt("R_CNT"));
+					volist.add(vo);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}  finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return volist;
+	}
 	
+	// 특정 회원이 작성한 댓글 리스트 조회 - 서유빈 작성
+		public ArrayList<CommentVo> readOneMemberComment(Connection conn, int startRnum, int endRnum, String memberId) {
+			ArrayList<CommentVo> volist = null;
+			String sql = "select r, comment_content, comment_date from (select t1.*, rownum r from (select c.comment_date, c.comment_content, c.comment_no from tb_comment c join tb_member m on c.member_no = m.member_no where member_id =?)t1)t2 where r between ? and ? order by r desc";
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(2, endRnum);
+				pstmt.setInt(3, startRnum);		
+				pstmt.setString(1, memberId);		
+				rs = pstmt.executeQuery();
+				if(rs != null) {
+					volist = new ArrayList<CommentVo>();
+					while (rs.next()) {
+						CommentVo vo = new CommentVo();
+						vo.setrCnt(rs.getInt("r"));
+						vo.setCommentContent(rs.getString("comment_content"));
+						vo.setCommentDate(rs.getTimestamp("comment_date"));
+						volist.add(vo);
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}  finally {
+				close(rs);
+				close(pstmt);
+			}
+			
+			return volist;
+		}
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	
+	// 보드 카운트 (기본)
 	public int countBoard(Connection conn) {
 		int result = 0;
 		String sql = "select count(*) as cnt from tb_board";
@@ -255,5 +332,49 @@ public class BoardDao {
 		return result;
 
 	}
+	
+	// 보드 카운트 (서유빈)
+	public int countBoard_member(Connection conn, String memberId) {
+		int result = 0;
+		String sql = "select count(*) as cnt from tb_board join tb_member on tb_board.member_no = tb_member.member_no where member_id=?";
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberId);	
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result = rs.getInt("cnt");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	// 코멘트 카운트 (서유빈)
+		public int countComment_member(Connection conn, String memberId) {
+			int result = 0;
+			String sql = "select count(*) as cnt from tb_comment join tb_member on tb_comment.member_no = tb_member.member_no where member_id=?";
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, memberId);	
+				rs = pstmt.executeQuery();
+				if (rs.next()) {
+					result = rs.getInt("cnt");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} 
+			finally {
+				close(rs);
+				close(pstmt);
+			}
+			return result;
+		}
 	
 }

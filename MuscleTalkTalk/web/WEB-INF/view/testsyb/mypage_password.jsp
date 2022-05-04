@@ -243,6 +243,16 @@
     $("#password_edit").click(function(){
     	location.href="memberupdatepassword";
     })
+    $("#mp_logout").click(function(){
+    	alert("로그아웃 되었습니다.");
+    	location.href="logout";
+    })
+    $("#info_edit").click(function(){
+    	location.href="memberupdateprofile";
+    })
+    $("#content_list").click(function(){
+    	location.href="memberreadcontent";
+    })
 </script>
 </body>
 </html>
