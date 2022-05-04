@@ -7,6 +7,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kh.semi.mtt.board.model.service.BoardService;
+import kh.semi.mtt.common.function.PagingVo;
+import kh.semi.mtt.member.model.service.MemberService;
+import kh.semi.mtt.member.model.vo.AdminVo;
+
 /**
  * Servlet implementation class DashBoardController
  */
@@ -26,6 +31,14 @@ public class DashBoardController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		AdminVo vo = new AdminVo(); 
+		vo.setMemberCnt(new MemberService().countMember());
+		request.setAttribute("NOM", vo);
+		
+		PagingVo pvo = new PagingVo();
+		pvo.setTotalCnt(new BoardService().countBoard());
+		request.setAttribute("NOB", pvo);
+		
 		request.getRequestDispatcher("WEB-INF/view/admin/dashboard.jsp").forward(request, response);
 	}
 

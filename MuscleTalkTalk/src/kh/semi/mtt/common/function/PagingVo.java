@@ -25,6 +25,9 @@ public class PagingVo {
 		this.totalCnt = totalCnt;
 	}
 	
+	public PagingVo() {
+		
+	}
 	
 	public PagingVo(int startPage, int endPage, int totalpageCnt, int startRnum, int endRnum, int currentPage,
 			String search) {

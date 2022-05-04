@@ -81,5 +81,63 @@ public class CommentDao {
 		return volist;
 	}
 	
+	public ArrayList<CommentVo> readAllComment(Connection conn, int startRnum, int endRnum, String search){
+		ArrayList<CommentVo> volist = null;
+		String sql = "select * "
+				+ "    from(select rownum r, tta.*"
+				+ "        from (select tc.*, member_nickname "
+				+ "            from tb_comment tc"
+				+ "            left outer join tb_member tm on tc.member_no = tm.member_no"
+				+ "            order by comment_no desc) tta)"
+				+ "            where r between ? and ?"
+				+ "            order by r desc";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRnum);
+			pstmt.setInt(2, endRnum);
+			
+			rs = pstmt.executeQuery();
+			if (rs != null) {
+				volist = new ArrayList<CommentVo>();
+				
+				while (rs.next()) {
+					CommentVo vo = new CommentVo();
+					vo.setBoardNo(rs.getInt("BOARD_NO"));
+					vo.setRoutineboardNo(rs.getInt("routine_board_no"));
+					vo.setCommentContent(rs.getNString("COMMENT_CONTENT"));
+					vo.setCommentNo(rs.getInt("COMMENT_NO"));
+					vo.setCommentDate(rs.getTimestamp("COMMENT_DATE"));
+					vo.setCommentEditDate(rs.getTimestamp("COMMENT_EDIT_DATE"));
+					vo.setMemberNickname(rs.getString("MEMBER_NICKNAME"));
+					vo.setRownum(rs.getInt("r"));
+					volist.add(vo);  //리턴 변수에 값 채우기
+					
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return volist;
+	}
+	
+	public int countComment(Connection conn) {
+		int result = 0;
+		String sql = "select count(*) count from tb_comment";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result = rs.getInt("count"); // 별칭 없이 1 이라고해도됨(1번컬럼)
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
 	
 }

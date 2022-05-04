@@ -32,5 +32,25 @@ public class CommentService {
 		
 		return vo;
 	}
+	
+	public ArrayList<CommentVo> readAllComment(int startRnum, int endRnum, String search){
+		Connection conn = null;
+		conn = getConnection();
+		
+		ArrayList<CommentVo> vo = dao.readAllComment(conn, startRnum, endRnum, search);
+		close(conn);
+		
+		return vo;
+	}
+	
+	public int countComment() {
+		Connection conn = null;
+		conn = getConnection();
+		
+		int result =  dao.countComment(conn);
+		close(conn);
+		return result;
+	}
+
 
 }

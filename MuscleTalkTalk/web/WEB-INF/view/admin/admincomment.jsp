@@ -243,30 +243,37 @@ a, a:visited, a:link{
 				<td style="width: 50%;">&nbsp;&nbsp;&nbsp;&nbsp;내용</td>
 				<td>&nbsp;&nbsp;&nbsp;&nbsp;등록일</td>
 				<td>작성자</td>
-				<td>&nbsp;글번호</td>
+				<td>&nbsp;&nbsp;&nbsp;글번호</td>
 			</tr>
 			<tr>
 				<td colspan="5" class="table_line"></td>
 			</tr>
-			<c:forEach items="${cVoList}" var="vo">
+			<c:forEach items="${commentreadall}" var="vo">
 				<tr class="table_content">
 					<td>${vo.rownum }</td>
 					<td><a href="boardread?bno=${vo.boardNo }">${vo.commentContent }</a></td>
 					<td>${vo.commentDate }</td>
-					<td>&nbsp;&nbsp;&nbsp;${vo.memberNickname }</td>
-					<td><a href="boardread?bno=${vo.commentNo}">${vo.commentNo }</a></td>
+					<td>${vo.memberNickname }</td>
+					<td>
+						<c:if test="${vo.boardNo == 0}">
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${vo.routineboardNo}
+						</c:if>
+						<c:if test="${vo.routineboardNo == 0}">
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${vo.boardNo}
+						</c:if>
+					</td>
 				</tr>
 			</c:forEach>
 		</table>
 			<div class="Pageing">
 					<c:if test="${startPage > 1 }">
-						<a class="Page" href="adminboard?page=${startPage-1 }">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a class="Page" href="admincomment?page=${startPage-1 }">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;
 					</c:if>
 					<c:forEach begin="${startPage }" end="${endPage }" var="p">
-						<a class="Page" id="xxx" href="adminboard?page=${p }">${p }</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a class="Page" id="xxx" href="admincomment?page=${p }">${p }</a>&nbsp;&nbsp;&nbsp;&nbsp;
 					</c:forEach>
 					<c:if test="${endPage < totalpageCnt}">
-						<a class="Page" href="adminboard?page=${endPage+1 }">다음</a>
+						<a class="Page" href="admincomment?page=${endPage+1 }">다음</a>
 					</c:if>
 			</div>
 			<div class="search_comment">
