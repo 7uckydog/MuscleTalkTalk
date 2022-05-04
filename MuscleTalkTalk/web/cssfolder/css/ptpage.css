@@ -149,14 +149,36 @@
 	font-family: 'THEmpgtM';
 }
 
+#pt_test_button {
+	width: 70px;
+	height: 30px;
+	margin: 20px auto;
+	display: block;
+	border: none;
+	outline: none;
+	background: #4B4DB2;
+	color: white;
+	font-size: 12px;
+	font-family: 'THEmpgtM';
+}
+
+#ajax_test_button {
+	width: 70px;
+	height: 30px;
+	margin: 20px auto;
+	display: block;
+	border: none;
+	outline: none;
+	background: #4B4DB2;
+	color: white;
+	font-size: 12px;
+	font-family: 'THEmpgtM';
+}
+
 .row {
 	overflow: hidden;
 	margin-top: 50px;
 	font-size: 0;
-}
-
-.input_ptimg_file {
-	/* display: none; */
 }
 
 #pt_name_textCount {
@@ -373,8 +395,20 @@
 	outline: none;
 }
 
+.pt_time_delete_btn {
+	background: #4B4DB2;
+	color: white;
+	font-size: 12px;
+	font-family: 'THEmpgtM';
+	width: 70px;
+	height: 30px;
+	border: none;
+	outline: none;
+}
+
 .time_info_div {
 	font-size: 0px;
+	margin-bottom: 12px;
 }
 
 .time_info_p {
@@ -389,7 +423,56 @@
 	box-sizing: border-box;
 }
 
+#pt_start_date_label {
+	display: inline-block;
+	font-size: 12px;
+	font-family:'THEmpgtM';
+	height: 30px;
+	line-height: 30px;
+	margin-right: 10px;
+	width: 50px;
+}
 
+#pt_end_date_label {
+	display: inline-block;
+	font-size: 12px;
+	font-family:'THEmpgtM';
+	height: 30px;
+	line-height: 30px;
+	margin-left: 13.5px;
+	margin-right: 10px;
+	width: 50px;
+}
+
+#pt_start_date {
+	display: inline-block;
+	font-size: 12px;
+	line-height: 28px;
+	font-family:'THEmpgtM';
+	height: 30px;
+	border: 1px solid rgba(75, 77, 178, 0.3);
+	border-radius: 5px;
+	transition: border 0.3s;
+	user-select: none;
+	box-sizing: border-box;
+	text-align: center;
+	width: 70px;
+}
+
+#pt_end_date {
+	display: inline-block;
+	font-size: 12px;
+	line-height: 28px;
+	font-family:'THEmpgtM';
+	height: 30px;
+	border: 1px solid rgba(75, 77, 178, 0.3);
+	border-radius: 5px;
+	transition: border 0.3s;
+	user-select: none;
+	box-sizing: border-box;
+	text-align: center;
+	width: 70px;
+}
 
 
 /* 리스트 페이지 */
@@ -430,7 +513,7 @@
 #pt_list_title p {
 	display: inline-block;
 	font-size: 15px;
-	font-family:'THEmpgtM';
+	font-family:'THEmpgtB';
 }
 
 #pt_list_title button {
@@ -627,13 +710,18 @@
 }
 
 .pt_list_page_grid_content {
-	border: 3px solid rgba(75, 77, 178, 0.7);
+	/* border: 3px solid rgba(75, 77, 178, 0.7); */
 	box-sizing: border-box;
 	width: 190px;
 	height: 290px;
 	font-family: 'THEmpgtM';
 	font-size: 12px;
 	box-sizing: border-box;
+}
+
+.pt_list_page_cursor {
+	border: 1px solid black;
+	cursor: pointer;
 }
 
 .pt_list_page_grid_content img {
@@ -656,31 +744,214 @@
 	margin-right: 5px;
 }
 
+/* 상세조회 페이지 */
+/* 상세조회 페이지 */
+/* 상세조회 페이지 */
+/* 상세조회 페이지 */
+/* 상세조회 페이지 */
+/* 상세조회 페이지 */
+/* 상세조회 페이지 */
+/* 상세조회 페이지 */
+/* 상세조회 페이지 */
+/* 상세조회 페이지 */
+/* 상세조회 페이지 */
+/* 상세조회 페이지 */
+/* 상세조회 페이지 */
+/* 상세조회 페이지 */
+/* 상세조회 페이지 */
+/* 상세조회 페이지 */
+/* 상세조회 페이지 */
+/* 상세조회 페이지 */
+/* 상세조회 페이지 */
+/* 상세조회 페이지 */
+/* 상세조회 페이지 */
+/* 상세조회 페이지 */
+/* 상세조회 페이지 */
+/* 상세조회 페이지 */
+/* 상세조회 페이지 */
+/* 상세조회 페이지 */
+/* 상세조회 페이지 */
 
 
+#pt_read_page_section{
+	height: auto;
+}
+
+#pt_read_page_div {
+	padding: 60px;
+	padding-bottom: 50px;
+	font-size: 0px;
+}
+
+#pt_read_title button {
+	float: right;
+	font-size: 12px;
+	font-family:'THEmpgtM';
+	width: 155px;
+	height: 30px;
+	line-height: 30px;
+	background-color: #4B4DB2;
+	color: white;
+}
+
+#pt_read_title_p {
+	display: inline-block;
+	font-size: 15px;
+	font-family:'THEmpgtB';
+	height: 30px;
+	line-height: 30px;
+}
+
+#pt_read_second_row {
+	font-size: 12px;
+	font-family:'THEmpgtM';
+	height: 30px;
+	line-height: 30px;
+	color: rgb(94,94,94);
+}
+
+#pt_read_img_container {
+	display: grid;
+	grid-template-columns: 2fr 1fr;
+	grid-template-rows: 215px 215px;
+	gap: 5px;
+}
+
+#pt_read_img1 {
+	grid-row: 1 / 3;
+}
+
+.pt_read_img_div img {	
+	object-fit: cover;
+	margin: auto;
+	width: 100%;
+	height: 100%;
+}
+
+#pt_read_page_section hr {
+	margin-top: 80px;
+	margin-bottom: 80px;
+}
+
+.pt_read_content_div {
+	font-size: 0px;
+}
+
+.pt_read_content_label {
+	display: inline-block;
+	font-size: 15px;
+	height: 30px;
+	font-family:'THEmpgtB';
+	width: 120px;
+	margin-right: 40px;
+	vertical-align: top;
+	padding-top: 6px;
+}
+
+.pt_read_content_text {
+	display: inline-block;
+	font-size: 12px;
+	line-height: 15px;
+	font-family:'THEmpgtM';
+	width: 650px;
+	line-height: 2;
+}
 
 
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+/* pt예약 일정 생성 확인 페이지 */
+
+#pt_insert_calendar_modal_div {
+	z-index: 2;
+	background-color: rgba(128, 128, 128, 0.356);
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	font-family:'THEmpgtM';
+	font-size: 12px;
+	display: none;
+}
+
+#pt_insert_calendar_input_div {
+	border: 1px solid rgba(75, 77, 178, 0.7);
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 1000px;
+	height: 800px;
+	background-color: white;
+	box-sizing: border-box;
+	font-size: 12px;
+	text-align: center;
+	padding: 10px;
+}
+
+#pt_insert_calendar_modal_title {
+	font-size: 15px;
+	font-family:'THEmpgtB';
+	line-height: 30px;
+} 
+
+#pt_insert_calendar_input_div label, pt_insert_calendar_input_div input {
+	font-size: 12px;
+	display: block;
+	line-height: 30px;
+}
 
 
+#pt_insert_calendar_input_div button {
+	display: inline-block;
+	font-size: 12px
+}
 
+#pt_calendar_modal_btn_div {
+	border-top: 1px solid rgba(75, 77, 178, 0.7);
+	margin-top: 20px; 
+}
 
+#pt_calendar_cancle_btn {
+	background-color: white;
+	width: 50%;
+	height: 40px;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#pt_calendar_add_btn {
+	background-color: white;
+	width: 50%;
+	height: 40px;
+	color: #4B4DB2;
+}
 
 
 
