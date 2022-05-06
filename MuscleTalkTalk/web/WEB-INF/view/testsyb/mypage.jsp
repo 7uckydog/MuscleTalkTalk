@@ -76,7 +76,7 @@
                     <li class="info_menu">가입일</li>
                     <li class="info_info">${ssMvo.memberJoinDate}</li>
                     <li class="info_menu">나이</li>
-                    <li class="info_info">${ssMvo.memberAge}</li>
+                    <li class="info_info">${ssMvo.memberAge} 살</li>
                     <li class="info_menu">신장(cm)</li>
                     <li class="info_info">${ssMvo.memberHeight} cm</li>
                     <li class="info_menu">몸무게(kg)</li>
@@ -207,6 +207,9 @@
 	    $("#content_list").click(function(){
 	    	location.href="memberreadcontent";
 	    })
+	    $("#inquiry").click(function(){
+			location.href="memberinquiry";
+		})
 	</script>
         
 </body>

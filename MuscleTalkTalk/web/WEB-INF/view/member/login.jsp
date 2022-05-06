@@ -206,7 +206,7 @@
     */
     function saveLogin(id) {
 	    if(id != "") {
-		    // userid 쿠키에 id 값을 7일간 저장
+		// userid 쿠키에 id 값을 7일간 저장
 		    setSave("memberId", id, 7);
 	    }else{
 	    // userid 쿠키 삭제

@@ -11,19 +11,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import kh.semi.mtt.board.model.service.BoardService;
 import kh.semi.mtt.board.model.vo.BoardVo;
+import kh.semi.mtt.inquiry.model.service.InquiryService;
+import kh.semi.mtt.inquiry.model.vo.InquiryVo;
 import kh.semi.mtt.member.model.vo.MemberVo;
 
 /**
- * Servlet implementation class MemberReadContentController
+ * Servlet implementation class MemberInquiryController
  */
-@WebServlet("/memberreadcontent")
-public class MemberReadContentController extends HttpServlet {
+@WebServlet("/memberinquiry")
+public class MemberInquiryController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberReadContentController() {
+    public MemberInquiryController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,8 +36,8 @@ public class MemberReadContentController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		MemberVo ssMvo = (MemberVo)request.getSession().getAttribute("ssMvo");
 		String memberId = ssMvo.getMemberId();
+		System.out.println("아이디는?" + memberId);
 		int currentPage = 1;
-		int filter = 0;
 		
 		String currentPageStr = request.getParameter("page");
 		try {
@@ -53,7 +55,7 @@ public class MemberReadContentController extends HttpServlet {
 		int endRnum = 0;
 
 		int totalCnt = 0; // 회원의 총 게시물 수
-		totalCnt = countBoard_member(memberId);
+		totalCnt = countInquiry_member(memberId);
 		System.out.println("총" + totalCnt);
 
 		// Paging 처리
@@ -77,19 +79,20 @@ public class MemberReadContentController extends HttpServlet {
 		}
 
 		System.out.println("rnum:" + startRnum + "~" + endRnum);
-		ArrayList<BoardVo> volist = new BoardService().readOneMemberBoard(startRnum, endRnum, memberId);
+		ArrayList<InquiryVo> volist = new InquiryService().readOneMemberInquiry(startRnum, endRnum, memberId);
+		System.out.println("왜");
 		System.out.println(volist);
-		request.setAttribute("memberboard", volist);
+		request.setAttribute("memberinquiry", volist);
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("totalpageCnt", totalpageCnt);
 	
-		request.getRequestDispatcher("WEB-INF/view/testsyb/mypage_content_read.jsp").forward(request, response);
+		request.getRequestDispatcher("WEB-INF/view/testsyb/mypage_inquiry.jsp").forward(request, response);
 	}
 	
-	private int countBoard_member(String memberId) {
-		int result = new BoardService().countBoard_member(memberId);
+	private int countInquiry_member(String memberId) {
+		int result = new InquiryService().countInquiry_member(memberId);
 		return result;
 	}
 
