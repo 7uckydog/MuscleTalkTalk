@@ -634,7 +634,7 @@
  		    				               url: "insertmailforjoin",
  		    				               type: "post",
  		    				
-               data:{email_certification_email: $("#member_email").val()},
+               							   data:{email_certification_email: $("#member_email").val()},
  		    				               success: function(result){
  		    				                  console.log("난수 insert 성공");
  		    				                  $("#modal_all").show(); // 이메일 번호 입력용 모달 생성
@@ -657,6 +657,7 @@
  		    						                                console.log("이메일, 번호 일치 확인 & 테이블 정보 삭제 완료");
  		    						                                // 모달창 닫기
  		    						                                $("#modal_all").hide();
+ 		    						                                $('#modal_code').val("");
  		    						                                return;
  		    					                              },
  		    					                              error: function(request, status, error){
@@ -666,6 +667,7 @@
  		    					                       })
  		    					                      		
  		    					                       // 모달 내 확인 버튼 클릭 시,
+ 		    					                       $("#modal_accept").off('click');
  		    					                       $("#modal_accept").on("click", function(){
  		    					                       // 인증번호를 미입력하고 확인버튼 클릭 시, 경고창
  		    					                       		if($("#modal_code").val()==""){
@@ -680,11 +682,18 @@
  			    						                                data:{modal_code:$("#modal_code").val(), member_email:$("#member_email").val()},
  			    						                                success: function(result){
  					    						                                  console.log("이메일, 번호 일치 확인 & 테이블 정보 삭제 완료");
- 					    						                                  // 모달창 닫기
+ 					    						                                  if(result == '1') {
+ 					    						                                	  alert('이메일 인증이 완료 되었습니다.');
+ 					    						                                	  // 인증하기 버튼 => 인증 완료 버튼으로 변경
+ 	 					    						                                  $("#member_mail_check2").show();
+ 	 					    						                                  $("#member_mail_check").hide();
+ 					    						                                	  
+ 					    						                                  } else {
+ 					    						                                	  alert('인증번호가 일치하지 않습니다.');
+ 					    						                                  }
+ 					    						                              	  // 모달창 닫기
  					    						                                  $("#modal_all").hide();
- 					    						                                  // 인증하기 버튼 => 인증 완료 버튼으로 변경
- 					    						                                  $("#member_mail_check2").show();
- 					    						                                  $("#member_mail_check").hide();
+ 					    						                               	  $('#modal_code').val("");
  					    						                                  
  					    						                                  $("#member_email").on("input", (function(){
  					    						                                	  $("#member_mail_check").show();
@@ -696,7 +705,6 @@
  					    						                            $("#modal_all").hide();
  					    						                        }
  			    						                           });
- 		    					                        	// 일치하지 않을 시 TODO
   		    					                       		}
  		    					                       });
  		    				                	 },

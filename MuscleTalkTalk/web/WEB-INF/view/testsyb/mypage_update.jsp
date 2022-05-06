@@ -628,6 +628,9 @@
         $("#content_list").click(function(){
         	location.href="memberreadcontent";
         })
+        $("#inquiry").click(function(){
+		location.href="memberinquiry";
+	})
 	</script>
 
 </body>
