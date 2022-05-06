@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kh.semi.mtt.member.model.vo.MemberVo;
+
 /**
  * Servlet implementation class PtInsertControllerServlet
  */
@@ -26,6 +28,11 @@ public class PtInsertController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		MemberVo vo = (MemberVo)request.getSession().getAttribute("ssMvo");
+		if(vo == null) {
+			response.sendRedirect(request.getContextPath());
+			return;
+		}
 		request.getRequestDispatcher("WEB-INF/view/ptpage/ptinsertpage.jsp").forward(request, response);
 	}
 
