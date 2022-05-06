@@ -48,6 +48,8 @@ public class MemberJoinDoController extends HttpServlet {
 		String uploadPath = getServletContext().getRealPath(fileSavaPath);
 		int maxFileSize = 50*1000*1000;
 		String rootPath = getServletContext().getRealPath("/");
+		System.out.println("uploadPath = " + uploadPath);
+		System.out.println("rootPath = " + rootPath);
 
 		File path = new File(uploadPath);
 		if(!path.exists()) {
@@ -65,8 +67,11 @@ public class MemberJoinDoController extends HttpServlet {
 		String upload = multi.getFilesystemName("file_upload");
 		
 		String filePath = "";
-		String member_trainer = multi.getParameter("trainer_join");
-		if(member_trainer != null || member_trainer != "") {
+		
+		if(upload == null || orgFileName == null) {
+			response.sendRedirect("memberjoin");
+		}
+		else {
 			filePath = fileSavaPath + "/" + upload;
 			System.out.println(filePath);
 		}
@@ -130,6 +135,7 @@ public class MemberJoinDoController extends HttpServlet {
 				break;
 			default : break;
 		}
+		String member_trainer = multi.getParameter("trainer_join");
 		String gym_name = multi.getParameter("gym_name");
 		String gym_location = multi.getParameter("gym_location");
 		
@@ -161,7 +167,7 @@ public class MemberJoinDoController extends HttpServlet {
 			response.sendRedirect("movetowhite");
 //			request.getRequestDispatcher("WEB-INF/view/member/login.jsp").forward(request, response);
 		} else {
-			System.out.println("그냥 회원가입 하러 가장");
+			System.err.println("그냥 회원가입 하러 가장");
 			int result = new MemberService().insertMember(vo);
 			response.sendRedirect("movetowhite");
 		}

@@ -429,9 +429,6 @@
 	$("#content_list").click(function(){
 		location.href="memberreadcontent";
 	})
-	$("#inquiry").click(function(){
-		location.href="memberinquiry";
-	})
 </script>
 <script>
 	$("#btn_comment_read").click(function(){

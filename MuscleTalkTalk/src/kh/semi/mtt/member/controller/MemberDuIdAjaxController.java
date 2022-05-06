@@ -35,8 +35,8 @@ public class MemberDuIdAjaxController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
 		
-		String memberId = request.getParameter("memberId");
-		int result = new MemberService().idCheck(memberId);
+		String memberEmail = request.getParameter("memberEmail");
+		int result = new MemberService().emailCheck(memberEmail);
 		
 		out.print(result);
 		out.flush();

@@ -90,6 +90,7 @@ public class MemberReadContentController extends HttpServlet {
 	
 	private int countBoard_member(String memberId) {
 		int result = new BoardService().countBoard_member(memberId);
+		System.out.println(result);
 		return result;
 	}
 

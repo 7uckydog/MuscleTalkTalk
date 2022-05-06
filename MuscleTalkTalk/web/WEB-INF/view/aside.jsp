@@ -23,7 +23,7 @@
                     </a>
                 </div>
                 <div>
-                    <a href="ptlist">
+                    <a href="">
                         <img src="<%= request.getContextPath() %>/cssfolder/images/pt.png">
                         <p>PT프로그램</p>
                     </a>
