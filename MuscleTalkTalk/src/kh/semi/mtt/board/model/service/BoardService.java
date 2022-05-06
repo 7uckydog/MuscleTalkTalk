@@ -63,7 +63,6 @@ public class BoardService {
 		
 	}
 	
-	// 특정 회원이 작성한 게시물 리스트 조회 - 서유빈 작성
 	public ArrayList<BoardVo> readOneMemberBoard(int startRnum, int endRnum, String memberId){
 		Connection conn = null;
 		conn = getConnection();
@@ -72,7 +71,6 @@ public class BoardService {
 		close(conn);
 		return volist;
 	}
-	// 특정 회원이 작성한 댓글 리스트 조회 - 서유빈 작성
 	public ArrayList<CommentVo> readOneMemberComment(int startRnum, int endRnum, String memberId){
 		Connection conn = null;
 		conn = getConnection();
@@ -90,7 +88,6 @@ public class BoardService {
 	
 	
 	
-	// 보드 카운트 (기본)
 	public int countBoard() {
 		Connection conn = null;
 		conn = getConnection();
@@ -100,7 +97,6 @@ public class BoardService {
 		return result;
 	}
 	
-	// 보드 카운트 (서유빈)
 	public int countBoard_member(String memberId) {
 		Connection conn = null;
 		conn = getConnection();
@@ -110,7 +106,6 @@ public class BoardService {
 		return result;
 	}
 	
-	// 코멘트 카운트 (서유빈)
 	public int countComment_member(String memberId) {
 		Connection conn = null;
 		conn = getConnection();

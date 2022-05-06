@@ -101,7 +101,7 @@ public class FilterAjaxController extends HttpServlet {
 			e.printStackTrace();
 		}
 		PrintWriter out = response.getWriter();
-		Gson gobj = new GsonBuilder().setPrettyPrinting().create();
+		Gson gobj = new GsonBuilder().setDateFormat("yyyy-MM-dd").setPrettyPrinting().create();
 		ArrayList<BoardVo> result = new BoardService().readAllBoard(startRnum, endRnum, filterint);
 
 		
