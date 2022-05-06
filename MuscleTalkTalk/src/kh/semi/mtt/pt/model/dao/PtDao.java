@@ -42,7 +42,7 @@ public class PtDao {
 		String sql = "{call PROC_INPUT_PT (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
 		try {
 			cstmt = conn.prepareCall(sql);
-			cstmt.setInt(1, ptVo.getTrainerNo()); 
+			cstmt.setInt(1, 1); //TODO 트레이너 번호 입력칸
 			cstmt.setString(2, ptVo.getPtName());
 			cstmt.setInt(3, ptVo.getPtCategory());
 			cstmt.setInt(4, ptVo.getPtPrice());
@@ -223,50 +223,23 @@ public class PtDao {
 		return ptVoList;
 	}
 	
-	public ArrayList<PtVo> readMyPt(Connection conn, int trainerNo) {
-		ArrayList<PtVo> ptVoList = null;
-		ResultSet rs = null;
-		String sql = "select pt_no, pt_name, pt_category, pt_regist_date from tb_pt where trainer_no = ?";
-
-	    
+	
+	public void testPJM(Connection conn) {
+		String sql = "{call EX_PROC (?,?,?)}";
+		
 		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, trainerNo);
-			
-			
-			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				ptVoList = new ArrayList<PtVo>();
-				do {
-					PtVo pVo = new PtVo();
-					pVo.setPtNo(rs.getInt("PT_NO"));
-					pVo.setPtName(rs.getString("PT_NAME"));
-					pVo.setPtCategory(rs.getInt("PT_CATEGORY"));
-					switch (pVo.getPtCategory()) {
-					case 1:
-						pVo.setPtCategoryStr("웨이트");
-						break;
-					case 2:
-						pVo.setPtCategoryStr("다이어트");
-						break;
-					case 3:
-						pVo.setPtCategoryStr("재활");
-						break;
-					default:
-						break;
-					}
-					pVo.setPtRegistDate(rs.getDate("PT_REGIST_DATE"));
-					ptVoList.add(pVo);
-				}while(rs.next());
-			}
+			cstmt = conn.prepareCall(sql);
+			cstmt.setInt(1, 2);
+			cstmt.setString(2, "javaTest");
+			cstmt.registerOutParameter(3, Types.VARCHAR);
+			cstmt.execute();
+			String msg = cstmt.getString(3);
+			System.out.println("과연 두근두근");
+			System.out.println(msg);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(pstmt);
+			close(cstmt);
 		}
-		
-		return ptVoList;
 	}
-	
-
 }

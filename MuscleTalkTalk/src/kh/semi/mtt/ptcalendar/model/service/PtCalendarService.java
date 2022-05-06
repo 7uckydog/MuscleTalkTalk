@@ -21,16 +21,4 @@ public class PtCalendarService {
 		close(conn);
 		return ptCalList;
 	}
-	
-	public int insertReservation(int ptCalendarNo, int memberNo) {
-		int result = 0;
-		Connection conn = null;
-		conn = getConnection();
-		
-		result = dao.insertReservation(conn, ptCalendarNo, memberNo);
-		System.out.println("PtCalendarService insertReservation()매소드 결과: " + result);
-		
-		close(conn);
-		return result;
-	}
 }

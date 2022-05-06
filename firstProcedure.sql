@@ -43,10 +43,10 @@ BEGIN
     insert all
         into tb_pt(pt_no, trainer_no, pt_name, pt_category,
         pt_price, pt_introduce, pt_information, pt_target_student,
-        pt_notice, pt_trainer_info, pt_time_info, pt_regist_date)
+        pt_notice, pt_trainer_info, pt_time_info)
         values (PT_NO_MAX, IN_TRAINER_NO, IN_PT_NAME, IN_PT_CATEGORY, 
         IN_PT_PRICE, IN_PT_INTRODUCE, IN_PT_INFORMATION, IN_PT_TARGET_STUDENT, 
-        IN_PT_NOTICE, IN_PT_TRAINER_INFO, IN_PT_TIME_INFO, default)
+        IN_PT_NOTICE, IN_PT_TRAINER_INFO, IN_PT_TIME_INFO)
         into tb_pt_file (pt_file_no, pt_no, pt_file) 
         values ((SELECT nvl(max(pt_file_no),0)+1 from tb_pt_file), 
         PT_NO_MAX, IN_PT_FILE_PATH1) 
@@ -254,4 +254,3 @@ SET SERVEROUTPUT ON;
 SELECT * FROM TB_PT_CALENDAR ORDER BY PT_CALENDAR_NO DESC;
 SELECT * FROM TB_PT;
 commit;
-

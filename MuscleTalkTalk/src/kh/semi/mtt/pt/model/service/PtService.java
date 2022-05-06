@@ -44,16 +44,12 @@ public class PtService {
 		return result;
 	}
 	
-	public ArrayList<PtVo> readMyPt(int trainerNo) {
-		ArrayList<PtVo> result = null;
+	public void testPJM() {
 		Connection conn = null;
 		conn = getConnection();
 		
-		result = dao.readMyPt(conn, trainerNo);
-		System.out.println("PtService readAllPt()매소드 결과:  " + result);
+		dao.testPJM(conn);
+		
 		close(conn);
-		return result;
 	}
-	
-
 }

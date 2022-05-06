@@ -1,6 +1,5 @@
 package kh.semi.mtt.pt.model.vo;
 
-import java.sql.Date;
 import java.util.ArrayList;
 
 public class PtVo {
@@ -23,14 +22,13 @@ public class PtVo {
 	private int ptFavorite;
 	private String ptStartDate;
 	private String ptEndDate;
-	private Date ptRegistDate;
 	
 	@Override
 	public String toString() {
 		return "PtVo [ptNo=" + ptNo + ", trainerNo=" + trainerNo + ", ptName=" + ptName + ", ptCategory=" + ptCategory + ", ptCategoryStr=" + ptCategoryStr + ", ptPrice=" + ptPrice + ", ptIntroduce="
 				+ ptIntroduce + ", ptInformation=" + ptInformation + ", ptTargetStudent=" + ptTargetStudent + ", ptNotice=" + ptNotice + ", ptTrainerInfo=" + ptTrainerInfo + ", ptTimeInfo="
 				+ ptTimeInfo + ", ptFilePathList=" + ptFilePathList + ", ptTrainerName=" + ptTrainerName + ", ptGymName=" + ptGymName + ", ptLocation=" + ptLocation + ", ptFavorite=" + ptFavorite
-				+ ", ptStartDate=" + ptStartDate + ", ptEndDate=" + ptEndDate + ", ptRegistDate=" + ptRegistDate + "]";
+				+ ", ptStartDate=" + ptStartDate + ", ptEndDate=" + ptEndDate + "]";
 	}
 
 	public int getPtNo() {
@@ -184,15 +182,6 @@ public class PtVo {
 	public void setPtEndDate(String ptEndDate) {
 		this.ptEndDate = ptEndDate;
 	}
-
-	public Date getPtRegistDate() {
-		return ptRegistDate;
-	}
-
-	public void setPtRegistDate(Date ptRegistDate) {
-		this.ptRegistDate = ptRegistDate;
-	}
-	
 	
 	
 	

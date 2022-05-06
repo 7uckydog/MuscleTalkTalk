@@ -32,7 +32,6 @@ public class PtListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("/ptlist doGet 방식 호출");
-		System.out.println(request.getSession().getAttribute("ssMvo"));
 		ArrayList<PtVo> ptVoList = new PtService().readAllPt();
 		System.out.println("/ptlist doGet ptVoList 결과:  " + ptVoList);
 		request.setAttribute("ptVoList", ptVoList);

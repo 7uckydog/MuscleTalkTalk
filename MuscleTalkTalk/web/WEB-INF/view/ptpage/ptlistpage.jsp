@@ -15,16 +15,13 @@
 <title>머슬톡톡</title>
 </head>
 <body>
-${ssMvo }
 	<%@ include file="/WEB-INF/view/template.jsp" %>
 	<section id="pt_list_page_section">
 		<div id="pt_list_page_div">
 			<div id="pt_list_title">
 				<p>PT 프로그램</p>
 				<button type="button">즐겨찾기</button>
-				<c:if test="${ssMvo.memberTrainer == 'T' }">
-					<button id="my_program_btn" type="button">내 프로그램 관리</button>
-				</c:if>
+				<button type="button">내 프로그램 관리</button>
 			</div>
 			<div id="pt_list_filter">
 				<div id="pt_list_page_category_div">
@@ -251,10 +248,6 @@ ${ssMvo }
 		console.log($(this).children(".pt_no").text());
 		var ptNo = $(this).children(".pt_list_page_pt_no").val();
 		location.href = "ptread?ptNo=" + ptNo;
-	});
-	
-	$("#my_program_btn").on('click', function() {
-		location.href="myptprogram";
 	});
 	
 	</script>

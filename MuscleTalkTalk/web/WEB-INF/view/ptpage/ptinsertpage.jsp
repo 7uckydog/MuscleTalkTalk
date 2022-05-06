@@ -739,7 +739,33 @@
 		// 캘린더
 		// 캘린더
 
+		$("#pt_calendar_cancle_btn").hover(function() {
+			$(this).css({
+				backgroundColor : "#4B4DB2",
+				color : "white",
+				cursor : "pointer"
+			});
+		}, function() {
+			$(this).css({
+				backgroundColor : "white",
+				color : "black",
+				cursor : "default"
+			});
+		});
 
+		$("#pt_calendar_add_btn").hover(function() {
+			$(this).css({
+				backgroundColor : "#4B4DB2",
+				color : "white",
+				cursor : "pointer"
+			});
+		}, function() {
+			$(this).css({
+				backgroundColor : "white",
+				color : "#4B4DB2",
+				cursor : "default"
+			});
+		});
 
 		function getFormatDate(date) {
 			var year = date.getFullYear(); //yyyy
