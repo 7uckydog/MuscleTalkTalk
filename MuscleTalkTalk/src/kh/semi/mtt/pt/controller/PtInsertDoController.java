@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-import kh.semi.mtt.member.model.vo.MemberVo;
 import kh.semi.mtt.pt.model.service.PtService;
 import kh.semi.mtt.pt.model.vo.PtVo;
 
@@ -88,7 +87,6 @@ public class PtInsertDoController extends HttpServlet {
 
 		
 		PtVo ptVo = new PtVo();
-		ptVo.setTrainerNo(((MemberVo)request.getSession().getAttribute("ssMvo")).getTrainerNo());
 		ptVo.setPtName(ptName);
 		ptVo.setPtCategory(ptCategory);
 		ptVo.setPtIntroduce(ptIntroduce);

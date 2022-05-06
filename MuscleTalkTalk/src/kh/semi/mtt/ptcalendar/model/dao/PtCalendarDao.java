@@ -46,25 +46,4 @@ public class PtCalendarDao {
 		}
 		return ptCalList;
 	}
-	
-	public int insertReservation(Connection conn, int ptCalendarNo, int memberNo) {
-		System.out.println("ptCalendarNo: " + ptCalendarNo + "변경함");
-		int result = 0;
-		String sql = "update tb_pt_calendar set PT_CALENDAR_RESERVATION_STATE = 'T',  "
-				+ "member_no = ? "
-				+ "where pt_calendar_no = ?";
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, memberNo);
-			pstmt.setInt(2, ptCalendarNo);
-			
-			result = pstmt.executeUpdate();
-			System.out.println("dao result : " + result);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}	finally {
-			close(pstmt);
-		}
-		return result;
-	}
 }
