@@ -91,12 +91,26 @@ public class CommentDao {
 				+ "            order by comment_no desc) tta)"
 				+ "            where r between ? and ?"
 				+ "            order by r desc";
-		
+		if(search != null ) {
+			sql = "select * "
+				+ "    from(select rownum r, tta.*"
+				+ "        from (select tc.*, member_nickname "
+				+ "            from tb_comment tc"
+				+ "            left outer join tb_member tm on tc.member_no = tm.member_no"
+				+ "            order by comment_no desc) tta)"
+				+ "            where r between ? and ?"
+				+ "	and (comment_content like ?"
+				+ " or member_nickname like ?)"
+				+ "            order by r desc";
+		}
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startRnum);
 			pstmt.setInt(2, endRnum);
-			
+			if(search != null) {
+				pstmt.setString(3, "%"+search+"%");
+				pstmt.setString(4, "%"+search+"%");
+			}
 			rs = pstmt.executeQuery();
 			if (rs != null) {
 				volist = new ArrayList<CommentVo>();

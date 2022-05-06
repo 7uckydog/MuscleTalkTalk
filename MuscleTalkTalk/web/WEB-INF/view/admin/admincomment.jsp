@@ -311,7 +311,40 @@ a, a:visited, a:link{
 	</section>
 	
 	<%@ include file="/WEB-INF/view/footer.jsp" %>
-	
+	<script>
+	$("#btn_search").click(function(){
+		console.log("btn_search CLICK");
+		$.ajax({
+			url:"admincomment",
+			type:"post",
+			data:{inputsearch:$("#input_search").val()},
+			dataType:"json",
+			success: function(result){
+				console.log(result);
+				var html = "";
+				for(var i = 0; i < result.commentreadall.length; i++){
+                    var vo = result.commentreadall[i];
+                    html += '<tr class="table_content">';
+                    html += '<td>'+vo.rownum+'</td>';
+                    html += '<td><a href="boardread?bno='+vo.boardNo+'">'+vo.commentContent+'</a></td>';
+                    html += '<td>'+vo.commentDate+'</td>';
+                    html += '<td>'+vo.memberNickname+'</td>';
+                    if(vo.boardNo == 0){
+                    	html += '<td>'+vo.routineboardNo+'</td>';
+                    } else if (vo.routineboardNo == 0){
+                    	html += '<td>'+vo.boardNo+'</td>';
+                    }
+                    html += '</tr>';
+                }
+				$("#table_title").next().nextAll().remove();
+				$("#board_table").append(html);
+			},
+			error: function(result){
+				
+			}
+		});
+	});
+	</script>	
 	
 </body>
 </html>

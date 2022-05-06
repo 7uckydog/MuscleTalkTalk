@@ -1,13 +1,18 @@
 package kh.semi.mtt.admin.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import kh.semi.mtt.comment.model.service.CommentService;
 import kh.semi.mtt.comment.model.vo.CommentVo;
@@ -43,10 +48,28 @@ public class AdminCommentController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-//	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		// TODO Auto-generated method stub
-//		doGet(request, response);
-//	}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		PrintWriter out = response.getWriter();
+		String search = request.getParameter("inputsearch");
+		exec(request, response, search);
+		
+		HashMap<String, Object> mapObj = new HashMap<String, Object>();
+		
+		mapObj.put("commentreadall", request.getAttribute("commentreadall"));
+		mapObj.put("startPage", request.getAttribute("startPage"));
+		mapObj.put("currentPage", request.getAttribute("currentPage"));
+		mapObj.put("endPage", request.getAttribute("endPage"));
+		mapObj.put("totalpageCnt", request.getAttribute("totalpageCnt"));
+		
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		String gsonOut = gson.toJson(mapObj);
+		System.out.println("noticecomment ajax result: " + gsonOut);
+		out.print(gsonOut);
+		
+		out.flush();
+		out.close();
+	}
+	
 	private int countNotice() {   //view에서 호출할일 없고 컨트롤러에서만 계산할때 사용하기때문에 private가능
 		int result =  service.countComment();
 		return result;
