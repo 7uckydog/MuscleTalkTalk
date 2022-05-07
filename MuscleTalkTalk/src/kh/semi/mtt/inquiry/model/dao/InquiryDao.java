@@ -4,6 +4,7 @@ import static kh.semi.mtt.common.jdbc.JdbcTemplate.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -60,7 +61,7 @@ public class InquiryDao {
 				ivo = new InquiryVo();
 				ivo.setInquiryTitle(rs.getString("inquiry_title"));
 				ivo.setInquiryContent(rs.getString("inquiry_content"));
-				ivo.setInquiryAnswer(rs.getString("inquiry_anser"));
+				ivo.setInquiryAnswer(rs.getString("inquiry_answer"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -71,6 +72,25 @@ public class InquiryDao {
 		return ivo;
 	}
 	
+	public int insertInquiry(Connection conn, int memberNo, String inqTitle, String inqContent) {
+		int result = 0;
+		sql="insert into tb_inquiry (inquiry_no, member_no, inquiry_title, inquiry_content, inquiry_date, inquiry_check)"
+				+ " values ((select nvl(max(inquiry_no),0)+1 from tb_inquiry), ?, ?, ?, sysdate, default)";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memberNo);
+			pstmt.setString(2, inqTitle);
+			pstmt.setString(3, inqContent);
+			rs = pstmt.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+		}
+		
+		return result;
+	}
 	
 	
 	

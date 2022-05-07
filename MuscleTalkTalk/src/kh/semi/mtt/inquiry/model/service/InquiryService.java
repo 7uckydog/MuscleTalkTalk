@@ -32,7 +32,13 @@ public class InquiryService {
 	}
 	
 	
-	
+	public int insertInquiry(int memberNo, String inqTitle, String inqContent) {
+		Connection conn = null;
+		conn = getConnection();
+		
+		int result = dao.insertInquiry(conn, memberNo, inqTitle, inqContent);
+		return result;
+	}
 	
 	
 	// 한 명의 회원 문의 카운트 (서유빈)

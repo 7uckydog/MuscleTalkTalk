@@ -103,6 +103,9 @@
         	font-family:'THEmpgtM';
             font-size: 10.5px;
         }
+        #inquiry{
+        	text-decoration: underline;
+        }
 </style>
 </head>
 <body>

@@ -65,6 +65,7 @@
         }
         #i_title{
         	width: 350px;
+        	height: 22px;
         }
         #i_content{
             resize: none;
@@ -91,6 +92,10 @@
             border: 0px;
             cursor: pointer;
         }
+        input[type=text] {
+            font-family:'THEmpgtR';
+            font-size: 10.5px;
+        }
         input::placeholder{
         	font-family:'THEmpgtM';
             font-size: 10.5px;
@@ -98,6 +103,13 @@
         textarea::placeholder{
             font-family:'THEmpgtM';
             font-size: 10.5px;
+        }
+        textarea{
+        	font-family:'THEmpgtM';
+            font-size: 10.5px;
+        }
+        #inquiry{
+        	text-decoration: underline;
         }
 </style>
 </head>
@@ -168,8 +180,28 @@
 	})
 	$("#ok_btn").click(function(){
 		if($("#i_title").val() != "" && $("#i_content").val() != ""){
+			
 			// 문의 저장하기 TODO
-			alert("문의가 등록되었습니다.");
+			$.ajax({
+				url: "memberinquirywrite.ax",
+	            type: "post",
+	            data: {inq_title: $("#i_title").val()
+	            	 , inq_content:$("#i_content").val()},
+	            success: function(result){
+	            	if(num == 0) {
+	            		alert("insert 실패");
+	            		return;
+	            	}
+	            	if(num == 1) {
+	            		alert("문의가 등록되었습니다.");
+	            		location.href="memberinquiry";
+	            	}
+	            },
+	            error: function(result){
+	            	alert("ajax 오류");
+	            }
+			})
+			
 			location.href="memberinquiry";
 		} else if ($("#i_title").val() == ""){
 			alert("문의 제목을 입력해주세요.")
