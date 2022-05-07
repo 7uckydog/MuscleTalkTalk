@@ -216,7 +216,7 @@
 		location.href="memberinquiry";
 	})
 	$("#btn_inquiry").click(function(){
-		location.href="";
+		location.href="memberinquirywrite";
 	})
 </script>
 </body>
