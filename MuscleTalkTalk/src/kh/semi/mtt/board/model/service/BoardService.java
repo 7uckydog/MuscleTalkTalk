@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import kh.semi.mtt.board.model.dao.BoardDao;
 import kh.semi.mtt.board.model.vo.BoardVo;
 import kh.semi.mtt.comment.model.vo.CommentVo;
+import kh.semi.mtt.member.model.vo.MemberVo;
 
 public class BoardService {
 	private BoardDao dao = new BoardDao();
@@ -32,12 +33,12 @@ public class BoardService {
 		return result;
 	}
 	
-	public int insertBoard(BoardVo vo) {
+	public int insertBoard(BoardVo vo, MemberVo mvo) {
 		Connection conn = null;
 		
 		conn = getConnection();
 		
-		int result = dao.insertBoard(conn, vo); 
+		int result = dao.insertBoard(conn, vo, mvo); 
 		
 		close(conn);
 		return result;
@@ -52,12 +53,12 @@ public class BoardService {
 		return result;
 	}
 	
-	public ArrayList<BoardVo> readAllBoard(int startRnum, int endRnum,int filterint){
+	public ArrayList<BoardVo> readAllBoard(int startRnum, int endRnum,int filterint,  String search){
 		
 		Connection conn = null;
 		conn = getConnection();
 		
-		ArrayList<BoardVo> result = dao.readAllBoard(conn, startRnum, endRnum,filterint);
+		ArrayList<BoardVo> result = dao.readAllBoard(conn, startRnum, endRnum,filterint,search);
 		close(conn);
 		return result;
 		

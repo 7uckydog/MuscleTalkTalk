@@ -182,8 +182,8 @@ button {
 	<section>
 		<div id="board_main">게시판</div>
 		<div id="board_category">
-			<a href="">통합 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="">자유 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
-				href="">루틴 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="">공지사항</a>
+			<a href="totalboard">통합 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="BoardReadAll">자유 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
+				href="routineboardreadall">루틴 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="">공지사항</a>
 		</div>
 		<div id="board_note">
 			<div id="note_title">게시판 유의사항</div>

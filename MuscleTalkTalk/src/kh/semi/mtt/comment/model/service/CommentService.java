@@ -8,16 +8,17 @@ import java.util.ArrayList;
 
 import kh.semi.mtt.comment.model.dao.CommentDao;
 import kh.semi.mtt.comment.model.vo.CommentVo;
+import kh.semi.mtt.member.model.vo.MemberVo;
 
 public class CommentService {
 	CommentDao dao = new CommentDao();
 	
-	public int writeBoardReComment(CommentVo vo) {
+	public int writeBoardReComment(CommentVo vo,MemberVo mvo) {
 		Connection conn = null;
 		
 		conn = getConnection();
 	
-		int result = dao.writeBoardReComment(conn, vo);
+		int result = dao.writeBoardReComment(conn, vo, mvo);
 		
 		close(conn);
 		return result;

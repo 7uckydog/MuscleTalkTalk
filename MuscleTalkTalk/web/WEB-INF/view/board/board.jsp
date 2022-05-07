@@ -243,8 +243,8 @@ section {
 	<section>
 		<div id="board_main">게시판</div>
 		<div id="board_category">
-			<a href="">통합 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="">자유 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
-				href="">루틴 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="noticereadall">공지사항</a>
+			<a href="totalboard">통합 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="BoardReadAll">자유 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
+				href="routineboardreadall">루틴 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="noticereadall">공지사항</a>
 		</div>
 		<div id="board_note">
 			<div id="note_title">게시판 유의사항</div>
@@ -261,8 +261,8 @@ section {
 				&nbsp;${boardreadall.get(0).boardNo}</div>
 			<!-- <div id="board_search"> -->
 			<form class="search_board">
-				<button type="submit" id="btn_search">검색</button>
-				<input id="input_search" type="text" name="s" value=""
+				<button type="button" id="btn_search">검색</button>
+				<input id="input_search" type="text" name="searchInput"
 					placeholder="검색어입력">
 			</form>
 			<!-- </div> -->
@@ -310,7 +310,44 @@ section {
 						}
 						});
 					});
+		$("#btn_search").click(function(){
+			console.log("test");
+			console.log($("#sort").val());
+			//$(".Filter").val()
+			$.ajax({
+				url:"filterAjaxController",
+				type:"post",
+				data:{inputsearch:$("#input_search").val()},
+				dataType:"json",
+				success: function(result) {
+						console.log(result);
+						//console.log(result);
+							var html = "";
+						for(var i = 0; i < result.boardlist.length; i++){
+		                    var vo = result.boardlist[i];
+		                    html += '<tr class="table_content">';
+		                    html += '<td><a href="boardread?bno='+vo.boardNo+'">'+vo.boardNo+'</a></td>';
+		                    html += '<td><a href="boardread?bno='+vo.boardNo+'">'+vo.boardTitle+'</a></td>';
+		                    html += '<td>'+vo.boardDate+'</td>';
+		                    html += '<td>'+vo.boardCount+'</td>';
+		                    html += '<td>'+vo.rCnt+'</td>';
+		                    html += '<td>'+vo.memberNickname+'</td>';
+		                    html += '</tr>';
+		                }
+						console.log("씨2");
+						console.log($("#table_title").next());
+						$("#table_title").next().nextAll().remove();
+						$("#board_table").append(html);
+						console.log("씨3");
+						return;
+				},
+				error: function(result){
+					console.log("ajax 오류");
+				}
+				});
+			});
 		</script>
+		
 		<table id="board_table">
 			<tr>
 				<td colspan="6" class="table_line"></td>

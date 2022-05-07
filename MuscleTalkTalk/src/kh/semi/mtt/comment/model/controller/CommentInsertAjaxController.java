@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kh.semi.mtt.comment.model.service.CommentService;
 import kh.semi.mtt.comment.model.vo.CommentVo;
+import kh.semi.mtt.member.model.vo.MemberVo;
 
 /**
  * Servlet implementation class CommentInsertAjaxController
@@ -50,9 +51,11 @@ public class CommentInsertAjaxController extends HttpServlet {
 		}
 		String reComment = request.getParameter("reComment");
 		CommentVo vo  = new CommentVo();
+		MemberVo mvo = (MemberVo) request.getSession().getAttribute("ssMvo");
+		
 		vo.setBoardNo(bNo);
 		vo.setCommentContent(reComment);
-		int result = new CommentService().writeBoardReComment(vo);
+		int result = new CommentService().writeBoardReComment(vo,mvo);
 		if(result<1) {
 			response.sendRedirect("BoardReadAll");
 		} else {

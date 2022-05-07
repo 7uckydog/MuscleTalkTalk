@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import kh.semi.mtt.comment.model.vo.CommentVo;
+import kh.semi.mtt.member.model.vo.MemberVo;
 
 public class CommentDao {
 	
@@ -18,7 +19,7 @@ public class CommentDao {
 	private PreparedStatement pstmt = null;
 	
 	
-	public int writeBoardReComment(Connection conn, CommentVo vo) {
+	public int writeBoardReComment(Connection conn, CommentVo vo,MemberVo mvo) {
 		// TODO: member 로그인 완료 후 수정
 		int memberNo = 13;
 		int result = 0;
@@ -30,7 +31,7 @@ public class CommentDao {
 			pstmt = conn.prepareStatement(sql);
 			// ? 에 값 지정
 			pstmt.setInt(1, vo.getBoardNo()); 
-			pstmt.setInt(2, memberNo);
+			pstmt.setInt(2, mvo.getMemberNo());
 			pstmt.setString(3, vo.getCommentContent());
 
 			// sql문 실행

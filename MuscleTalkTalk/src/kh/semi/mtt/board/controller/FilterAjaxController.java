@@ -16,6 +16,10 @@ import com.google.gson.GsonBuilder;
 
 import kh.semi.mtt.board.model.service.BoardService;
 import kh.semi.mtt.board.model.vo.BoardVo;
+import kh.semi.mtt.common.function.PagingController;
+import kh.semi.mtt.common.function.PagingVo;
+import kh.semi.mtt.notice.model.service.NoticeService;
+import kh.semi.mtt.notice.model.vo.NoticeVo;
 
 /**
  * Servlet implementation class FilterAjaxController
@@ -23,7 +27,7 @@ import kh.semi.mtt.board.model.vo.BoardVo;
 @WebServlet("/filterAjaxController")
 public class FilterAjaxController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+    private BoardService service = new BoardService();
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -37,8 +41,8 @@ public class FilterAjaxController extends HttpServlet {
 	 *      response)
 	 */
 //	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		// TODO Auto-generated method stub
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
+//		String search = null;
+//		request = exec(request, response, search);
 //	}
 
 	/**
@@ -90,7 +94,12 @@ public class FilterAjaxController extends HttpServlet {
 		if (endRnum > totalCnt) {
 			endRnum = totalCnt;
 		}
-
+		
+		
+		String search = request.getParameter("inputsearch");
+		exec(request, response, search);
+		
+		
 		System.out.println();
 		String filterStr = request.getParameter("filters");
 		int filterint = 0;
@@ -102,7 +111,7 @@ public class FilterAjaxController extends HttpServlet {
 		}
 		PrintWriter out = response.getWriter();
 		Gson gobj = new GsonBuilder().setDateFormat("yyyy-MM-dd").setPrettyPrinting().create();
-		ArrayList<BoardVo> result = new BoardService().readAllBoard(startRnum, endRnum, filterint);
+		ArrayList<BoardVo> result = new BoardService().readAllBoard(startRnum, endRnum, filterint,search);
 
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -118,6 +127,26 @@ public class FilterAjaxController extends HttpServlet {
 		out.println(resStr);
 		out.flush();
 		out.close();
+	}
+	private HttpServletRequest exec(HttpServletRequest request, HttpServletResponse response, String search) {
+		int filter = 0;
+		HttpServletRequest resultRequest = null;
+		int totalCnt = new NoticeService().countNotice();
+		PagingVo setVo = new PagingVo(10, 5, request.getParameter(""), request.getParameter("page"), totalCnt);
+		PagingVo pageVo = new PagingController().setPagingValue(setVo);
+		System.out.println("pageVo:" + pageVo);
+
+		pageVo.setSearch(search);
+		ArrayList<BoardVo> result = service.readAllBoard(pageVo.getStartRnum(), pageVo.getEndRnum(),filter, pageVo.getSearch());
+		System.out.println(result);
+		
+		request.setAttribute("noticereadall", result);
+		request.setAttribute("startPage", pageVo.getStartPage());
+		request.setAttribute("endPage", pageVo.getEndPage());
+		request.setAttribute("totalpageCnt", pageVo.getTotalpageCnt());
+		request.setAttribute("currentPage", pageVo.getCurrentPage());
+		
+		return request;
 	}
 
 }

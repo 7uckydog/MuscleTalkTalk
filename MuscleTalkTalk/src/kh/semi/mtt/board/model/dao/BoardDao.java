@@ -12,6 +12,7 @@ import java.util.Date;
 
 import kh.semi.mtt.board.model.vo.BoardVo;
 import kh.semi.mtt.comment.model.vo.CommentVo;
+import kh.semi.mtt.member.model.vo.MemberVo;
 
 public class BoardDao {
 	private Statement stmt = null;
@@ -55,9 +56,9 @@ public class BoardDao {
 		return result;
 	}
 	
-	public int insertBoard(Connection conn, BoardVo vo) {
+	public int insertBoard(Connection conn, BoardVo vo, MemberVo mvo) {
 //		String m_nickname = "aaa";
-		int memberNo = 13;
+		int memberNo = vo.getMemberNo();
 		int board_count = 0;
 		int result = 0;
 //		BOARD_NO          NOT NULL NUMBER         
@@ -72,7 +73,7 @@ public class BoardDao {
 //				+ vo.getBoardContent() + "','" 
 //				+ board_count +"','" + "sysdate , default)";
 		String sql = "insert into tb_board (board_no, MEMBER_NO, BOARD_TITLE, BOARD_CONTENT, BOARD_COUNT, BOARD_DATE, BOARD_CATEGORY_NO) "
-				+ "values ((SELECT nvl(max(BOARD_NO),0)+1 from TB_board), "+memberNo+", '"+ vo.getBoardTitle() +"', '"+vo.getBoardContent()+"', "+board_count+", default, default)";
+				+ "values ((SELECT nvl(max(BOARD_NO),0)+1 from TB_board), "+mvo.getMemberNo()+", '"+ vo.getBoardTitle() +"', '"+vo.getBoardContent()+"', "+board_count+", default, default)";
 		try {
 			stmt = conn.createStatement();
 			result = stmt.executeUpdate(sql);
@@ -130,7 +131,7 @@ public class BoardDao {
 	}
 	
 	
-	public ArrayList<BoardVo> readAllBoard(Connection conn, int startRnum, int endRnum, int filterint){ //매개인자로 필터 추가해서 정렬기능추가
+	public ArrayList<BoardVo> readAllBoard(Connection conn, int startRnum, int endRnum, int filterint, String search){ //매개인자로 필터 추가해서 정렬기능추가
 		ArrayList<BoardVo> volist = null;
 //		String sql = "select * from(select rownum r, t1.* from "
 //		        + " (select b1.*,(select count(*) from tb_comment r1 where r1.board_no = b1.board_no) r_cnt " 
@@ -142,6 +143,16 @@ public class BoardDao {
 				+ " from tb_board b1 order by board_no desc) t1)tba join tb_member tbm on tba.member_no = tbm.member_no "
 				+ " where r between ? and ?"
 				+ " order by board_date desc";
+		
+		if(search != null ) {
+			sql = "select R, board_no, member_nickname, board_title, board_content, board_count, board_date, board_category_no, r_cnt from "
+					+ " (select rownum r, t1.* from (select b1.*,(select count(*) from "
+					+ " tb_comment r1 where r1.board_no = b1.board_no) r_cnt "
+					+ " from tb_board b1 order by board_no desc) t1)tba join tb_member tbm on tba.member_no = tbm.member_no "
+					+ " where r between ? and ? "
+					+ " and board_title like ? "
+					+ " order by board_date desc ";
+		}
 		if(filterint == 1) {
 			sql = "select R, board_no, member_nickname, board_title, board_content, board_count, board_date, board_category_no, r_cnt from "
 				+ " (select rownum r, t1.* from (select b1.*,(select count(*) from "
@@ -179,6 +190,10 @@ public class BoardDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startRnum);		
 			pstmt.setInt(2, endRnum);
+			if(search != null) {
+				System.out.println("pstmt.setString(3,search):" + search);
+				pstmt.setString(3, "%"+search+"%");
+			}
 			rs = pstmt.executeQuery();
 			if(rs != null) {
 				volist = new ArrayList<BoardVo>();

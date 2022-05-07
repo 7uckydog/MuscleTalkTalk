@@ -621,6 +621,9 @@ border-left: 0px !important;
 	width: auto;
 	cursor: pointer;
 }
+.addworkoutAllDiv input {
+	display: none;
+}
 /*  .addworkoutnameinput{
 	display: none;
 } */
@@ -1193,10 +1196,20 @@ border-left: 0px !important;
             if($(".dayroutine_daySelect").val()=="none"){ //요일
                 if(chkEqualDay) {
                     $(".addworkoutAllDivTop").eq($(".addworkoutAllDivTop").length-1).append('<div class="addworkoutDay" name="addworkoutDay">'+($(".routine_weekSelect").val())+'&nbsp;'+'&nbsp;'+'&nbsp;'+($(".routine_daySelect").val())+'</div>');
+                 	// 주차 인풋생성 및 담기
+                    $('.addworkoutAllDivTop').eq($(".addworkoutAllDivTop").length-1).append('<input class=addworkoutDayweekinput name="addworkoutDayweekinput"></input>');
+                    $('.addworkoutDayweekinput').eq($(".addworkoutAllDivTop").length-1).val($(".routine_weekSelect").val());
+                 	// 요일 인풋생성 및 담기
+                    $('.addworkoutAllDivTop').eq($(".addworkoutAllDivTop").length-1).append('<input class=addworkDayinput name="addworkDay"></input>');
+                    $('.addworkDayinput').eq($(".addworkoutAllDivTop").length-1).val($(".routine_daySelect").val());
                 }
             }else if($(".routine_daySelect").val()=="none"){ //1,2,3day
                 $(".addworkoutAllDivTop").eq($(".addworkoutAllDivTop").length-1).append('<div class="addworkoutDay" name="addworkoutDay">'+($(".dayroutine_daySelect").val())+'</div>');
+             	// day 인풋생성 및 담기
+                $('.addworkoutAllDivTop').eq($(".addworkoutAllDivTop").length-1).append('<input class=addworkoutDayinput name="addworkoutoneDay"></input>');
+                $('.addworkoutDayinput').eq($(".addworkoutAllDivTop").length-1).val($(".dayroutine_daySelect").val());
             }
+            
             if(chkEqualDay) {
                 for(var i = 0; i < partArray.length; i++){
                     if(partArray[i]){
@@ -1319,6 +1332,9 @@ border-left: 0px !important;
         console.log("네임으로가져옴"+name_by_class);
 
         var aWN = $(".addworkoutname").attr('name');
+        
+        
+        
     	// form  serialize()
     	function formSubmit() {
     	    var params = $('.routineForm').serialize();
@@ -1337,6 +1353,9 @@ border-left: 0px !important;
     	   	});
     	    
     	}
+    	
+    	
+    	
         //세트삭제
         $(".set_timedawn3").on("click",function(){
             //console.log("test =");

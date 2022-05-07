@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kh.semi.mtt.board.model.vo.BoardVo;
+import kh.semi.mtt.member.model.vo.MemberVo;
 import kh.semi.mtt.board.model.service.BoardService;
 
 /**
@@ -44,9 +45,10 @@ public class BoardInsertDoController extends HttpServlet {
 		
 		
 		BoardVo vo = new BoardVo();
+		MemberVo mvo = (MemberVo) request.getSession().getAttribute("ssMvo");
 		vo.setBoardTitle(boardTitle);
 		vo.setBoardContent(boardContent);
-		int result = new BoardService().insertBoard(vo);
+		int result = new BoardService().insertBoard(vo,mvo);
 		if(result < 1) { //글등록 실패
 			response.sendRedirect("boardinsert");
 			System.out.println("자유게시글 등록실패");

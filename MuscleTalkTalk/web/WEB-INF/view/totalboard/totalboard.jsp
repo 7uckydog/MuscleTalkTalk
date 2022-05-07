@@ -13,7 +13,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>루틴게시판</title>
+<title>통합 게시판</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <%@ include file="/WEB-INF/view/font.jsp"%>
@@ -258,11 +258,11 @@ section {
 		</div>
 		<div id="board_information">
 			<div id="board_count">전체게시물 수:
-				&nbsp;${routineboardreadall.get(0).routineboardNo}</div>
+				&nbsp;${boardreadall.get(0).boardNo}</div>
 			<!-- <div id="board_search"> -->
 			<form class="search_board">
-				<button type="submit" id="btn_search">검색</button>
-				<input id="input_search" type="text" name="s" value=""
+				<button type="button" id="btn_search">검색</button>
+				<input id="input_search" type="text" name="searchInput"
 					placeholder="검색어입력">
 			</form>
 			<!-- </div> -->
@@ -279,7 +279,7 @@ section {
 					console.log($("#sort").val());
 					//$(".Filter").val()
 					$.ajax({
-						url:"RoutineBoardFilter",
+						url:"filterAjaxController",
 						type:"post",
 						data:{filters:$("#sort").val(), page:${currentPage}},
 						dataType:"json",
@@ -287,15 +287,15 @@ section {
 								console.log(result);
 								//console.log(result);
  								var html = "";
-								for(var i = 0; i < result.routineboardlist.length; i++){
-				                    var rvo = result.routineboardlist[i];
+								for(var i = 0; i < result.boardlist.length; i++){
+				                    var vo = result.boardlist[i];
 				                    html += '<tr class="table_content">';
-				                    html += '<td><a href="routineboardread?bno='+rvo.routineboardNo+'">'+rvo.routineboardNo+'</a></td>';
-				                    html += '<td><a href="routineboardread?bno='+rvo.routineboardNo+'">'+rvo.routineboardTitle+'</a></td>';
-				                    html += '<td>'+rvo.routineboardDate+'</td>';
-				                    html += '<td>'+rvo.routineboardCount+'</td>';
-				                    html += '<td>'+rvo.rCnt+'</td>';
-				                    html += '<td>'+rvo.memberNickname+'</td>';
+				                    html += '<td><a href="boardread?bno='+vo.boardNo+'">'+vo.boardNo+'</a></td>';
+				                    html += '<td><a href="boardread?bno='+vo.boardNo+'">'+vo.boardTitle+'</a></td>';
+				                    html += '<td>'+vo.boardDate+'</td>';
+				                    html += '<td>'+vo.boardCount+'</td>';
+				                    html += '<td>'+vo.rCnt+'</td>';
+				                    html += '<td>'+vo.memberNickname+'</td>';
 				                    html += '</tr>';
 				                }
 								console.log("씨2");
@@ -310,7 +310,44 @@ section {
 						}
 						});
 					});
+		$("#btn_search").click(function(){
+			console.log("test");
+			console.log($("#sort").val());
+			//$(".Filter").val()
+			$.ajax({
+				url:"filterAjaxController",
+				type:"post",
+				data:{inputsearch:$("#input_search").val()},
+				dataType:"json",
+				success: function(result) {
+						console.log(result);
+						//console.log(result);
+							var html = "";
+						for(var i = 0; i < result.boardlist.length; i++){
+		                    var vo = result.boardlist[i];
+		                    html += '<tr class="table_content">';
+		                    html += '<td><a href="boardread?bno='+vo.boardNo+'">'+vo.boardNo+'</a></td>';
+		                    html += '<td><a href="boardread?bno='+vo.boardNo+'">'+vo.boardTitle+'</a></td>';
+		                    html += '<td>'+vo.boardDate+'</td>';
+		                    html += '<td>'+vo.boardCount+'</td>';
+		                    html += '<td>'+vo.rCnt+'</td>';
+		                    html += '<td>'+vo.memberNickname+'</td>';
+		                    html += '</tr>';
+		                }
+						console.log("씨2");
+						console.log($("#table_title").next());
+						$("#table_title").next().nextAll().remove();
+						$("#board_table").append(html);
+						console.log("씨3");
+						return;
+				},
+				error: function(result){
+					console.log("ajax 오류");
+				}
+				});
+			});
 		</script>
+		
 		<table id="board_table">
 			<tr>
 				<td colspan="6" class="table_line"></td>
@@ -326,27 +363,27 @@ section {
 			<tr>
 				<td colspan="6" class="table_line"></td>
 			</tr>
-			<c:forEach items="${routineboardreadall}" var="rvo">
+			<c:forEach items="${boardreadall}" var="vo">
 				<tr class="table_content">
-					<td><a href="routineboardread?bno=${rvo.routineboardNo}">${rvo.routineboardNo }</a></td>
-					<td><a href="routineboardread?bno=${rvo.routineboardNo }">${rvo.routineboardTitle }</a></td>
-					<td>${rvo.routineboardDate }</td>
-					<td>&nbsp;&nbsp;&nbsp;${rvo.routineboardCount }</td>
-					<td>${rvo.rCnt }</td>
-					<td>${rvo.memberNickname }</td>
+					<td><a href="boardread?bno=${vo.boardNo}">${vo.boardNo }</a></td>
+					<td><a href="boardread?bno=${vo.boardNo }">${vo.boardTitle }</a></td>
+					<td>${vo.boardDate }</td>
+					<td>&nbsp;&nbsp;&nbsp;${vo.boardCount }</td>
+					<td>${vo.rCnt }</td>
+					<td>${vo.memberNickname }</td>
 				</tr>
 			</c:forEach>
 		</table>
 		<div class="Pageing">
 			<p>
 				<c:if test="${startPage > 1 }">
-					<a class="Page" href="routineboardreadall?page=${startPage-1 }">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;
+					<a class="Page" href="BoardReadAll?page=${startPage-1 }">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;
 			</c:if>
 				<c:forEach begin="${startPage }" end="${endPage }" var="p">
-					<a class="Page" id="xxx" href="routineboardreadalll?page=${p }">${p }</a>&nbsp;&nbsp;&nbsp;&nbsp;
+					<a class="Page" id="xxx" href="BoardReadAll?page=${p }">${p }</a>&nbsp;&nbsp;&nbsp;&nbsp;
 			</c:forEach>
 				<c:if test="${endPage < totalpageCnt}">
-					<a class="Page" href="routineboardreadall?page=${endPage+1 }">다음</a>
+					<a class="Page" href="BoardReadAll?page=${endPage+1 }">다음</a>
 				</c:if>
 			</p>
 		</div>

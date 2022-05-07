@@ -42,7 +42,6 @@ section {
 	position: relative;
 	font-family: 'THEmpgtM';
 	text-decoration: none;
-	font-family: THEmpgtM;
 }
 
 button {
@@ -270,8 +269,8 @@ hr {
 #readrecomment {
 	margin-top: 20px;
 	margin-left: 115px;
-	width: 630px;
-	height: 40px;
+	width: 500px;
+	height: 50px;
 }
 
 #recommentContent {
@@ -409,8 +408,8 @@ hr {
 	<section>
 		<div id="board_main">자유 게시물 상세보기</div>
 		<div id="board_category">
-			<a href="">통합 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="">자유 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
-				href="">루틴 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="">공지사항</a>
+			<a href="totalboard">통합 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="BoardReadAll">자유 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
+				href="routineboardreadall">루틴 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="">공지사항</a>
 		</div>
 		<div id="board_note">
 			<div id="note_title">게시판 유의사항</div>

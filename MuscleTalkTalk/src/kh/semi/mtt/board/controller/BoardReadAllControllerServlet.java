@@ -15,6 +15,9 @@ import com.google.gson.GsonBuilder;
 
 import kh.semi.mtt.board.model.service.BoardService;
 import kh.semi.mtt.board.model.vo.BoardVo;
+import kh.semi.mtt.common.function.PagingController;
+import kh.semi.mtt.common.function.PagingVo;
+import kh.semi.mtt.notice.model.service.NoticeService;
 
 
 
@@ -80,14 +83,12 @@ public class BoardReadAllControllerServlet extends HttpServlet {
 			endRnum = totalCnt;
 		}
 		//검색기능 미완
-		String search_ = request.getParameter("s");
-		String search = "";
-		if(search_ != null) {
-			search = search_; 
-		}
+		String search = request.getParameter("inputsearch");
+		exec(request, response, search);
+
 		//
 		System.out.println("rnum:" + startRnum + "~" + endRnum);
-		ArrayList<BoardVo> result = service.readAllBoard(startRnum, endRnum,filter);
+		ArrayList<BoardVo> result = service.readAllBoard(startRnum, endRnum,filter, search);
 		System.out.println(result);
 		request.setAttribute("boardreadall", result);
 		request.setAttribute("startPage", startPage);
@@ -102,6 +103,26 @@ public class BoardReadAllControllerServlet extends HttpServlet {
 		private int countBoard() {
 			int result = service.countBoard();
 			return result;
+		}
+		private HttpServletRequest exec(HttpServletRequest request, HttpServletResponse response, String search) {
+			int filter = 0;
+			HttpServletRequest resultRequest = null;
+			int totalCnt = new NoticeService().countNotice();
+			PagingVo setVo = new PagingVo(10, 5, request.getParameter(""), request.getParameter("page"), totalCnt);
+			PagingVo pageVo = new PagingController().setPagingValue(setVo);
+			System.out.println("pageVo:" + pageVo);
+
+			pageVo.setSearch(search);
+			ArrayList<BoardVo> result = service.readAllBoard(pageVo.getStartRnum(), pageVo.getEndRnum(),filter, pageVo.getSearch());
+			System.out.println(result);
+			
+			request.setAttribute("noticereadall", result);
+			request.setAttribute("startPage", pageVo.getStartPage());
+			request.setAttribute("endPage", pageVo.getEndPage());
+			request.setAttribute("totalpageCnt", pageVo.getTotalpageCnt());
+			request.setAttribute("currentPage", pageVo.getCurrentPage());
+			
+			return request;
 		}
 
 
