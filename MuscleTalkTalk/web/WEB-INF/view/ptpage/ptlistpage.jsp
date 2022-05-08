@@ -15,7 +15,6 @@
 <title>머슬톡톡</title>
 </head>
 <body>
-${ssMvo }
 	<%@ include file="/WEB-INF/view/template.jsp" %>
 	<section id="pt_list_page_section">
 		<div id="pt_list_page_div">
@@ -75,9 +74,10 @@ ${ssMvo }
 						<div class="pt_list_page_cursor">
 							<input type="hidden" class="pt_list_page_pt_no" value="${ptVo.ptNo }">
 							<img alt="" src="${ptVo.ptFilePathList[0] }">
+							<i class="fa-solid fa-heart pt_list_page_favortie"></i>
 							<p>${ptVo.ptLocation }</p>
 							<p>${ptVo.ptName }</p>
-							<p>${ptVo.ptTrainerName },,,,${ptVo.ptCategoryStr}</p>
+							<p>${ptVo.ptCategoryStr}&nbsp;&bull;&nbsp;${ptVo.ptTrainerName }</p>
 							<p>1회: ${ptVo.ptPrice }원</p>
 							<p>즐겨찾기 수: TODO</p>
 						</div>
@@ -246,16 +246,90 @@ ${ssMvo }
 	
 
 	
-	$(".pt_list_page_cursor").click(function() {
-		console.log("div click test");
-		console.log($(this).children(".pt_no").text());
-		var ptNo = $(this).children(".pt_list_page_pt_no").val();
-		location.href = "ptread?ptNo=" + ptNo;
+	$(".pt_list_page_cursor").click(function(event) {
+		if(!(event.target == $(this).children('.pt_list_page_favortie')[0])) {
+			var ptNo = $(this).children(".pt_list_page_pt_no").val();
+			location.href = "ptread?ptNo=" + ptNo;
+		}
 	});
 	
 	$("#my_program_btn").on('click', function() {
 		location.href="myptprogram";
 	});
+	
+	$('.pt_list_page_favortie').click(function() {
+		<c:if test="${not empty ssMvo}">
+			var ptNoTemp = $(this).prevAll('.pt_list_page_pt_no').val();
+			var favoriteCheck = false;
+			for(var i = 0; i < ptFavoriteVoList.length; i++) {
+				if(ptFavoriteVoList[i] == ptNoTemp) {
+					favoriteCheck = true;
+				}
+			}
+			
+	 		$.ajax({
+				url: 'ptfavorite.ax',
+				type: 'post',
+				data: {
+					memberNo : ${ssMvo.memberNo},
+					ptNo : ptNoTemp,
+					favoriteCheck : favoriteCheck
+				},
+				success : function(result) {
+					if(result == "1") {
+						console.log("ajax success");
+						if(favoriteCheck) {
+							var ptFavoriteVoListIndexTemp = -1;
+							for(var i = 0; i < ptFavoriteVoList.length; i++) {
+								if(ptFavoriteVoList[i] == ptNoTemp) {
+									ptFavoriteVoListIndexTemp = i;
+								}
+							}
+							ptFavoriteVoList.splice(ptFavoriteVoListIndexTemp, 1);
+						} else {
+							ptFavoriteVoList.push(Number(ptNoTemp));
+						}
+					}
+					console.log(ptFavoriteVoList);
+					favoriteChk();
+				},
+				error : function(request, status, error) {
+					console.log(request);
+					console.log(status);
+					console.log(error);
+				} 
+			});
+	 		
+ 		</c:if>
+ 		<c:if test="${empty ssMvo}">
+ 			alert("로그인후 가능합니다.");
+ 		</c:if>
+		
+	});
+	
+	var ptFavoriteVoList = [];
+	<c:forEach var="vo" items="${ptFavoriteVoList}">
+		ptFavoriteVoList.push(${vo.ptNo});
+	</c:forEach>
+	favoriteChk();
+	function favoriteChk() {
+		if(ptFavoriteVoList.length == 0) {
+			for(var i = 0; i < $('.pt_list_page_pt_no').length; i++) {
+				$('.pt_list_page_favortie').eq(i).css('-webkit-text-fill-color','white');
+			}
+			return;
+		}
+		
+		for(var i = 0; i < $('.pt_list_page_pt_no').length; i++) {			
+			$('.pt_list_page_favortie').eq(i).css('-webkit-text-fill-color','white');
+			for(var j = 0; j < ptFavoriteVoList.length; j++) {				
+				if($('.pt_list_page_pt_no').eq(i).val() == ptFavoriteVoList[j]) {
+					$('.pt_list_page_favortie').eq(i).css('-webkit-text-fill-color','#4B4DB2');
+				} else {
+				}
+			}
+		}
+	}
 	
 	</script>
 </body>

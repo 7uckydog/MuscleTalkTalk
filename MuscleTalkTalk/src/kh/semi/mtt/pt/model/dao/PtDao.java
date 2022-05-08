@@ -167,7 +167,8 @@ public class PtDao {
 				+ "join tb_trainer "
 				+ "on tb_pt.trainer_no = tb_trainer.trainer_no "
 				+ "join tb_member "
-				+ "on tb_trainer.member_no = tb_member.member_no ";
+				+ "on tb_trainer.member_no = tb_member.member_no "
+				+ "order by tb_pt.pt_no desc";
 //		select tb_pt.pt_no, pt_name, pt_category ,pt_file, tb_member.member_nickname, pt_price
 //	    from tb_pt 
 //	        join (select * from tb_pt_file 

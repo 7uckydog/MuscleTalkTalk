@@ -482,7 +482,7 @@
 
 		// 리스트 박스 초기 설정
 		$(function() {
-			for (var i = 0; i <= 23; i++) {
+			for (var i = 0; i <= 24; i++) {
 				$("#pt_start_time_list_box").append("<li>" + i + ":00</li>");
 				$("#pt_end_time_list_box").append("<li>" + i + ":00</li>");
 			}

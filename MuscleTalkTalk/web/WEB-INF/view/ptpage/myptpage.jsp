@@ -16,13 +16,13 @@
 	<section id="pt_my_page_section">
 		<div id="pt_my_page_div">
 			<div id="pt_my_page_title">
-				<p>내 PT 프로그램 관리${ptVoList }</p>
-				<button type="button">내 프로그램 회원 조회</button>
+				<p>내 PT 프로그램 관리</p>
+				<button id="pt_my_student_btn" type="button">내 프로그램 회원 조회</button>
 				<button id="pt_my_page_insert_btn" type="button">새로운 프로그램 등록</button>
 			</div>
 			<div id="pt_my_page_container">
 				<div class="pt_my_page_row" id="pt_my_page_first_row">
-					<div class="pt_my_page_no"></div>
+					<div class="pt_my_page_no">pt번호</div>
 					<div class="pt_my_page_program_title">프로그램명</div>
 					<div class="pt_my_page_regist_date">등록일</div>
 					<div class="pt_my_page_category">카테고리</div>
@@ -45,6 +45,11 @@
 		$("#pt_my_page_insert_btn").click(function() {
 			location.href = "ptinsert";
 		});
+		
+		$("#pt_my_student_btn").click(function() {
+			location.href = "myptstudent";
+		});
+		
 		$("a").hover(
 		function() {
 			$(this).css("color","#4B4DB2");

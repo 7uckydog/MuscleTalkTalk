@@ -67,4 +67,41 @@ public class PtCalendarDao {
 		}
 		return result;
 	}
+	
+	public ArrayList<PtCalendarVo> readMyStudent(Connection conn, int trainerNo) {
+		ArrayList<PtCalendarVo> ptCalList = new ArrayList<PtCalendarVo>();
+		PtCalendarVo ptCalVo = null;
+		String sql = "select tp.pt_name, tpc.pt_calendar_start_time, tm.member_name, tpc.pt_no, tm.member_no, tm.member_id  "
+				+ "	    from tb_pt_calendar tpc  "
+				+ "	    join tb_pt tp  "
+				+ "	    on tpc.pt_no = tp.pt_no  "
+				+ "	    join tb_member tm  "
+				+ "	    on tpc.member_no = tm.member_no  "
+				+ "	    where pt_calendar_reservation_state = 'T'  "
+				+ "	        and tpc.pt_no in (select pt_no from tb_pt where trainer_no = ?)  ";
+
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, trainerNo);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ptCalVo = new PtCalendarVo();
+				ptCalVo.setPtName(rs.getString("PT_NAME"));
+				ptCalVo.setPtCalendarStartTime(rs.getTimestamp("PT_CALENDAR_START_TIME"));
+				ptCalVo.setMemberName(rs.getString("MEMBER_NAME"));
+				ptCalVo.setPtNo(rs.getInt("PT_NO"));
+				ptCalVo.setMemberNo(rs.getInt("MEMBER_NO"));
+				ptCalVo.setMemberId(rs.getString("MEMBER_ID"));
+				ptCalList.add(ptCalVo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	finally {
+			close(rs);
+			close(pstmt);
+		}
+		return ptCalList;
+	}
 }

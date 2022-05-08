@@ -555,6 +555,7 @@ a:visited {
 }
 
 #pt_list_title button {
+	border: 1px solid #4B4DB2;
 	margin-left: 10px;
 	width: 155px;
 	height: 30px;
@@ -562,6 +563,12 @@ a:visited {
 	background-color: #4B4DB2;
 	color: white;
 	float: right;
+	cursor : pointer;
+}
+
+#pt_list_title button:hover {
+	background-color: white;
+	color: black;
 }
 
 #pt_list_filter {
@@ -758,7 +765,7 @@ a:visited {
 }
 
 .pt_list_page_cursor {
-	border: 1px solid black;
+	position: relative;
 	cursor: pointer;
 }
 
@@ -780,6 +787,20 @@ a:visited {
 	width: 30px;
 	height: 30px;
 	margin-right: 5px;
+}
+
+.pt_list_page_favortie {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	font-size: 20px;
+  	-webkit-text-fill-color: white; /* Will override color (regardless of order) */
+  	-webkit-text-stroke-width: 1px;
+  	-webkit-text-stroke-color: rgb(94,94,94);
+}
+
+.pt_list_page_favortie:hover {
+	-webkit-text-fill-color: #4B4DB2;
 }
 
 /* 상세조회 페이지 */
@@ -1241,15 +1262,22 @@ a:visited {
 }
 
 #pt_my_page_title button {
+	border: 1px solid #4B4DB2;
 	float: right;
 	font-size: 12px;
 	font-family:'THEmpgtM';
 	width: 155px;
 	height: 30px;
-	line-height: 30px;
+	line-height: 28px;
 	background-color: #4B4DB2;
 	color: white;
 	margin-left: 10px;
+	cursor : pointer;
+}
+
+#pt_my_page_title button:hover {
+	color: black;
+	background-color: white;
 }
 
 #pt_my_page_container {
@@ -1298,29 +1326,335 @@ a:visited {
 	width: 100px;
 }
 
+/* pt 수강생확인 페이지 */
+/* pt 수강생확인 페이지 */
+/* pt 수강생확인 페이지 */
+/* pt 수강생확인 페이지 */
+/* pt 수강생확인 페이지 */
+/* pt 수강생확인 페이지 */
+/* pt 수강생확인 페이지 */
+/* pt 수강생확인 페이지 */
+/* pt 수강생확인 페이지 */
+/* pt 수강생확인 페이지 */
+/* pt 수강생확인 페이지 */
+/* pt 수강생확인 페이지 */
+/* pt 수강생확인 페이지 */
+/* pt 수강생확인 페이지 */
+/* pt 수강생확인 페이지 */
+/* pt 수강생확인 페이지 */
+/* pt 수강생확인 페이지 */
+/* pt 수강생확인 페이지 */
 
 
+#pt_my_student_section {
+	height: auto;
+}
+
+#pt_my_student_div {
+	padding: 60px;
+	padding-bottom: 50px;
+	/* font-size: 0px; */
+}
+
+#pt_my_student_title {
+	overflow: hidden;
+	margin-bottom: 35px;
+}
+
+#pt_my_student_title p{
+	float: left;
+	font-size: 15px;
+	font-family:'THEmpgtB';
+	height: 30px;
+	line-height: 30px;
+}
+
+#pt_my_student_title button {
+	border: 1px solid #4B4DB2;
+	float: right;
+	font-size: 12px;
+	font-family:'THEmpgtM';
+	width: 155px;
+	height: 30px;
+	line-height: 28px;
+	background-color: #4B4DB2;
+	color: white;
+	margin-left: 10px;
+	cursor : pointer;
+}
+
+#pt_my_student_title button:hover {
+	background-color: white;
+	color: black;
+}
+
+#pt_my_student_container {
+	display: flex;
+	width: auto;
+	font-size: 0px;
+	font-family:'THEmpgtM';
+	flex-direction: column;
+}
+
+.pt_my_student_row {
+	height: 40px;
+	line-height: 40px;
+}
+
+#pt_my_student_first_row {
+	border-bottom: 1px solid rgb(188, 188, 188);
+	border-top: 1px solid rgb(188, 188, 188);
+	font-family:'THEmpgtB';
+}
+
+.pt_my_student_row div {
+	display: inline-block;
+	font-size: 12px;
+	margin: 0px;
+}
+
+.pt_my_pt_no {
+	width: 55px;
+	padding-left: 5px;
+}
+
+.pt_my_student_program_title {
+	width: 450px;
+}
+
+.pt_my_student_reservation_date {
+	width: 200px;
+}
+
+.pt_my_student_name {
+	width: 100px;
+}
+
+.pt_my_student_name_p {
+	display: inline;	
+}
+
+/* pt 개별 수강생확인 페이지 */
+/* pt 개별 수강생확인 페이지 */
+/* pt 개별 수강생확인 페이지 */
+/* pt 개별 수강생확인 페이지 */
+/* pt 개별 수강생확인 페이지 */
+/* pt 개별 수강생확인 페이지 */
+/* pt 개별 수강생확인 페이지 */
+/* pt 개별 수강생확인 페이지 */
+/* pt 개별 수강생확인 페이지 */
+/* pt 개별 수강생확인 페이지 */
+/* pt 개별 수강생확인 페이지 */
+/* pt 개별 수강생확인 페이지 */
+/* pt 개별 수강생확인 페이지 */
+/* pt 개별 수강생확인 페이지 */
+/* pt 개별 수강생확인 페이지 */
+/* pt 개별 수강생확인 페이지 */
+/* pt 개별 수강생확인 페이지 */
+/* pt 개별 수강생확인 페이지 */
+/* pt 개별 수강생확인 페이지 */
+/* pt 개별 수강생확인 페이지 */
+/* pt 개별 수강생확인 페이지 */
+
+#pt_read_student_section {
+	height: auto;
+}
+
+#pt_read_student_div {
+	padding: 60px;
+	padding-bottom: 50px;
+}
+
+#pt_read_student_title {
+	overflow: hidden;
+	margin-bottom: 35px;
+}
+
+#pt_read_student_title p{
+	float: left;
+	font-size: 15px;
+	font-family:'THEmpgtB';
+	height: 30px;
+	line-height: 30px;
+}
+
+#pt_read_student_title button {
+	border: 1px solid #4B4DB2;
+	float: right;
+	font-size: 12px;
+	font-family:'THEmpgtM';
+	width: 130px;
+	height: 30px;
+	line-height: 28px;
+	background-color: #4B4DB2;
+	color: white;
+	margin-left: 10px;
+	cursor: pointer;
+}
+
+#pt_read_student_title button:hover {
+	background-color: white;
+	color: black;
+}
+
+#pt_read_student_container {
+	width : 400px;
+	margin : 0 auto;
+	display: grid;
+	grid-template-columns: 1fr 5fr;
+	grid-template-rows: repeat(12, 35px);
+	text-align: center;
+
+}
+
+.pt_read_student_content_left {
+	font-family:'THEmpgtM';
+	font-size: 12px;
+}
+
+.pt_read_student_content_right {
+	font-family:'THEmpgtB';
+	font-size: 12px;
+}
+
+#pt_read_student_okay_btn {
+	border: 1px solid #4B4DB2;
+	display: block;
+	font-size: 12px;
+	font-family:'THEmpgtM';
+	width: 130px;
+	height: 30px;
+	line-height: 28px;
+	background-color: #4B4DB2;
+	color: white;
+ 	margin: 50px auto 0px;
+ 	cursor: pointer;
+}
+
+#pt_read_student_okay_btn:hover {
+	background-color: white;
+	color: black;
+}
 
 
+/* pt 블랙리스트 조회 페이지 */
+/* pt 블랙리스트 조회 페이지 */
+/* pt 블랙리스트 조회 페이지 */
+/* pt 블랙리스트 조회 페이지 */
+/* pt 블랙리스트 조회 페이지 */
+/* pt 블랙리스트 조회 페이지 */
+/* pt 블랙리스트 조회 페이지 */
+/* pt 블랙리스트 조회 페이지 */
+/* pt 블랙리스트 조회 페이지 */
+/* pt 블랙리스트 조회 페이지 */
+/* pt 블랙리스트 조회 페이지 */
+/* pt 블랙리스트 조회 페이지 */
+/* pt 블랙리스트 조회 페이지 */
+/* pt 블랙리스트 조회 페이지 */
+/* pt 블랙리스트 조회 페이지 */
+/* pt 블랙리스트 조회 페이지 */
+/* pt 블랙리스트 조회 페이지 */
+/* pt 블랙리스트 조회 페이지 */
+/* pt 블랙리스트 조회 페이지 */
+/* pt 블랙리스트 조회 페이지 */
+/* pt 블랙리스트 조회 페이지 */
+/* pt 블랙리스트 조회 페이지 */
 
+#pt_blacklist_section {
+	height: auto;
+}
 
+#pt_blacklist_div {
+	padding: 60px;
+	padding-bottom: 50px;
+}
 
+#pt_blacklist_title {
+	overflow: hidden;
+	margin-bottom: 35px;
+}
 
+#pt_blacklist_title p{
+	float: left;
+	font-size: 15px;
+	font-family:'THEmpgtB';
+	height: 30px;
+	line-height: 30px;
+}
 
+#pt_blacklist_title button {
+	border: 1px solid #4B4DB2;
+	float: right;
+	font-size: 12px;
+	font-family:'THEmpgtM';
+	width: 130px;
+	height: 30px;
+	line-height: 28px;
+	background-color: #4B4DB2;
+	color: white;
+	margin-left: 10px;
+	cursor: pointer;
+}
 
+#pt_blacklist_title button:hover {
+	background-color: white;
+	color: black;
+}
 
+#pt_blacklist_container {
+	display: flex;
+	width: auto;
+	font-size: 0px;
+	font-family:'THEmpgtM';
+	flex-direction: column;
+}
 
+.pt_blacklist_row {
+	height: 40px;
+	line-height: 40px;
+}
 
+#pt_blacklist_first_row {
+	border-bottom: 1px solid rgb(188, 188, 188);
+	border-top: 1px solid rgb(188, 188, 188);
+	font-family:'THEmpgtB';
+}
 
+.pt_blacklist_row div {
+	display: inline-block;
+	font-size: 12px;
+	margin: 0px;
+}
 
+.pt_blacklist_no {
+	width: 55px;
+	padding-left: 5px;
+}
 
+.pt_blacklist_name {
+	width: 450px;
+}
 
+.pt_blacklist_regist_date {
+	width: 200px;
+}
 
+.black_list_delete_btn {
+	width: 70px;
+	height: 25px;
+	border: 1px solid #4B4DB2;
+	font-size: 12px;
+	font-family:'THEmpgtM';
+	line-height: 23px;
+	background-color: #4B4DB2;
+	color: white;
+	cursor: pointer;
+}
 
-
-
-
-
+.black_list_delete_btn:hover {
+	background-color: white;
+	color: black;
+}
 
 
 

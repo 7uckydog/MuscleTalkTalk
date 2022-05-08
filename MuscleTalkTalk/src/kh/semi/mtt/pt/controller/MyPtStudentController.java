@@ -12,20 +12,20 @@ import javax.servlet.http.HttpServletResponse;
 import kh.semi.mtt.member.model.vo.MemberVo;
 import kh.semi.mtt.pt.model.service.PtService;
 import kh.semi.mtt.pt.model.vo.PtVo;
-import kh.semi.mtt.ptfavorite.model.service.PtFavoriteService;
-import kh.semi.mtt.ptfavorite.model.vo.PtFavoriteVo;
+import kh.semi.mtt.ptcalendar.model.service.PtCalendarService;
+import kh.semi.mtt.ptcalendar.model.vo.PtCalendarVo;
 
 /**
- * Servlet implementation class PtListController
+ * Servlet implementation class MyPtStudentController
  */
-@WebServlet("/ptlist")
-public class PtListController extends HttpServlet {
+@WebServlet("/myptstudent")
+public class MyPtStudentController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PtListController() {
+    public MyPtStudentController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,23 +34,20 @@ public class PtListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("/ptlist doGet 방식 호출");
-		ArrayList<PtVo> ptVoList = new PtService().readAllPt();
-		System.out.println("/ptlist doGet ptVoList 결과:  " + ptVoList);
-		ArrayList<PtFavoriteVo> ptFavoriteVoList = null;
-		if(request.getSession().getAttribute("ssMvo") != null) {
-			int memberNo = 0;
-			try {
-				memberNo = ((MemberVo)request.getSession().getAttribute("ssMvo")).getMemberNo();
-			} catch (NumberFormatException e) {
-				e.printStackTrace();
-			}
-			ptFavoriteVoList = new PtFavoriteService().readAllPtFavorite(memberNo);
+		System.out.println("/myptstudent 들어옴");
+		MemberVo vo = (MemberVo)request.getSession().getAttribute("ssMvo");
+		System.out.println(vo);
+		if(vo == null) {
+			response.sendRedirect(request.getContextPath());
+			return;
 		}
-		System.out.println("/ptlist doGet ptFavoriteVoList 결과:  " + ptFavoriteVoList);
-		request.setAttribute("ptVoList", ptVoList);
-		request.setAttribute("ptFavoriteVoList", ptFavoriteVoList);
-		request.getRequestDispatcher("WEB-INF/view/ptpage/ptlistpage.jsp").forward(request, response);
+		if(vo.getMemberTrainer().equals("F")) {
+			response.sendRedirect(request.getContextPath());
+			return;
+		}
+		ArrayList<PtCalendarVo> ptCalVoList = new PtCalendarService().readMyStudent(vo.getTrainerNo());
+		request.setAttribute("ptCalVoList", ptCalVoList);
+		request.getRequestDispatcher("WEB-INF/view/ptpage/myptstudent.jsp").forward(request, response);
 	}
 
 	/**

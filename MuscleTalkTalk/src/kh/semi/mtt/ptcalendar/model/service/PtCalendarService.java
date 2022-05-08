@@ -33,4 +33,16 @@ public class PtCalendarService {
 		close(conn);
 		return result;
 	}
+	
+	public ArrayList<PtCalendarVo> readMyStudent(int trainerNo) {
+		ArrayList<PtCalendarVo> ptCalList = null;
+		Connection conn = null;
+		conn = getConnection();
+		
+		ptCalList = dao.readMyStudent(conn, trainerNo);
+		System.out.println("PtCalendarService readMyStudent()매소드 결과: " + ptCalList);
+		
+		close(conn);
+		return ptCalList;
+	}
 }
