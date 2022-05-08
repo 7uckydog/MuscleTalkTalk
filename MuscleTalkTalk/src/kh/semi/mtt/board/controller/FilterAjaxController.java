@@ -89,10 +89,10 @@ public class FilterAjaxController extends HttpServlet {
 		System.out.println("page: " + startPage + " ~ " + endPage);
 
 		// rownum 처리
-		startRnum = (currentPage - 1) * pageSize + 1;
-		endRnum = startRnum + pageSize - 1;
-		if (endRnum > totalCnt) {
-			endRnum = totalCnt;
+		startRnum = totalCnt - (currentPage - 1) * pageSize; 
+		endRnum = startRnum - pageSize + 1;
+		if (endRnum < 1) {
+			endRnum = 1;
 		}
 		
 		
@@ -111,7 +111,7 @@ public class FilterAjaxController extends HttpServlet {
 		}
 		PrintWriter out = response.getWriter();
 		Gson gobj = new GsonBuilder().setDateFormat("yyyy-MM-dd").setPrettyPrinting().create();
-		ArrayList<BoardVo> result = new BoardService().readAllBoard(startRnum, endRnum, filterint,search);
+		ArrayList<BoardVo> result = new BoardService().readAllBoard(endRnum, startRnum, filterint,search);
 
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -140,7 +140,7 @@ public class FilterAjaxController extends HttpServlet {
 		ArrayList<BoardVo> result = service.readAllBoard(pageVo.getStartRnum(), pageVo.getEndRnum(),filter, pageVo.getSearch());
 		System.out.println(result);
 		
-		request.setAttribute("noticereadall", result);
+		request.setAttribute("boardreadall", result);
 		request.setAttribute("startPage", pageVo.getStartPage());
 		request.setAttribute("endPage", pageVo.getEndPage());
 		request.setAttribute("totalpageCnt", pageVo.getTotalpageCnt());

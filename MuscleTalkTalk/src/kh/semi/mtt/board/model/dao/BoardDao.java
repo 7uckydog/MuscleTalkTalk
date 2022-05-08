@@ -140,34 +140,34 @@ public class BoardDao {
 		String sql = "select R, board_no, member_nickname, board_title, board_content, board_count, board_date, board_category_no, r_cnt from "
 				+ " (select rownum r, t1.* from (select b1.*,(select count(*) from "
 				+ " tb_comment r1 where r1.board_no = b1.board_no) r_cnt "
-				+ " from tb_board b1 order by board_no desc) t1)tba join tb_member tbm on tba.member_no = tbm.member_no "
+				+ " from tb_board b1 order by board_no asc) t1)tba join tb_member tbm on tba.member_no = tbm.member_no "
 				+ " where r between ? and ?"
-				+ " order by board_date desc";
+				+ " order by R DESC, board_date asc ";
 		
 		if(search != null ) {
 			sql = "select R, board_no, member_nickname, board_title, board_content, board_count, board_date, board_category_no, r_cnt from "
 					+ " (select rownum r, t1.* from (select b1.*,(select count(*) from "
 					+ " tb_comment r1 where r1.board_no = b1.board_no) r_cnt "
-					+ " from tb_board b1 order by board_no desc) t1)tba join tb_member tbm on tba.member_no = tbm.member_no "
+					+ " from tb_board b1 order by board_no asc) t1)tba join tb_member tbm on tba.member_no = tbm.member_no "
 					+ " where r between ? and ? "
 					+ " and board_title like ? "
-					+ " order by board_date desc ";
+					+ " order by R DESC, board_date asc ";
 		}
 		if(filterint == 1) {
-			sql = "select R, board_no, member_nickname, board_title, board_content, board_count, board_date, board_category_no, r_cnt from "
-				+ " (select rownum r, t1.* from (select b1.*,(select count(*) from "
-				+ " tb_comment r1 where r1.board_no = b1.board_no) r_cnt "
-				+ " from tb_board b1 order by board_no desc) t1)tba join tb_member tbm on tba.member_no = tbm.member_no "
-				+ " where r between ? and ?"
-				+ " order by board_date desc";
+			 sql = "select R, board_no, member_nickname, board_title, board_content, board_count, board_date, board_category_no, r_cnt from "
+					+ " (select rownum r, t1.* from (select b1.*,(select count(*) from "
+					+ " tb_comment r1 where r1.board_no = b1.board_no) r_cnt "
+					+ " from tb_board b1 order by board_no asc) t1)tba join tb_member tbm on tba.member_no = tbm.member_no "
+					+ " where r between ? and ?"
+					+ " order by R DESC, board_date asc ";
 			
 		}else if(filterint == 2) {
 			sql = "select R, board_no, member_nickname, board_title, board_content, board_count, board_date, board_category_no, r_cnt from "
 					+ " (select rownum r, t1.* from (select b1.*,(select count(*) from "
 					+ " tb_comment r1 where r1.board_no = b1.board_no) r_cnt "
-					+ " from tb_board b1 order by board_no desc) t1)tba join tb_member tbm on tba.member_no = tbm.member_no "
+					+ " from tb_board b1 order by board_no asc) t1)tba join tb_member tbm on tba.member_no = tbm.member_no "
 					+ " where r between ? and ?"
-					+ " order by board_count desc";
+					+ " order by board_count desc ";
 			
 		}else if(filterint == 3) {
 			sql = "select R, board_no, member_nickname, board_title, board_content, board_count, board_date, board_category_no, r_cnt from "
@@ -199,7 +199,7 @@ public class BoardDao {
 				volist = new ArrayList<BoardVo>();
 				while (rs.next()) {
 					BoardVo vo = new BoardVo();
-					vo.setBoardNo(rs.getInt("BOARD_NO"));
+					vo.setBoardNo(rs.getInt("R"));
 					vo.setBoardDate(rs.getDate("BOARD_DATE"));
 					vo.setBoardTitle(rs.getString("BOARD_TITLE"));
 					vo.setBoardContent(rs.getString("BOARD_CONTENT"));
@@ -221,6 +221,7 @@ public class BoardDao {
 		}
 		return volist;
 	}
+	
 	public int boardViewCount(Connection conn ,BoardVo vo) {
 		String sql = "update tb_board set board_count = board_count+1 where board_no=?";
 		

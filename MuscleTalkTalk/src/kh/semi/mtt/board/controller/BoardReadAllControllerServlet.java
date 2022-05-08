@@ -77,10 +77,10 @@ public class BoardReadAllControllerServlet extends HttpServlet {
 		System.out.println("page:" + startPage + "~" + endPage);
 
 		// rownum 처리
-		startRnum = (currentPage - 1) * pageSize + 1;
-		endRnum = startRnum + pageSize - 1;
-		if (endRnum > totalCnt) {
-			endRnum = totalCnt;
+		startRnum = totalCnt - (currentPage - 1) * pageSize; 
+		endRnum = startRnum - pageSize + 1;
+		if (endRnum < 1) {
+			endRnum = 1;
 		}
 		//검색기능 미완
 		String search = request.getParameter("inputsearch");
@@ -88,7 +88,7 @@ public class BoardReadAllControllerServlet extends HttpServlet {
 
 		//
 		System.out.println("rnum:" + startRnum + "~" + endRnum);
-		ArrayList<BoardVo> result = service.readAllBoard(startRnum, endRnum,filter, search);
+		ArrayList<BoardVo> result = service.readAllBoard(endRnum, startRnum,filter, search);
 		System.out.println(result);
 		request.setAttribute("boardreadall", result);
 		request.setAttribute("startPage", startPage);
@@ -116,7 +116,7 @@ public class BoardReadAllControllerServlet extends HttpServlet {
 			ArrayList<BoardVo> result = service.readAllBoard(pageVo.getStartRnum(), pageVo.getEndRnum(),filter, pageVo.getSearch());
 			System.out.println(result);
 			
-			request.setAttribute("noticereadall", result);
+			request.setAttribute("boardreadall", result);
 			request.setAttribute("startPage", pageVo.getStartPage());
 			request.setAttribute("endPage", pageVo.getEndPage());
 			request.setAttribute("totalpageCnt", pageVo.getTotalpageCnt());

@@ -262,7 +262,7 @@ section {
 			<!-- <div id="board_search"> -->
 			<form class="search_board">
 				<button type="button" id="btn_search">검색</button>
-				<input id="input_search" type="text" name="searchInput"
+				<input id="input_search" type="text" name="searchInput" autocomplete="off"
 					placeholder="검색어입력">
 			</form>
 			<!-- </div> -->
@@ -313,7 +313,7 @@ section {
 		$("#btn_search").click(function(){
 			console.log("test");
 			console.log($("#sort").val());
-			//$(".Filter").val()
+			
 			$.ajax({
 				url:"filterAjaxController",
 				type:"post",

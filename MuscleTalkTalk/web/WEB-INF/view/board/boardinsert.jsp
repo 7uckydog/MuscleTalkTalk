@@ -110,7 +110,7 @@
             font-size: 12px;
         }
         #board_write2{
-            margin: 60px 0 0 375px;
+            margin: 60px 0 0 372px;
             display: inline-block;
             font-size: 12px;
         }

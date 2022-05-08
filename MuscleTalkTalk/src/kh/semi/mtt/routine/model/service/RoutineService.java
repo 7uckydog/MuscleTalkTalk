@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import static kh.semi.mtt.common.jdbc.JdbcTemplate.*;
 
+import kh.semi.mtt.member.model.vo.MemberVo;
 import kh.semi.mtt.routine.model.dao.RoutineDao;
 import kh.semi.mtt.routine.model.vo.RoutineVo;
 import kh.semi.mtt.routineexercise.model.vo.RoutineExerciseVo;
@@ -12,12 +13,12 @@ import kh.semi.mtt.routineexercise.model.vo.RoutineExerciseVo;
 public class RoutineService {
 	private RoutineDao dao = new RoutineDao();
 	
-	public int insertRoutine(RoutineVo vo, ArrayList<RoutineExerciseVo> rouExerVoList) {
+	public int insertRoutine(RoutineVo vo,MemberVo mvo ,ArrayList<RoutineExerciseVo> rouExerVoList) {
 		
 		Connection conn = null;
 		conn = getConnection();
 		
-		int result = dao.insertRoutine(conn, vo, rouExerVoList);
+		int result = dao.insertRoutine(conn, vo,mvo, rouExerVoList);
 		close(conn);
 		
 		return result;

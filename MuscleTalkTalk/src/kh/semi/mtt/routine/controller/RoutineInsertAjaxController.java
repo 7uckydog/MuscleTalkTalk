@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kh.semi.mtt.member.model.vo.MemberVo;
 import kh.semi.mtt.routine.model.service.RoutineService;
 
 /**
@@ -40,18 +41,33 @@ public class RoutineInsertAjaxController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			System.out.println("루틴생성 부위에이작스 들어옴");
 			System.out.println(request.getParameter("routine_nameBox"));
-			String arr[] = request.getParameterValues("addworkoutset");
+			String arr[] = request.getParameterValues("addworkoutset"); //세트
+			String awn[] = request.getParameterValues("addworkoutname"); // 운동명
+			String aws[] = request.getParameterValues("addworkoutsettingname"); // 횟수
+			String aww[] = request.getParameterValues("addworkoutweight"); // 무게
+			int arrint = 0;
+			int awnint = 0;
+			int awsint = 0;
+			int awwint = 0;
 			for(int i=0; i<arr.length; i++) {
-				System.out.println("arr"+arr[i]);
+				System.out.println("세트:"+arr[i]);
+				 arrint = Integer.parseInt(arr[i]);
 			}
-//			String tagetValStr = request.getParameter("routine_nameBox");
-//			try {
-//				int tagetValInt = Integer.parseInt(tagetValStr);
-//				System.out.println("부위에이작스 파스인트함");
-//			}catch(Exception e) {
-//				e.printStackTrace();
-//			}
-//			int result = new RoutineService().insertRoutine(vo, rouExerVoList);
+			for(int i=0; i<awn.length; i++) {
+				System.out.println("운동명:"+awn[i]);
+				 awnint = Integer.parseInt(awn[i]);
+			}
+			for(int i=0; i<aws.length; i++) {
+				System.out.println("횟수:"+aws[i]);
+				 awsint = Integer.parseInt(aws[i]);
+			}
+			for(int i=0; i<aww.length; i++) {
+				System.out.println("무게:"+aww[i]);
+				 awwint = Integer.parseInt(aww[i]);
+			}
+			MemberVo mvo = (MemberVo) request.getSession().getAttribute("ssMvo");
+			
+	//		int result = new RoutineService().insertRoutine(arrint, awnint, awsint, awwint);
 			PrintWriter out = response.getWriter();
 			out.print("결과 넘어가냐");
 			out.flush();
