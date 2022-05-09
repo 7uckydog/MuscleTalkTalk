@@ -3,6 +3,7 @@ package kh.semi.mtt.routine.model.dao;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -13,7 +14,8 @@ import kh.semi.mtt.routine.model.vo.RoutineVo;
 import kh.semi.mtt.routineexercise.model.vo.RoutineExerciseVo;
 
 public class RoutineDao {
-	
+	private PreparedStatement pstmt = null;
+	private ResultSet rs = null;
 //	public int insertRoutine(Connection conn, RoutineVo vo) {
 //		
 //		int result = 0;
@@ -38,15 +40,19 @@ public class RoutineDao {
 				+ "	                        ROUTINE_CONTENT, ROUTINE_EXPLANATION)"
 				+ "	            values ((select nvl(max(ROUTINE_NO),0)+1 from tb_routine), ?, ?, 'f', ?, ?, 'default')"
 				+ "	    ";
+		int routineExerciseNo = 1;
 		for(RoutineExerciseVo reVo : rouExerVoList) {
 			sql +=  "	    into tb_routine_exercise(ROUTINE_EXERCISE_NO, EXERCISE_NO, ROUTINE_NO, ROUTINE_EXERCISE_DAY, "
 					+ "	            ROUTINE_WEEK, ROUTINE_DAY, ROUTINE_EXERCISE_SET, ROUTINE_EXERCISE_REPEAT, ROUTINE_EXERCISE_WEIGHT, ROUTINE_EXERCISE_TIME,"
 					+ "	            ROUTINE_EXERCISE_DISTANCE, ROUTINE_EXERCISE_PERFORM_DAY, ROUTINE_EXERCISE_D_DAY, ROUTINE_EXERCISE_SEQUENCE, ROUTINE_EXERCISE_COPY)"   //4			8				  10
-					+ "	            values ((select nvl(max(ROUTINE_EXERCISE_NO),0)+1 from TB_ROUTINE_EXERCISE), ?,(select nvl(max(ROUTINE_NO),0)+1 from tb_routine), ?, ?, ?, ?, ?, ?, ?, ?, null ,null, ?, 'f')";
+					+ "	            values ((select nvl(max(ROUTINE_EXERCISE_NO),0)+"+(routineExerciseNo++)+" from TB_ROUTINE_EXERCISE), (select EXERCISE_NO"
+					+ "    			from tb_exercise"
+					+ "    			where exercise_name = ?),(select nvl(max(ROUTINE_NO),0)+1 from tb_routine)"
+					+ "				, ?, ?, null, ?, ?, ?, null, null, null ,null, null, 'f') ";
 		}
 		sql += "select * from dual";
 		try {
-			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, mvo.getMemberNo());
 			pstmt.setString(2, vo.getRoutineName());
 			pstmt.setString(3, vo.getRoutineTarget()); //목표부위 char형
@@ -54,26 +60,27 @@ public class RoutineDao {
 		
 			
 			for(int i = 0; i < rouExerVoList.size(); i++) {
-				pstmt.setInt(5+i, rouExerVoList.get(i).getExerciseNo());      // 운동번호 notnull
-				pstmt.setInt(6+i, rouExerVoList.get(i).getRoutineExerciseDay());  // 운동요일 notnull
-				pstmt.setInt(7+i, rouExerVoList.get(i).getRoutineWeek());  // 루틴수행주차
-				pstmt.setInt(8+i, rouExerVoList.get(i).getRoutineDay());   //  루틴수행n번째일
-				pstmt.setInt(9+i, rouExerVoList.get(i).getRoutineExerciseSet());   // 루틴운동 세트수
-				pstmt.setInt(10+i, rouExerVoList.get(i).getRoutineExerciseRepeat());  // 루틴운동 반복횟수
-				pstmt.setInt(11+i, rouExerVoList.get(i).getRoutineExerciseWeight());  // 루틴무게
-				pstmt.setInt(12+i, rouExerVoList.get(i).getRoutineExerciseTime());  // 루틴운동시간
-				pstmt.setInt(13+i, rouExerVoList.get(i).getRoutineExerciseDistance());  // 루틴운동 거리
-				pstmt.setInt(14+i, rouExerVoList.get(i).getRoutineExerciseSequence());  // n번째운동
+				pstmt.setString(5+i*6, rouExerVoList.get(i).getExerciseName());      // 운동번호 notnull
+				pstmt.setInt(6+i*6, rouExerVoList.get(i).getRoutineExerciseDay());  // 운동요일 notnull
+				pstmt.setInt(7+i*6, rouExerVoList.get(i).getRoutineWeek());  // 루틴수행주차
+//				pstmt.setInt(8+i*6, rouExerVoList.get(i).getRoutineDay());   //  루틴수행n번째일 지금만 막아놈
+				pstmt.setInt(8+i*6, rouExerVoList.get(i).getRoutineExerciseSet());   // 루틴운동 세트수
+				pstmt.setInt(9+i*6, rouExerVoList.get(i).getRoutineExerciseRepeat());  // 루틴운동 반복횟수
+				pstmt.setInt(10+i*6, rouExerVoList.get(i).getRoutineExerciseWeight());  // 루틴무게
+//				pstmt.setInt(12+i, rouExerVoList.get(i).getRoutineExerciseTime());  // null
+//				pstmt.setInt(13+i, rouExerVoList.get(i).getRoutineExerciseDistance());  // null
+//				pstmt.setInt(14+i, rouExerVoList.get(i).getRoutineExerciseSequence());  // null
 			}
-
+			result = pstmt.executeUpdate();
+			System.out.println("제바류ㅠ");
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+			System.out.println("finally제바류ㅠ");
 		}
-		
-				
-		
-		
-	    
+		System.out.println(result);
 		return result;
 		
 	}

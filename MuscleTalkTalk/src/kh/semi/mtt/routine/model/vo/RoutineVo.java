@@ -2,205 +2,95 @@ package kh.semi.mtt.routine.model.vo;
 
 public class RoutineVo {
 	
+	
+//	ROUTINE_NO          NOT NULL NUMBER         
+//	MEMBER_NO           NOT NULL NUMBER         
+//	ROUTINE_NAME        NOT NULL VARCHAR2(200)  
+//	ROUTINE_DISABLE     NOT NULL CHAR(1)        
+//	ROUTINE_TARGET      NOT NULL CHAR(1)        
+//	ROUTINE_CONTENT     NOT NULL VARCHAR2(1000) 
+//	ROUTINE_EXPLANATION          VARCHAR2(1000) 
+//	
+	
 	private int routineNo;
+	private	int memberNo;
 	private String routineName;
-	private	int routineDay;
-	private	int routineWeight;
-	private	int routineSet;
-	private	int routineWeek;
-	private	int routineTime;
-	private	int routineDistance;
+	private	String routineDisable;
 	private	String routineTarget;
-	private	int routineSequence;
 	private String routineContent;
-	
-	public RoutineVo() {}
-	
+	private	int routineExplanation;
 	
 	
-
+	
+	
+	
+	
+	public RoutineVo() {
+		super();
+	}
+	
+	
+	public RoutineVo(int routineNo, int memberNo, String routineName, String routineDisable, String routineTarget,
+			String routineContent, int routineExplanation) {
+		super();
+		this.routineNo = routineNo;
+		this.memberNo = memberNo;
+		this.routineName = routineName;
+		this.routineDisable = routineDisable;
+		this.routineTarget = routineTarget;
+		this.routineContent = routineContent;
+		this.routineExplanation = routineExplanation;
+	}
+	@Override
+	public String toString() {
+		return "RoutineVo [routineNo=" + routineNo + ", memberNo=" + memberNo + ", routineName=" + routineName
+				+ ", routineDisable=" + routineDisable + ", routineTarget=" + routineTarget + ", routineContent="
+				+ routineContent + ", routineExplanation=" + routineExplanation + "]";
+	}
 	public int getRoutineNo() {
 		return routineNo;
 	}
-
-
-
-
-	public String getRoutineName() {
-		return routineName;
-	}
-
-
-
-
-	public void setRoutineName(String routineName) {
-		this.routineName = routineName;
-	}
-
-
-
-
-	public int getRoutineDay() {
-		return routineDay;
-	}
-
-
-
-
-	public void setRoutineDay(int routineDay) {
-		this.routineDay = routineDay;
-	}
-
-
-
-
-	public int getRoutineWeight() {
-		return routineWeight;
-	}
-
-
-
-
-	public void setRoutineWeight(int routineWeight) {
-		this.routineWeight = routineWeight;
-	}
-
-
-
-
-	public int getRoutineSet() {
-		return routineSet;
-	}
-
-
-
-
-	public void setRoutineSet(int routineSet) {
-		this.routineSet = routineSet;
-	}
-
-
-
-
-	public int getRoutineWeek() {
-		return routineWeek;
-	}
-
-
-
-
-	public void setRoutineWeek(int routineWeek) {
-		this.routineWeek = routineWeek;
-	}
-
-
-
-
-	public int getRoutineTime() {
-		return routineTime;
-	}
-
-
-
-
-	public void setRoutineTime(int routineTime) {
-		this.routineTime = routineTime;
-	}
-
-
-
-
-	public int getRoutineDistance() {
-		return routineDistance;
-	}
-
-
-
-
-	public void setRoutineDistance(int routineDistance) {
-		this.routineDistance = routineDistance;
-	}
-
-
-
-
-	public String getRoutineTarget() {
-		return routineTarget;
-	}
-
-
-
-
-	public void setRoutineTarget(String routineTarget) {
-		this.routineTarget = routineTarget;
-	}
-
-
-
-
-	public int getRoutineSequence() {
-		return routineSequence;
-	}
-
-
-
-
-	public void setRoutineSequence(int routineSequence) {
-		this.routineSequence = routineSequence;
-	}
-
-
-
-
-	public String getRoutineContent() {
-		return routineContent;
-	}
-
-
-
-
-	public void setRoutineContent(String routineContent) {
-		this.routineContent = routineContent;
-	}
-
-
-
-
 	public void setRoutineNo(int routineNo) {
 		this.routineNo = routineNo;
 	}
-
-
-
-
-	@Override
-	public String toString() {
-		return "RoutineVo [routineNo=" + routineNo + ", routineName=" + routineName + ", routineDay=" + routineDay
-				+ ", routineWeight=" + routineWeight + ", routineSet=" + routineSet + ", routineWeek=" + routineWeek
-				+ ", routineTime=" + routineTime + ", routineDistance=" + routineDistance + ", routineTarget="
-				+ routineTarget + ", routineSequence=" + routineSequence + ", routineContent=" + routineContent + "]";
+	public int getMemberNo() {
+		return memberNo;
 	}
-
-
-
-
-	public RoutineVo(int routineNo, String routineName, int routineDay, int routineWeight, int routineSet,
-			int routineWeek, int routineTime, int routineDistance, String routineTarget, int routineSequence,
-			String routineContent) {
-		super();
-		this.routineNo = routineNo;
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
+	}
+	public String getRoutineName() {
+		return routineName;
+	}
+	public void setRoutineName(String routineName) {
 		this.routineName = routineName;
-		this.routineDay = routineDay;
-		this.routineWeight = routineWeight;
-		this.routineSet = routineSet;
-		this.routineWeek = routineWeek;
-		this.routineTime = routineTime;
-		this.routineDistance = routineDistance;
+	}
+	public String getRoutineDisable() {
+		return routineDisable;
+	}
+	public void setRoutineDisable(String routineDisable) {
+		this.routineDisable = routineDisable;
+	}
+	public String getRoutineTarget() {
+		return routineTarget;
+	}
+	public void setRoutineTarget(String routineTarget) {
 		this.routineTarget = routineTarget;
-		this.routineSequence = routineSequence;
+	}
+	public String getRoutineContent() {
+		return routineContent;
+	}
+	public void setRoutineContent(String routineContent) {
 		this.routineContent = routineContent;
 	}
-
+	public int getRoutineExplanation() {
+		return routineExplanation;
+	}
+	public void setRoutineExplanation(int routineExplanation) {
+		this.routineExplanation = routineExplanation;
+	}
+	
+	
 
 
 

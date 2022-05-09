@@ -634,8 +634,8 @@ border-left: 0px !important;
 		<form class="routineForm" name="routineFormName">
 			<div id="routinecreat_main">
 				루틴생성
-				<button class="day_routinecreat">일간루틴</button>
-				<button class="week_routinecreat">주간루틴</button>
+				<button type="button" class="day_routinecreat">일간루틴</button>
+				<button type="button" class="week_routinecreat">주간루틴</button>
 			</div>
 			<div class="routine_title">
 				<span class="routine_name">루틴명 설정</span> <span class="routine_taget">루틴
@@ -1193,12 +1193,7 @@ border-left: 0px !important;
             if($(".dayroutine_daySelect").val()=="none"){ //요일
                 if(chkEqualDay) {
                     $(".addworkoutAllDivTop").eq($(".addworkoutAllDivTop").length-1).append('<div class="addworkoutDay" name="addworkoutDay">'+($(".routine_weekSelect").val())+'&nbsp;'+'&nbsp;'+'&nbsp;'+($(".routine_daySelect").val())+'</div>');
-                 	// 주차 인풋생성 및 담기
-                    $('.addworkoutAllDivTop').eq($(".addworkoutAllDivTop").length-1).append('<input class=addworkoutDayweekinput name="addworkoutDayweekinput"></input>');
-                    $('.addworkoutDayweekinput').eq($(".addworkoutAllDivTop").length-1).val($(".routine_weekSelect").val());
-                 	// 요일 인풋생성 및 담기
-                    $('.addworkoutAllDivTop').eq($(".addworkoutAllDivTop").length-1).append('<input class=addworkDayinput name="addworkDay"></input>');
-                    $('.addworkDayinput').eq($(".addworkoutAllDivTop").length-1).val($(".routine_daySelect").val());
+                    
                 }
             }else if($(".routine_daySelect").val()=="none"){ //1,2,3day
                 $(".addworkoutAllDivTop").eq($(".addworkoutAllDivTop").length-1).append('<div class="addworkoutDay" name="addworkoutDay">'+($(".dayroutine_daySelect").val())+'</div>');
@@ -1234,6 +1229,12 @@ border-left: 0px !important;
                     $('.addworkoutTr').eq(prevTrLength+i).append('<td class="addworkoutweight" name="addworkoutweight">'+($(".workoutSettingWeight").eq(i).val())+'</td>');
                     $('.addworkoutTr').eq(prevTrLength+i).append('<td class="addworkoutsettingname" name="addworkoutsettingname">'+($(".workoutSettingNumber").eq(i).val())+'</td>');
                     $('.addworkoutTr').eq(prevTrLength+i).append('<td class="addworkoutset" name="addworkoutset">'+(i+1)+'세트</td>');
+                 	// 주차 인풋생성 및 담기
+                    $('.addworkoutTr').eq(dayTemp).append('<input class=addworkoutDayweekinput name="addworkoutDayweekinput"></input>');
+                    $('.addworkoutDayweekinput').eq(dayTemp).val($(".routine_weekSelect").val());
+                 	// 요일 인풋생성 및 담기
+                    $('.addworkoutTr').eq(dayTemp).append('<input class=addworkDayinput name="addworkDay"></input>');
+                    $('.addworkDayinput').eq(dayTemp).val($(".routine_daySelect").val());
                     // 운동명 인풋생성 및 담기
                     $('.addworkoutTr').eq(prevTrLength+i).append('<input class=addworkoutnameinput name="addworkoutname"></input>');
                     $('.addworkoutnameinput').eq(prevTrLength+i).val($(".workoutSettingName").eq(i).text());
@@ -1249,7 +1250,6 @@ border-left: 0px !important;
                     //$('.Btn_cancel_inset').after('<input type="text" value="" class="routineAllData" name="routineAllData">');
                 }
             } else {
-                console.log("여기????");
                 var prevTrLength = $('.addworkoutTable').eq(dayTemp).children('.addworkoutTr').length;
 /*                 console.log(prevTrLength); */
                 for(var i = 0; i < arrayLength; i++) {
@@ -1258,7 +1258,13 @@ border-left: 0px !important;
                     $('.addworkoutTable').eq(dayTemp).children('.addworkoutTr').eq(prevTrLength+i).append('<td class="addworkoutweight" name="addworkoutweight">'+($(".workoutSettingWeight").eq(i).val())+'</td>');
                     $('.addworkoutTable').eq(dayTemp).children('.addworkoutTr').eq(prevTrLength+i).append('<td class="addworkoutsettingname" name="addworkoutsettingname">'+($(".workoutSettingNumber").eq(i).val())+'</td>');
                     $('.addworkoutTable').eq(dayTemp).children('.addworkoutTr').eq(prevTrLength+i).append('<td class="addworkoutset" name="addworkoutset">'+(i+1)+'세트</td>');
-                    // 운동명 인풋생성 및 담기
+                    // 주차 인풋생성 및 담기
+                    $('.addworkoutTr').eq(dayTemp).append('<input class=addworkoutDayweekinput name="addworkoutDayweekinput"></input>');
+                    $('.addworkoutDayweekinput').eq(dayTemp).val($(".routine_weekSelect").val());
+                 	// 요일 인풋생성 및 담기
+                    $('.addworkoutTr').eq(dayTemp).append('<input class=addworkDayinput name="addworkDay"></input>');
+                    $('.addworkDayinput').eq(dayTemp).val($(".routine_daySelect").val());
+                	 // 운동명 인풋생성 및 담기
                     $('.addworkoutTr').eq(dayTemp).append('<input class=addworkoutnameinput name="addworkoutname"></input>');
                     $('.addworkoutnameinput').eq(dayTemp).val($(".workoutSettingName").eq(i).text());
                     // 무게 인풋생성 및 담기
@@ -1300,8 +1306,8 @@ border-left: 0px !important;
 
 
             // 시간초기화
-            $("#count_settime").val("0초");
-            $("#count_settime2").val("0초");
+/*             $("#count_settime").val("0초");
+            $("#count_settime2").val("0초"); */
 			
             //무게 및 횟수 초기화
             $(".workoutSettingWeight").val("0kg");
@@ -1336,18 +1342,23 @@ border-left: 0px !important;
     	function formSubmit() {
     	    var params = $('.routineForm').serialize();
     	    console.log(params);
-    	     $.ajax({
-    	    	url: "routineinsert.a",
-    	    	type: "post",
-    	    	data: params,
-    	    	success:function(result){
-    	    		console.log(result);
-    	    		alert("루틴이 생성되었습니다.");
-    	    	},
-    	    	error:{
-    	    		
-    	    	}
-    	   	});
+    	    <c:if test="${not empty ssMvo}">
+	    	     $.ajax({
+	    	    	url: "routineinsert.a",
+	    	    	type: "post",
+	    	    	data: params,
+	    	    	success:function(result){
+	    	    		console.log(result);
+	    	    		alert("루틴이 생성되었습니다.");
+	    	    	},
+	    	    	error:{
+	    	    		
+	    	    	}
+	    	   	});
+    	    </c:if>
+    	    <c:if test="${empty ssMvo}">
+    	    	alert("로그인 해주세요.");
+    	    </c:if>
     	    
     	}
     	
