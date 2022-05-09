@@ -20,7 +20,7 @@
 		<div id="pt_list_page_div">
 			<div id="pt_list_title">
 				<p>PT 프로그램</p>
-				<button type="button">즐겨찾기</button>
+				<button type="button" id="pt_list_favorite_list_btn">즐겨찾기</button>
 				<c:if test="${ssMvo.memberTrainer == 'T' }">
 					<button id="my_program_btn" type="button">내 프로그램 관리</button>
 				</c:if>
@@ -75,11 +75,11 @@
 							<input type="hidden" class="pt_list_page_pt_no" value="${ptVo.ptNo }">
 							<img alt="" src="${ptVo.ptFilePathList[0] }">
 							<i class="fa-solid fa-heart pt_list_page_favortie"></i>
-							<p>${ptVo.ptLocation }</p>
-							<p>${ptVo.ptName }</p>
-							<p>${ptVo.ptCategoryStr}&nbsp;&bull;&nbsp;${ptVo.ptTrainerName }</p>
-							<p>1회: ${ptVo.ptPrice }원</p>
-							<p>즐겨찾기 수: TODO</p>
+							<p class="pt_list_page_grid_content_location">${ptVo.ptLocation }</p>
+							<p class="pt_list_page_grid_content_title">${ptVo.ptName }</p>
+							<p class="pt_list_page_grid_content_info">${ptVo.ptCategoryStr}&nbsp;&bull;&nbsp;${ptVo.ptTrainerName }</p>
+							<p class="pt_list_page_grid_content_price">1회: ${ptVo.ptPrice }원</p>
+							<p class="pt_list_page_grid_content_favorite">즐겨찾기 수: ${ptVo.favoriteCnt }</p>
 						</div>
 					</div>
 				</c:forEach>
@@ -289,6 +289,17 @@
 						} else {
 							ptFavoriteVoList.push(Number(ptNoTemp));
 						}
+						for(var i = 0; i < $('.pt_list_page_pt_no').length; i++) {
+							if($('.pt_list_page_pt_no').eq(i).val() == ptNoTemp) {
+								var favoriteCntTemp = $('.pt_list_page_pt_no').eq(i).nextAll(".pt_list_page_grid_content_favorite").text();
+								favoriteCntArray = favoriteCntTemp.split(":");
+								if(favoriteCheck) {								
+									$('.pt_list_page_pt_no').eq(i).nextAll(".pt_list_page_grid_content_favorite").text(favoriteCntArray[0] + ": " + (Number(favoriteCntArray[1]) - 1));
+								} else {
+									$('.pt_list_page_pt_no').eq(i).nextAll(".pt_list_page_grid_content_favorite").text(favoriteCntArray[0] + ": " + (Number(favoriteCntArray[1]) + 1));
+								}
+							}
+						}
 					}
 					console.log(ptFavoriteVoList);
 					favoriteChk();
@@ -313,23 +324,46 @@
 	</c:forEach>
 	favoriteChk();
 	function favoriteChk() {
+		$('.pt_list_page_favortie').off('mouseenter');
+		$('.pt_list_page_favortie').off('mouseleave');
 		if(ptFavoriteVoList.length == 0) {
 			for(var i = 0; i < $('.pt_list_page_pt_no').length; i++) {
 				$('.pt_list_page_favortie').eq(i).css('-webkit-text-fill-color','white');
+				$('.pt_list_page_favortie').eq(i).on({
+					mouseenter : function() {
+						$(this).css('-webkit-text-fill-color', '#c8c9e8');
+					},
+					mouseleave : function() {
+						$(this).css('-webkit-text-fill-color', 'white');
+					}
+				});
 			}
 			return;
 		}
 		
 		for(var i = 0; i < $('.pt_list_page_pt_no').length; i++) {			
 			$('.pt_list_page_favortie').eq(i).css('-webkit-text-fill-color','white');
+			$('.pt_list_page_favortie').eq(i).on({
+				mouseenter : function() {
+					$(this).css('-webkit-text-fill-color', '#c8c9e8');
+				},
+				mouseleave : function() {
+					$(this).css('-webkit-text-fill-color', 'white');
+				}
+			});
 			for(var j = 0; j < ptFavoriteVoList.length; j++) {				
 				if($('.pt_list_page_pt_no').eq(i).val() == ptFavoriteVoList[j]) {
 					$('.pt_list_page_favortie').eq(i).css('-webkit-text-fill-color','#4B4DB2');
-				} else {
+					$('.pt_list_page_favortie').eq(i).off('mouseenter');
+					$('.pt_list_page_favortie').eq(i).off('mouseleave');
 				}
 			}
 		}
 	}
+	
+	$('#pt_list_favorite_list_btn').click(function() {
+		console.log("즐겨찾기");
+	});
 	
 	</script>
 </body>

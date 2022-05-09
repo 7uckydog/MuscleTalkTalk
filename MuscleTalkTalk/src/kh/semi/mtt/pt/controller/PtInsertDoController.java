@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 import javax.servlet.ServletException;
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
@@ -46,7 +49,11 @@ public class PtInsertDoController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
+				"cloud_name", "dfam8azdg",
+				"api_key", "882165332977633",
+				"api_secret", "lrdbmfClWzNqybNeqXyEoRpFmfg",
+				"secure", true));
 		System.out.println("doPost ptinsert.do");
 		String fileSavePath =  "upload";
 		String uploadPath =  getServletContext().getRealPath(fileSavePath);
@@ -103,13 +110,16 @@ public class PtInsertDoController extends HttpServlet {
 		System.out.println("ptinsert.do에서 입력받은 ptVo 데이터 값:  " + ptVo);
 		
 		ArrayList<String> ptFilePathList = new ArrayList<String>();
+		File cloudinaryFile = null;
 		for(int i=0; i<uploadList.size(); i++) {
-			ptFilePathList.add(fileSavePath +"/" + uploadList.get(i));
+			cloudinaryFile = new File(uploadPath + "\\" + uploadList.get(i));
+			Map uploadResult = cloudinary.uploader().upload(cloudinaryFile, ObjectUtils.emptyMap());
+			ptFilePathList.add((String) uploadResult.get("url"));
 		}
 		System.out.println("ptinsert.do에서 입력받은 ptVo 이미지 데이터 값:" + uploadList);
 		System.out.println("ptinsert.do에서 입력받은 ptVo 이미지 저장 경로:" + ptFilePathList);
+
 		ptVo.setPtFilePathList(ptFilePathList);
-		
 		int result = new PtService().insertPt(ptVo);
 		System.out.println("ptinsert.do에서의 result값:  " + result);
 		

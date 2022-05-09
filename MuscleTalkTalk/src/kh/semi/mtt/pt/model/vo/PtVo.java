@@ -24,13 +24,25 @@ public class PtVo {
 	private String ptStartDate;
 	private String ptEndDate;
 	private Date ptRegistDate;
+	private int favoriteCnt;
 	
+	
+	
+	public int getFavoriteCnt() {
+		return favoriteCnt;
+	}
+
+	public void setFavoriteCnt(int favoriteCnt) {
+		this.favoriteCnt = favoriteCnt;
+	}
+
+
 	@Override
 	public String toString() {
 		return "PtVo [ptNo=" + ptNo + ", trainerNo=" + trainerNo + ", ptName=" + ptName + ", ptCategory=" + ptCategory + ", ptCategoryStr=" + ptCategoryStr + ", ptPrice=" + ptPrice + ", ptIntroduce="
 				+ ptIntroduce + ", ptInformation=" + ptInformation + ", ptTargetStudent=" + ptTargetStudent + ", ptNotice=" + ptNotice + ", ptTrainerInfo=" + ptTrainerInfo + ", ptTimeInfo="
 				+ ptTimeInfo + ", ptFilePathList=" + ptFilePathList + ", ptTrainerName=" + ptTrainerName + ", ptGymName=" + ptGymName + ", ptLocation=" + ptLocation + ", ptFavorite=" + ptFavorite
-				+ ", ptStartDate=" + ptStartDate + ", ptEndDate=" + ptEndDate + ", ptRegistDate=" + ptRegistDate + "]";
+				+ ", ptStartDate=" + ptStartDate + ", ptEndDate=" + ptEndDate + ", ptRegistDate=" + ptRegistDate + ", favoriteCnt=" + favoriteCnt + "]";
 	}
 
 	public int getPtNo() {

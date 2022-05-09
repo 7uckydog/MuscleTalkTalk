@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import kh.semi.mtt.member.model.vo.MemberVo;
 import kh.semi.mtt.pt.model.service.PtService;
 import kh.semi.mtt.pt.model.vo.PtVo;
@@ -34,6 +35,7 @@ public class PtListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		System.out.println("/ptlist doGet 방식 호출");
 		ArrayList<PtVo> ptVoList = new PtService().readAllPt();
 		System.out.println("/ptlist doGet ptVoList 결과:  " + ptVoList);

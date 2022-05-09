@@ -177,6 +177,9 @@
 					<button type="button" id="pt_submit_button">등록</button>
 					<button type="button" id="pt_test_button">테스트</button>
 					<button type="button" id="ajax_test_button">ajax테스트</button>
+					<input name="file" type="file" class="cloudinary-fileupload" data-cloudinary-field="image_id" 
+   data-form-data="[upload-preset-and-other-upload-options-as-html-escaped-JSON-data]"></input>
+   					<button type="button" id="cloudinary_test_button">cloudinary테스트</button>
 				</div>
 			</form>
 		</div>
@@ -962,6 +965,10 @@
 			}
 
 		};
+		
+		$("#cloudinary_test_button").click(function() {
+			console.log("couldinary btn");
+		});
 	</script>
 </body>
 </html>

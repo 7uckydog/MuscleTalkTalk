@@ -158,7 +158,7 @@ public class PtDao {
 		ArrayList<PtVo> ptVoList = null;
 		ResultSet rs = null;
 		String sql = "select tb_pt.pt_no, pt_name, pt_category ,pt_file,"
-				+ " tb_member.member_nickname, pt_price, gym_location "
+				+ " tb_member.member_nickname, pt_price, gym_location, favorite_cnt "
 				+ "from tb_pt "
 				+ "join (select * from tb_pt_file "
 				+ "where pt_file_no in  "
@@ -168,7 +168,9 @@ public class PtDao {
 				+ "on tb_pt.trainer_no = tb_trainer.trainer_no "
 				+ "join tb_member "
 				+ "on tb_trainer.member_no = tb_member.member_no "
-				+ "order by tb_pt.pt_no desc";
+				+ "left outer join (select count(favorite_no) favorite_cnt, pt_no from tb_pt_favorite group by pt_no) tFcnt "
+				+ "on tb_pt.pt_no = tFcnt.pt_no "
+				+ "order by tb_pt.pt_no desc ";
 //		select tb_pt.pt_no, pt_name, pt_category ,pt_file, tb_member.member_nickname, pt_price
 //	    from tb_pt 
 //	        join (select * from tb_pt_file 
@@ -212,6 +214,7 @@ public class PtDao {
 					ptFilePath.add(rs.getString("PT_FILE"));
 					pVo.setPtFilePathList(ptFilePath);
 					pVo.setPtLocation(rs.getString("GYM_LOCATION"));
+					pVo.setFavoriteCnt(rs.getInt("favorite_cnt"));
 					ptVoList.add(pVo);
 				}while(rs.next());
 			}

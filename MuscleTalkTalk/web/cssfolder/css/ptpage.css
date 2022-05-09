@@ -184,6 +184,19 @@ a:visited {
 	font-family: 'THEmpgtM';
 }
 
+#cloudinary_test_button {
+	width: 70px;
+	height: 30px;
+	margin: 20px auto;
+	display: block;
+	border: none;
+	outline: none;
+	background: #4B4DB2;
+	color: white;
+	font-size: 12px;
+	font-family: 'THEmpgtM';
+}
+
 .row {
 	overflow: hidden;
 	margin-top: 50px;
@@ -772,6 +785,37 @@ a:visited {
 .pt_list_page_grid_content img {
 	width: 190px;
 	height: 160px;
+}
+
+.pt_list_page_grid_content_location {
+	height: 15px;
+	line-height: 15px;
+	margin-bottom: 5px;
+	color: rgb(94, 94, 94);
+}
+
+.pt_list_page_grid_content_title {
+	height: 30px;
+}
+
+.pt_list_page_grid_content_info {
+	color: rgb(94, 94, 94);
+	height: 15px;
+	line-height: 15px;
+	margin-bottom: 5px;
+}
+
+.pt_list_page_grid_content_price {
+	color: rgb(94, 94, 94);
+	height: 15px;
+	line-height: 15px;
+	margin-bottom: 5px;
+}
+
+.pt_list_page_grid_content_favorite {
+	color: rgb(94, 94, 94);
+	height: 15px;
+	line-height: 15px;
 }
 
 #pt_list_page_btns {
