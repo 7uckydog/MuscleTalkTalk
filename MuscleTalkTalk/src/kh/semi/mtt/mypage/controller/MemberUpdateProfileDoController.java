@@ -1,7 +1,9 @@
 package kh.semi.mtt.mypage.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
 
 import javax.mail.Session;
 import javax.servlet.ServletException;
@@ -10,6 +12,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.crypto.Data;
+
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import kh.semi.mtt.member.model.dao.MemberDao;
 import kh.semi.mtt.member.model.service.MemberService;
@@ -41,16 +49,40 @@ public class MemberUpdateProfileDoController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
+				"cloud_name", "dfam8azdg",
+				"api_key", "882165332977633",
+				"api_secret", "lrdbmfClWzNqybNeqXyEoRpFmfg",
+				"secure", true));
 		PrintWriter out  = response.getWriter();
-		String memberId = request.getParameter("memberId");
-		String memberNickname = request.getParameter("memberNickname");
-		String memberEmail = request.getParameter("memberEmail");
-		String memberPhone = request.getParameter("memberPhone");
-		String memberAgeStr = request.getParameter("memberAge");
-		String memberHeightStr = request.getParameter("memberHeight");
-		String memberWeightStr = request.getParameter("memberWeight");
-		String memberPurposeStr = request.getParameter("memberPurpose");
-		String memberConcernStr = request.getParameter("memberConcern");
+		System.out.println("memberupdateprofile.ax 진입");
+		String fileSavePath = "upload";
+		String uploadPath = getServletContext().getRealPath(fileSavePath);
+		File path = new File(uploadPath);
+		if(!path.exists()) {
+			path.mkdirs();
+		}
+		int maxFileSize = 50*1000*1000;
+		MultipartRequest multi = new MultipartRequest(request
+				, uploadPath
+				, maxFileSize
+				, "UTF-8" 
+				, new DefaultFileRenamePolicy());
+		String memberBool = multi.getParameter("bool");
+		String memberId = multi.getParameter("memberId");
+		String memberNickname = multi.getParameter("memberNickname");
+		String memberEmail = multi.getParameter("memberEmail");
+		String memberPhone = multi.getParameter("memberPhone");
+		String memberAgeStr = multi.getParameter("memberAge");
+		String memberHeightStr = multi.getParameter("memberHeight");
+		String memberWeightStr = multi.getParameter("memberWeight");
+		String memberPurposeStr = multi.getParameter("memberPurpose");
+		String memberConcernStr = multi.getParameter("memberConcern");
+		String memberFileName = multi.getFilesystemName("file");
+		System.out.println(memberFileName);
+		File cloudinaryFile = new File(uploadPath + "\\" + memberFileName);
+		Map uploadResult = cloudinary.uploader().upload(cloudinaryFile, ObjectUtils.emptyMap());
+		String memberPhoto = (String) uploadResult.get("url");
 		int memberAge = -1;
 		int memberHeight = -1;
 		int memberWeight = -1;
@@ -76,10 +108,15 @@ public class MemberUpdateProfileDoController extends HttpServlet {
 		vo.setMemberWeight(memberWeight);
 		vo.setMemberPurpose(memberPurpose);
 		vo.setMemberConcern(memberConcern);
-		System.out.println(vo);
+		vo.setMemberPhoto(memberPhoto);
+		int result = -1;
 		
-		int result = new MemberService().updateMember(vo);
-		
+		if(memberBool == "true") {
+			result = new MemberService().updateMember(vo);
+		} else if(memberBool == "false") {
+			result = new MemberService().updateMember2(vo);
+		}
+
 		if(result == 0) {
 			System.out.println("회원정보 수정 실패");
 		} else {
@@ -87,6 +124,7 @@ public class MemberUpdateProfileDoController extends HttpServlet {
 			
 			request.getSession().removeAttribute("ssMvo");
 			request.getSession().setAttribute("ssMvo", Nvo);
+			System.out.println(Nvo.getMemberPhotoName());
 		}
 		out.flush();
 		out.close();

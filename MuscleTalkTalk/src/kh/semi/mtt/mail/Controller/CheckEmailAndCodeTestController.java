@@ -43,19 +43,23 @@ public class CheckEmailAndCodeTestController extends HttpServlet {
 		String memberEmail = request.getParameter("member_email");
 		
 		EmailVo evo = new EmailService().checkEmailAndCode(emailCertificationCode, memberEmail);
+		int num = -1;
 		if(evo == null) {
 			// 이메일 인증 실패
 			System.out.println("이메일 인증 번호 불일치");
 			int result2 = new EmailService().deleteTableInfo2(memberEmail);
 			System.out.println("인증 실패로 정보 삭제");
-			request.getRequestDispatcher("findId.jsp").forward(request, response);
+			num = 0;
+//			request.getRequestDispatcher("findId.jsp").forward(request, response);
 		} else{
 			// 이메일 인증 성공
 			System.out.println("이메일 인증 성공");
 			// 이메일 테이블 내 정보 삭제
 			int result = new EmailService().deleteTableInfo(emailCertificationCode, memberEmail);
 			System.out.println("정보 삭제 성공");
+			num = 1;
 		}
+		out.print(num);
 		out.flush();
 		out.close();
 		

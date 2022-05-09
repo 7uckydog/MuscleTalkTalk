@@ -42,12 +42,12 @@ public class InquiryService {
 	
 	
 	// 한 명의 회원 문의 카운트 (서유빈)
-		public int countInquiry_member(String memberId) {
-			Connection conn = null;
-			conn = getConnection();
+	public int countInquiry_member(String memberId) {
+		Connection conn = null;
+		conn = getConnection();
 				
-			int result = dao.countInquiry_member(conn, memberId);
-			close(conn);
-			return result;
-		}
+		int result = dao.countInquiry_member(conn, memberId);
+		close(conn);
+		return result;
+	}
 }

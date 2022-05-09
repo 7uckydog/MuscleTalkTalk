@@ -105,7 +105,7 @@
             font-size: 10.5px;
         }
         textarea{
-        	font-family:'THEmpgtM';
+        	font-family:'THEmpgtR';
             font-size: 10.5px;
         }
         #inquiry{
@@ -114,6 +114,9 @@
 </style>
 </head>
 <body>
+<c:if test="${empty ssMvo}">
+	<jsp:forward page="/WEB-INF/view/member/login.jsp"></jsp:forward>
+</c:if>
 <% InquiryVo ivo = (InquiryVo)request.getAttribute("ivo"); %>
 <%@ include file="/WEB-INF/view/template.jsp"%>
 		<section id="section1">
@@ -135,7 +138,7 @@
         </section>
         <section id="section2">
             <div>
-                <div id="prifile"></div>
+                <img id="prifile" src="${ssMvo.memberPhoto}">
                 <ul>
                     <li id="member_nickname">${ssMvo.memberNickname}</li>
                     <li id="member_id">${ssMvo.memberId}</li>
@@ -181,28 +184,26 @@
 	$("#ok_btn").click(function(){
 		if($("#i_title").val() != "" && $("#i_content").val() != ""){
 			
-			// 문의 저장하기 TODO
 			$.ajax({
 				url: "memberinquirywrite.ax",
 	            type: "post",
 	            data: {inq_title: $("#i_title").val()
 	            	 , inq_content:$("#i_content").val()},
 	            success: function(result){
-	            	if(num == 0) {
+	            	if(result == '0') {
 	            		alert("insert 실패");
 	            		return;
 	            	}
-	            	if(num == 1) {
+	            	if(result == '1') {
 	            		alert("문의가 등록되었습니다.");
 	            		location.href="memberinquiry";
+	            		return;
 	            	}
 	            },
 	            error: function(result){
 	            	alert("ajax 오류");
 	            }
 			})
-			
-			location.href="memberinquiry";
 		} else if ($("#i_title").val() == ""){
 			alert("문의 제목을 입력해주세요.")
 		} else if ($("#i_content").val() == ""){

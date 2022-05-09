@@ -574,7 +574,7 @@
 		    							$("#member_nickname").focus();
 		    						} else {
 		    							checkNicknameDu = 2;
-		    							alert("오류 발생. 다시 시도해 주세요.")
+		    							alert("오류 발생. 다시 시도해 주세요.");
 		    						}
 		    					},
 		    					error: function(){

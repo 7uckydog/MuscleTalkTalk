@@ -30,12 +30,15 @@ public class LoginDoController extends HttpServlet {
 		
 		MemberVo vo = new MemberService().login(memeberId, memberPassword);
 		if(vo == null) {
-			System.out.println("로그인 실패");
-			response.sendRedirect("login");
+			request.setAttribute("msg", "아이디와 비밀번호가 맞지 않습니다.");
+			request.getRequestDispatcher("WEB-INF/view/common/errorPage.jsp").forward(request, response);
+			
 		} else {
 			System.out.println("로그인 성공");
 			request.getSession().setAttribute("ssMvo", vo);
-			response.sendRedirect(request.getContextPath()+"/main");
+			request.setAttribute("location", "main");
+//			response.sendRedirect(request.getContextPath()+"/main");
+			request.getRequestDispatcher("WEB-INF/view/common/pageReplace.jsp").forward(request, response);
 		}
 	}
 

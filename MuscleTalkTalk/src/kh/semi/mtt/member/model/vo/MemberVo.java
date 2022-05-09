@@ -16,6 +16,7 @@ public class MemberVo {
 	private int memberPurpose;
 	private int memberConcern;
 	private String memberPhoto;
+	private String memberPhotoName;
 	private String memberTrainer;
 	private String memberAbsence;
 	private Date memberJoinDate;
@@ -33,11 +34,23 @@ public class MemberVo {
 				+ ", memberEmail=" + memberEmail + ", memberName=" + memberName + ", memberPhone=" + memberPhone
 				+ ", memberGender=" + memberGender + ", memberAge=" + memberAge + ", memberHeight=" + memberHeight
 				+ ", memberWeight=" + memberWeight + ", memberPurpose=" + memberPurpose + ", memberConcern="
-				+ memberConcern + ", memberPhoto=" + memberPhoto + ", memberTrainer=" + memberTrainer
-				+ ", memberAbsence=" + memberAbsence + ", memberJoinDate=" + memberJoinDate + ", memberLeaveDate="
-				+ memberLeaveDate + ", memberNickname=" + memberNickname + ", trainerNo=" + trainerNo + ", trainerFile="
-				+ trainerFile + ", gymName=" + gymName + ", gymLocation=" + gymLocation + "]";
+				+ memberConcern + ", memberPhoto=" + memberPhoto + ", memberPhotoName=" + memberPhotoName
+				+ ", memberTrainer=" + memberTrainer + ", memberAbsence=" + memberAbsence + ", memberJoinDate="
+				+ memberJoinDate + ", memberLeaveDate=" + memberLeaveDate + ", memberNickname=" + memberNickname
+				+ ", trainerNo=" + trainerNo + ", trainerFile=" + trainerFile + ", gymName=" + gymName
+				+ ", gymLocation=" + gymLocation + "]";
 	}
+
+	
+	public String getMemberPhotoName() {
+		return memberPhotoName;
+	}
+
+
+	public void setMemberPhotoName(String memberPhotoName) {
+		this.memberPhotoName = memberPhotoName;
+	}
+
 
 	public int getMemberNo() {
 		return memberNo;

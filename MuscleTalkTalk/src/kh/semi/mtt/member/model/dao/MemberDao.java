@@ -255,7 +255,7 @@ public class MemberDao {
 	// 회원 정보 수정 - 업데이트
 	public int updateMember(Connection conn, MemberVo vo) {
 		int result = 0;
-		String sql = "update tb_member set member_nickname = ?, member_email = ?, member_phone = ?, member_age = ?, member_height = ?, member_weight = ?, member_purpose = ?, member_concern = ? where member_id = ?";
+		String sql = "update tb_member set member_nickname = ?, member_email = ?, member_phone = ?, member_age = ?, member_height = ?, member_weight = ?, member_purpose = ?, member_concern = ?, member_photo=? where member_id = ?";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
@@ -267,9 +267,8 @@ public class MemberDao {
 			pstmt.setInt(6, vo.getMemberWeight());
 			pstmt.setInt(7, vo.getMemberPurpose());
 			pstmt.setInt(8, vo.getMemberConcern());
-			pstmt.setString(9, vo.getMemberId());
-			
-			System.out.println("업데이트 전 updateMemberDao" + vo.getMemberId());
+			pstmt.setString(9, vo.getMemberPhoto());
+			pstmt.setString(10, vo.getMemberId());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -280,6 +279,33 @@ public class MemberDao {
 		}
 		return result;
 	}
+	
+	// 회원 정보 수정2 (사진x)- 업데이트
+		public int updateMember2(Connection conn, MemberVo vo) {
+			int result = 0;
+			String sql = "update tb_member set member_nickname = ?, member_email = ?, member_phone = ?, member_age = ?, member_height = ?, member_weight = ?, member_purpose = ?, member_concern = ? where member_id = ?";
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, vo.getMemberNickname());
+				pstmt.setString(2, vo.getMemberEmail());
+				pstmt.setString(3, vo.getMemberPhone());
+				pstmt.setInt(4, vo.getMemberAge());
+				pstmt.setInt(5, vo.getMemberHeight());
+				pstmt.setInt(6, vo.getMemberWeight());
+				pstmt.setInt(7, vo.getMemberPurpose());
+				pstmt.setInt(8, vo.getMemberConcern());
+				pstmt.setString(9, vo.getMemberId());
+				
+				result = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rs);
+				close(pstmt);
+			}
+			return result;
+		}
 	
 	// 비밀번호 수정 - 업데이트
 		public int updatePassword(Connection conn, String memberId, String memberPassword, String memberNewPassword) {

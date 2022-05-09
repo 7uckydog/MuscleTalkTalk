@@ -361,12 +361,24 @@
 			                                type:"post",
 			                                data:{modal_code:$("#modal_code").val(), member_email:$("#member_email").val()},
 			                                success: function(result){
-			                                  console.log("이메일, 번호 일치 확인 & 테이블 정보 삭제 완료");
-			                                  // 모달창 닫기
-			                                  $("#modal_all").hide();
-			                                  // 인증하기 버튼 => 인증 완료 버튼으로 변경
-			                                  $("#mail_check2").show();
-			                                  $("#mail_check").hide();
+			                                	if(result == '1'){
+			                                		console.log("이메일, 번호 일치 확인 & 테이블 정보 삭제 완료");
+					                                // 인증하기 버튼 => 인증 완료 버튼으로 변경
+					                                $("#mail_check2").show();
+					                                $("#mail_check").hide();
+			                                	} else if (result == '0') {
+			                                		alert('인증번호가 일치하지 않습니다.');
+			                                		location.href="FindId";
+			                                	}
+			                                  
+				                               	// 모달창 닫기
+				                                $("#modal_all").hide();
+				                                $('#modal_code').val("");
+				                                
+				                                $("#member_email").on("input", (function(){
+				                                	  $("#mail_check").show();
+					                                  $("#mail_check2").hide();
+				                                  }));
 			                                },
 			                                error: function(request, status, error){
 			                                  console.log(error);

@@ -103,6 +103,17 @@ public class MemberService {
 		return result;
 	}
 	
+	// 회원 정보 수정 - 업데이트
+	public int updateMember2(MemberVo vo) {
+		int result = 0;
+		Connection conn = null;
+		conn = getConnection();
+		result = new MemberDao().updateMember2(conn, vo);
+		
+		close(conn);
+		return result;
+	}
+	
 	// 회원 비밀번호 수정 - 업데이트
 		public int updatePassword(String memberId, String memberPassword, String memberNewPassword) {
 			int result = 0;

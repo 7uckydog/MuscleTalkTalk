@@ -146,13 +146,36 @@
         #user_input{
             text-align: center;
         }
-        
         #info_edit{
         	text-decoration: underline;
+        }
+        #p_all{
+        	float: left;
+        	margin-left: 105px;
+        	margin-top: 20px;
+        	margin-right: 30px;
+        }
+        #p_button{
+        	clear:both;
+        	margin-top: 60px;
+        	cursor: pointer;
+        	width: 110px;
+        	height: 28px;
+        	font-size: 12px;
+        	font-size: 10.5px;
+        	border: 0px;
+    		font-family: 'THEmpgtM';
+        	background-color:  rgb(224, 224, 224);
+        	color: rgb(64, 64, 64);
+        	text-align: center;
+        	border: 0px;
         }
 </style>
 </head>
 <body>
+<c:if test="${empty ssMvo}">
+	<jsp:forward page="/WEB-INF/view/member/login.jsp"></jsp:forward>
+</c:if>
 <%@ include file="/WEB-INF/view/template.jsp"%>
 		<section id="section1">
             <div id="mp_main_text">
@@ -172,7 +195,7 @@
 		 				</c:if>
 		 				<c:if test="${ssMvo.memberTrainer == 'T'}">
 		 					트레이너
-		 				</c:if>
+		 				</c:if>			
 		 			</li>
                     <li class="info_menu">성명</li>
                     <li class="info_info">${ssMvo.memberName}</li>
@@ -237,9 +260,17 @@
 	                <li class="info_info">${ssMvo.gymName}</li>
 	                <li class="info_menu">헬스장 주소</li>
 	                <li class="info_info">${ssMvo.gymLocation}</li>
-	              
  				</c:if>
+ 				
+ 				<li class="info_menu">프로필 사진</li>
+ 				<li class="info_info">
+ 					<div id="p_all">
+						<img id="prifile" src="${ssMvo.memberPhoto}">
+	            		<input type="file" id="file" name="file" style="display:none" onchange="f_check(this)" accept="image/jpg, image/jpeg, image/png"> 
+            		</div>
+ 				</li>
  			</ul>
+ 			<input type="button" id="p_button" value="프로필 사진 변경">
  			<div id="modal_all" class="modal">
                 <div id="modal" class="modal">
                     <!-- 모달창내용작성 -->
@@ -264,7 +295,7 @@
         </section>
         <section id="section2">
             <div>
-                <div id="prifile"></div>
+            	<img id="prifile" src="${ssMvo.memberPhoto}">
                 <ul>
                     <li id="member_nickname">${ssMvo.memberNickname}</li>
                     <li id="member_id">${ssMvo.memberId}</li>
@@ -321,6 +352,23 @@
     
     <!-- 회원정보 수정용 script -->
     <script>
+//파일 유효성 체크
+	var bool = false;
+	
+	function f_check(obj) {
+		bool = false;
+		var test1 = obj.value.lastIndexOf('.');
+		var test2 = obj.value.substring(test1 + 1, obj.length);
+		var type = test2.toLowerCase();
+		if(type == 'jpg' || type == 'png' || type == 'jpeg'){
+			bool = true;
+		} else {
+			alert("이미지 파일만 업로드 가능합니다.");
+			obj.value = null;
+			return false;
+		}
+	};    
+    
  // 닉네임
 	var chkNickname = false;
 	var checkNicknameDu = 0;
@@ -581,11 +629,7 @@
 	    	    alert("몸무게를 0이상의 숫자 값으로 입력해 주세요.");
 	    	    return;
 	    	}
-		
-		$.ajax({
-			url:"memberupdateprofile.ax",
-			type: "post",
-			data: {
+	    	/* data: {
 				memberId: $("#member_id_update").html(),
 				memberNickname: $("#member_nickname_update").val(),
 				memberEmail: $("#member_email_update").val(),
@@ -595,7 +639,29 @@
 				memberWeight: $("#member_weight").val(),
 				memberPurpose: $("#member_purpose").val(),
 				memberConcern: $("#member_concern").val()
-			},
+				/* memberProfile:  */
+		var data = new FormData();
+		if(bool == true){
+			data.append('file', $("#file")[0].files[0]);
+			data.append('bool', "true");
+		} else if(bool == false) {
+			data.append('bool', "false");
+		}
+		data.append('memberId', $("#member_id_update").html());
+		data.append('memberNickname',$("#member_nickname_update").val() );
+		data.append('memberEmail', $("#member_email_update").val());
+		data.append('memberPhone', $("#member_phone").val());
+		data.append('memberAge', $("#member_age").val());
+		data.append('memberHeight', $("#member_height").val());
+		data.append('memberWeight', $("#member_weight").val());
+		data.append('memberPurpose', $("#member_purpose").val());
+		data.append('memberConcern', $("#member_concern").val());
+		$.ajax({
+			url:"memberupdateprofile.ax",
+			type: "post",
+			data: data,
+			contentType : false,
+			processData : false,
 			success: function(result){
 					alert("회원 정보 수정 완료");	
 					location.href="membermypage";
@@ -605,9 +671,23 @@
 			}
 		})
 	})
+	
+	$('input[name="file"]').change(function(){
+	    priviewFile(this, '#prifile');
+	});
+	
+	function priviewFile(input, expression) {
+	    if (input.files && input.files[0]) {
+		    var reader = new FileReader();
+		    reader.onload = function (e) {
+		    	$(expression).attr('src', e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
 
     </script>    
-    	<script>
+    <script>
     	$("#mp_logout").click(function(){
         	alert("로그아웃 되었습니다.");
         	location.href="logout";
@@ -629,8 +709,11 @@
         	location.href="memberreadcontent";
         })
         $("#inquiry").click(function(){
-		location.href="memberinquiry";
-	})
+			location.href="memberinquiry";
+		})
+		$("#p_button").click(function(){
+			document.all.file.click();
+		})
 	</script>
 
 </body>

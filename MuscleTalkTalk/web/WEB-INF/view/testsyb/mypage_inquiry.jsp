@@ -120,6 +120,9 @@
 </style>
 </head>
 <body>
+<c:if test="${empty ssMvo}">
+	<jsp:forward page="/WEB-INF/view/member/login.jsp"></jsp:forward>
+</c:if>
 <%@ include file="/WEB-INF/view/template.jsp"%>
 		<section id="section1">
             <div id="mp_main_text">
@@ -172,7 +175,7 @@
         </section>
         <section id="section2">
             <div>
-                <div id="prifile"></div>
+                <img id="prifile" src="${ssMvo.memberPhoto}">
                 <ul>
                     <li id="member_nickname">${ssMvo.memberNickname}</li>
                     <li id="member_id">${ssMvo.memberId}</li>

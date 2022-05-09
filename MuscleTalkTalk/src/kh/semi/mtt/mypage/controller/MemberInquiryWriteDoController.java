@@ -39,12 +39,9 @@ public class MemberInquiryWriteDoController extends HttpServlet {
 		String inqContent = request.getParameter("inq_content");
 		MemberVo ssMvo = (MemberVo)request.getSession().getAttribute("ssMvo");
 		int memberNo = ssMvo.getMemberNo();
-		System.out.println("안녕");
-		System.out.println(inqTitle + inqContent + memberNo);
 
 		int num = -1;
 		int result = new InquiryService().insertInquiry(memberNo, inqTitle, inqContent);
-		System.out.println("write controller: " + result);
 		if(result == 0) {
 			num = 0;
 		} else if(result == 1) {

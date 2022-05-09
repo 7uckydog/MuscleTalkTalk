@@ -36,7 +36,6 @@ public class MemberInquiryController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		MemberVo ssMvo = (MemberVo)request.getSession().getAttribute("ssMvo");
 		String memberId = ssMvo.getMemberId();
-		System.out.println("아이디는?" + memberId);
 		int currentPage = 1;
 		
 		String currentPageStr = request.getParameter("page");

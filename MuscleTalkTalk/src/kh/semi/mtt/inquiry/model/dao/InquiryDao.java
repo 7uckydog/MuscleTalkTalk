@@ -16,6 +16,7 @@ public class InquiryDao {
 	private PreparedStatement pstmt = null;
 	private String sql = "";
 	
+	// 특정 회원의 1:1 문의 리스트 조회
 	public ArrayList<InquiryVo> readOneMemberInquiry(Connection conn, int startRnum, int endRnum, String memberId){
 		ArrayList<InquiryVo> volist = null;
 		sql="select r, inquiry_title, inquiry_content, inquiry_date "
@@ -49,6 +50,7 @@ public class InquiryDao {
 		return volist;
 	}
 	
+	// 1:1 문의 상세 조회
 	public InquiryVo readinquiry(Connection conn, String memberId, String inquiryTitle) {
 		InquiryVo ivo = null;
 		sql="select * from tb_inquiry i join tb_member m on i.member_no = m.member_no where member_id= ? and inquiry_title= ? ";	
@@ -72,6 +74,7 @@ public class InquiryDao {
 		return ivo;
 	}
 	
+	// 1:1 문의하기
 	public int insertInquiry(Connection conn, int memberNo, String inqTitle, String inqContent) {
 		int result = 0;
 		sql="insert into tb_inquiry (inquiry_no, member_no, inquiry_title, inquiry_content, inquiry_date, inquiry_check)"
@@ -82,16 +85,15 @@ public class InquiryDao {
 			pstmt.setInt(1, memberNo);
 			pstmt.setString(2, inqTitle);
 			pstmt.setString(3, inqContent);
-			rs = pstmt.executeQuery();
+			
+			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(stmt);
 		}
-		
 		return result;
 	}
-	
 	
 	
 	

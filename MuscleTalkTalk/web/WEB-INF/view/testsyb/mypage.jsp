@@ -31,6 +31,9 @@
 </style>
 </head>
 <body>
+<c:if test="${empty ssMvo}">
+	<jsp:forward page="/WEB-INF/view/member/login.jsp"></jsp:forward>
+</c:if>
 <%@ include file="/WEB-INF/view/template.jsp"%>
 		<section id="section1">
             <div id="mp_main_text">
@@ -143,7 +146,7 @@
         </section>
         <section id="section2">
             <div>
-                <div id="prifile"></div>
+                <img id="prifile" src="${ssMvo.memberPhoto}">
                 <ul>
                     <li id="member_nickname">${ssMvo.memberNickname}</li>
                     <li id="member_id">${ssMvo.memberId}</li>
@@ -155,7 +158,7 @@
                     <li id="info_edit">프로필 정보 수정</li>
                     <li id="password_edit">비밀번호 변경</li>
                     <li id="content_list">내 콘텐츠 조회</li>
-                    <li id="program_list">
+                    <li id="reservation_list">
                     	<c:if test="${ssMvo.memberTrainer == 'F'}">
                     		예약 프로그램 조회
                     	</c:if>
@@ -176,9 +179,6 @@
                     		내 프로그램 조회
                     	</c:if>
                     </li>
-
-                    <!-- <li id="program_list">예약 프로그램 조회</li>
-                    <li id="to_trainer">트레이너 계정 전환</li> -->
                     
                     <li id="inquiry">1:1 문의</li>
                     <li id="secession">탈퇴하기</li>
@@ -209,6 +209,9 @@
 	    })
 	    $("#inquiry").click(function(){
 			location.href="memberinquiry";
+		})
+		$("#reservation_list").click(function(){
+			location.href="memberreadreservationlist";
 		})
 	</script>
         
