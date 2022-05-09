@@ -78,7 +78,7 @@ public class AdminBoardReadAllController extends HttpServlet {
 //			search = search_;
 //		}
 		//
-		ArrayList<BoardVo> result = service.readAllBoard(pageVo.getStartRnum(), pageVo.getEndRnum(), pageVo.getFilterint());
+		ArrayList<BoardVo> result = service.readAllBoard(pageVo.getStartRnum(), pageVo.getEndRnum(), pageVo.getFilterint(), pageVo.getSearch());
 		System.out.println(result);
 
 		request.setAttribute("boardreadall", result);
