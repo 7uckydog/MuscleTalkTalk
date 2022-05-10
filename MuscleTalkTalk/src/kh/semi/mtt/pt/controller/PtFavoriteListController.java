@@ -12,18 +12,20 @@ import javax.servlet.http.HttpServletResponse;
 import kh.semi.mtt.member.model.vo.MemberVo;
 import kh.semi.mtt.pt.model.service.PtService;
 import kh.semi.mtt.pt.model.vo.PtVo;
+import kh.semi.mtt.ptfavorite.model.service.PtFavoriteService;
+import kh.semi.mtt.ptfavorite.model.vo.PtFavoriteVo;
 
 /**
- * Servlet implementation class MyPtProgramController
+ * Servlet implementation class PtFavoriteListController
  */
-@WebServlet("/myptprogram")
-public class MyPtProgramController extends HttpServlet {
+@WebServlet("/favoritelist")
+public class PtFavoriteListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyPtProgramController() {
+    public PtFavoriteListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,21 +34,29 @@ public class MyPtProgramController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("/myptprogram 들어옴");
+		System.out.println("/favoritelist doGet 방식 호출");
 		MemberVo vo = (MemberVo)request.getSession().getAttribute("ssMvo");
 		if(vo == null) {
 			response.sendRedirect(request.getContextPath() + "/");
 			return;
 		}
-		if(vo.getMemberTrainer().equals("F")) {
-			response.sendRedirect(request.getContextPath() + "/");
-			return;
+		
+		int memberNo = 0;
+		ArrayList<PtFavoriteVo> ptFavoriteVoList = null;
+		if(request.getSession().getAttribute("ssMvo") != null) {
+			try {
+				memberNo = ((MemberVo)request.getSession().getAttribute("ssMvo")).getMemberNo();
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			}
+			ptFavoriteVoList = new PtFavoriteService().readAllPtFavorite(memberNo);
 		}
+		
 		
 		String pageStr = request.getParameter("page");
 		int pageInt = 0;
 		if(pageStr == null) {
-			response.sendRedirect("myptprogram?page=1");
+			response.sendRedirect("favoritelist?page=1");
 			return;
 		} else {
 			try {
@@ -56,7 +66,7 @@ public class MyPtProgramController extends HttpServlet {
 			}
 		}
 		
-		int pageSize = 10;
+		int pageSize = 8;
 		int pageBlock = 5;
 		
 		int startPage = 0;
@@ -64,7 +74,7 @@ public class MyPtProgramController extends HttpServlet {
 		int startRnum = 0;
 		int endRnum = 0;
 		
-		int totalCnt = new PtService().countPt(vo.getTrainerNo());
+		int totalCnt = new PtService().countPtFavorite(memberNo);
 		
 		int totalpageCnt = (totalCnt / pageSize) + (totalCnt % pageSize == 0 ? 0 : 1);
 		if (pageInt % pageBlock == 0) {
@@ -76,15 +86,26 @@ public class MyPtProgramController extends HttpServlet {
 		if (endPage > totalpageCnt) {
 			endPage = totalpageCnt;
 		}
+		if (pageInt > endPage && pageInt != 1) {
+			if(endPage == 0) {
+				endPage = 1;
+				response.sendRedirect("favoritelist?page=1");
+				return;
+			}
+			response.sendRedirect("favoritelist?page=" + endPage);
+			return;
+		}
 		startRnum = (pageInt - 1) * pageSize + 1;
 		endRnum = startRnum + pageSize - 1;
 		if (endRnum > totalCnt) {
 			endRnum = totalCnt;
 		}
 		
-		
-		ArrayList<PtVo> ptVoList = new PtService().readMyPt(vo.getTrainerNo(), startRnum, endRnum);
+		ArrayList<PtVo> ptVoList = new PtService().readAllFavoritePt(startRnum, endRnum, memberNo);
+		System.out.println("/favoritelist doGet ptVoList 결과:  " + ptVoList);
+		System.out.println("/favoritelist doGet ptFavoriteVoList 결과:  " + ptFavoriteVoList);
 		request.setAttribute("ptVoList", ptVoList);
+		request.setAttribute("ptFavoriteVoList", ptFavoriteVoList);
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("startRnum", startRnum);
@@ -92,7 +113,7 @@ public class MyPtProgramController extends HttpServlet {
 		request.setAttribute("pageBlock", pageBlock);
 		request.setAttribute("totalpageCnt", totalpageCnt);
 		request.setAttribute("pageInt", pageInt);
-		request.getRequestDispatcher("WEB-INF/view/ptpage/myptpage.jsp").forward(request, response);
+		request.getRequestDispatcher("WEB-INF/view/ptpage/favoritelist.jsp").forward(request, response);
 	}
 
 	/**

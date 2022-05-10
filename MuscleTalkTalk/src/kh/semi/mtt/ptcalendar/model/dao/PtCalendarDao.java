@@ -68,22 +68,30 @@ public class PtCalendarDao {
 		return result;
 	}
 	
-	public ArrayList<PtCalendarVo> readMyStudent(Connection conn, int trainerNo) {
+	public ArrayList<PtCalendarVo> readMyStudent(Connection conn, int trainerNo, int startRnum, int endRnum) {
 		ArrayList<PtCalendarVo> ptCalList = new ArrayList<PtCalendarVo>();
 		PtCalendarVo ptCalVo = null;
-		String sql = "select tp.pt_name, tpc.pt_calendar_start_time, tm.member_name, tpc.pt_no, tm.member_no, tm.member_id  "
-				+ "	    from tb_pt_calendar tpc  "
-				+ "	    join tb_pt tp  "
-				+ "	    on tpc.pt_no = tp.pt_no  "
-				+ "	    join tb_member tm  "
-				+ "	    on tpc.member_no = tm.member_no  "
-				+ "	    where pt_calendar_reservation_state = 'T'  "
-				+ "	        and tpc.pt_no in (select pt_no from tb_pt where trainer_no = ?)  ";
+		String sql = "select *"
+				+ "    from ("
+				+ "    select rownum r, t1.*"
+				+ "    from (select tp.pt_name, tpc.pt_calendar_start_time, tm.member_name, tpc.pt_no, tm.member_no, tm.member_id  "
+				+ "            	    from tb_pt_calendar tpc  "
+				+ "            	    join tb_pt tp  "
+				+ "            	    on tpc.pt_no = tp.pt_no  "
+				+ "            	    join tb_member tm  "
+				+ "            	    on tpc.member_no = tm.member_no  "
+				+ "            	    where pt_calendar_reservation_state = 'T'  "
+				+ "            	        and tpc.pt_no in (select pt_no from tb_pt where trainer_no = ?) "
+				+ "                        and tpc.pt_calendar_start_time > systimestamp "
+				+ "                    order by pt_calendar_start_time asc) t1) "
+				+ "                    where r between ? and ?  ";
 
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, trainerNo);
+			pstmt.setInt(2, startRnum);
+			pstmt.setInt(3, endRnum);
 			
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
@@ -103,5 +111,32 @@ public class PtCalendarDao {
 			close(pstmt);
 		}
 		return ptCalList;
+	}
+	
+	public int countReservation(Connection conn, int trainerNo) {
+		int result = 0;
+		String sql = "select count(pt_calendar_no) "
+				+ "    from tb_pt_calendar tpc "
+				+ "    join tb_pt tp "
+				+ "    on tpc.pt_no = tp.pt_no "
+				+ "    where trainer_no =? and tpc.pt_calendar_reservation_state = 'T'"
+				+ "    and pt_calendar_start_time > systimestamp";
+
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, trainerNo);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
 	}
 }

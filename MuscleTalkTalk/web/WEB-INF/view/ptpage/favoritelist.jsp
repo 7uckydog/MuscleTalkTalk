@@ -16,10 +16,8 @@
 	<section id="pt_list_page_section">
 		<div id="pt_list_page_div">
 			<div id="pt_list_title">
-				<p>PT 프로그램</p>
-				<c:if test="${not empty ssMvo }">
-					<button type="button" id="pt_list_favorite_list_btn">즐겨찾기</button>
-				</c:if>
+				<p>즐겨찾기</p>
+				<button type="button" id="pt_list_pt_program_list_btn">PT 프로그램</button>
 				<c:if test="${ssMvo.memberTrainer == 'T' }">
 					<button id="my_program_btn" type="button">내 프로그램 관리</button>
 				</c:if>
@@ -104,11 +102,11 @@
 	$('.pt_list_page_prev_btn').click(function() {
 		console.log(${startPage});
 		console.log(${startPage - 1});
-		location.href="ptlist?page=${startPage-1 }";
+		location.href="favoritelist?page=${startPage-1 }";
 	});
 	for(var i = 0; i < $('.pt_list_page_btn').length; i++) {	
 		$('.pt_list_page_btn').eq(i).click(function() {
-			location.href="ptlist?page="+$(this).text();
+			location.href="favoritelist?page="+$(this).text();
 		});
 		if($('.pt_list_page_btn').eq(i).text() == Number(${pageInt})) {
 			$('.pt_list_page_btn').eq(i).css({
@@ -118,7 +116,7 @@
 		}
 	}
 	$('.pt_list_page_next_btn').click(function() {
-		location.href="ptlist?page=${endPage+1 }";
+		location.href="favoritelist?page=${endPage+1 }";
 	});
 	
 	$(window).resize(function() {
@@ -275,60 +273,43 @@
 		location.href="myptprogram";
 	});
 	
+	
 	$('.pt_list_page_favortie').click(function() {
-		<c:if test="${not empty ssMvo}">
-			var ptNoTemp = $(this).prevAll('.pt_list_page_pt_no').val();
-			var favoriteCheck = false;
-			for(var i = 0; i < ptFavoriteVoList.length; i++) {
-				if(ptFavoriteVoList[i] == ptNoTemp) {
-					favoriteCheck = true;
-				}
-			}
-			
-	 		$.ajax({
-				url: 'ptfavorite.ax',
-				type: 'post',
-				data: {
-					memberNo : ${ssMvo.memberNo},
-					ptNo : ptNoTemp,
-					favoriteCheck : favoriteCheck
-				},
-				success : function(result) {
-					if(result == "1") {
-						console.log("ajax success");
-						if(favoriteCheck) {
-							var ptFavoriteVoListIndexTemp = -1;
-							for(var i = 0; i < ptFavoriteVoList.length; i++) {
-								if(ptFavoriteVoList[i] == ptNoTemp) {
-									ptFavoriteVoListIndexTemp = i;
-								}
-							}
-							ptFavoriteVoList.splice(ptFavoriteVoListIndexTemp, 1);
-						} else {
-							ptFavoriteVoList.push(Number(ptNoTemp));
-						}
-						for(var i = 0; i < $('.pt_list_page_pt_no').length; i++) {
-							if($('.pt_list_page_pt_no').eq(i).val() == ptNoTemp) {
-								var favoriteCntTemp = $('.pt_list_page_pt_no').eq(i).nextAll(".pt_list_page_grid_content_favorite").text();
-								favoriteCntArray = favoriteCntTemp.split(":");
-								if(favoriteCheck) {								
-									$('.pt_list_page_pt_no').eq(i).nextAll(".pt_list_page_grid_content_favorite").text(favoriteCntArray[0] + ": " + (Number(favoriteCntArray[1]) - 1));
-								} else {
-									$('.pt_list_page_pt_no').eq(i).nextAll(".pt_list_page_grid_content_favorite").text(favoriteCntArray[0] + ": " + (Number(favoriteCntArray[1]) + 1));
-								}
-							}
-						}
+			<c:if test="${not empty ssMvo}">
+			if (confirm("즐겨찾기에서 삭제하시겠습니까?")) {
+	         	alert("즐겨찾기에서 삭제합니다.")
+				var ptNoTemp = $(this).prevAll('.pt_list_page_pt_no').val();
+				var favoriteCheck = false;
+				for(var i = 0; i < ptFavoriteVoList.length; i++) {
+					if(ptFavoriteVoList[i] == ptNoTemp) {
+						favoriteCheck = true;
 					}
-					console.log(ptFavoriteVoList);
-					favoriteChk();
-				},
-				error : function(request, status, error) {
-					console.log(request);
-					console.log(status);
-					console.log(error);
-				} 
-			});
-	 		
+				}
+			
+		 		$.ajax({
+					url: 'ptfavorite.ax',
+					type: 'post',
+					data: {
+						memberNo : ${ssMvo.memberNo},
+						ptNo : ptNoTemp,
+						favoriteCheck : favoriteCheck
+					},
+					success : function(result) {
+						if(result == "1") {
+							console.log("ajax success");
+							location.href = "favoritelist?page=${pageInt}";
+						}
+						favoriteChk();
+					},
+					error : function(request, status, error) {
+						console.log(request);
+						console.log(status);
+						console.log(error);
+					} 
+				});
+			} else {
+	            alert("즐겨찾기에서 삭제하지 않습니다.");
+	        }
  		</c:if>
  		<c:if test="${empty ssMvo}">
  			alert("로그인후 가능합니다.");
@@ -379,8 +360,8 @@
 		}
 	}
 	
-	$('#pt_list_favorite_list_btn').click(function() {
-		location.href = "favoritelist";
+	$('#pt_list_pt_program_list_btn').click(function() {
+		location.href = "ptlist";
 	});
 	
 	</script>

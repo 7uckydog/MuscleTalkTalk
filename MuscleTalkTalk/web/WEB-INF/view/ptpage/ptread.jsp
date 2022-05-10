@@ -28,7 +28,13 @@
  		<div id="pt_read_page_div">
 			<div id="pt_read_title">
 				<p id="pt_read_title_p">${pVo.ptName }</p>
-				<button type="button" id="pt_read_page_reseration_btn">예약하기</button>
+				<c:if test="${not empty ssMvo && myPtPageChk == 'N'}">
+					<button type="button" id="pt_read_page_reseration_btn">예약하기</button>
+				</c:if>
+				<c:if test="${not empty ssMvo && myPtPageChk == 'Y'}">
+					<button type="button" class="pt_read_page_update_btns" id="pt_read_page_delete">삭제</button>
+					<button type="button" class="pt_read_page_update_btns" id="pt_read_page_update">수정</button>
+				</c:if>
 			</div>
 			<div id="pt_read_second_row">
 				<p>${pVo.ptTrainerName}&bull;${pVo.ptCategoryStr }</p>
@@ -74,7 +80,14 @@
 	</section>
 <%@ include file="/WEB-INF/view/footer.jsp" %>
 <script type="text/javascript">
+	var blacklistMember = ${blacklistMember };
+	var memberNo = ${ssMvo.memberNo};
+
 	$("#pt_read_page_reseration_btn").click(function() {
+		if(blacklistMember.includes(memberNo)) {
+			alert("블랙리스트에 등록되어 예약이 불가능 합니다.");
+			return;
+		}
 		$("#pt_reservation_time_info_modal_div").css("display", "block");
 	});
 	$("#pt_reservation_time_info_cancle").click(function() {

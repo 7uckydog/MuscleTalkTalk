@@ -34,15 +34,27 @@ public class PtCalendarService {
 		return result;
 	}
 	
-	public ArrayList<PtCalendarVo> readMyStudent(int trainerNo) {
+	public ArrayList<PtCalendarVo> readMyStudent(int trainerNo, int startRnum, int endRnum) {
 		ArrayList<PtCalendarVo> ptCalList = null;
 		Connection conn = null;
 		conn = getConnection();
 		
-		ptCalList = dao.readMyStudent(conn, trainerNo);
+		ptCalList = dao.readMyStudent(conn, trainerNo, startRnum, endRnum);
 		System.out.println("PtCalendarService readMyStudent()매소드 결과: " + ptCalList);
 		
 		close(conn);
 		return ptCalList;
+	}
+	
+	public int countReservation(int trainerNo) {
+		int result = 0;
+		Connection conn = null;
+		conn = getConnection();
+		
+		result = dao.countReservation(conn, trainerNo);
+		System.out.println("PtCalendarService countReservation()매소드 결과: " + result);
+		
+		close(conn);
+		return result;
 	}
 }

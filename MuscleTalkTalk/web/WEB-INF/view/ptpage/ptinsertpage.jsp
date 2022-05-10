@@ -66,6 +66,13 @@
 								<li>재활</li>
 							</ul>
 						</div>
+						<div id="pt_list_page_category_list">
+							<ul id="pt_list_page_category_list_box">
+								<li>웨이트</li>
+								<li>다이어트</li>
+								<li>재활</li>
+							</ul>
+						</div>
 						<input type="hidden" name="pt_category" id="pt_category">
 					</div>
 				</div>
@@ -175,11 +182,6 @@
 				</div>
 				<div class="row">
 					<button type="button" id="pt_submit_button">등록</button>
-					<button type="button" id="pt_test_button">테스트</button>
-					<button type="button" id="ajax_test_button">ajax테스트</button>
-					<input name="file" type="file" class="cloudinary-fileupload" data-cloudinary-field="image_id" 
-   data-form-data="[upload-preset-and-other-upload-options-as-html-escaped-JSON-data]"></input>
-   					<button type="button" id="cloudinary_test_button">cloudinary테스트</button>
 				</div>
 			</form>
 		</div>
@@ -343,8 +345,10 @@
 						function() {
 							if ($("#pt_category_list").css("height") != '0px') {
 								$("#pt_category_list").css("height", "0px");
+								$("#pt_category_list").css("border", "1px solid rgba(75, 77, 178, 0.0)");
 							} else {
 								$("#pt_category_list").css("height", "90px");
+								$("#pt_category_list").css("border", "1px solid rgba(75, 77, 178, 1)");
 							}
 							if ($("#pt_category_div").css("border") == '1px solid rgba(75, 77, 178, 0.3)') {
 								$("#pt_category_div").css("border",
@@ -361,8 +365,10 @@
 						function() {
 							if ($("#pt_day_list").css("height") != '0px') {
 								$("#pt_day_list").css("height", "0px");
+								$("#pt_day_list").css("border", "1px solid rgba(75, 77, 178, 0.0)");
 							} else {
 								$("#pt_day_list").css("height", "210px");
+								$("#pt_day_list").css("border", "1px solid rgba(75, 77, 178, 1)");
 							}
 							if ($("#pt_day_div").css("border") == '1px solid rgba(75, 77, 178, 0.3)') {
 								$("#pt_day_div").css("border",
@@ -379,8 +385,10 @@
 						function() {
 							if ($("#pt_start_time_list").css("height") != '0px') {
 								$("#pt_start_time_list").css("height", "0px");
+								$("#pt_start_time_list").css("border", "1px solid rgba(75, 77, 178, 0.0)");
 							} else {
 								$("#pt_start_time_list").css("height", "210px");
+								$("#pt_start_time_list").css("border", "1px solid rgba(75, 77, 178, 1)");
 							}
 							if ($("#pt_start_time_div").css("border") == '1px solid rgba(75, 77, 178, 0.3)') {
 								$("#pt_start_time_div").css("border",
@@ -397,8 +405,10 @@
 						function() {
 							if ($("#pt_end_time_list").css("height") != '0px') {
 								$("#pt_end_time_list").css("height", "0px");
+								$("#pt_end_time_list").css("border", "1px solid rgba(75, 77, 178, 0.0)");
 							} else {
 								$("#pt_end_time_list").css("height", "210px");
+								$("#pt_end_time_list").css("border", "1px solid rgba(75, 77, 178, 1)");
 							}
 							if ($("#pt_end_time_div").css("border") == '1px solid rgba(75, 77, 178, 0.3)') {
 								$("#pt_end_time_div").css("border",
@@ -438,6 +448,7 @@
 				}
 				if (temp_category) {
 					$("#pt_category_list").css("height", "0px");
+					$("#pt_category_list").css("border", "1px solid rgba(75, 77, 178, 0.0)");
 					$("#pt_category_div").css("border",
 							'1px solid rgba(75, 77, 178, 0.3)');
 				}
@@ -451,6 +462,7 @@
 				}
 				if (temp_day) {
 					$("#pt_day_list").css("height", "0px");
+					$("#pt_day_list").css("border", "1px solid rgba(75, 77, 178, 0.0)");
 					$("#pt_day_div").css("border",
 							'1px solid rgba(75, 77, 178, 0.3)');
 				}
@@ -464,6 +476,7 @@
 				}
 				if (temp_start_time) {
 					$("#pt_start_time_list").css("height", "0px");
+					$("#pt_start_time_list").css("border", "1px solid rgba(75, 77, 178, 0.0)");
 					$("#pt_start_time_div").css("border",
 							'1px solid rgba(75, 77, 178, 0.3)');
 				}
@@ -477,6 +490,7 @@
 				}
 				if (temp_end_time) {
 					$("#pt_end_time_list").css("height", "0px");
+					$("#pt_end_time_list").css("border", "1px solid rgba(75, 77, 178, 0.0)");
 					$("#pt_end_time_div").css("border",
 							'1px solid rgba(75, 77, 178, 0.3)');
 				}
@@ -663,57 +677,17 @@
 				}
 			}
 			$("#pt_time_info").val(time_info_str);
-
+			
 			var frm = document.pt_time_form;
 			frm.action = "ptinsert.do";
 			frm.method = "post";
 			frm.submit();
 		}
 
-		$("#pt_test_button").click(
-				function() {
 
-					console.log("test");
-					var time_info_str = "";
-					for (var i = 0; i < $('.time_info_div').length; i++) {
-						time_info_str += $(".time_info_div").eq(i).children()
-								.eq(0).text();
-						time_info_str += ",";
-						time_info_str += $(".time_info_div").eq(i).children()
-								.eq(1).text();
-						time_info_str += ",";
-						time_info_str += $(".time_info_div").eq(i).children()
-								.eq(2).text();
-						if (i != $('.time_info_div').length - 1) {
-							time_info_str += ",";
-						}
-					}
-					$("#pt_time_info").val(time_info_str);
-
-					var frm = document.pt_time_form;
-					frm.action = "testreservation";
-					frm.method = "post";
-					frm.submit();
-
-				});
 		
 		
-		$("#ajax_test_button").click(function() {
-			console.log("ajax_test_button");
-			$.ajax({
-				url: 'TestPJM2Controller',
-				type: 'post',
-				success : function(result) {
-					console.log("ajax성공");
-				},
-				error : function(request, status, error) {
-					console.log("실패");
-					console.log(request);
-					console.log(status);
-					console.log(error);
-				}
-			})
-		});
+
 		
 		
 		
@@ -966,9 +940,6 @@
 
 		};
 		
-		$("#cloudinary_test_button").click(function() {
-			console.log("couldinary btn");
-		});
 	</script>
 </body>
 </html>

@@ -120,12 +120,12 @@ public class PtDao {
 					break;
 				}
 				pVo.setPtPrice(rs.getInt("PT_PRICE"));
-				pVo.setPtIntroduce(rs.getString("PT_INTRODUCE"));
-				pVo.setPtInformation(rs.getString("PT_INFORMATION"));
-				pVo.setPtTargetStudent(rs.getString("PT_TARGET_STUDENT"));
-				pVo.setPtNotice(rs.getString("PT_NOTICE"));
-				pVo.setPtTrainerInfo(rs.getString("PT_TRAINER_INFO"));
-				pVo.setPtTimeInfo(rs.getString("PT_TIME_INFO"));
+				pVo.setPtIntroduce(rs.getString("PT_INTRODUCE").replace("\r\n","<br>"));
+				pVo.setPtInformation(rs.getString("PT_INFORMATION").replace("\r\n","<br>"));
+				pVo.setPtTargetStudent(rs.getString("PT_TARGET_STUDENT").replace("\r\n","<br>"));
+				pVo.setPtNotice(rs.getString("PT_NOTICE").replace("\r\n","<br>"));
+				pVo.setPtTrainerInfo(rs.getString("PT_TRAINER_INFO").replace("\r\n","<br>"));
+				pVo.setPtTimeInfo(rs.getString("PT_TIME_INFO").replace("\r\n","<br>"));
 				pVo.setPtGymName(rs.getString("GYM_NAME"));
 				pVo.setPtLocation(rs.getString("GYM_LOCATION"));
 				pVo.setPtTrainerName(rs.getString("MEMBER_NICKNAME"));
@@ -148,43 +148,49 @@ public class PtDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+			close(rs);
 			close(pstmt);
 		}
 		
 		return pVo;
 	}
 	
-	public ArrayList<PtVo> readAllPt(Connection conn) {
+	public ArrayList<PtVo> readAllFavoritePt(Connection conn, int startRnum, int endRnum, int memberNo) {
 		ArrayList<PtVo> ptVoList = null;
 		ResultSet rs = null;
-		String sql = "select tb_pt.pt_no, pt_name, pt_category ,pt_file,"
-				+ " tb_member.member_nickname, pt_price, gym_location, favorite_cnt "
-				+ "from tb_pt "
-				+ "join (select * from tb_pt_file "
-				+ "where pt_file_no in  "
-				+ "(select min(pt_file_no) from tb_pt_file group by pt_no)) tbB "
-				+ "on tb_pt.pt_no = tbB.pt_no "
-				+ "join tb_trainer "
-				+ "on tb_pt.trainer_no = tb_trainer.trainer_no "
-				+ "join tb_member "
-				+ "on tb_trainer.member_no = tb_member.member_no "
-				+ "left outer join (select count(favorite_no) favorite_cnt, pt_no from tb_pt_favorite group by pt_no) tFcnt "
-				+ "on tb_pt.pt_no = tFcnt.pt_no "
-				+ "order by tb_pt.pt_no desc ";
-//		select tb_pt.pt_no, pt_name, pt_category ,pt_file, tb_member.member_nickname, pt_price
-//	    from tb_pt 
-//	        join (select * from tb_pt_file 
-//	            where pt_file_no in 
-//	            (select min(pt_file_no) from tb_pt_file group by pt_no)) tbB
-//	            on tb_pt.pt_no = tbB.pt_no
-//	        join tb_trainer
-//	            on tb_pt.trainer_no = tb_trainer.trainer_no
-//	        join tb_member
-//	            on tb_trainer.member_no = tb_member.member_no
-	    
+		String sql = "select * "
+				+ "	    from (select rownum r, t1.* "
+				+ "	    from (select tb_pt.pt_no, pt_name, pt_category ,pt_file, "
+				+ "			tb_member.member_nickname, pt_price, gym_location, favorite_cnt "
+				+ "			from tb_pt "
+				+ "			join (select * from tb_pt_file "
+				+ "			where pt_file_no in  "
+				+ "			(select min(pt_file_no) from tb_pt_file group by pt_no)) tbB "
+				+ "			on tb_pt.pt_no = tbB.pt_no "
+				+ "			join tb_trainer "
+				+ "			on tb_pt.trainer_no = tb_trainer.trainer_no "
+				+ "			join tb_member "
+				+ "			on tb_trainer.member_no = tb_member.member_no "
+				+ "			left outer join (select count(favorite_no) favorite_cnt, pt_no from tb_pt_favorite group by pt_no) tFcnt "
+				+ "			on tb_pt.pt_no = tFcnt.pt_no "
+				+ "                   where tb_pt.pt_no in (select tp.pt_no "
+				+ "                       from tb_pt tp "
+				+ "                       join tb_pt_favorite tpf "
+				+ "                       on tp.pt_no = tpf.pt_no "
+				+ "                       where tpf.member_no = ?) "
+				+ "			order by tb_pt.pt_regist_date desc) t1) "
+				+ "	           where r between ? and ?";
+
+	    System.out.println("dao");
+	    System.out.println("startRnum" + startRnum);
+	    System.out.println("endRnum" + endRnum);
+	    System.out.println("memberNo" + memberNo);
+	    System.out.println("dao");
 		try {
 			pstmt = conn.prepareStatement(sql);
-
+			pstmt.setInt(1, memberNo);
+			pstmt.setInt(2, startRnum);
+			pstmt.setInt(3, endRnum);
 			
 			
 			rs = pstmt.executeQuery();
@@ -221,21 +227,101 @@ public class PtDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+			close(rs);
 			close(pstmt);
 		}
 		
 		return ptVoList;
 	}
 	
-	public ArrayList<PtVo> readMyPt(Connection conn, int trainerNo) {
+	public ArrayList<PtVo> readAllPt(Connection conn, int startRnum, int endRnum) {
 		ArrayList<PtVo> ptVoList = null;
 		ResultSet rs = null;
-		String sql = "select pt_no, pt_name, pt_category, pt_regist_date from tb_pt where trainer_no = ?";
+		String sql = "select *"
+				+ "    from (select rownum r, t1.*"
+				+ "    from (select tb_pt.pt_no, pt_name, pt_category ,pt_file,"
+				+ "				 tb_member.member_nickname, pt_price, gym_location, favorite_cnt "
+				+ "				from tb_pt "
+				+ "				join (select * from tb_pt_file "
+				+ "				where pt_file_no in  "
+				+ "				(select min(pt_file_no) from tb_pt_file group by pt_no)) tbB "
+				+ "				on tb_pt.pt_no = tbB.pt_no "
+				+ "				join tb_trainer "
+				+ "				on tb_pt.trainer_no = tb_trainer.trainer_no "
+				+ "				join tb_member "
+				+ "				on tb_trainer.member_no = tb_member.member_no "
+				+ "				left outer join (select count(favorite_no) favorite_cnt, pt_no from tb_pt_favorite group by pt_no) tFcnt "
+				+ "				on tb_pt.pt_no = tFcnt.pt_no "
+				+ "				order by tb_pt.pt_regist_date desc) t1) "
+				+ "                where r between ? and ?";
+	    
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRnum);
+			pstmt.setInt(2, endRnum);
+			
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				ptVoList = new ArrayList<PtVo>();
+				do {
+					PtVo pVo = new PtVo();
+					pVo.setPtNo(rs.getInt("PT_NO"));
+					pVo.setPtName(rs.getString("PT_NAME"));
+					pVo.setPtTrainerName(rs.getString("MEMBER_NICKNAME"));
+					pVo.setPtCategory(rs.getInt("PT_CATEGORY"));
+					switch (pVo.getPtCategory()) {
+					case 1:
+						pVo.setPtCategoryStr("웨이트");
+						break;
+					case 2:
+						pVo.setPtCategoryStr("다이어트");
+						break;
+					case 3:
+						pVo.setPtCategoryStr("재활");
+						break;
+					default:
+						break;
+					}
+					pVo.setPtPrice(rs.getInt("PT_PRICE"));
+					ArrayList<String> ptFilePath = new ArrayList<String>(); 
+					ptFilePath.add(rs.getString("PT_FILE"));
+					pVo.setPtFilePathList(ptFilePath);
+					pVo.setPtLocation(rs.getString("GYM_LOCATION"));
+					pVo.setFavoriteCnt(rs.getInt("favorite_cnt"));
+					ptVoList.add(pVo);
+				}while(rs.next());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return ptVoList;
+	}
+	
+	public ArrayList<PtVo> readMyPt(Connection conn, int trainerNo, int startRnum, int endRnum) {
+		ArrayList<PtVo> ptVoList = null;
+		ResultSet rs = null;
+		String sql = "select * "
+				+ "    from( "
+				+ "    select rownum r , t1.* "
+				+ "    from (select tb_pt.pt_no, tb_pt.pt_name, tb_pt.pt_category, tb_pt.pt_regist_date,  tfcnt.favorite_cnt "
+				+ "    from tb_pt "
+				+ "    left outer join (select count(favorite_no) favorite_cnt, pt_no from tb_pt_favorite group by pt_no) tFcnt "
+				+ "	   on tb_pt.pt_no = tFcnt.pt_no "
+				+ "    where trainer_no = ? "
+				+ "    order by pt_regist_date desc) t1) "
+				+ "    where r between ? and ?";
 
 	    
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, trainerNo);
+			pstmt.setInt(2, startRnum);
+			pstmt.setInt(3, endRnum);
 			
 			
 			rs = pstmt.executeQuery();
@@ -260,6 +346,7 @@ public class PtDao {
 						break;
 					}
 					pVo.setPtRegistDate(rs.getDate("PT_REGIST_DATE"));
+					pVo.setFavoriteCnt(rs.getInt("FAVORITE_CNT"));
 					ptVoList.add(pVo);
 				}while(rs.next());
 			}
@@ -270,6 +357,103 @@ public class PtDao {
 		}
 		
 		return ptVoList;
+	}
+	
+	public int countPt(Connection conn) {
+		int result = 0;
+		String sql = "select count(pt_no) from tb_pt";
+
+	    
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int myPt(Connection conn, int trainerNo, int ptNo) {
+		int result = 0;
+		String sql = "select count(pt_no) from tb_pt where trainer_no = ? and pt_no = ?";
+
+	    
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, trainerNo);
+			pstmt.setInt(2, ptNo);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int countPtFavorite(Connection conn, int memberNo) {
+		int result = 0;
+		String sql = "select count(tp.pt_no) "
+				+ "from tb_pt tp "
+				+ "join tb_pt_favorite tpf "
+				+ "on tp.pt_no = tpf.pt_no "
+				+ "where member_no = ?  ";
+
+	    
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memberNo);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int countPt(Connection conn, int trainerNo) {
+		int result = 0;
+		String sql = "select count(pt_no) from tb_pt where trainer_no = ?";
+
+	    
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, trainerNo);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return result;
 	}
 	
 

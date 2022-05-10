@@ -43,11 +43,11 @@ public class BlacklistDeleteConroller extends HttpServlet {
 		MemberVo vo = (MemberVo)request.getSession().getAttribute("ssMvo");
 		System.out.println(vo);
 		if(vo == null) {
-			response.sendRedirect(request.getContextPath());
+			response.sendRedirect(request.getContextPath() + "/");
 			return;
 		}
 		if(vo.getMemberTrainer().equals("F")) {
-			response.sendRedirect(request.getContextPath());
+			response.sendRedirect(request.getContextPath() + "/");
 			return;
 		}
 		

@@ -35,11 +35,11 @@
 				<p class="pt_read_student_content_left">가입일</p>
 				<p class="pt_read_student_content_right">${mVo.memberJoinDate }</p>
 				<p class="pt_read_student_content_left">나이</p>
-				<p class="pt_read_student_content_right">${mVo.memberAge }</p>
+				<p class="pt_read_student_content_right">${mVo.memberAge } 살</p>
 				<p class="pt_read_student_content_left">신장(cm)</p>
-				<p class="pt_read_student_content_right">${mVo.memberHeight }</p>
+				<p class="pt_read_student_content_right">${mVo.memberHeight } cm</p>
 				<p class="pt_read_student_content_left">몸무게(kg)</p>
-				<p class="pt_read_student_content_right">${mVo.memberWeight }</p>
+				<p class="pt_read_student_content_right">${mVo.memberWeight } kg</p>
 				<p class="pt_read_student_content_left">운동목표</p>
 				<p class="pt_read_student_content_right">${mVo.memberPurpose }</p>
 				<p class="pt_read_student_content_left">관심사</p>
@@ -66,8 +66,10 @@
 					console.log(result);
 					if(result == '1') {
 						alert('블랙리스트 등록에 성공했습니다.');
-					} else {
+					} else if(result == '0') {
 						alert('블랙리스트 등록에 실패했습니다.');
+					} else if(result == '-1') {
+						alert('이미 블랙리스트에 등록 되어있습니다.');
 					}
 				},
 				error : function(request, status, error) {

@@ -43,11 +43,11 @@ public class BlacklistInsertController extends HttpServlet {
 		MemberVo vo = (MemberVo)request.getSession().getAttribute("ssMvo");
 		System.out.println(vo);
 		if(vo == null) {
-			response.sendRedirect(request.getContextPath());
+			response.sendRedirect(request.getContextPath() + "/");
 			return;
 		}
 		if(vo.getMemberTrainer().equals("F")) {
-			response.sendRedirect(request.getContextPath());
+			response.sendRedirect(request.getContextPath() + "/");
 			return;
 		}
 		
@@ -58,6 +58,7 @@ public class BlacklistInsertController extends HttpServlet {
 			
 			out.flush();
 			out.close();
+			return;
 		}
 		int trainerNo = vo.getTrainerNo();
 		int memberNo = 0;
@@ -66,8 +67,16 @@ public class BlacklistInsertController extends HttpServlet {
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		}
+		BlacklistService blackService = new BlacklistService();
 		
-		int result = new BlacklistService().insertBlacklist(trainerNo, memberNo);
+		if(blackService.readOneBlacklist(trainerNo, memberNo) == 1) {
+			out.print(-1);
+			
+			out.flush();
+			out.close();
+			return;
+		}
+		int result = blackService.insertBlacklist(trainerNo, memberNo);
 		
 		out.print(1);
 		

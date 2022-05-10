@@ -23,13 +23,25 @@ public class BlacklistService {
 		return result;
 	}
 	
-	public ArrayList<BlackistVo> readBlacklist(int trainerNo) {
+	public ArrayList<BlackistVo> readBlacklist(int trainerNo, int startRnum, int endRnum) {
 		ArrayList<BlackistVo> result = null;
 		
 		Connection conn = null;
 		conn = getConnection();
 		
-		result = dao.readBlacklist(conn, trainerNo);
+		result = dao.readBlacklist(conn, trainerNo, startRnum, endRnum);
+		
+		close(conn);
+		return result;
+	}
+	
+	public int readOneBlacklist(int trainerNo, int memberNo) {
+		int result = -1;
+		
+		Connection conn = null;
+		conn = getConnection();
+		
+		result = dao.readOneBlacklist(conn, trainerNo, memberNo);
 		
 		close(conn);
 		return result;
@@ -47,4 +59,27 @@ public class BlacklistService {
 		return result;
 	}
 	
+	public int countBlacklist(int trainerNo) {
+		int result = 0;
+		
+		Connection conn = null;
+		conn = getConnection();
+		
+		result = dao.countBlacklist(conn, trainerNo);
+		
+		close(conn);
+		return result;
+	}
+	
+	public ArrayList<Integer> blacklistMember(int ptNo) {
+		ArrayList<Integer> result = null;
+		
+		Connection conn = null;
+		conn = getConnection();
+		
+		result = dao.blacklistMember(conn, ptNo);
+		
+		close(conn);
+		return result;
+	}
 }

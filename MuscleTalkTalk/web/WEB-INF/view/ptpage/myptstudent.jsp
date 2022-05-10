@@ -28,6 +28,18 @@
 					<div class="pt_my_student_name">회원</div>
 				</div>
 			</div>
+			<div id="pt_list_page_btns">
+					<c:if test="${startPage > 1 }">
+						<button type="button" class="fa-solid fa-chevron-left pt_list_page_prev_btn"></button>
+					</c:if>
+					<c:forEach begin="${startPage }" end="${endPage }" var="p">
+						<button class="pt_list_page_btn" type="button">${p }</button>
+					</c:forEach>
+					<c:if test="${endPage < totalpageCnt}">
+						<a class="Page" href="BoardReadAll?page=${endPage+1 }">다음</a>
+						<button type="button" class="fa-solid fa-chevron-right pt_list_page_next_btn""></button>
+					</c:if>
+			</div>	
 		</div>
 		<form name="ptMyStudentFrm">
 			<input type="hidden" id="pt_my_student_member_id" name="memberId">
@@ -35,6 +47,26 @@
 	</section>
 	<%@ include file="/WEB-INF/view/footer.jsp" %>
 	<script type="text/javascript">
+	$('.pt_list_page_prev_btn').click(function() {
+		console.log(${startPage});
+		console.log(${startPage - 1});
+		location.href="myptstudent?page=${startPage-1 }";
+	});
+	for(var i = 0; i < $('.pt_list_page_btn').length; i++) {	
+		$('.pt_list_page_btn').eq(i).click(function() {
+			location.href="myptstudent?page="+$(this).text();
+		});
+		if($('.pt_list_page_btn').eq(i).text() == Number(${pageInt})) {
+			$('.pt_list_page_btn').eq(i).css({
+				color: 'white',
+				backgroundColor : '#4B4DB2'
+			})
+		}
+	}
+	$('.pt_list_page_next_btn').click(function() {
+		location.href="myptstudent?page=${endPage+1 }";
+	});
+	
 		var ptCalVoList = [];
 		<c:forEach var="vo" items="${ptCalVoList }">
 			var ptCalVo = {

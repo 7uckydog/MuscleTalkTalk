@@ -39,16 +39,23 @@ public class BlacklistDao {
 		return result;
 	}
 	
-	public ArrayList<BlackistVo> readBlacklist(Connection conn, int trainerNo) {
+	public ArrayList<BlackistVo> readBlacklist(Connection conn, int trainerNo, int startRnum, int endRnum) {
 		ArrayList<BlackistVo> result = new ArrayList<BlackistVo>();
-		String sql = "select BLACK_LIST_NO, TRAINER_NO, TB.MEMBER_NO, BLACKLIST_DATE, TM.MEMBER_NAME "
-				+ "    FROM TB_BLACKLIST TB  "
-				+ "    JOIN TB_MEMBER TM  "
-				+ "    ON TB.MEMBER_NO = TM.MEMBER_NO  "
-				+ "    WHERE TRAINER_NO = ?  ";
+		String sql = "select *"
+				+ "    from ("
+				+ "    select rownum r, t1.*"
+				+ "    from ("
+				+ "    select BLACK_LIST_NO, TRAINER_NO, TB.MEMBER_NO, BLACKLIST_DATE, TM.MEMBER_NAME "
+				+ "				    FROM TB_BLACKLIST TB  "
+				+ "				    JOIN TB_MEMBER TM  "
+				+ "				    ON TB.MEMBER_NO = TM.MEMBER_NO  "
+				+ "				    WHERE TRAINER_NO = ?) t1 )"
+				+ "    where r between ? and ?  ";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, trainerNo);
+			pstmt.setInt(2, startRnum);
+			pstmt.setInt(3, endRnum);
 			
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
@@ -63,8 +70,32 @@ public class BlacklistDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(pstmt);
 			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int readOneBlacklist(Connection conn, int trainerNo, int memberNo) {
+		int result = -1;
+		String sql = "select count(black_list_no) "
+				+ "from tb_blacklist "
+				+ "where trainer_no = ? and member_no = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, trainerNo);
+			pstmt.setInt(2, memberNo);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
 		}
 		return result;
 	}
@@ -81,6 +112,50 @@ public class BlacklistDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int countBlacklist(Connection conn, int trainerNo) {
+		int result = 0;
+		String sql = "select count(BLACK_LIST_NO) from tb_blacklist  "
+				+ "where trainer_no = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, trainerNo);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public ArrayList<Integer> blacklistMember(Connection conn, int ptNo) {
+		ArrayList<Integer> result = new ArrayList<Integer>();
+		String sql = "select member_no "
+				+ "    from tb_blacklist tb"
+				+ "    join (select trainer_no from tb_pt where pt_no = ?) TBa"
+				+ "    on tb.trainer_no = TBa.trainer_no";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, ptNo);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				result.add(rs.getInt(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
 			close(pstmt);
 		}
 		return result;

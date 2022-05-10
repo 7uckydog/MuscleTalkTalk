@@ -281,9 +281,11 @@ a:visited {
 	top: 0;
 	left: 0;
 	z-index: 2;
-	transition: height 0.3s;
+	transition-property: height, border-color;
+	transition-duration: 0.3s;
 	overflow: hidden;
-	border-radius: 5px; 
+	border-radius: 5px;
+	border: 1px solid rgba(75, 77, 178, 0.0); 
 }
 
 #pt_category_list_box {
@@ -336,13 +338,15 @@ a:visited {
 	top: 0;
 	left: 0;
 	z-index: 2;
-	transition: height 0.3s;
+	transition-property: height, border-color;
+	transition-duration: 0.3s;
 	overflow: hidden;
 	border-radius: 5px; 
+	border: 1px solid rgba(75, 77, 178, 0.0); 
 }
 
 #pt_day_list_box {
-	background-color: #c8c9e8;
+	background-color: white;
 }
 
 #pt_day_list_box li{
@@ -359,13 +363,15 @@ a:visited {
 	top: 0;
 	left: 0;
 	z-index: 2;
-	transition: height 0.3s;
+	transition-property: height, border-color;
+	transition-duration: 0.3s;
 	overflow: hidden;
 	border-radius: 5px; 
+	border: 1px solid rgba(75, 77, 178, 0.0); 
 }
 
 #pt_start_time_list_box {
-	background-color: #c8c9e8;
+	background-color: white;
 	column-count: 2;
 }
 
@@ -383,13 +389,15 @@ a:visited {
 	top: 0;
 	left: 0;
 	z-index: 2;
-	transition: height 0.3s;
+	transition-property: height, border-color;
+	transition-duration: 0.3s;
 	overflow: hidden;
 	border-radius: 5px; 
+	border: 1px solid rgba(75, 77, 178, 0.0); 
 }
 
 #pt_end_time_list_box {
-	background-color: #c8c9e8;
+	background-color: white;
 	column-count: 2;
 }
 
@@ -581,7 +589,7 @@ a:visited {
 
 #pt_list_title button:hover {
 	background-color: white;
-	color: black;
+	color : #4B4DB2;
 }
 
 #pt_list_filter {
@@ -723,9 +731,10 @@ a:visited {
 
 
 
-#pt_list_page_category_list_box {
+#pt_list_page_category_list_box, #pt_list_page_location_list_box, #pt_list_page_time_list_box {
 	background-color: white;
 	color: black;
+	font-family: 'THEmpgtM';
 }
 
 #pt_list_page_text {
@@ -824,6 +833,8 @@ a:visited {
 	font-size: 0px;
 	font-family: 'THEmpgtM';
 	text-align: center;
+	vertical-align: baseline;
+	height: 30px;
 }
 
 #pt_list_page_btns button{
@@ -831,6 +842,7 @@ a:visited {
 	width: 30px;
 	height: 30px;
 	margin-right: 5px;
+	cursor : pointer;
 }
 
 .pt_list_page_favortie {
@@ -886,15 +898,41 @@ a:visited {
 	font-size: 0px;
 }
 
-#pt_read_title button {
+#pt_read_page_reseration_btn {
+	border : 1px solid #4B4DB2;
 	float: right;
 	font-size: 12px;
 	font-family:'THEmpgtM';
 	width: 155px;
 	height: 30px;
-	line-height: 30px;
+	line-height: 28px;
 	background-color: #4B4DB2;
 	color: white;
+	cursor : pointer;
+}
+
+#pt_read_page_reseration_btn:hover {
+	color: #4B4DB2;
+	background-color: white;
+}
+
+.pt_read_page_update_btns {
+	border : 1px solid #4B4DB2;
+	float: right;
+	font-size: 12px;
+	font-family:'THEmpgtM';
+	width: 75px;
+	height: 30px;
+	line-height: 28px;
+	background-color: #4B4DB2;
+	color: white;
+	cursor : pointer;
+	margin-left: 5px;
+}
+
+.pt_read_page_update_btns:hover {
+	color: #4B4DB2;
+	background-color: white;
 }
 
 #pt_read_title_p {
@@ -1000,6 +1038,15 @@ a:visited {
 	margin: 0 auto;
 	font-size: 12px;
 	margin-bottom: 50px;
+}
+#pt_reservation_time_info_div button {
+	color : white;
+	background-color: #4B4DB2;
+	cursor : pointer;
+}
+#pt_reservation_time_info_div button:hover {
+	color : #4B4DB2;
+	background-color: white;
 }
 #pt_reservation_time_info_cancle {
 	border-top: 1px solid rgba(75, 77, 178, 0.7);
@@ -1320,7 +1367,7 @@ a:visited {
 }
 
 #pt_my_page_title button:hover {
-	color: black;
+	color: #4B4DB2;
 	background-color: white;
 }
 
@@ -1369,6 +1416,11 @@ a:visited {
 .pt_my_page_favorite {
 	width: 100px;
 }
+
+
+
+
+
 
 /* pt 수강생확인 페이지 */
 /* pt 수강생확인 페이지 */
@@ -1429,7 +1481,7 @@ a:visited {
 
 #pt_my_student_title button:hover {
 	background-color: white;
-	color: black;
+	color: #4B4DB2;
 }
 
 #pt_my_student_container {
@@ -1538,7 +1590,7 @@ a:visited {
 
 #pt_read_student_title button:hover {
 	background-color: white;
-	color: black;
+	color: #4B4DB2;
 }
 
 #pt_read_student_container {
@@ -1577,7 +1629,7 @@ a:visited {
 
 #pt_read_student_okay_btn:hover {
 	background-color: white;
-	color: black;
+	color: #4B4DB2;
 }
 
 
@@ -1642,7 +1694,7 @@ a:visited {
 
 #pt_blacklist_title button:hover {
 	background-color: white;
-	color: black;
+	color: #4B4DB2;
 }
 
 #pt_blacklist_container {
@@ -1697,7 +1749,7 @@ a:visited {
 
 .black_list_delete_btn:hover {
 	background-color: white;
-	color: black;
+	color: #4B4DB2;
 }
 
 
