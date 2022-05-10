@@ -5,7 +5,7 @@
         <aside>
             <div id="aside_all">
                 <div>
-                    <a href="">
+                    <a href="myroutinelistall">
                         <img src="<%= request.getContextPath() %>/cssfolder/images/exe.png">
                         <p>운동관리</p>
                     </a>

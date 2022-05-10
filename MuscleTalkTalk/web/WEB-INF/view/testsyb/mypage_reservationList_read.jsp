@@ -1,15 +1,15 @@
 <%@ include file="/WEB-INF/view/font.jsp"%>
 <%@ include file="/WEB-INF/view/csslink3_mp.jsp"%>
 <%@page import="kh.semi.mtt.member.model.vo.MemberVo"%>
-<%@page import="kh.semi.mtt.inquiry.model.vo.InquiryVo"%>
+<%@page import="kh.semi.mtt.board.model.vo.BoardVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>1:1 문의 조회</title>
+<title>예약 프로그램 조회</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style>
@@ -56,24 +56,6 @@
             border: 0px;
             cursor: pointer;
         }
-		#btn_inquiry{
-            width: 130px;
-            height: 30px;
-            font-size: 10.5px;
-            font-family: 'THEmpgtR';
-            color: white;
-            background-color: #4B4DB2;
-            border: 1px solid #4B4DB2;
-            line-height: 30px;
-            float: right;
-            cursor: pointer;
-        }
-        #btn_inquiry:hover{
-            color: #4B4DB2;
-            background-color: white;
-            border: 1px solid #4B4DB2;
-            transition: ease 0.3s;
-        }
         #board_table{
             width: 650px;
             margin: 20px auto;
@@ -86,7 +68,7 @@
             font-family: 'THEmpgtM';
         }
         .tb_s{
-            padding: 14.5px;
+            padding: 9.5px 14.5px;
             font-size: 11px;
             font-family: 'THEmpgtR';
         }
@@ -116,11 +98,21 @@
         	margin: 0px 2px;
         	font-size: 10.5px;
         }
-        #inquiry{
+        #reservation_list{
         	text-decoration: underline;
         }
         .npage{
         	cursor: pointer;
+        }
+        #rsv_edit, #rsv_cancel{
+        	width: 70px;
+        	height: 22px;
+        	font-family:'THEmpgtR';
+            font-size: 10px;
+            border: 0px;
+            background-color: rgb(224, 224, 224);
+            color: rgb(64, 64, 64);
+            cursor: pointer;
         }
 </style>
 </head>
@@ -132,9 +124,8 @@
 		<section id="section1">
             <div id="mp_main_text">
                 <p id="b_title" style="height: 20px; width: 150px; float: left;">
-                    1:1 문의 조회
+                    예약 프로그램 조회
                 </p>
-                <button type="button"  id="btn_inquiry">문의하기</button>
             </div>
             <div>
                 <table id="board_table">
@@ -142,38 +133,50 @@
                         <td colspan="10" class="line"></td>
                     </tr class="tb">
                     <tr id="table_title" class="tb">
-                        <td style="width: 10%;" class="tb">번호</td>
-                        <td style="width: 43%;" class="tb">제목</td>
-                        <td style="width: 25%;" class="tb">문의일</td>
-                        <td style="width: 22%;" class="tb" id="cnt"></td>
+                        <td style="width: 10%;" class="tb"></td>
+                        <td style="width: 43%;" class="tb">프로그램명</td>
+                        <td style="width: 25%;" class="tb">프로그램 진행일</td>
+                        <td style="width: 11%;" class="tb" id="cnt"><!-- 수정 --></td>
+                        <td style="width: 11%;" class="tb" id="cnt"><!-- 취소 --></td>
                     </tr>
 	                <tr class="tb tb_last" class="line">
 	                    <td colspan="10" class="line"></td>
 	                </tr>
-	                <c:forEach items="${memberinquiry}" var="volist">
-						<tr class="table_content">
-							<td style="width: 10%;" class="tb_s">${volist.inquiryNo }</td>
-							<td style="width: 43%;" class="tb_s"><a href="memberinquiryread?ititle=${volist.inquiryTitle }">${volist.inquiryTitle}</a></td>
-							<td style="width: 25%;" class="tb_s">${volist.inquiryDate }</td>
-							<td style="width: 22%;" class="tb_s"></td>
-						</tr>
-					</c:forEach>
+	                
+	                <!-- 게시물 -->
+	                <c:if test="${not empty memberreservation}">
+		                <c:forEach items="${memberreservation}" var="volist">
+							<tr class="table_content">
+								<input type="hidden" id="pt_no_hidden" value="${volist.ptCalendarNo}">
+								<td style="width: 10%;" class="tb_s"><a href="ptread?ptNo=${volist.ptNo}">${volist.rNo}</a></td>
+								<td style="width: 43%;" class="tb_s"><a href="ptread?ptNo=${volist.ptNo}">${volist.ptName}</a></td>
+								<td style="width: 25%;" class="tb_s">${volist.ptCalendarStartTime}</td>
+								<td style="width: 11%; padding-right: 0px;" class="tb_s">
+									<input type=button value="수정" id="rsv_edit">
+								</td>
+								<td style="width: 11%;" class="tb_s">
+									<input type=button value="취소" id="rsv_cancel">
+								</td>
+							</tr>
+						</c:forEach>
+					</c:if>	
                 </table>
             </div>
             <div id="pageing_all">
                 <div class="pageing">
                 	<p id="p_c">
+                		<c:if test="${not empty memberreservation}">
 							<c:if test="${startPage > 1 }">
-								<a class="page" href="memberinquiry?page=${startPage-1 }">이전</a>
+								<a class="page" href="memberreadreservationlist?page=${startPage-1 }">이전</a>
 							</c:if>
 							<c:forEach begin="${startPage }" end="${endPage }" var="p">
-								<a class="page" href="memberinquiry?page=${p }">${p }</a>
+								<a class="page" href="memberreadreservationlist?page=${p }">${p }</a>
 							</c:forEach>
 							<c:if test="${endPage < totalpageCnt}">
-								<a class="page" href="memberinquiry?page=${endPage+1 }">다음</a>
+								<a class="page" href="memberreadreservationlist=${endPage+1 }">다음</a>
 							</c:if>
+						</c:if>
 					</p>
-                        
                 </div>
             </div>
             <%@ include file="/WEB-INF/view/footer.jsp"%>
@@ -204,32 +207,54 @@
                 </ul>
             </div>
         </section>
-<script>
-	$("#mp_logout").click(function(){
-		alert("로그아웃 되었습니다.");
-		location.href="logout";
-	})
-	$("#info_edit").click(function(){
-		location.href="memberupdateprofile";
-	})
-	$("#password_edit").click(function(){
-		location.href="memberupdatepassword";
-	})
-	$("#info_edit").click(function(){
-		location.href="memberupdateprofile";
-	})
-	$("#content_list").click(function(){
-		location.href="memberreadcontent";
-	})
-	$("#inquiry").click(function(){
-		location.href="memberinquiry";
-	})
-	$("#btn_inquiry").click(function(){
-		location.href="memberinquirywrite";
-	})
-	$("#reservation_list").click(function(){
-		location.href="memberreadreservationlist";
-	})
-</script>
+        <script>
+        // 예약 취소 버튼 클릭 시
+        $("#rsv_cancel").click(function(){
+        	var pt_calendar_no = $(this).parent().prevAll("#pt_no_hidden").val();
+        	$.ajax({
+        		url:"membercancelreservation.ax",
+        		type:"post",
+        		data:{ptCalendarNo : pt_calendar_no,
+        			  memberNo : ${ssMvo.memberNo}},
+        		success: function(result){
+        			if(result == 1){
+        				alert("예약 취소되었습니다.");
+        				location.href="memberreadreservationlist"
+        			} else if (result == 0){
+        				alert("예약 취소 실패했습니다.");
+        			} else {
+        				alert("걍 오류");
+        			}
+        		},
+        		error: function(result){
+        			alert("ajax 오류");
+        		}
+        	})
+        })
+        </script>
+        <script>
+	    $("#mp_logout").click(function(){
+	    	alert("로그아웃 되었습니다.");
+	    	location.href="logout";
+	    })
+	    $("#info_edit").click(function(){
+	    	location.href="memberupdateprofile";
+	    })
+	    $("#password_edit").click(function(){
+	    	location.href="memberupdatepassword";
+	    })
+	    $("#info_edit").click(function(){
+	    	location.href="memberupdateprofile";
+	    })
+	    $("#content_list").click(function(){
+	    	location.href="memberreadcontent";
+	    })
+	    $("#inquiry").click(function(){
+			location.href="memberinquiry";
+		})
+		$("#reservation_list").click(function(){
+			location.href="memberreadreservationlist";
+		})
+	</script>
 </body>
 </html>

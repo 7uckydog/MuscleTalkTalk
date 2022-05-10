@@ -86,6 +86,11 @@
         .tb{
             padding: 14.5px;
             font-size: 11px;
+            font-family: 'THEmpgtM';
+        }
+        .tb_s{
+            padding: 14.5px;
+            font-size: 11px;
             font-family: 'THEmpgtR';
         }
         .line{
@@ -338,10 +343,10 @@
 	                	<c:forEach items="${membercomment}" var="volist">
 							<tr class="table_content">
 																		<!-- href 수정 예정 TODO -->
-								<td style="width: 10%;" class="tb"><a href="memberCommentRead?bno=${volist.rCnt}">${volist.rCnt }</a></td>
-								<td style="width: 43%;" class="tb"><a href="boardread?bno=${volist.boardNo }">${volist.commentContent }</a></td>
-								<td style="width: 25%;" class="tb">${volist.commentDate }</td>
-								<td style="width: 22%;" class="tb"></td>
+								<td style="width: 10%;" class="tb_s"><a href="memberCommentRead?bno=${volist.rCnt}">${volist.rCnt }</a></td>
+								<td style="width: 43%;" class="tb_s"><a href="boardread?bno=${volist.boardNo }">${volist.commentContent }</a></td>
+								<td style="width: 25%;" class="tb_s">${volist.commentDate }</td>
+								<td style="width: 22%;" class="tb_s"></td>
 							</tr>
 						</c:forEach>
 	                </c:if>
@@ -350,10 +355,10 @@
 	                <c:if test="${not empty memberboard}">
 		                <c:forEach items="${memberboard}" var="volist">
 							<tr class="table_content">
-								<td style="width: 10%;" class="tb"><a href="boardread?bno=${volist.boardNo}">${volist.boardNo }</a></td>
-								<td style="width: 43%;" class="tb"><a href="boardread?bno=${volist.boardNo }">${volist.boardTitle }</a></td>
-								<td style="width: 25%;" class="tb">${volist.boardDate }</td>
-								<td style="width: 22%;" class="tb">${volist.boardCount }</td>
+								<td style="width: 10%;" class="tb_s"><a href="boardread?bno=${volist.boardNo}">${volist.boardNo }</a></td>
+								<td style="width: 43%;" class="tb_s"><a href="boardread?bno=${volist.boardNo }">${volist.boardTitle }</a></td>
+								<td style="width: 25%;" class="tb_s">${volist.boardDate }</td>
+								<td style="width: 22%;" class="tb_s">${volist.boardCount }</td>
 							</tr>
 						</c:forEach>
 					</c:if>	
@@ -409,7 +414,7 @@
                     <li id="info_edit">프로필 정보 수정</li>
                     <li id="password_edit">비밀번호 변경</li>
                     <li id="content_list">내 콘텐츠 조회</li>
-                    <li id="program_list">예약 프로그램 조회</li>
+                    <li id="reservation_list">예약 프로그램 조회</li>
                     <li id="to_trainer">트레이너 계정 전환</li>
                     <li id="inquiry">1:1 문의</li>
                     <li id="secession">탈퇴하기</li>
@@ -427,10 +432,6 @@
 	$("#password_edit").click(function(){
 		location.href="memberupdatepassword";
 	})
-	$("#mp_logout").click(function(){
-		alert("로그아웃 되었습니다.");
-		location.href="logout";
-	})
 	$("#info_edit").click(function(){
 		location.href="memberupdateprofile";
 	})
@@ -439,6 +440,9 @@
 	})
 	$("#inquiry").click(function(){
 		location.href="memberinquiry";
+	})
+	$("#reservation_list").click(function(){
+		location.href="memberreadreservationlist";
 	})
 </script>
 <script>

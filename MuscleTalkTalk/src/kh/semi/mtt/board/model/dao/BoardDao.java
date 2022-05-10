@@ -245,14 +245,13 @@ public class BoardDao {
 	// 특정 회원이 작성한 게시물 리스트 조회 - 서유빈 작성
 	public ArrayList<BoardVo> readOneMemberBoard(Connection conn, int startRnum, int endRnum, String memberId) {
 		ArrayList<BoardVo> volist = null;
-		String sql = "select R, board_no, board_title, board_count, board_date, r_cnt "
-				+ "from (select rownum r, t1.* "
-				+ "from (select b1.*,(select count(*) "
-				+ "from tb_comment r1 where r1.board_no = b1.board_no) r_cnt "
-				+ "from tb_board b1 order by board_no desc) t1)tba "
-				+ "join tb_member tbm on tba.member_no = tbm.member_no "
-				+ "where r between ? and ? and member_id = ? order by r desc";
-		
+		String sql = "select R, board_no, board_title, board_count, board_date, r_cnt"
+				+ "				from (select rownum r, t1.*"
+				+ "				from (select b1.*,(select count(*)\r\n"
+				+ "				from tb_comment r1 where r1.board_no = b1.board_no) r_cnt"
+				+ "				from tb_board b1 order by board_date desc) t1)tba"
+				+ "				join tb_member tbm on tba.member_no = tbm.member_no"
+				+ "				where r between ? and ? and member_id = ?";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startRnum);		
@@ -284,7 +283,10 @@ public class BoardDao {
 	// 특정 회원이 작성한 댓글 리스트 조회 - 서유빈 작성
 		public ArrayList<CommentVo> readOneMemberComment(Connection conn, int startRnum, int endRnum, String memberId) {
 			ArrayList<CommentVo> volist = null;
-			String sql = "select r, comment_content, comment_date from (select t1.*, rownum r from (select c.comment_date, c.comment_content, c.comment_no from tb_comment c join tb_member m on c.member_no = m.member_no where member_id =?)t1)t2 where r between ? and ? order by r desc";
+			String sql = "select r, comment_content, comment_date"
+					+ "    from (select t1.*, rownum r from (select c.comment_date, c.comment_content, c.comment_no"
+					+ "    from tb_comment c join tb_member m on c.member_no = m.member_no"
+					+ "    where member_id =? order by comment_date desc )t1)t2 where r between ? and ?";
 			
 			try {
 				pstmt = conn.prepareStatement(sql);
@@ -308,7 +310,6 @@ public class BoardDao {
 				close(rs);
 				close(pstmt);
 			}
-			
 			return volist;
 		}
 

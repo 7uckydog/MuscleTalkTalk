@@ -3,18 +3,39 @@ package kh.semi.mtt.reservation.model.vo;
 import java.sql.Timestamp;
 
 public class ReservationVo {
+	private int rNo;
 	private int ptNo;
 	private int memberNo;
 	private String ptName;
 	private Timestamp ptCalendarStartTime;
 	private String ptCalendarReservationState;
+	private int ptCalendarNo;
 	
 	@Override
 	public String toString() {
-		return "ReservationVo [ptNo=" + ptNo + ", memberNo=" + memberNo + ", ptName=" + ptName
+		return "ReservationVo [rNo=" + rNo + ", ptNo=" + ptNo + ", memberNo=" + memberNo + ", ptName=" + ptName
 				+ ", ptCalendarStartTime=" + ptCalendarStartTime + ", ptCalendarReservationState="
-				+ ptCalendarReservationState + "]";
+				+ ptCalendarReservationState + ", ptCalendarNo=" + ptCalendarNo + "]";
 	}
+
+	
+	public int getPtCalendarNo() {
+		return ptCalendarNo;
+	}
+
+	public void setPtCalendarNo(int ptCalendarNo) {
+		this.ptCalendarNo = ptCalendarNo;
+	}
+
+	public int getrNo() {
+		return rNo;
+	}
+
+
+	public void setrNo(int rNo) {
+		this.rNo = rNo;
+	}
+
 
 	public int getPtNo() {
 		return ptNo;

@@ -317,7 +317,7 @@
                     <li id="info_edit">프로필 정보 수정</li>
                     <li id="password_edit">비밀번호 변경</li>
                     <li id="content_list">내 콘텐츠 조회</li>
-                    <li id="program_list">
+                    <li id="reservation_list">
                     	<c:if test="${ssMvo.memberTrainer == 'F'}">
                     		예약 프로그램 조회
                     	</c:if>
@@ -428,7 +428,7 @@
     	    							alert("오류 발생. 다시 시도해 주세요.")
     	    						}
     	    					},
-    	    					error: function(){
+    	    					error: function(result){
     	    						alert("ajax 오류 발생");
     	    					}
     	    				})
@@ -708,10 +708,6 @@
         $("#password_edit").click(function(){
         	location.href="memberupdatepassword";
         })
-        $("#mp_logout").click(function(){
-        	alert("로그아웃 되었습니다.");
-        	location.href="logout";
-        })
         $("#info_edit").click(function(){
         	location.href="memberupdateprofile";
         })
@@ -723,6 +719,9 @@
 		})
 		$("#p_button").click(function(){
 			document.all.file.click();
+		})
+		$("#reservation_list").click(function(){
+			location.href="memberreadreservationlist";
 		})
 	</script>
 
