@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import static kh.semi.mtt.common.jdbc.JdbcTemplate.*;
 
+import kh.semi.mtt.exercise.model.vo.ExerciseVo;
 import kh.semi.mtt.member.model.vo.MemberVo;
 import kh.semi.mtt.routine.model.vo.RoutineVo;
 import kh.semi.mtt.routineexercise.model.vo.RoutineExerciseVo;
@@ -83,6 +84,73 @@ public class RoutineDao {
 		System.out.println(result);
 		return result;
 		
+	}
+	
+	
+	public ArrayList<RoutineVo> myRoutineReadAll(Connection conn, MemberVo mvo){
+		ArrayList<RoutineVo> rvolist = null;
+		
+		String sql = "select tr.*,tre.*, te.exercise_name, te.exercise_Part "
+				+ "    from tb_routine tr, tb_member tm, tb_routine_exercise tre, tb_exercise te "
+				+ "    where tr.member_no = tm.member_no "
+				+ "    and tr.routine_no = tre.routine_no "
+				+ "	   and tre.exercise_no = te.exercise_no "
+				+ "	   and tm.member_no = ? ";
+		
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, mvo.getMemberNo());
+				
+				rs = pstmt.executeQuery();
+				if(rs != null) {
+					rvolist = new ArrayList<RoutineVo>();
+					while(rs.next()) {
+						RoutineVo rvo = new RoutineVo();
+						RoutineExerciseVo revo = new RoutineExerciseVo();
+						ExerciseVo evo = new ExerciseVo();
+						
+						rvo.setRoutineNo(rs.getInt("ROUTINE_NO"));
+						rvo.setMemberNo(rs.getInt("MEMBER_NO"));
+						rvo.setRoutineName(rs.getString("ROUTINE_NAME"));
+						rvo.setRoutineDisable(rs.getString("ROUTINE_DISABLE"));
+						rvo.setRoutineTarget(rs.getString("ROUTINE_TARGET"));
+						rvo.setRoutineContent(rs.getString("ROUTINE_CONTENT"));
+						rvo.setRoutineSetRestTime(rs.getInt("ROUTINE_SET_REST_TIME"));
+						rvo.setRoutineExerciseRestTime(rs.getInt("ROUTINE_EXERCISE_REST_TIME"));
+						
+						revo.setRoutineExerciseNo(rs.getInt("ROUTINE_EXERCISE_NO"));
+						revo.setExerciseNo(rs.getInt("EXERCISE_NO"));
+						revo.setRoutineExerciseDay(rs.getInt("routineExerciseDay"));
+						revo.setRoutineWeek(rs.getInt("routineWeek"));
+						revo.setRoutineDay(rs.getInt("routineDay"));
+						revo.setRoutineExerciseSet(rs.getInt("routineExerciseSet"));
+						revo.setRoutineExerciseRepeat(rs.getInt("routineExerciseRepeat"));
+						revo.setRoutineExerciseWeight(rs.getInt("routineExerciseWeight"));
+						revo.setRoutineExerciseCopy(rs.getString("routineExerciseCopy"));
+						
+						evo.setExerciseName(rs.getString("exerciseName"));
+						evo.setExerciseNo(rs.getInt("exerciseNo"));
+						evo.setExercisePart(rs.getString("exercisePart"));
+						
+						
+						
+					}
+					
+				}
+				
+				
+				
+				
+				
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		
+		
+		
+		
+		return rvolist;
 	}
 }
 
