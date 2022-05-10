@@ -254,7 +254,7 @@ a, a:visited, a:link{
 				<li id="li_4"><a href="adminnotice">공지사항 관리</a></li>
 				<li id="li_5"><a href="adminmember">회원 관리</a></li>
 				<li id="li_6">트레이너 관리</li>
-				<li id="li_7">문의 확인</li>
+				<li id="li_7"><a href="admininquiry">문의 확인</a></li>
 			</ul>
 		</div>
 	</section>

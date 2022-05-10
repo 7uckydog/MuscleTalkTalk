@@ -37,6 +37,7 @@ public class InquiryService {
 		conn = getConnection();
 		
 		int result = dao.insertInquiry(conn, memberNo, inqTitle, inqContent);
+		close(conn);
 		return result;
 	}
 	
@@ -46,10 +47,10 @@ public class InquiryService {
 		Connection conn = null;
 		conn = getConnection();
 				
-			int result = dao.countInquiry_member(conn, memberId);
-			close(conn);
-			return result;
-		}
+		int result = dao.countInquiry_member(conn, memberId);
+		close(conn);
+		return result;
+	}
 		
 	//문의전부읽기 이진정
 	public ArrayList<InquiryVo> readAllInquiry(int startRnum, int endRnum, String memberId){
@@ -57,6 +58,25 @@ public class InquiryService {
 		conn = getConnection();
 		
 		ArrayList<InquiryVo> result = dao.readAllInquiry(conn, startRnum, endRnum, memberId);
+		close(conn);
+		return result;
+	}
+	
+	//답변하기 이진정
+	public int answerInquiry( InquiryVo vo) {
+		Connection conn = null;
+		conn = getConnection();
+		
+		int result = dao.answerInquiry(conn, vo);
+		close(conn);
+		return result;
+	}
+	
+	//문의 갯수새기 (이진정)
+	public int countInquiry() {
+		Connection conn = null;
+		conn = getConnection();
+		int result = dao.countInquiry(conn);
 		close(conn);
 		return result;
 	}

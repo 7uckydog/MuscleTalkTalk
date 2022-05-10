@@ -22,8 +22,8 @@ public class InquiryDao {
 		sql="select r, inquiry_title, inquiry_content, inquiry_date "
 				+ "from (select t1.*, rownum r "
 				+ "from (select i.inquiry_title, i.inquiry_content, i.inquiry_date "
-				+ "from tb_inquiry i join tb_member m on i.member_no = m.member_no where member_id = ? order by inquiry_date desc)t1)t2 "
-				+ "where r between ? and ?";
+				+ "from tb_inquiry i join tb_member m on i.member_no = m.member_no where member_id = ?)t1)t2 "
+				+ "where r between ? and ? order by r desc";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, memberId);
@@ -79,6 +79,7 @@ public class InquiryDao {
 		int result = 0;
 		sql="insert into tb_inquiry (inquiry_no, member_no, inquiry_title, inquiry_content, inquiry_date, inquiry_check)"
 				+ " values ((select nvl(max(inquiry_no),0)+1 from tb_inquiry), ?, ?, ?, sysdate, default)";
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, memberNo);
@@ -125,9 +126,9 @@ public class InquiryDao {
 		ArrayList<InquiryVo> volist = null;
 		sql="select r, inquiry_title, inquiry_date, member_nickname, inquiry_check "
 				+ "				from (select t1.*, rownum r "
-				+ "				from (select i.inquiry_title, i.inquiry_date, m.member_nickname,inquiry_check "
+				+ "				from (select i.*, m.member_nickname "
 				+ "				from tb_inquiry i join tb_member m on i.member_no = m.member_no)t1)t2 "
-				+ "				where r between ? and ? order by r desc;";
+				+ "				where r between ? and ? order by r desc";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(2, endRnum);
@@ -137,7 +138,7 @@ public class InquiryDao {
 				volist = new ArrayList<InquiryVo>();
 				while(rs.next()) {
 					InquiryVo vo = new InquiryVo();
-					vo.setInquiryNo(rs.getInt("r"));
+					vo.setRownum(rs.getInt("r"));
 					vo.setInquiryTitle(rs.getString("inquiry_title"));
 					vo.setInquiryDate(rs.getDate("inquiry_date"));
 					vo.setInquiryCheck(rs.getString("inquiry_check"));
@@ -152,6 +153,41 @@ public class InquiryDao {
 			close(pstmt);
 		}
 		return volist;
+	}
+	
+	public int answerInquiry(Connection conn, InquiryVo vo) {
+		int result = 0;
+		String sql = "update tb_inquiry set INQUIRY_ANSWER = ?, inquiry_check = 't' where INQUIRY_NO = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "'"+vo.getInquiryAnswer()+"'");
+			pstmt.setInt(2, vo.getInquiryNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int countInquiry(Connection conn) {
+		int result = 0;
+		sql="select count(*) count from tb_inquiry";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt("count");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
 	}
 	
 }

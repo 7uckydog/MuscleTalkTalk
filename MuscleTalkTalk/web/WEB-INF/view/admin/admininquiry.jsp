@@ -1,5 +1,5 @@
 <%@ include file="/WEB-INF/view/csslink2.jsp" %>
-<%@page import="kh.semi.mtt.member.model.vo.MemberVo"%>
+<%@page import="kh.semi.mtt.inquiry.model.vo.InquiryVo"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -23,7 +23,7 @@ a, a:visited, a:link{
 	text-align: center;
 	padding-top: 12px;
 }
-#li_5 {
+#li_7 {
 	text-decoration: underline;
 }
 /* #memeber_main {
@@ -179,13 +179,13 @@ a, a:visited, a:link{
 </head>
 <body>
 	<%
-		MemberVo vo = (MemberVo) request.getAttribute("mvo");
+		InquiryVo vo = (InquiryVo)request.getAttribute("ivo");
 	%>
 	<%@ include file="/WEB-INF/view/template.jsp" %>
 	<section id="section1">
 		<div class="board_top">
 	
-			<div id="memeber_main">회원 관리</div>
+			<div id="memeber_main">문의 확인</div>
 			<div id="memeber_top_button">
 				<button onclick="location.href = 'memeberinsert';" id="write_btn">임시자리</button>
 			</div>
@@ -196,36 +196,41 @@ a, a:visited, a:link{
 			</tr>
 			<tr id="table_title">
 				<td class="first_col" style="width: 10%;"></td>
-				<td style="width: 15%;">회원명</td>
-				<td style="width: 15%;">회원번호</td>
-				<td style="width: 20%;">가입일</td>
-				<td style="width: 20%;">누적결제액(원)</td>
-				<td style="width: 20%;">누적신고횟수</td>
+				<td style="width: 35%;">제목</td>
+				<td style="width: 15%;">문의일</td>
+				<td style="width: 20%;">회원명</td>
+				<td style="width: 20%;">답변여부</td>
 			</tr>
 			<tr>
-				<td colspan="6" class="table_line"></td>
+				<td colspan="5" class="table_line"></td>
 			</tr>						 
-			<c:forEach var="vo" items="${memberreadall}">
+			<c:forEach var="vo" items="${inquiryreadall}">
 				<tr class="table_content">
 					<td>${vo.rownum}</td>
-					<td><a href="memberread?memeberNo=${vo.memberNo}">${vo.memberName }</a></td>
-					<td><a href="memberread?memeberNo=${vo.memberNo}">${vo.memberNo}</a></td>
-					<td>${vo.memberJoinDate}</td>
-					<td>${vo.sumPrice}</td>
-					<td>${vo.boardReportCnt}</td>
+					<td><a href="inquiryreadall?inquiryNo=${vo.inquiryNo}">${vo.inquiryTitle }</a></td>
+					<td>${vo.inquiryDate}</td>
+					<td>${vo.memberNickname}</td>
+					<td>
+						<c:if test="${vo.inquiryCheck == 'F'}">
+							N
+						</c:if>
+						<c:if test="${vo.inquiryCheck == 'T'}">
+							Y
+						</c:if>
+					</td>
 				</tr>
 			</c:forEach>
 		</table>
 		<div class="Pageing">
 			<p>
 				<c:if test="${startPage > 1 }">
-					<a class="Page" href="adminmember?page=${startPage-1 }">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<a class="Page" href="admininquiry?page=${startPage-1 }">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				</c:if>
 				<c:forEach begin="${startPage }" end="${endPage }" var="p">
-					<a class="Page" href="adminmember?page=${p }">${p }</a>&nbsp;&nbsp;&nbsp;&nbsp;
+					<a class="Page" href="admininquiry?page=${p }">${p }</a>&nbsp;&nbsp;&nbsp;&nbsp;
 				</c:forEach>
 				<c:if test="${endPage < totalPageCnt }">
-					<a class="Page" href="adminmember?page=${endPage+1 }">다음</a>
+					<a class="Page" href="admininquiry?page=${endPage+1 }">다음</a>
 				</c:if>
 			<p>
 		</div>

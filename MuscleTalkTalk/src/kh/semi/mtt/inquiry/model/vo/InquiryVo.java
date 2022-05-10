@@ -10,16 +10,16 @@ public class InquiryVo {
 	public String inquiryCheck;
 	public String inquiryAnswer;
 	public String memberNickname;
+	public int Rownum;
 	@Override
 	public String toString() {
 		return "InquiryVo [inquiryNo=" + inquiryNo + ", inquiryTitle=" + inquiryTitle + ", inquiryContent="
 				+ inquiryContent + ", inquiryDate=" + inquiryDate + ", inquiryCheck=" + inquiryCheck
-				+ ", inquiryAnswer=" + inquiryAnswer + ", memberNickname=" + memberNickname + "]";
-	}
-	public InquiryVo() {
+				+ ", inquiryAnswer=" + inquiryAnswer + ", memberNickname=" + memberNickname + ", Rownum=" + Rownum
+				+ "]";
 	}
 	public InquiryVo(int inquiryNo, String inquiryTitle, String inquiryContent, Date inquiryDate, String inquiryCheck,
-			String inquiryAnswer, String memberNickname) {
+			String inquiryAnswer, String memberNickname, int rownum) {
 		super();
 		this.inquiryNo = inquiryNo;
 		this.inquiryTitle = inquiryTitle;
@@ -28,6 +28,9 @@ public class InquiryVo {
 		this.inquiryCheck = inquiryCheck;
 		this.inquiryAnswer = inquiryAnswer;
 		this.memberNickname = memberNickname;
+		Rownum = rownum;
+	}
+	public InquiryVo() {
 	}
 	public int getInquiryNo() {
 		return inquiryNo;
@@ -71,6 +74,14 @@ public class InquiryVo {
 	public void setMemberNickname(String memberNickname) {
 		this.memberNickname = memberNickname;
 	}
+	public int getRownum() {
+		return Rownum;
+	}
+	public void setRownum(int rownum) {
+		Rownum = rownum;
+	}
+	
+	
 	
 	
 }
