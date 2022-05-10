@@ -79,10 +79,6 @@ public class MemberUpdateProfileDoController extends HttpServlet {
 		String memberPurposeStr = multi.getParameter("memberPurpose");
 		String memberConcernStr = multi.getParameter("memberConcern");
 		String memberFileName = multi.getFilesystemName("file");
-		System.out.println(memberFileName);
-		File cloudinaryFile = new File(uploadPath + "\\" + memberFileName);
-		Map uploadResult = cloudinary.uploader().upload(cloudinaryFile, ObjectUtils.emptyMap());
-		String memberPhoto = (String) uploadResult.get("url");
 		int memberAge = -1;
 		int memberHeight = -1;
 		int memberWeight = -1;
@@ -108,15 +104,20 @@ public class MemberUpdateProfileDoController extends HttpServlet {
 		vo.setMemberWeight(memberWeight);
 		vo.setMemberPurpose(memberPurpose);
 		vo.setMemberConcern(memberConcern);
-		vo.setMemberPhoto(memberPhoto);
 		int result = -1;
 		
-		if(memberBool == "true") {
+		if(memberBool.equals("true")) {
+			File cloudinaryFile = new File(uploadPath + "\\" + memberFileName);
+			Map uploadResult = cloudinary.uploader().upload(cloudinaryFile, ObjectUtils.emptyMap());
+			String memberPhoto = (String) uploadResult.get("url");
+			vo.setMemberPhoto(memberPhoto);
 			result = new MemberService().updateMember(vo);
-		} else if(memberBool == "false") {
+		} else if(memberBool.equals("false")) {
 			result = new MemberService().updateMember2(vo);
+			System.out.println("변경 후 " + vo.getMemberHeight());
 		}
 
+		
 		if(result == 0) {
 			System.out.println("회원정보 수정 실패");
 		} else {
@@ -124,7 +125,7 @@ public class MemberUpdateProfileDoController extends HttpServlet {
 			
 			request.getSession().removeAttribute("ssMvo");
 			request.getSession().setAttribute("ssMvo", Nvo);
-			System.out.println(Nvo.getMemberPhotoName());
+			System.out.println("되돌아가기 전 " + Nvo.getMemberHeight());
 		}
 		out.flush();
 		out.close();

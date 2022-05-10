@@ -13,7 +13,6 @@
 			alert(msgVal);
 			/* history.back(); */
 			location.replace(document.referrer);
-			return;
 		}
 	</script>
 </body>

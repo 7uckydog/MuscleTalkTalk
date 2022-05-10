@@ -36,9 +36,17 @@ public class LoginDoController extends HttpServlet {
 		} else {
 			System.out.println("로그인 성공");
 			request.getSession().setAttribute("ssMvo", vo);
-			request.setAttribute("location", "main");
-//			response.sendRedirect(request.getContextPath()+"/main");
-			request.getRequestDispatcher("WEB-INF/view/common/pageReplace.jsp").forward(request, response);
+			
+			String prevPage =request.getHeader("referer");
+			System.out.println("foController prevPage: " + prevPage);
+			
+			String prevPageUri = prevPage.substring(prevPage.lastIndexOf("/")+1);
+			System.out.println("prevPageUri:"+ prevPageUri);
+			if(prevPage == null || prevPageUri.equals("login")) prevPage=request.getContextPath()+"/";
+			
+			response.sendRedirect(prevPage);
+			//request.getRequestDispatcher("WEB-INF/view/common/pageReplace.jsp").forward(request, response);
+			
 		}
 	}
 

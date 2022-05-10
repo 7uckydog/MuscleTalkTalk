@@ -25,6 +25,9 @@ public class LoginController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		String prevPage = request.getHeader("referer");
+//		System.out.println("prevPage: "+prevPage);
+//		request.getSession().setAttribute("prevPage", prevPage);
 		request.getRequestDispatcher("WEB-INF/view/member/login.jsp").forward(request, response);
 	}
 }

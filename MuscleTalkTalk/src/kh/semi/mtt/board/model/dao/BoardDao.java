@@ -251,7 +251,7 @@ public class BoardDao {
 				+ "from tb_comment r1 where r1.board_no = b1.board_no) r_cnt "
 				+ "from tb_board b1 order by board_no desc) t1)tba "
 				+ "join tb_member tbm on tba.member_no = tbm.member_no "
-				+ "where r between ? and ? and member_id = ?";
+				+ "where r between ? and ? and member_id = ? order by r desc";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -263,7 +263,7 @@ public class BoardDao {
 				volist = new ArrayList<BoardVo>();
 				while (rs.next()) {
 					BoardVo vo = new BoardVo();
-					vo.setBoardNo(rs.getInt("BOARD_NO"));
+					vo.setBoardNo(rs.getInt("R"));
 					vo.setBoardTitle(rs.getString("BOARD_TITLE"));
 					vo.setBoardCount(rs.getInt("BOARD_COUNT"));
 					vo.setBoardDate(rs.getDate("BOARD_DATE"));

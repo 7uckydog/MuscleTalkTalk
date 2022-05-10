@@ -392,7 +392,12 @@
         </section>
         <section id="section2">
             <div>
-                <img id="prifile" src="${ssMvo.memberPhoto}">
+                <c:if test="${not empty ssMvo.memberPhoto}">
+	            	<img id="prifile" src="${ssMvo.memberPhoto}">
+	            </c:if>
+	            <c:if test="${empty ssMvo.memberPhoto}">
+	            	<img id="prifile" src="<%= request.getContextPath() %>/cssfolder/images/default_pf.png">
+	            </c:if>
                 <ul>
                     <li id="member_nickname">${ssMvo.memberNickname}</li>
                     <li id="member_id">${ssMvo.memberId}</li>

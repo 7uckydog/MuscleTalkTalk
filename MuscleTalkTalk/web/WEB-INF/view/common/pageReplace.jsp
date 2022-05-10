@@ -10,7 +10,8 @@
 	<script>
 		var locationVal = '${location}';
 		if(locationVal != '') {
-			location.replace('<%=request.getContextPath()%>/'+locationVal);
+			location.replace(locationVal);
+			/* history.go(-2); */
 		}
 	</script>
 </body>

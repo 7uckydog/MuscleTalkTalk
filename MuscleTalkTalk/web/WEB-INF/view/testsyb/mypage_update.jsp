@@ -265,7 +265,12 @@
  				<li class="info_menu">프로필 사진</li>
  				<li class="info_info">
  					<div id="p_all">
-						<img id="prifile" src="${ssMvo.memberPhoto}">
+						<c:if test="${not empty ssMvo.memberPhoto}">
+			            	<img id="prifile" src="${ssMvo.memberPhoto}">
+			            </c:if>
+			            <c:if test="${empty ssMvo.memberPhoto}">
+			            	<img id="prifile" src="<%= request.getContextPath() %>/cssfolder/images/default_pf.png">
+			            </c:if>
 	            		<input type="file" id="file" name="file" style="display:none" onchange="f_check(this)" accept="image/jpg, image/jpeg, image/png"> 
             		</div>
  				</li>
@@ -295,7 +300,12 @@
         </section>
         <section id="section2">
             <div>
-            	<img id="prifile" src="${ssMvo.memberPhoto}">
+            	<c:if test="${not empty ssMvo.memberPhoto}">
+            		<img id="prifile" src="${ssMvo.memberPhoto}">
+	            </c:if>
+	            <c:if test="${empty ssMvo.memberPhoto}">
+	            	<img id="prifile" src="<%= request.getContextPath() %>/cssfolder/images/default_pf.png">
+	            </c:if>
                 <ul>
                     <li id="member_nickname">${ssMvo.memberNickname}</li>
                     <li id="member_id">${ssMvo.memberId}</li>
