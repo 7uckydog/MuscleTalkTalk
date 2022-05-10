@@ -120,4 +120,39 @@ public class InquiryDao {
 		return result;
 	}
 	
+	
+	
+	public ArrayList<InquiryVo> readAllInquiry(Connection conn, int startRnum, int endRnum, String memberId){
+		ArrayList<InquiryVo> volist = null;
+		sql="select r, inquiry_title, inquiry_date, member_nickname, inquiry_check "
+				+ "				from (select t1.*, rownum r "
+				+ "				from (select i.inquiry_title, i.inquiry_date, m.member_nickname,inquiry_check "
+				+ "				from tb_inquiry i join tb_member m on i.member_no = m.member_no)t1)t2 "
+				+ "				where r between ? and ? order by r desc;";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(2, endRnum);
+			pstmt.setInt(1, startRnum);		
+			rs = pstmt.executeQuery();
+			if(rs != null) {
+				volist = new ArrayList<InquiryVo>();
+				while(rs.next()) {
+					InquiryVo vo = new InquiryVo();
+					vo.setInquiryNo(rs.getInt("r"));
+					vo.setInquiryTitle(rs.getString("inquiry_title"));
+					vo.setInquiryDate(rs.getDate("inquiry_date"));
+					vo.setInquiryCheck(rs.getString("inquiry_check"));
+					vo.setMemberNickname(rs.getString("member_nickname"));
+					volist.add(vo);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return volist;
+	}
+	
 }

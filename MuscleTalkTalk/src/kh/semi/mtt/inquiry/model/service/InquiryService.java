@@ -46,7 +46,17 @@ public class InquiryService {
 		Connection conn = null;
 		conn = getConnection();
 				
-		int result = dao.countInquiry_member(conn, memberId);
+			int result = dao.countInquiry_member(conn, memberId);
+			close(conn);
+			return result;
+		}
+		
+	//문의전부읽기 이진정
+	public ArrayList<InquiryVo> readAllInquiry(int startRnum, int endRnum, String memberId){
+		Connection conn = null;
+		conn = getConnection();
+		
+		ArrayList<InquiryVo> result = dao.readAllInquiry(conn, startRnum, endRnum, memberId);
 		close(conn);
 		return result;
 	}

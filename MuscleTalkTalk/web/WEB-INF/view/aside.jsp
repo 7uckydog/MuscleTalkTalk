@@ -11,7 +11,7 @@
                     </a>
                 </div>
                 <div>
-                    <a href="">
+                    <a href="calendar">
                         <img src="<%= request.getContextPath() %>/cssfolder/images/cal.png">
                         <p>캘린더</p>
                     </a>
