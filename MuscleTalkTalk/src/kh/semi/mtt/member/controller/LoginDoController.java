@@ -44,10 +44,17 @@ public class LoginDoController extends HttpServlet {
 			System.out.println("prevPageUri:"+ prevPageUri);
 			if(prevPage == null || prevPageUri.equals("login")) prevPage=request.getContextPath()+"/";
 			
-			response.sendRedirect(prevPage);
 			//request.getRequestDispatcher("WEB-INF/view/common/pageReplace.jsp").forward(request, response);
 			
+			if(vo.getMemberNo() < 11 ) {
+				response.sendRedirect("dashboard");
+//			request.getRequestDispatcher("WEB-INF/view/admin/dashboard.jsp").forward(request, response);
+			} else {
+				response.sendRedirect(prevPage);
+//			request.getRequestDispatcher("WEB-INF/view/main.jsp").forward(request, response);
+			}
 		}
+		
 	}
 
 }

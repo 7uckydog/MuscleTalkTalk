@@ -31,6 +31,15 @@ public class InquiryService {
 		return ivo;
 	}
 	
+	public InquiryVo readInquiryAdmin(String inquiryTitle, int inquiryNo) {
+		Connection conn = null;
+		conn = getConnection();
+		
+		InquiryVo ivo = dao.readInquiryAdmin(conn, inquiryNo);
+		close(conn);
+		return ivo;
+	}
+	
 	
 	public int insertInquiry(int memberNo, String inqTitle, String inqContent) {
 		Connection conn = null;

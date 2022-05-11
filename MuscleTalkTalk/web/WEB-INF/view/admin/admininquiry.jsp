@@ -207,7 +207,7 @@ a, a:visited, a:link{
 			<c:forEach var="vo" items="${inquiryreadall}">
 				<tr class="table_content">
 					<td>${vo.rownum}</td>
-					<td><a href="inquiryreadall?inquiryNo=${vo.inquiryNo}">${vo.inquiryTitle }</a></td>
+					<td><a href="admininquiryread?inquiryNo=${vo.inquiryNo}">${vo.inquiryTitle }</a></td>
 					<td>${vo.inquiryDate}</td>
 					<td>${vo.memberNickname}</td>
 					<td>
