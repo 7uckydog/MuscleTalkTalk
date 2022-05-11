@@ -139,4 +139,29 @@ public class PtCalendarDao {
 		}
 		return result;
 	}
+	
+	public int reviewReservation(Connection conn, int memberNo, int ptNo) {
+		int result = 0;
+		String sql = "select count(pt_calendar_no)  "
+				+ "from tb_pt_calendar  "
+				+ "where member_no = ? and pt_no = ?";
+
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memberNo);
+			pstmt.setInt(2, ptNo);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
 }

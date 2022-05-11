@@ -76,6 +76,41 @@
 				<p class="pt_read_content_text">${pVo.ptGymName }<br>${pVo.ptLocation }</p>
 			</div>
 			<hr>
+			<div id="pt_read_review_wrap">
+				<p id="pt_read_review_title">리뷰</p>
+				<c:forEach var="vo" items="${reviewVoList }">
+					<div class="pt_read_review_div">
+						<div class="pt_read_review_top">
+						<c:if test="${vo.memberPhoto == null }">
+							<div class="pt_read_review_default_pf"></div>
+						</c:if>
+						<c:if test="${vo.memberPhoto != null }">
+							<img class="pt_read_review_pf" src="${vo.memberPhoto}">
+						</c:if>
+							<div class="pt_read_review_member_info">
+								<div class="pt_read_review_member_name font_THEmpgtM font_12px">${vo.memberNickname }</div>
+								<div class="pt_read_review_regist_time font_THEmpgtM font_12px">2022-05-20 20:30:20</div>
+							</div>
+							<c:if test="${ssMvo.memberNo == vo.memberNo}">
+								<div class="pr_read_review_btns">
+									<button type="button" class="font_THEmpgtM font_12px">수정</button>
+									<button type="button" class="font_THEmpgtM font_12px">삭제</button>
+								</div>
+							</c:if>
+						</div>
+						<div class="pt_read_review_content font_THEmpgtM font_12px">12311231232312312</div>
+						<input type="hidden" class="pt_read_review_member_no" value="${vo.memberNo }">
+					</div>
+				</c:forEach>
+				<c:if test="${reviewOpen == 'true' }">
+					<div id="pt_read_review_write_div">
+						<div id="pt_read_review_write_title" class="font_THEmpgtM font_12px">리뷰 작성하기</div>
+						<button type="button" id="pt_read_review_write_btn" class="font_THEmpgtM font_12px">등록하기</button>
+						<br>
+						<textarea class="pt_write_textarea" name="pt_review" id="pt_review" cols="30" rows="10"></textarea>
+					</div>
+				</c:if>
+			</div>
 		</div>
 		<form name="update">
 			<input type="hidden" name="ptNo" id="pt_read_page_ptNo">
@@ -84,7 +119,12 @@
 <%@ include file="/WEB-INF/view/footer.jsp" %>
 <script type="text/javascript">
 	var blacklistMember = ${blacklistMember };
+	<c:if test="${empty ssMvo}">
+	var memberNo = 0;
+	</c:if>
+	<c:if test="${not empty ssMvo}">
 	var memberNo = ${ssMvo.memberNo};
+	</c:if>
 
 	$("#pt_read_page_reseration_btn").click(function() {
 		if(blacklistMember.includes(memberNo)) {
@@ -121,6 +161,29 @@
 		update.method = "post";
 		update.submit();
 	});
+	
+	$("#pt_read_review_write_btn").click(function() {
+		console.log("ptinsert.ax ajax로 호출");
+		 $.ajax({
+			url : 'ptinsert.ax',
+			type : 'post',
+			data : {
+				ptNo : ${pVo.ptNo},
+				memberNo : ${ssMvo.memberNo},
+				reviewContent : $("#pt_review").val()
+			},
+			success : function(result) {
+				console.log(result);
+			},
+			error : function(request, status, error) {
+				console.log(request);
+				console.log(status);
+				console.log(error);
+			}
+		});  
+	});
+	
+
 </script>
 </body>
 </html>

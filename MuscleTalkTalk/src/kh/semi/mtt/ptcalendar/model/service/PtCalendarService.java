@@ -57,4 +57,16 @@ public class PtCalendarService {
 		close(conn);
 		return result;
 	}
+	
+	public int reviewReservation(int memberNo, int ptNo) {
+		int result = 0;
+		Connection conn = null;
+		conn = getConnection();
+		
+		result = dao.reviewReservation(conn, memberNo, ptNo);
+		System.out.println("PtCalendarService reviewReservation()매소드 결과: " + result);
+		
+		close(conn);
+		return result;
+	}
 }

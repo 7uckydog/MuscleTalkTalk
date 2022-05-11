@@ -224,6 +224,7 @@ public class PtDao {
 				pVo.setPtGymName(rs.getString("GYM_NAME"));
 				pVo.setPtLocation(rs.getString("GYM_LOCATION"));
 				pVo.setPtTrainerName(rs.getString("MEMBER_NICKNAME"));
+				pVo.setPtDelete(rs.getString("pt_delete"));
 				
 				close(pstmt);
 				close(rs);
@@ -239,7 +240,6 @@ public class PtDao {
 					ptFilePath.add(rs.getString("PT_FILE"));
 				}
 				pVo.setPtFilePathList(ptFilePath);
-				pVo.setPtDelete(rs.getString("pt_delete"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -258,7 +258,7 @@ public class PtDao {
 				+ "	    from (select rownum r, t1.* "
 				+ "	    from (select tb_pt.pt_no, pt_name, pt_category ,pt_file, "
 				+ "			tb_member.member_nickname, pt_price, gym_location, favorite_cnt "
-				+ "			from tb_pt "
+				+ "			from (select * from tb_pt where pt_delete = 'F' ) tb_pt "
 				+ "			join (select * from tb_pt_file "
 				+ "			where pt_file_no in  "
 				+ "			(select min(pt_file_no) from tb_pt_file group by pt_no)) tbB "
@@ -277,11 +277,7 @@ public class PtDao {
 				+ "			order by tb_pt.pt_regist_date desc) t1) "
 				+ "	           where r between ? and ?";
 
-	    System.out.println("dao");
-	    System.out.println("startRnum" + startRnum);
-	    System.out.println("endRnum" + endRnum);
-	    System.out.println("memberNo" + memberNo);
-	    System.out.println("dao");
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, memberNo);
@@ -348,6 +344,7 @@ public class PtDao {
 				+ "				on tb_trainer.member_no = tb_member.member_no "
 				+ "				left outer join (select count(favorite_no) favorite_cnt, pt_no from tb_pt_favorite group by pt_no) tFcnt "
 				+ "				on tb_pt.pt_no = tFcnt.pt_no "
+				+ "				where pt_delete = 'F' "
 				+ "				order by tb_pt.pt_regist_date desc) t1) "
 				+ "                where r between ? and ?";
 	    
@@ -409,6 +406,7 @@ public class PtDao {
 				+ "    left outer join (select count(favorite_no) favorite_cnt, pt_no from tb_pt_favorite group by pt_no) tFcnt "
 				+ "	   on tb_pt.pt_no = tFcnt.pt_no "
 				+ "    where trainer_no = ? "
+				+ "	   and pt_delete= 'F' "
 				+ "    order by pt_regist_date desc) t1) "
 				+ "    where r between ? and ?";
 

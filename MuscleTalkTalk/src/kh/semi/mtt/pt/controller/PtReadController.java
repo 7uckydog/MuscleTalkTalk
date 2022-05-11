@@ -13,6 +13,9 @@ import kh.semi.mtt.blacklist.model.service.BlacklistService;
 import kh.semi.mtt.member.model.vo.MemberVo;
 import kh.semi.mtt.pt.model.service.PtService;
 import kh.semi.mtt.pt.model.vo.PtVo;
+import kh.semi.mtt.ptcalendar.model.service.PtCalendarService;
+import kh.semi.mtt.review.model.service.ReviewService;
+import kh.semi.mtt.review.model.vo.ReviewVo;
 
 /**
  * Servlet implementation class PtReadController
@@ -51,7 +54,11 @@ public class PtReadController extends HttpServlet {
 		}
 		String myPtPageChk = "N";
 		MemberVo mVo = (MemberVo) request.getSession().getAttribute("ssMvo");
+		boolean reviewOpen = false;
 		if(mVo != null) {
+			if(new PtCalendarService().reviewReservation(mVo.getMemberNo(), ptNo) != 0) {
+				reviewOpen = true;
+			}
 			if(mVo.getMemberTrainer().equals("T")) {
 				if(new PtService().myPt(mVo.getTrainerNo(), ptNo) != 0) {
 					myPtPageChk = "Y";
@@ -59,9 +66,12 @@ public class PtReadController extends HttpServlet {
 			}
 		}
 		ArrayList<Integer> blacklistMember = new BlacklistService().blacklistMember(ptNo);
+		ArrayList<ReviewVo> reviewVoList = new ReviewService().readReview(ptNo);
 		request.setAttribute("pVo", pVo);
 		request.setAttribute("blacklistMember", blacklistMember);
 		request.setAttribute("myPtPageChk", myPtPageChk);
+		request.setAttribute("reviewVoList", reviewVoList);
+		request.setAttribute("reviewOpen", reviewOpen);
 		request.getRequestDispatcher("WEB-INF/view/ptpage/ptread.jsp").forward(request, response);
 	}
 

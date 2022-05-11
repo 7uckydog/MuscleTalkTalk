@@ -1001,6 +1001,128 @@ a:visited {
 	line-height: 2;
 }
 
+#pt_read_review_title {
+	font-size: 15px;
+	font-family:'THEmpgtB';
+	width : 120px;
+	height : 30px;
+	margin-right: 40px;
+}
+.pt_read_review_div {
+	margin-left: 160px;
+	margin-bottom: 20px;
+}
+
+.pt_read_review_top {
+	height: 50px;
+}
+
+.pt_read_review_default_pf {
+	border: 1px solid gray;
+	display : inline-block;
+	width : 50px;
+	height : 50px;
+	border-radius: 50%;
+	background-color: gray;
+	margin-right: 10px;
+}
+
+.pt_read_review_pf {
+	border: 1px solid gray;
+	display : inline-block;
+	width : 50px;
+	height : 50px;
+	border-radius: 50%;
+	margin-right: 10px;
+	background-size : contain;
+	background-position : center;
+}
+
+.pt_read_review_member_info {
+	display: inline-block;
+	height : 50px;
+	width : 130px;
+	padding: 5px 0;
+	vertical-align: top;
+}
+.pt_read_review_member_name {
+	height: 20px;
+	line-height: 20px;
+}
+.pt_read_review_regist_time {
+	height: 20px;
+	line-height: 20px;
+}
+
+.pt_read_review_content {
+	margin-top: 5px;
+	margin-left: 60px;
+}
+
+#pt_read_review_write_div {
+	margin-left: 160px;
+}
+
+#pt_read_review_write_title {
+	display : inline-block;
+	width: 100px;
+}
+
+#pt_read_review_write_btn {
+	border: 1px solid #4B4DB2;
+	margin-left: 262px;
+	width: 55px;
+	height: 30px;
+	line-height: 28px;
+	color: white;
+	background-color: #4B4DB2;
+	cursor: pointer;
+}
+
+#pt_read_review_write_btn:hover {
+	color: #4B4DB2;
+	background-color: white;
+}
+
+#pt_read_review_write_div textarea {
+	margin-top : 5px;
+	outline: none;
+}
+
+#pt_read_review_write_div textarea:focus {
+	border: 1px solid rgba(75, 77, 178, 1);
+}
+
+.pr_read_review_btns {
+	display: inline-block;
+	width: 130px;
+	margin-left: 95px;
+}
+
+.pr_read_review_btns button {
+	margin-left: 10px;
+	border: 1px solid #4B4DB2;
+	width: 55px;
+	height: 30px;
+	line-height: 28px;
+	color: white;
+	background-color: #4B4DB2;
+	cursor: pointer;
+}
+
+.pr_read_review_btns button:hover {
+	color: #4B4DB2;
+	background-color: white;
+}
+
+
+.font_THEmpgtM {
+	font-family:'THEmpgtM';
+}
+
+.font_12px {
+	font-size: 12px;
+}
 #pt_reservation_time_info_modal_div {
 	z-index: 2;
 	background-color: rgba(128, 128, 128, 0.356);
