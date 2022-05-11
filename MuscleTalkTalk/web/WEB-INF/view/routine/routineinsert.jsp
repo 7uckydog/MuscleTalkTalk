@@ -76,7 +76,7 @@ button {
 }
 
 .routine_week {
-	margin-left: 124px;
+	margin-left: 125px;
 }
 
 .routine_day {
@@ -108,7 +108,7 @@ button {
 }
 
 .routine_weekSelect {
-	margin-left: 10px;
+	margin-left: 12px;
 	width: 163.5px;
 	height: 30px;
 	border-radius: 5px;
@@ -116,7 +116,7 @@ button {
 }
 
 .routine_daySelect {
-	margin-left: 12px;
+	margin-left: 11px;
 	width: 163.5px;
 	height: 30px;
 	border-radius: 5px;
@@ -184,7 +184,7 @@ button {
 /* input[type=radio]:nth-of-type(1):checked */
 .dayroutine_tagetSelect {
 	display: none;
-	margin-left: 227.5px;
+	margin-left: 223px;
 	width: 163.5px;
 	height: 30px;
 	border-radius: 5px;
@@ -193,7 +193,7 @@ button {
 
 .routine_taget2 {
 	display: none;
-	margin-left: 403px;
+	margin-left: 397.5px;
 }
 
 .dayroutine_daySelect {
@@ -207,7 +207,7 @@ button {
 
 .routine_day2 {
 	display: none;
-	margin-left: 127.5px;
+	margin-left: 128px;
 }
 
 .active {
@@ -269,17 +269,8 @@ button {
 	margin-left: 92px;
 }
 
-.week_import {
-	margin-left: 96px;
-}
 
-.week_import_Select {
-	width: 163.5px;
-	height: 30px;
-	margin-left: 12px;
-	border-radius: 5px;
-	border: gray solid 1px;
-}
+
 
 .workout_main {
 	margin: 45px 65px 0 65px;
@@ -666,7 +657,6 @@ border-left: 0px !important;
 					<option value="3주차">3주차</option>
 					<option value="4주차">4주차</option>
 					<option value="5주차">5주차</option>
-					<option value="6주차">6주차</option>
 				</select> <select name="routine_dayName" class="routine_daySelect">
 					<option value="none" selected hidden>요일 선택</option>
 					<option value="월">월</option>
@@ -689,8 +679,8 @@ border-left: 0px !important;
 			</div>
 			<div class="taget_timeDiv">
 				<span class="taget_btn">운동 부위 선택</span> <span class="set_time_title">세트별
-					휴식시간</span> <span class="set_time_title2">운동별 휴식시간</span> <span
-					class="week_import">N주차 불러오기</span>
+					휴식시간</span> <span class="set_time_title2">운동별 휴식시간</span> 
+
 				<div class="taget_sort">
 					<input type="checkbox" name="taget_sort" value="B" id="taget_value1"> <input
 						type="checkbox" name="taget_sort" value="C" id="taget_value2"> <input
@@ -714,14 +704,7 @@ border-left: 0px !important;
 						value='+'> <input type="text" name="worktime" maxlength="4"
 						id='count_settime2' value="0초"> <input type='button'
 						class="set_timedawn2" onclick='count2("minus2")' value='-'>
-					<select name="week_import_Select" class="week_import_Select">
-						<option value="1주차">1주차</option>
-						<option value="2주차">2주차</option>
-						<option value="3주차">3주차</option>
-						<option value="4주차">4주차</option>
-						<option value="5주차">5주차</option>
-						<option value="6주차">6주차</option>
-					</select>
+
 				</div>
 				<div class="taget_sort">
 					<button type="button" name="taget_sort" class="taget_value" value="A">복근</button>
@@ -1350,6 +1333,7 @@ border-left: 0px !important;
 	    	    	success:function(result){
 	    	    		console.log(result);
 	    	    		alert("루틴이 생성되었습니다.");
+	    	    		location.href = "myroutinelistall";
 	    	    	},
 	    	    	error:{
 	    	    		
@@ -1378,7 +1362,13 @@ border-left: 0px !important;
             // $(".workoutSettingTr").eq(length - 1).after($(".workoutSettingTr").eq(length - 1).remove());
             // }
         });
-        
+        $(".day_routinecreat").on("click",function(){
+        	$(".week_routinecreat").hide();
+        });
+        $(".week_routinecreat").on("click",function(){
+        	$(".day_routinecreat").hide();
+        	$(".week_routinecreat").css({"margin-left": "585px"});
+        });
         
         
             

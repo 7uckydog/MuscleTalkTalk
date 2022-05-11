@@ -53,6 +53,7 @@ public class RoutineInsertAjaxController extends HttpServlet {
 			String aww[] = request.getParameterValues("addworkoutweight"); // 무게
 			String rw[] = request.getParameterValues("addworkoutDayweekinput"); // 주차 - 1주차 2주차..
 			String rd[] = request.getParameterValues("addworkDay"); // 요일 - 월 화...
+//			String od[] = request.getParameterValues("addworkoutoneDay"); // day1..day2..
 			String st = request.getParameter("settime"); // 세트시간
 			String wt = request.getParameter("worktime"); // 운동시간
 			String tg = request.getParameter("routine_tagetName"); // 루틴목표 - 다이어트, 근비대...
@@ -63,7 +64,11 @@ public class RoutineInsertAjaxController extends HttpServlet {
 			ArrayList<Integer> awwInt = new ArrayList<Integer>();
 			ArrayList<Integer> rwInt = new ArrayList<Integer>();
 			ArrayList<Integer> rdInt = new ArrayList<Integer>();
+			ArrayList<Integer> odInt = new ArrayList<Integer>();
 			try {
+//				for(String tempStr : od) {
+//					odInt.add(Integer.parseInt(tempStr.substring(3, 4)));
+//				}
 				
 				for(String tempStr : arr) {
 					arrInt.add(Integer.parseInt(tempStr.substring(0, tempStr.length()-2)));
@@ -134,6 +139,7 @@ public class RoutineInsertAjaxController extends HttpServlet {
 			System.out.println(awnStr);
 			System.out.println(awsInt);
 			System.out.println(awwInt);
+			System.out.println(odInt);
 			
 			RoutineVo routineVo = new RoutineVo();
 			routineVo.setRoutineName(rnb);

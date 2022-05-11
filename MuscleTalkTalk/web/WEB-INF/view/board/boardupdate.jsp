@@ -172,8 +172,13 @@ button {
 	font-size: 12px;
 }
 .btn_delete{
-	width: 60px;
-	height: 30px
+	width: 100px;
+	height: 30px;
+	float: right;
+	margin-right: 65px;
+	color: #4B4DB2;
+	background-color: white;
+	border: 1px solid #4B4DB2;
 }
 </style>
 

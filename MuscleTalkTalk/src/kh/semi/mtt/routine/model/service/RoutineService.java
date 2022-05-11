@@ -2,6 +2,7 @@ package kh.semi.mtt.routine.model.service;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Map;
 
 import static kh.semi.mtt.common.jdbc.JdbcTemplate.*;
 
@@ -23,4 +24,25 @@ public class RoutineService {
 		
 		return result;
 	}
+	
+	
+	public Map<String, Object> myRoutineReadAll(MemberVo mvo){
+		
+		Connection conn = null;
+		conn = getConnection();
+		
+		Map<String, Object> result = dao.myRoutineReadAll(conn, mvo);
+		close(conn);
+		
+		return result;
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
 }

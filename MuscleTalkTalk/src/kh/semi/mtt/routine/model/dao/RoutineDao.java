@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static kh.semi.mtt.common.jdbc.JdbcTemplate.*;
 
@@ -61,7 +63,7 @@ public class RoutineDao {
 		
 			
 			for(int i = 0; i < rouExerVoList.size(); i++) {
-				pstmt.setString(5+i*6, rouExerVoList.get(i).getExerciseName());      // 운동번호 notnull
+				pstmt.setString(5+i*6, rouExerVoList.get(i).getExerciseName());      // 운동이름 notnull
 				pstmt.setInt(6+i*6, rouExerVoList.get(i).getRoutineExerciseDay());  // 운동요일 notnull
 				pstmt.setInt(7+i*6, rouExerVoList.get(i).getRoutineWeek());  // 루틴수행주차
 //				pstmt.setInt(8+i*6, rouExerVoList.get(i).getRoutineDay());   //  루틴수행n번째일 지금만 막아놈
@@ -87,8 +89,11 @@ public class RoutineDao {
 	}
 	
 	
-	public ArrayList<RoutineVo> myRoutineReadAll(Connection conn, MemberVo mvo){
+	public Map<String, Object> myRoutineReadAll(Connection conn, MemberVo mvo){
 		ArrayList<RoutineVo> rvolist = null;
+		ArrayList<RoutineExerciseVo> revolist = null;
+		ArrayList<ExerciseVo> evolist = null;
+		Map<String, Object> resultMap = new HashMap<String, Object>();
 		
 		String sql = "select tr.*,tre.*, te.exercise_name, te.exercise_Part "
 				+ "    from tb_routine tr, tb_member tm, tb_routine_exercise tre, tb_exercise te "
@@ -104,6 +109,8 @@ public class RoutineDao {
 				rs = pstmt.executeQuery();
 				if(rs != null) {
 					rvolist = new ArrayList<RoutineVo>();
+					revolist = new ArrayList<RoutineExerciseVo>();
+					evolist = new ArrayList<ExerciseVo>();
 					while(rs.next()) {
 						RoutineVo rvo = new RoutineVo();
 						RoutineExerciseVo revo = new RoutineExerciseVo();
@@ -120,38 +127,45 @@ public class RoutineDao {
 						
 						revo.setRoutineExerciseNo(rs.getInt("ROUTINE_EXERCISE_NO"));
 						revo.setExerciseNo(rs.getInt("EXERCISE_NO"));
-						revo.setRoutineExerciseDay(rs.getInt("routineExerciseDay"));
-						revo.setRoutineWeek(rs.getInt("routineWeek"));
-						revo.setRoutineDay(rs.getInt("routineDay"));
-						revo.setRoutineExerciseSet(rs.getInt("routineExerciseSet"));
-						revo.setRoutineExerciseRepeat(rs.getInt("routineExerciseRepeat"));
-						revo.setRoutineExerciseWeight(rs.getInt("routineExerciseWeight"));
-						revo.setRoutineExerciseCopy(rs.getString("routineExerciseCopy"));
+						revo.setRoutineExerciseDay(rs.getInt("ROUTINE_EXERCISE_DAY"));
+						revo.setRoutineWeek(rs.getInt("ROUTINE_WEEK"));
+						revo.setRoutineDay(rs.getInt("ROUTINE_DAY"));
+						revo.setRoutineExerciseSet(rs.getInt("ROUTINE_EXERCISE_SET"));
+						revo.setRoutineExerciseRepeat(rs.getInt("ROUTINE_EXERCISE_REPEAT"));
+						revo.setRoutineExerciseWeight(rs.getInt("ROUTINE_EXERCISE_WEIGHT"));
+						revo.setRoutineExerciseCopy(rs.getString("ROUTINE_EXERCISE_COPY"));
 						
-						evo.setExerciseName(rs.getString("exerciseName"));
-						evo.setExerciseNo(rs.getInt("exerciseNo"));
-						evo.setExercisePart(rs.getString("exercisePart"));
+						evo.setExerciseName(rs.getString("EXERCISE_NAME"));
+						evo.setExerciseNo(rs.getInt("EXERCISE_NO"));
+						evo.setExercisePart(rs.getString("EXERCISE_PART"));
 						
 						
-						
+						rvolist.add(rvo);
+						revolist.add(revo);
+						evolist.add(evo);
 					}
 					
+					resultMap.put("rvolist", rvolist);
+					resultMap.put("revolist", revolist);
+					resultMap.put("evolist", evolist);
+					//ArrayList<RoutineVo> test = (ArrayList<RoutineVo>)resultMap.get("rvolist");
 				}
-				
-				
-				
 				
 				
 			}catch (Exception e) {
 				e.printStackTrace();
+			}finally {
+				close(rs);
+				close(pstmt);
 			}
-			
-		
-		
-		
-		
-		return rvolist;
-	}
+			return resultMap;
+		}
+	
+	
+	
+	
+	
+	
 }
 
 

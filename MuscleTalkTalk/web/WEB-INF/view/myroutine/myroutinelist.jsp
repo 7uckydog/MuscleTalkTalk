@@ -10,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>내 루틴보기</title>
-    <link href="./css/reset.css" rel="stylesheet"> 
+<!--     <link href="./css/reset.css" rel="stylesheet">  -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     
     <style>
@@ -48,8 +48,8 @@
             display: inline-block;
             margin-bottom: 10px;
             font-size: 15px;
-            margin-right: 65px;
             width: 800px;
+            margin-right: 65px;
         }
         .createRoutineDiv{
             height: auto;
@@ -87,6 +87,7 @@
             width: 632px;
             box-sizing: border-box;
             display: inline-block;
+       	    margin-bottom: 10px;
         }
         .myRoutineListTable th,td {
             width: 158px;
@@ -263,7 +264,7 @@
             line-height: 28px;
         }
         #modal_RoutineMemo{
-            margin-top: 20px;
+            margin-top: 30px;
             margin-left: 155px;
             width: 640px;
             height: 80px;
@@ -326,8 +327,27 @@
     
 </head>
 <body bgcolor=" #ECECEC">
-
+<c:forEach var="i" begin="0" end="${rvolist.size()-1 }" step="1">
+${rvolist.get(i).routineName }
+</c:forEach>
+<hr>
+<c:forEach var="i" begin="1" end="${rvolist.size() }" step="1">
+${rvolist.get(rvolist.size() - 1).routineName }
+</c:forEach>
+<hr>
+${rvolist.get(revolist.size() - 1) }
+<hr>
+${rvolist.size() }
+<hr>
+${rvolist.get(3) }
+<hr>
+${revolist.get(revolist.size() - 1).routineWeek }
 	<%@ include file="/WEB-INF/view/template.jsp"%>
+	
+<%-- 	<c:if test="${empty ssMvo}">
+   		<jsp:forward page="/WEB-INF/view/member/login.jsp"></jsp:forward>
+	</c:if> --%>
+
 
     <section>
         <div id="board_main">
@@ -340,29 +360,50 @@
             <p>루틴명</p><p>목표</p><p>기간</p><p>구분</p>
         </div>
         <div class="myRoutineListTableDiv">
-            <table class="myRoutineListTable">
-                <tr>
-                    <th class="routineview">박재민의 파워루틴</th>
-                    <td>근비대</td>
-                    <td>4주</td>
-                    <td>주간</td>
-                </tr>
-            </table>
-            <p class="DeleteP">삭제하기</p>
+        		<%-- <c:forEach var="i" begin="0" end="${rvolist.size()-1 }" step="1">
+	              <table class="myRoutineListTable">
+		                <tr>
+		                    <th class="routineview">${rvolist.get(i).routineName }</th>
+		                    <c:if test="${rvolist.get(i).routineTarget == 'N'}">
+		                    	<td class="td_routineTarget">전체</td>
+		                    </c:if>
+		                    <c:if test="${rvolist.get(i).routineTarget == 'M'}">
+		                    	<td class="td_routineTarget">근비대</td>
+		                    </c:if>
+		                    <c:if test="${rvolist.get(i).routineTarget == 'D'}">
+		                    	<td class="td_routineTarget">다이어트</td>
+		                    </c:if>
+		                    <c:if test="${rvolist.get(i).routineTarget == 'S'}">
+		                    	<td class="td_routineTarget">스트랭스</td>
+		                    </c:if>
+		                    <c:if test="${rvolist.get(i).routineTarget == 'B'}">
+		                    	<td class="td_routineTarget">맨몸운동</td>
+		                    </c:if>
+		                    <td>${voList.get(i).routineWeek }주</td>
+		                    <c:if test="${empty voList.get(i).routineWeek }">
+		                    	<td class="td_routineTarget">일간</td>
+		                    </c:if>
+		                    <c:if test="${not empty voList.get(i).routineWeek }">
+		                    	<td class="td_routineTarget">주간</td>
+		                    </c:if>
+		                </tr>
+	          	  </table> 
+            		<p class="DeleteP">삭제하기</p>
+            	</c:forEach> --%>
         </div>
+        
         <script type="text/javascript">
         	$(".routineview").click(function() {
 				console.log("루틴뷰누름")
+				console.log(myroutinelist)
 				$.ajax({
 					url:"myroutineread",
 					
 				});
 			});
-        	
-        	
-        	
-        	
+        		
         </script>
+        
         <div class="routine_modal">
             <div class="modal_content">
                 <!-- 모달창내용작성 -->
@@ -442,6 +483,9 @@
     	<%@ include file="/WEB-INF/view/footer.jsp"%>
 
     <script>
+
+    $(".td_routineTarget").text();
+    
         $("#member_icon_img").mouseenter(function(event){
             // console.log(event);
             $("#member_icon_menu").fadeIn("fast");
@@ -493,49 +537,181 @@
             $(this).remove();
         });
 
-        //루틴상세보기 모달 이벤트
-        $(function(){ //모달
-            // const eleModal = document.getElementsByClassName("modal")[0];
-            const eleModal = document.querySelector(".routine_modal");
-            const bagModal = document.querySelector(".modal");
-
-            function openModalHandler(){
-                bagModal.style.display ="block";
-                eleModal.style.display ="block";
-            };        
-            function closeModalHandler(){
-                bagModal.style.display ="none";
-                eleModal.style.display ="none";
-            };
-            function closeModalWindowHandler(){
-            	console.log(this);
-                console.log(event.target);
-                if(event.target == this){
-                    bagModal.style.display ="none";
-                    eleModal.style.display ="none";
-                   console.log(this);
-                   console.log(event.target);
-                }
-            }
-            // 안됨 css속성 쓸수 없음. html tag속성가능 document.getElementsByClassName("modal")[0].display = "block";
-            document.querySelector(".routineview").addEventListener("click",openModalHandler);
-            document.querySelector(".btn_closeX").addEventListener("click",closeModalHandler); 
-            // document.querySelector(".report_modal").addEventListener("click",closeModalWindowHandler);
-            document.querySelector(".modal").addEventListener("click",closeModalWindowHandler);
-            $(".report_ok").click(function(){
-                eleModal.style.display="none"
-                bagModal.style.display ="none"
-                alert("신고되었습니다")
-            });
-            $(".report_cancel").click(function(){
-                eleModal.style.display="none"
-                bagModal.style.display ="none"
-            })
-
-        });
+        
 
 
 
     </script>
+    <script type="text/javascript">
+	var voList = [];
+	<c:forEach var="i" begin="0" end="${rvolist.size()-1 }" step="1">
+	console.log(${rvolist.get(i).routineNo});
+		var vo = {
+				routineNo : ${rvolist.get(i).routineNo},
+				memberNo : ${rvolist.get(i).memberNo},
+				routineName : "${rvolist.get(i).routineName}",
+				routineDisable : "${rvolist.get(i).routineDisable}",
+				routineTarget : "${rvolist.get(i).routineTarget}",
+				routineContent : "${rvolist.get(i).routineContent}",
+				routineSetRestTime : ${rvolist.get(i).routineSetRestTime},
+				routineExerciseRestTime : ${rvolist.get(i).routineExerciseRestTime},
+				
+				routineExerciseNo : ${revolist.get(i).routineExerciseNo},
+				exerciseNo : ${revolist.get(i).exerciseNo},
+				routineExerciseDay : ${revolist.get(i).routineExerciseDay},
+				routineWeek : ${revolist.get(i).routineWeek},
+				routineDay : ${revolist.get(i).routineDay},
+				routineExerciseSet : ${revolist.get(i).routineExerciseSet},
+				routineExerciseRepeat : ${revolist.get(i).routineExerciseRepeat},
+				routineExerciseWeight : ${revolist.get(i).routineExerciseWeight},
+				routineExerciseCopy : "${revolist.get(i).routineExerciseCopy}",
+				
+				exerciseName : "${evolist.get(i).exerciseName}",
+				exerciseNo : ${evolist.get(i).exerciseNo},
+				exercisePart : "${evolist.get(i).exercisePart}"
+				};
+		
+		voList.push(vo);
+	</c:forEach>
+    console.log(voList);
+    
+    $(function() {
+    	var tableIndex = 0;
+    	if(voList.length != 0) {
+			$(".myRoutineListTableDiv").append('<table class="myRoutineListTable"></table>');
+			var routineTarget;
+			switch (voList[tableIndex].routineTarget) {
+			case 'N':
+				routineTarget = '전체';
+				break;
+			case 'M':
+				routineTarget = '근비대';
+				break;
+			case 'D':
+				routineTarget = '다이어트';
+				break;
+			case 'S':
+				routineTarget = '스트랭스';
+				break;
+			case 'B':
+				routineTarget = '맨몸운동';
+				break;
+
+			default:
+				break;
+			}
+			var routineDayWeek;
+			if(voList[tableIndex].routineDay == 0) {
+				routineDayWeek = '주간';
+			} else {
+				routineDayWeek = '일간';
+			}
+			var htmlText = '<tr><th class="routineview">'+ voList[tableIndex].routineName +'</th>';
+			htmlText += '<td class="td_routineTarget">'+routineTarget+'</td>';
+			htmlText += '<td class="td_routine_duration"></td>';
+			htmlText += '<td class="td_routine_day_week">'+routineDayWeek+'</td>';
+			htmlText += '</tr>';
+			$(".myRoutineListTable").eq(tableIndex).append(htmlText);
+			$(".myRoutineListTable").eq(tableIndex).after('<p class="DeleteP">'+"삭제하기"+'</p>');
+    	} else {
+    		return;
+    	}
+    	
+		var voListIndex = 0;
+		var prevTemp = voList[0].routineNo;
+		var currTemp = -1;
+		while(true) {
+			currTemp = voList[voListIndex].routineNo;
+			if(prevTemp != currTemp) {
+				if($('.td_routine_day_week').eq(tableIndex).text() == '주간') {
+					$('.td_routine_duration').eq(tableIndex++).text(voList[voListIndex - 1].routineWeek + '주');
+				} else {
+					$('.td_routine_duration').eq(tableIndex++).text(voList[voListIndex - 1].routineDay + '일');
+				}
+				$(".myRoutineListTableDiv").append('<table class="myRoutineListTable"></table>');
+				var routineTarget;
+				switch (voList[tableIndex].routineTarget) {
+				case 'N':
+					routineTarget = '전체';
+					break;
+				case 'M':
+					routineTarget = '근비대';
+					break;
+				case 'D':
+					routineTarget = '다이어트';
+					break;
+				case 'S':
+					routineTarget = '스트랭스';
+					break;
+				case 'B':
+					routineTarget = '맨몸운동';
+					break;
+
+				default:
+					break;
+				}
+				var routineDayWeek;
+				if(voList[tableIndex].routineDay == 0) {
+					routineDayWeek = '주간';
+				} else {
+					routineDayWeek = '일간';
+				}
+				var htmlText = '<tr><th class="routineview">'+ voList[voListIndex].routineName +'</th>';
+				htmlText += '<td class="td_routineTarget">'+routineTarget+'</td>';
+				htmlText += '<td class="td_routine_duration"></td>';
+				htmlText += '<td class="td_routine_day_week">'+routineDayWeek+'</td>';
+				htmlText += '</tr>';
+				$(".myRoutineListTable").eq(tableIndex).append(htmlText);
+				$(".myRoutineListTable").eq(tableIndex).after('<p class="DeleteP">'+"삭제하기"+'</p>');
+			}
+			
+			voListIndex++;
+			prevTemp = currTemp;
+			if(voListIndex == voList.length) {
+				if($('.td_routine_day_week').eq(tableIndex).text() == '주간') {
+					$('.td_routine_duration').eq(tableIndex++).text(voList[voListIndex - 1].routineWeek + '주');
+				} else {
+					$('.td_routine_duration').eq(tableIndex++).text(voList[voListIndex - 1].routineDay + '일');
+				}
+				break;
+			}
+		}
+	});
+  //루틴상세보기 모달 이벤트
+    $(function(){ //모달
+        // const eleModal = document.getElementsByClassName("modal")[0];
+        const eleModal = document.querySelector(".routine_modal");
+        const bagModal = document.querySelector(".modal");
+
+        function openModalHandler(){
+            bagModal.style.display ="block";
+            console.log("클릭이벤트")
+            eleModal.style.display ="block";
+        };        
+        function closeModalHandler(){
+            bagModal.style.display ="none";
+            eleModal.style.display ="none";
+        };
+        function closeModalWindowHandler(){
+        	console.log(this);
+            console.log(event.target);
+            if(event.target == this){
+                bagModal.style.display ="none";
+                eleModal.style.display ="none";
+               console.log(this);
+               console.log(event.target);
+            }
+        }
+        // 안됨 css속성 쓸수 없음. html tag속성가능 document.getElementsByClassName("modal")[0].display = "block";
+        document.querySelector(".routineview").addEventListener("click",openModalHandler);
+        document.querySelector(".btn_closeX").addEventListener("click",closeModalHandler); 
+        // document.querySelector(".report_modal").addEventListener("click",closeModalWindowHandler);
+        document.querySelector(".modal").addEventListener("click",closeModalWindowHandler);
+
+
+    });
+
+
+	</script>
 </body>
 </html>
