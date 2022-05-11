@@ -46,6 +46,9 @@ public class PtReadController extends HttpServlet {
 		}
 		PtVo pVo = new PtService().readPt(ptNo);
 		System.out.println("/ptread pVo 결과:: " + pVo);
+		if(pVo.getPtDelete().equals("T")) {
+			response.sendRedirect("ptlist");
+		}
 		String myPtPageChk = "N";
 		MemberVo mVo = (MemberVo) request.getSession().getAttribute("ssMvo");
 		if(mVo != null) {

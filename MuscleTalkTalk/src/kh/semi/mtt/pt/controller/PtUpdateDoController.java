@@ -1,0 +1,148 @@
+package kh.semi.mtt.pt.controller;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
+import kh.semi.mtt.member.model.vo.MemberVo;
+import kh.semi.mtt.pt.model.service.PtService;
+import kh.semi.mtt.pt.model.vo.PtVo;
+
+/**
+ * Servlet implementation class PtUpdateDoController
+ */
+@WebServlet("/ptupdate.do")
+public class PtUpdateDoController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public PtUpdateDoController() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		// TODO Auto-generated method stub
+//		response.getWriter().append("Served at: ").append(request.getContextPath());
+//	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
+				"cloud_name", "dfam8azdg",
+				"api_key", "882165332977633",
+				"api_secret", "lrdbmfClWzNqybNeqXyEoRpFmfg",
+				"secure", true));
+		System.out.println("doPost ptupdate.do");
+		String fileSavePath =  "upload";
+		String uploadPath =  getServletContext().getRealPath(fileSavePath);
+		System.out.println("uploadPath: " + uploadPath);
+		// 업로드 할 폴더 존재 여부 확인 후 없다면 생성
+		File path = new File(uploadPath);
+		if(!path.exists()) {
+			path.mkdirs();
+		}
+		int maxFileSize = 50 * 1024 * 1024;
+		MultipartRequest multi = new MultipartRequest(request, uploadPath, maxFileSize, "UTF-8", new DefaultFileRenamePolicy());
+		ArrayList<String> uploadList = new ArrayList<String>();
+		uploadList.add(multi.getFilesystemName("input_ptimg_file1"));
+		uploadList.add(multi.getFilesystemName("input_ptimg_file2"));
+		uploadList.add(multi.getFilesystemName("input_ptimg_file3"));
+		String ptName = multi.getParameter("pt_name");
+		String ptCategoryStr = multi.getParameter("pt_category");
+		int ptCategory = 0;
+		try {
+			ptCategory = Integer.parseInt(ptCategoryStr);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String ptIntroduce = multi.getParameter("pt_introduce");
+		String ptInformation = multi.getParameter("pt_information");
+		String ptTargetStudent = multi.getParameter("pt_target_student");
+		String ptTrainerInfo = multi.getParameter("pt_trainer_info");
+		String ptNotice = multi.getParameter("pt_notice");
+		String ptTimeInfo = multi.getParameter("pt_time_info");
+		String ptPriceStr = multi.getParameter("pt_price");
+		String ptStartDate = multi.getParameter("pt_start_date");
+		String ptEndDate = multi.getParameter("pt_end_date");
+		int ptPrice = -1;
+		try {
+			ptPrice = Integer.parseInt(ptPriceStr);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String ptNoStr = multi.getParameter("pt_update_page_ptNo");
+		int ptNo = 0;
+		try {
+			ptNo = Integer.parseInt(ptNoStr);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		PtVo ptVo = new PtVo();
+		ptVo.setPtNo(ptNo);
+		ptVo.setTrainerNo(((MemberVo)request.getSession().getAttribute("ssMvo")).getTrainerNo());
+		ptVo.setPtName(ptName);
+		ptVo.setPtCategory(ptCategory);
+		ptVo.setPtIntroduce(ptIntroduce);
+		ptVo.setPtInformation(ptInformation);
+		ptVo.setPtTargetStudent(ptTargetStudent);
+		ptVo.setPtTrainerInfo(ptTrainerInfo);
+		ptVo.setPtNotice(ptNotice);
+		ptVo.setPtTimeInfo(ptTimeInfo);
+		ptVo.setPtPrice(ptPrice);
+		ptVo.setPtStartDate(ptStartDate);
+		ptVo.setPtEndDate(ptEndDate);
+		System.out.println("ptupdate.do에서 입력받은 ptVo 데이터 값:  " + ptVo);
+		
+		ArrayList<String> ptFilePathList = new ArrayList<String>();
+		File cloudinaryFile = null;
+		for(int i=0; i<uploadList.size(); i++) {
+			if(uploadList.get(i) == null) {				
+				ptFilePathList.add(null);
+				continue;
+			}
+			cloudinaryFile = new File(uploadPath + "\\" + uploadList.get(i));
+			Map uploadResult = cloudinary.uploader().upload(cloudinaryFile, ObjectUtils.emptyMap());
+			ptFilePathList.add((String) uploadResult.get("url"));
+		}
+		System.out.println("ptupdate.do에서 입력받은 ptVo 이미지 데이터 값:" + uploadList);
+		System.out.println("ptupdate.do에서 입력받은 ptVo 이미지 저장 경로:" + ptFilePathList);
+
+		ptVo.setPtFilePathList(ptFilePathList);
+		int result = new PtService().updatePt(ptVo);
+		System.out.println("ptupdate.do에서의 result값:  " + result);
+		
+		if(result != 0) {
+			System.out.println("ptupdate.do에서 pt프로그램 insert 성공함");
+			System.out.println("ptupdate.do에서 ptread페이지로 이동함");
+			response.sendRedirect("ptread?ptNo=" + ptNo);
+		} else {
+			System.out.println("ptupdate.do에서 pt프로그램 insert 실패함");
+			System.out.println("/ptread 페이지로 이동함");
+			response.sendRedirect("ptread?ptNo=" + ptNo);
+		}
+	}
+
+}

@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
@@ -72,12 +73,106 @@ public class PtDao {
 		return result;
 	}
 	
+	public int updatePt(Connection conn, PtVo ptVo) {
+		int result = 0;
+		ArrayList<Integer> ptFileNoArray = new ArrayList<Integer>();
+		String sql = "{call PROC_UPDATE_PT (?,?,?,?,?)}";
+		String sql2 = "update tb_pt "
+				+ "	set "
+				+ " pt_name = ? ,"
+				+ " pt_category = ? ,"
+				+ "	pt_introduce = ? ,"
+				+ " pt_information = ? ,"
+				+ " pt_target_student = ?, "
+				+ " pt_notice = ? ,"
+				+ " pt_trainer_info = ? "
+				+ "	where pt_no = ?";
+		String sql3 = "select pt_file_no from tb_pt_file where pt_no = ?";
+		String sql4 = "update tb_pt_file "
+				+ " set "
+				+ " pt_file = ?"
+				+ " where pt_file_no = ?";
+		try {
+			cstmt = conn.prepareCall(sql);
+			cstmt.setInt(1, ptVo.getPtNo());
+			cstmt.setString(2, ptVo.getPtTimeInfo());
+			cstmt.setString(3, ptVo.getPtStartDate());
+			cstmt.setString(4, ptVo.getPtEndDate());
+			cstmt.registerOutParameter(5, Types.INTEGER);
+
+			cstmt.execute();
+			result += cstmt.getInt(5);
+			
+			pstmt = conn.prepareStatement(sql2);
+			pstmt.setString(1, ptVo.getPtName());
+			pstmt.setInt(2, ptVo.getPtCategory());
+			pstmt.setString(3, ptVo.getPtIntroduce());
+			pstmt.setString(4, ptVo.getPtInformation());
+			pstmt.setString(5, ptVo.getPtTargetStudent());
+			pstmt.setString(6, ptVo.getPtNotice());
+			pstmt.setString(7, ptVo.getPtTrainerInfo());
+			pstmt.setInt(8, ptVo.getPtNo());
+			
+			result += pstmt.executeUpdate(); 
+			close(pstmt);
+			pstmt = conn.prepareStatement(sql3);
+			pstmt.setInt(1, ptVo.getPtNo());
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ptFileNoArray.add(rs.getInt(1));
+			}
+			close(rs);
+			close(pstmt);
+			ArrayList<String> ptFilePathList = ptVo.getPtFilePathList();
+			for(int i = 0; i < 3; i++) {
+				if(ptFilePathList.get(i) != null) {
+					pstmt = conn.prepareStatement(sql4);
+					pstmt.setString(1, ptFilePathList.get(i));
+					pstmt.setInt(2, ptFileNoArray.get(i));
+					result += pstmt.executeUpdate();
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+			close(cstmt);
+		}
+		
+		return result;
+	}
+	
+	public int deletePt(Connection conn, int ptNo) {
+		int result = 0;
+		String sql = "update tb_pt"
+				+ "	set "
+				+ "	pt_delete = 'T'"
+				+ "	where pt_no = ?";
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, ptNo);
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
 	public PtVo readPt(Connection conn, int ptNo) {
 		PtVo pVo = null;
 		ResultSet rs = null;
 		String sql = "select pt_no, pt_name, pt_category, pt_price, pt_introduce, pt_information, "
 				+ "pt_target_student, pt_notice, pt_trainer_info, "
-				+ "pt_time_info, gym_name, gym_location, member_nickname "
+				+ "pt_time_info, gym_name, gym_location, member_nickname, pt_delete "
 				+ "from tb_pt "
 				+ "join tb_trainer  "
 				+ "on tb_pt.trainer_no = tb_trainer.trainer_no "
@@ -144,6 +239,7 @@ public class PtDao {
 					ptFilePath.add(rs.getString("PT_FILE"));
 				}
 				pVo.setPtFilePathList(ptFilePath);
+				pVo.setPtDelete(rs.getString("pt_delete"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -456,5 +552,31 @@ public class PtDao {
 		return result;
 	}
 	
+	public Timestamp readPtStartTime(Connection conn, int ptNo) {
+		Timestamp result = null;
+		
+		
+		String sql = "select pt_calendar_start_time "
+				+ "from tb_pt_calendar "
+				+ "where pt_no = ? "
+				+ "order by pt_calendar_start_time desc";
 
+	    
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, ptNo);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getTimestamp("pt_calendar_start_time");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return result;
+	}
 }

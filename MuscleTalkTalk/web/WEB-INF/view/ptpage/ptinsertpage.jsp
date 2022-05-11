@@ -235,7 +235,8 @@
 									+ ")",
 							"outline" : "none",
 							"background-size" : "contain",
-							"background-repeat" : "no-repeat"
+							"background-repeat" : "no-repeat",
+							"background-position" : "center"
 						});
 				$(".input_ptimg_file")[$(this).index()].files = files;
 			} else {

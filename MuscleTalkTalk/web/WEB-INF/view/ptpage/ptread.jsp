@@ -77,6 +77,9 @@
 			</div>
 			<hr>
 		</div>
+		<form name="update">
+			<input type="hidden" name="ptNo" id="pt_read_page_ptNo">
+		</form>
 	</section>
 <%@ include file="/WEB-INF/view/footer.jsp" %>
 <script type="text/javascript">
@@ -99,7 +102,24 @@
 		}
 	});
 	$("#pt_reservation_time_info_select").click(function() {
-		location.href = "ptreservation?ptNo="+"${pVo.ptNo }";
+		$('#pt_read_page_ptNo').val(${pVo.ptNo});
+		update.action = "ptreservation";
+		update.method = "post";
+		update.submit();
+	});
+	
+	$("#pt_read_page_update").click(function() {
+		$('#pt_read_page_ptNo').val(${pVo.ptNo});
+		update.action = "ptupdate";
+		update.method = "post";
+		update.submit();
+	});
+	
+	$("#pt_read_page_delete").click(function() {
+		$('#pt_read_page_ptNo').val(${pVo.ptNo});
+		update.action = "ptdelete";
+		update.method = "post";
+		update.submit();
 	});
 </script>
 </body>

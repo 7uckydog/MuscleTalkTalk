@@ -1,21 +1,10 @@
-create or replace PROCEDURE PROC_INPUT_PT
+create or replace PROCEDURE PROC_UPDATE_PT
 (
-    IN_TRAINER_NO IN VARCHAR2,  /* 1 */
-    IN_PT_NAME IN VARCHAR2,     /* 2 */
-    IN_PT_CATEGORY IN NUMBER,   /* 3 */
-    IN_PT_PRICE IN NUMBER,      /* 4 */
-    IN_PT_INTRODUCE IN VARCHAR2,    /* 5 */
-    IN_PT_INFORMATION IN VARCHAR2,  /* 6 */
-    IN_PT_TARGET_STUDENT IN VARCHAR2,   /* 7 */
-    IN_PT_NOTICE IN VARCHAR2,   /* 8 */
-    IN_PT_TRAINER_INFO IN VARCHAR2, /* 9 */
-    IN_PT_TIME_INFO IN VARCHAR2,    /* 10 */
-    IN_PT_START_DATE IN VARCHAR2,   /* 11 */
-    IN_PT_END_DATE IN VARCHAR2,     /* 12 */
-    IN_PT_FILE_PATH1 IN VARCHAR2,   /* 13 */
-    IN_PT_FILE_PATH2 IN VARCHAR2,   /* 14 */
-    IN_PT_FILE_PATH3 IN VARCHAR2,   /* 15 */
-    OUT_PT_RESULT OUT NUMBER        /* 16 */    
+    IN_PT_NO IN NUMBER, /* 1 */
+    IN_PT_TIME_INFO IN VARCHAR2,    /* 2 */
+    IN_PT_START_DATE IN VARCHAR2,   /* 3 */
+    IN_PT_END_DATE IN VARCHAR2,     /* 4 */
+    OUT_PT_RESULT OUT NUMBER        /* 5 */    
 )
 
 IS
@@ -32,28 +21,7 @@ IS
     VAR_END_TIMESTAMP TIMESTAMP;
     PT_NO_MAX NUMBER;
 BEGIN
-    SELECT NVL(MAX(PT_NO), 0) + 1 INTO PT_NO_MAX FROM TB_PT WHERE 1=1;
-    insert all
-        into tb_pt(pt_no, trainer_no, pt_name, pt_category,
-        pt_price, pt_introduce, pt_information, pt_target_student,
-        pt_notice, pt_trainer_info, pt_time_info, PT_REGIST_DATE, PT_DELETE)
-        values (PT_NO_MAX, IN_TRAINER_NO, IN_PT_NAME, IN_PT_CATEGORY, 
-        IN_PT_PRICE, IN_PT_INTRODUCE, IN_PT_INFORMATION, IN_PT_TARGET_STUDENT, 
-        IN_PT_NOTICE, IN_PT_TRAINER_INFO, IN_PT_TIME_INFO, DEFAULT, DEFAULT)
-        into tb_pt_file (pt_file_no, pt_no, pt_file) 
-        values ((SELECT nvl(max(pt_file_no),0)+1 from tb_pt_file), 
-        PT_NO_MAX, IN_PT_FILE_PATH1) 
-        into tb_pt_file (pt_file_no, pt_no, pt_file) 
-        values ((SELECT nvl(max(pt_file_no),0)+2 from tb_pt_file), 
-        PT_NO_MAX, IN_PT_FILE_PATH2) 
-        into tb_pt_file (pt_file_no, pt_no, pt_file) 
-        values ((SELECT nvl(max(pt_file_no),0)+3 from tb_pt_file), 
-        PT_NO_MAX, IN_PT_FILE_PATH3) 
-    select * from dual;
-    dbms_output.put_line(SQL%ROWCOUNT);
-    OUT_PT_RESULT := SQL%ROWCOUNT;
-    COMMIT;
-    
+      
     ALL_DAY := IN_PT_TIME_INFO;
     ARRAY_IDX := 1;
     
@@ -107,7 +75,7 @@ BEGIN
                         INSERT INTO TB_PT_CALENDAR 
                             (PT_CALENDAR_NO, PT_NO, MEMBER_NO, PT_CALENDAR_START_TIME, PT_CALENDAR_RESERVATION_STATE) 
                             VALUES 
-                            ((SELECT nvl(max(pt_calendar_no),0)+1 from tb_pt_calendar), PT_NO_MAX, NULL, 
+                            ((SELECT nvl(max(pt_calendar_no),0)+1 from tb_pt_calendar), IN_PT_NO, NULL, 
                             VAR_CURRENT_TIMESTAMP, DEFAULT);
                         COMMIT;
                         OUT_PT_RESULT := OUT_PT_RESULT + 1;
@@ -118,4 +86,4 @@ BEGIN
     VAR_CURRENT_TIMESTAMP := VAR_CURRENT_TIMESTAMP + 1/24;
     END LOOP;
 
-END PROC_INPUT_PT;     
+END PROC_UPDATE_PT; 

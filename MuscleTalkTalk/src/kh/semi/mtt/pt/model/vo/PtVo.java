@@ -25,9 +25,18 @@ public class PtVo {
 	private String ptEndDate;
 	private Date ptRegistDate;
 	private int favoriteCnt;
+	private String ptDelete;
 	
 	
 	
+	public String getPtDelete() {
+		return ptDelete;
+	}
+
+	public void setPtDelete(String ptDelete) {
+		this.ptDelete = ptDelete;
+	}
+
 	public int getFavoriteCnt() {
 		return favoriteCnt;
 	}
@@ -42,7 +51,7 @@ public class PtVo {
 		return "PtVo [ptNo=" + ptNo + ", trainerNo=" + trainerNo + ", ptName=" + ptName + ", ptCategory=" + ptCategory + ", ptCategoryStr=" + ptCategoryStr + ", ptPrice=" + ptPrice + ", ptIntroduce="
 				+ ptIntroduce + ", ptInformation=" + ptInformation + ", ptTargetStudent=" + ptTargetStudent + ", ptNotice=" + ptNotice + ", ptTrainerInfo=" + ptTrainerInfo + ", ptTimeInfo="
 				+ ptTimeInfo + ", ptFilePathList=" + ptFilePathList + ", ptTrainerName=" + ptTrainerName + ", ptGymName=" + ptGymName + ", ptLocation=" + ptLocation + ", ptFavorite=" + ptFavorite
-				+ ", ptStartDate=" + ptStartDate + ", ptEndDate=" + ptEndDate + ", ptRegistDate=" + ptRegistDate + ", favoriteCnt=" + favoriteCnt + "]";
+				+ ", ptStartDate=" + ptStartDate + ", ptEndDate=" + ptEndDate + ", ptRegistDate=" + ptRegistDate + ", favoriteCnt=" + favoriteCnt + ", ptDelete=" + ptDelete + "]";
 	}
 
 	public int getPtNo() {

@@ -1,6 +1,7 @@
 package kh.semi.mtt.pt.model.service;
 
 import java.sql.Connection;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import static kh.semi.mtt.common.jdbc.JdbcTemplate.getConnection;
@@ -65,6 +66,28 @@ public class PtService {
 		return result;
 	}
 	
+	public int updatePt(PtVo ptVo) {
+		int result = 0;
+		Connection conn = null;
+		conn = getConnection();
+		
+		result = dao.updatePt(conn, ptVo);
+		
+		close(conn);
+		return result;
+	}
+	
+	public int deletePt(int ptNo) {
+		int result = 0;
+		Connection conn = null;
+		conn = getConnection();
+		
+		result = dao.deletePt(conn, ptNo);
+		
+		close(conn);
+		return result;
+	}
+	
 	public PtVo readPt(int ptNo) {
 		PtVo result = null;
 		Connection conn = null;
@@ -109,5 +132,16 @@ public class PtService {
 		return result;
 	}
 	
-
+	public Timestamp readPtStartTime(int ptNo) {
+		Timestamp result = null;
+		
+		Connection conn = null;
+		conn = getConnection();
+		
+		result = dao.readPtStartTime(conn, ptNo);
+		System.out.println("PtService readPtStartTime()매소드 결과:  " + result);
+		close(conn);
+		
+		return result;
+	}
 }
