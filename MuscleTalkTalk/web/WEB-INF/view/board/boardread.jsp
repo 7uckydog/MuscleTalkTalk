@@ -37,7 +37,7 @@ section {
 	background-color: white;
 	border-radius: 10px 10px 0 0;
 	width: 930px;
-	height: 2000px;
+	height: auto;
 	font-size: 12px;
 	position: relative;
 	font-family: 'THEmpgtM';
@@ -170,6 +170,7 @@ button {
 	color: white;
 	background-color: #4B4DB2;
 	border: 1px solid #4B4DB2;
+	margin-bottom: 100px;
 }
 
 #btn_cancel_register {
@@ -464,7 +465,9 @@ hr {
 			<button id="recommentBtn" type="submit">댓글 등록</button>
 		</form>
 		<div id="btn_cancel_register">
-			<button id="board_cancel">글 신고하기</button>
+			<c:if test="${not empty ssMvo }">
+				<button type="button" id="board_cancel">글 신고하기</button>
+			</c:if>
 			<button onclick="location.href = 'BoardReadAll'" id="board_register">확인</button>
 			<c:if test = "${ssMvo.memberNickname ==  bvo.memberNickname}">
 
@@ -480,13 +483,13 @@ hr {
                     <p class="report_content">게시글을 신고하기 위해 사유를 선택해 주세요.</p>
                     <p class="report_reason"><select name="" class="report_selete">
                         <option value="" selected disabled hidden>사유선택</option>
-                        <option value="1">부적절한 내용</option>
-                        <option value="2">개인 정보 노출</option>
-                        <option value="3">욕설/비하/비방 발언</option>
-                        <option value="4">스팸 홍보/도배</option>
-                        <option value="5">기타</option>
+                        <option value="부적절한 내용">부적절한 내용</option>
+                        <option value="개인 정보 노출">개인 정보 노출</option>
+                        <option value="욕설/비하/비방 발언">욕설/비하/비방 발언</option>
+                        <option value="스팸 홍보/도배">스팸 홍보/도배</option>
+                        <option value="기타">기타</option>
                     </select></p>
-                    <div class="btn_cancel_ok"><button class="report_cancel">취소</button><button class="report_ok">신고하기</button></div>
+                    <div class="btn_cancel_ok"><button class="report_cancel">취소</button><button type="button" class="report_ok">신고하기</button></div>
             </div>
         </div>      
         <div class="modal">
@@ -558,12 +561,25 @@ hr {
                 eleModal.style.display="none"
                 bagModal.style.display ="none"
                 alert("신고되었습니다")
+                $.ajax({
+					url:"boardreport",
+					type:"post",
+					data:{boardNo:${bvo.boardNo}, reportContent:$(".report_selete").val()}
+					
+				});
+                
             });
             $(".report_cancel").click(function(){
                 eleModal.style.display="none"
                 bagModal.style.display ="none"
             })
         });
+/* 		$(".report_ok").click(function() {
+			
+		}); */
+		
+		
+		
 		
 		$(window).click(function(event) {
 			console.log(event.target);

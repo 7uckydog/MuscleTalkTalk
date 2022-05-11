@@ -17,12 +17,13 @@ public class BoardVo {
 	private int memberNo;
 	
 	
-	
 	public BoardVo() {}
 
 
-
-
+	
+	
+	
+	
 	public BoardVo(int boardR, int boardNo, String boardTitle, String boardContent, int boardCount, Date boardDate,
 			int boardType, String memberNickname, int boardCategoryNumber, int rCnt, int memberNo) {
 		super();
@@ -43,6 +44,7 @@ public class BoardVo {
 
 
 
+
 	@Override
 	public String toString() {
 		return "BoardVo [boardR=" + boardR + ", boardNo=" + boardNo + ", boardTitle=" + boardTitle + ", boardContent="
@@ -55,12 +57,10 @@ public class BoardVo {
 
 
 
+
 	public int getBoardR() {
 		return boardR;
 	}
-
-
-
 
 
 	public void setBoardR(int boardR) {
@@ -68,13 +68,9 @@ public class BoardVo {
 	}
 
 
-
-
-
 	public int getBoardNo() {
 		return boardNo;
 	}
-
 
 
 	public void setBoardNo(int boardNo) {
@@ -82,11 +78,9 @@ public class BoardVo {
 	}
 
 
-
 	public String getBoardTitle() {
 		return boardTitle;
 	}
-
 
 
 	public void setBoardTitle(String boardTitle) {
@@ -94,11 +88,9 @@ public class BoardVo {
 	}
 
 
-
 	public String getBoardContent() {
 		return boardContent;
 	}
-
 
 
 	public void setBoardContent(String boardContent) {
@@ -106,11 +98,9 @@ public class BoardVo {
 	}
 
 
-
 	public int getBoardCount() {
 		return boardCount;
 	}
-
 
 
 	public void setBoardCount(int boardCount) {
@@ -118,11 +108,9 @@ public class BoardVo {
 	}
 
 
-
 	public Date getBoardDate() {
 		return boardDate;
 	}
-
 
 
 	public void setBoardDate(Date boardDate) {
@@ -130,11 +118,9 @@ public class BoardVo {
 	}
 
 
-
 	public int getBoardType() {
 		return boardType;
 	}
-
 
 
 	public void setBoardType(int boardType) {
@@ -142,11 +128,9 @@ public class BoardVo {
 	}
 
 
-
 	public String getMemberNickname() {
 		return memberNickname;
 	}
-
 
 
 	public void setMemberNickname(String memberNickname) {
@@ -154,11 +138,9 @@ public class BoardVo {
 	}
 
 
-
 	public int getBoardCategoryNumber() {
 		return boardCategoryNumber;
 	}
-
 
 
 	public void setBoardCategoryNumber(int boardCategoryNumber) {
@@ -166,11 +148,9 @@ public class BoardVo {
 	}
 
 
-
 	public int getrCnt() {
 		return rCnt;
 	}
-
 
 
 	public void setrCnt(int rCnt) {
@@ -178,23 +158,21 @@ public class BoardVo {
 	}
 
 
-
 	public int getMemberNo() {
 		return memberNo;
 	}
 
 
-
 	public void setMemberNo(int memberNo) {
 		this.memberNo = memberNo;
 	}
+
+
 	
 	
 	
 	
-	
-	
-	
+
 	
 	
 	

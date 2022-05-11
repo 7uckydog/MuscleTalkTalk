@@ -12,6 +12,8 @@ import kh.semi.mtt.member.model.vo.MemberVo;
 public class BoardService {
 	private BoardDao dao = new BoardDao();
 	
+
+	
 	public int deleteBoard(BoardVo vo) {
 		Connection conn = null;
 		conn = getConnection();

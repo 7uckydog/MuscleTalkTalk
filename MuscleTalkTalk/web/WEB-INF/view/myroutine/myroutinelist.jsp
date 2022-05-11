@@ -327,7 +327,7 @@
     
 </head>
 <body bgcolor=" #ECECEC">
-<c:forEach var="i" begin="0" end="${rvolist.size()-1 }" step="1">
+<%-- <c:forEach var="i" begin="0" end="${rvolist.size()-1 }" step="1">
 ${rvolist.get(i).routineName }
 </c:forEach>
 <hr>
@@ -341,7 +341,7 @@ ${rvolist.size() }
 <hr>
 ${rvolist.get(3) }
 <hr>
-${revolist.get(revolist.size() - 1).routineWeek }
+${revolist.get(revolist.size() - 1).routineWeek } --%>
 	<%@ include file="/WEB-INF/view/template.jsp"%>
 	
 <%-- 	<c:if test="${empty ssMvo}">
