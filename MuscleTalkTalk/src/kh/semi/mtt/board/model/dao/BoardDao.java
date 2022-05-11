@@ -199,7 +199,8 @@ public class BoardDao {
 				volist = new ArrayList<BoardVo>();
 				while (rs.next()) {
 					BoardVo vo = new BoardVo();
-					vo.setBoardNo(rs.getInt("R"));
+					vo.setBoardR(rs.getInt("r"));
+					vo.setBoardNo(rs.getInt("board_no"));
 					vo.setBoardDate(rs.getDate("BOARD_DATE"));
 					vo.setBoardTitle(rs.getString("BOARD_TITLE"));
 					vo.setBoardContent(rs.getString("BOARD_CONTENT"));

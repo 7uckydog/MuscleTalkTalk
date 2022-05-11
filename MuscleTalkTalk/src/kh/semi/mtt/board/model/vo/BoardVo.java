@@ -21,12 +21,12 @@ public class BoardVo {
 	public BoardVo() {}
 
 
-	
-	
 
-	public BoardVo(int boardNo, String boardTitle, String boardContent, int boardCount, Date boardDate, int boardType,
-			String memberNickname, int boardCategoryNumber, int rCnt, int memberNo) {
+
+	public BoardVo(int boardR, int boardNo, String boardTitle, String boardContent, int boardCount, Date boardDate,
+			int boardType, String memberNickname, int boardCategoryNumber, int rCnt, int memberNo) {
 		super();
+		this.boardR = boardR;
 		this.boardNo = boardNo;
 		this.boardTitle = boardTitle;
 		this.boardContent = boardContent;

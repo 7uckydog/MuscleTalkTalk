@@ -290,7 +290,7 @@ section {
 								for(var i = 0; i < result.boardlist.length; i++){
 				                    var vo = result.boardlist[i];
 				                    html += '<tr class="table_content">';
-				                    html += '<td><a href="boardread?bno='+vo.boardNo+'">'+vo.boardNo+'</a></td>';
+				                    html += '<td><a href="boardread?bno='+vo.boardNo+'">'+vo.boardR+'</a></td>';
 				                    html += '<td><a href="boardread?bno='+vo.boardNo+'">'+vo.boardTitle+'</a></td>';
 				                    html += '<td>'+vo.boardDate+'</td>';
 				                    html += '<td>'+vo.boardCount+'</td>';
@@ -326,7 +326,7 @@ section {
 						for(var i = 0; i < result.boardlist.length; i++){
 		                    var vo = result.boardlist[i];
 		                    html += '<tr class="table_content">';
-		                    html += '<td><a href="boardread?bno='+vo.boardNo+'">'+vo.boardNo+'</a></td>';
+		                    html += '<td><a href="boardread?bno='+vo.boardNo+'">'+vo.boardR+'</a></td>';
 		                    html += '<td><a href="boardread?bno='+vo.boardNo+'">'+vo.boardTitle+'</a></td>';
 		                    html += '<td>'+vo.boardDate+'</td>';
 		                    html += '<td>'+vo.boardCount+'</td>';
