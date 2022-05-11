@@ -22,8 +22,8 @@ public class InquiryDao {
 		sql="select r, inquiry_title, inquiry_content, inquiry_date "
 				+ "from (select t1.*, rownum r "
 				+ "from (select i.inquiry_title, i.inquiry_content, i.inquiry_date "
-				+ "from tb_inquiry i join tb_member m on i.member_no = m.member_no where member_id = ?)t1)t2 "
-				+ "where r between ? and ? order by r desc";
+				+ "from tb_inquiry i join tb_member m on i.member_no = m.member_no where member_id = ? order by inquiry_date desc)t1)t2 "
+				+ "where r between ? and ?";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, memberId);
@@ -79,7 +79,6 @@ public class InquiryDao {
 		int result = 0;
 		sql="insert into tb_inquiry (inquiry_no, member_no, inquiry_title, inquiry_content, inquiry_date, inquiry_check)"
 				+ " values ((select nvl(max(inquiry_no),0)+1 from tb_inquiry), ?, ?, ?, sysdate, default)";
-		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, memberNo);

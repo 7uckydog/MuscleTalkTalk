@@ -243,30 +243,46 @@ public class BoardDao {
 	}
 	
 	// 특정 회원이 작성한 게시물 리스트 조회 - 서유빈 작성
-	public ArrayList<BoardVo> readOneMemberBoard(Connection conn, int startRnum, int endRnum, String memberId) {
+	public ArrayList<BoardVo> readOneMemberBoard(Connection conn, int startRnum, int endRnum, int memberNo) {
 		ArrayList<BoardVo> volist = null;
-		String sql = "select R, board_no, board_title, board_count, board_date, r_cnt"
-				+ "				from (select rownum r, t1.*"
-				+ "				from (select b1.*,(select count(*)\r\n"
-				+ "				from tb_comment r1 where r1.board_no = b1.board_no) r_cnt"
-				+ "				from tb_board b1 order by board_date desc) t1)tba"
-				+ "				join tb_member tbm on tba.member_no = tbm.member_no"
-				+ "				where r between ? and ? and member_id = ?";
+		String sql = "select r, board_title, board_content, board_date, routine_board_title, routine_board_content, routine_board_date, board_no, routine_board_no, routine_board_count, board_count, bm, tm, bc, tc, greatest(nvl(board_date,'1111-01-01'), nvl(routine_board_date,'1111-01-01')) g"
+				+ "    from (select t1.*, rownum r from (select b.board_title, b.board_content, b.board_date, t.routine_board_title , t.routine_board_content, t.routine_board_date, b.board_no, t.routine_board_no, b.board_count, t.routine_board_count, b.member_no bm, t.member_no tm, b.board_category_no bc, t.board_category_no tc"
+				+ "    from tb_board b full outer join tb_routine_board t on b.board_category_no = t.board_category_no where b.member_no = ? or t.member_no = ?"
+				+ "    order by greatest(nvl(board_date,'1111-01-01'), nvl(routine_board_date,'1111-01-01'))desc ) t1) t2 where r between ? and ?";
+		// bm = tb_board의      member_no
+		// tm = tb_routine_board의      member_no
+		// bc = tb_board의      board_category_no
+		// tc = tb_routine_board의      board_category_no
+		// g = date를 비교하여 최신순으로 정렬
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, startRnum);		
-			pstmt.setInt(2, endRnum);
-			pstmt.setString(3, memberId);		
+			pstmt.setInt(1, memberNo);
+			pstmt.setInt(2, memberNo);
+			pstmt.setInt(3, startRnum);
+			pstmt.setInt(4, endRnum);
 			rs = pstmt.executeQuery();
 			if(rs != null) {
 				volist = new ArrayList<BoardVo>();
 				while (rs.next()) {
 					BoardVo vo = new BoardVo();
-					vo.setBoardNo(rs.getInt("R"));
-					vo.setBoardTitle(rs.getString("BOARD_TITLE"));
-					vo.setBoardCount(rs.getInt("BOARD_COUNT"));
-					vo.setBoardDate(rs.getDate("BOARD_DATE"));
-					vo.setrCnt(rs.getInt("R_CNT"));
+					
+					if(rs.getInt("board_no") > 0) {
+						vo.setBoardR(rs.getInt("r"));
+						vo.setBoardNo(rs.getInt("board_no"));
+						vo.setBoardTitle(rs.getString("board_title"));
+						vo.setBoardContent(rs.getString("board_content"));
+						vo.setBoardCount(rs.getInt("board_count"));
+						vo.setBoardDate(rs.getDate("board_date"));
+						vo.setBoardCategoryNumber(rs.getInt("bc"));
+					} else if(rs.getInt("routine_board_no") > 0) {
+						vo.setBoardR(rs.getInt("r"));
+						vo.setBoardNo(rs.getInt("routine_board_no"));
+						vo.setBoardTitle(rs.getString("routine_board_title"));
+						vo.setBoardContent(rs.getString("routine_board_content"));
+						vo.setBoardCount(rs.getInt("routine_board_count"));
+						vo.setBoardDate(rs.getDate("routine_board_date"));
+						vo.setBoardCategoryNumber(rs.getInt("tc"));
+					}
 					volist.add(vo);
 				}
 			}
@@ -281,24 +297,26 @@ public class BoardDao {
 	}
 	
 	// 특정 회원이 작성한 댓글 리스트 조회 - 서유빈 작성
-		public ArrayList<CommentVo> readOneMemberComment(Connection conn, int startRnum, int endRnum, String memberId) {
+		public ArrayList<CommentVo> readOneMemberComment(Connection conn, int startRnum, int endRnum, int memberNo) {
 			ArrayList<CommentVo> volist = null;
-			String sql = "select r, comment_content, comment_date"
-					+ "    from (select t1.*, rownum r from (select c.comment_date, c.comment_content, c.comment_no"
-					+ "    from tb_comment c join tb_member m on c.member_no = m.member_no"
-					+ "    where member_id =? order by comment_date desc )t1)t2 where r between ? and ?";
+			String sql = "select r, comment_content, comment_date, board_no, routine_board_no, member_no"
+					+ "    from (select t1.*, rownum r from (select c.comment_content, c.comment_date, c.board_no, c.routine_board_no, c.member_no"
+					+ "    from tb_comment c full outer join tb_board b on c.board_no = b.board_no"
+					+ "    where c.member_no = ? order by comment_date desc)t1) t2 where r between ? and ?";
 			
 			try {
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(2, endRnum);
 				pstmt.setInt(3, startRnum);		
-				pstmt.setString(1, memberId);		
+				pstmt.setInt(1, memberNo);		
 				rs = pstmt.executeQuery();
 				if(rs != null) {
 					volist = new ArrayList<CommentVo>();
 					while (rs.next()) {
 						CommentVo vo = new CommentVo();
 						vo.setrCnt(rs.getInt("r"));
+						vo.setBoardNo(rs.getInt("board_no"));
+						vo.setRoutineboardNo(rs.getInt("routine_board_no"));
 						vo.setCommentContent(rs.getString("comment_content"));
 						vo.setCommentDate(rs.getTimestamp("comment_date"));
 						volist.add(vo);
@@ -351,13 +369,13 @@ public class BoardDao {
 	}
 	
 	// 보드 카운트 (서유빈)
-	public int countBoard_member(Connection conn, String memberId) {
+	public int countBoard_member(Connection conn, int memberNo) {
 		int result = 0;
-		String sql = "select count(*) as cnt from tb_board join tb_member on tb_board.member_no = tb_member.member_no where member_id=?";
+		String sql = "select count(*) as cnt from tb_board b full outer join tb_routine_board t on b.member_no = t.member_no  where b.member_no= ?";
 
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, memberId);	
+			pstmt.setInt(1, memberNo);	
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				result = rs.getInt("cnt");
@@ -373,13 +391,13 @@ public class BoardDao {
 	}
 	
 	// 코멘트 카운트 (서유빈)
-		public int countComment_member(Connection conn, String memberId) {
+		public int countComment_member(Connection conn, int memberNo) {
 			int result = 0;
-			String sql = "select count(*) as cnt from tb_comment join tb_member on tb_comment.member_no = tb_member.member_no where member_id=?";
+			String sql = "select count(*) as cnt from tb_comment join tb_member on tb_comment.member_no = tb_member.member_no where tb_comment.member_no=?";
 
 			try {
 				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, memberId);	
+				pstmt.setInt(1, memberNo);	
 				rs = pstmt.executeQuery();
 				if (rs.next()) {
 					result = rs.getInt("cnt");

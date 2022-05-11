@@ -214,6 +214,9 @@
 		$("#reservation_list").click(function(){
 			location.href="memberreadreservationlist";
 		})
+		$("#program_list").click(function(){
+			location.href="myptprogram";
+		})
 	</script>
         
 </body>

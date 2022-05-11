@@ -2,12 +2,16 @@ package kh.semi.mtt.member.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
@@ -42,12 +46,18 @@ public class MemberJoinDoController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
+				"cloud_name", "dfam8azdg",
+				"api_key", "882165332977633",
+				"api_secret", "lrdbmfClWzNqybNeqXyEoRpFmfg",
+				"secure", true)
+		);
 		
 		// 사진처리
-		String fileSavaPath = "upload/images/pt_trainer";
-		String uploadPath = getServletContext().getRealPath(fileSavaPath);
+		String fileSavePath = "upload";
+		String uploadPath = getServletContext().getRealPath(fileSavePath);
 		int maxFileSize = 50*1000*1000;
-		String rootPath = getServletContext().getRealPath("/");
+//		String rootPath = getServletContext().getRealPath("/");
 
 		File path = new File(uploadPath);
 		if(!path.exists()) {
@@ -58,18 +68,23 @@ public class MemberJoinDoController extends HttpServlet {
 				, uploadPath
 				, maxFileSize
 				, "UTF-8" 
-				, new DefaultFileRenamePolicy());
+				, new DefaultFileRenamePolicy()
+		);
 		
-		String orgFileName = multi.getOriginalFileName("file_upload");
-		String type = multi.getContentType("file_upload");
+//		String orgFileName = multi.getOriginalFileName("file_upload");
+//		String type = multi.getContentType("file_upload");
 		String upload = multi.getFilesystemName("file_upload");
 		
 		String filePath = "";
 		String member_trainer = multi.getParameter("trainer_join");
 		if(member_trainer != null || member_trainer != "") {
-			filePath = fileSavaPath + "/" + upload;
+			filePath = fileSavePath + "/" + upload;
 			System.out.println(filePath);
 		}
+		
+		File cloudinaryFile = new File(uploadPath + "\\" + upload);
+		Map uploadResult = cloudinary.uploader().upload(cloudinaryFile, ObjectUtils.emptyMap());
+		String trainerFile = (String) uploadResult.get("url");
 		
 		// 회원가입 정보 처리
 		String member_id = multi.getParameter("member_id");
@@ -149,7 +164,7 @@ public class MemberJoinDoController extends HttpServlet {
 		vo.setMemberTrainer(member_trainer);
 		
 		TrainerVo tvo = new TrainerVo();
-		tvo.setTrainerFile(filePath);
+		tvo.setTrainerFile(trainerFile);
 		tvo.setGymName(gym_name);
 		tvo.setGymLocation(gym_location);
 		System.out.println(tvo);

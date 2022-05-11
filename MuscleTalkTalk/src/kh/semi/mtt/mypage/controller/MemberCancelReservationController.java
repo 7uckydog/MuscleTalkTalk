@@ -62,7 +62,7 @@ public class MemberCancelReservationController extends HttpServlet {
 			System.out.println("예약 취소 성공");
 		} else if(result == 0) {
 			num = 0;
-			System.out.println("예약 취소 성공");
+			System.out.println("예약 취소 실패");
 		} else {
 			System.out.println("오류");
 		}

@@ -4,7 +4,7 @@ package kh.semi.mtt.board.model.vo;
 import java.util.Date;
 
 public class BoardVo {
-	
+	private int boardR;
 	private int boardNo;
 	private String boardTitle;
 	private String boardContent;
@@ -45,10 +45,26 @@ public class BoardVo {
 
 	@Override
 	public String toString() {
-		return "BoardVo [boardNo=" + boardNo + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
-				+ ", boardCount=" + boardCount + ", boardDate=" + boardDate + ", boardType=" + boardType
+		return "BoardVo [boardR=" + boardR + ", boardNo=" + boardNo + ", boardTitle=" + boardTitle + ", boardContent="
+				+ boardContent + ", boardCount=" + boardCount + ", boardDate=" + boardDate + ", boardType=" + boardType
 				+ ", memberNickname=" + memberNickname + ", boardCategoryNumber=" + boardCategoryNumber + ", rCnt="
 				+ rCnt + ", memberNo=" + memberNo + "]";
+	}
+
+
+
+
+
+	public int getBoardR() {
+		return boardR;
+	}
+
+
+
+
+
+	public void setBoardR(int boardR) {
+		this.boardR = boardR;
 	}
 
 

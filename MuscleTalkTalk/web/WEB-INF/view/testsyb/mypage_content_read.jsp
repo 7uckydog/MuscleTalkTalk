@@ -61,19 +61,20 @@
             height: 30px;
             font-size: 10.5px;
             font-family: 'THEmpgtR';
-            color: white;
-            background-color: #4B4DB2;
+            color: #4B4DB2;
+            background-color: white;
             border: 1px solid #4B4DB2;
             line-height: 30px;
             float: right;
             cursor: pointer;
+            text-align: center;
         }
         #btn_board_read{
             margin-right: 10px;
         }
         #btn_board_read:hover, #btn_comment_read:hover{
-            color: #4B4DB2;
-            background-color: white;
+            color: white;
+            background-color: #4B4DB2;
             border: 1px solid #4B4DB2;
             transition: ease 0.3s;
         }
@@ -125,6 +126,15 @@
         .npage{
         	cursor: pointer;
         }
+        input[type=radio]:nth-of-type(1):checked ~ #buttons > label:nth-of-type(1),
+        input[type=radio]:nth-of-type(2):checked ~ #buttons > label:nth-of-type(2) {
+        	background-color: #4B4DB2;
+        	border: 1px solid #4B4DB2;
+            color: white;
+        }
+        input[type=radio]{
+        	display: none;
+        }        
 </style>
 <script>
 	/* $(function() {
@@ -320,8 +330,12 @@
                 <p id="b_title" style="height: 20px; width: 150px; float: left;">
                     내 게시물 조회
                 </p>
-                <button type="button"  id="btn_comment_read">내 댓글 조회</button>
-                <button type="button"  id="btn_board_read">내 게시물 조회</button>
+                <input type="radio" name="menu" id="comment_read">
+                <input type="radio" name="menu" id="board_read" checked>
+                <div id="buttons">
+                	<label for="comment_read" id= "btn_comment_read" class="tab_btn">내 댓글 조회</label>
+                	<label for="board_read" id= "btn_board_read"  class="tab_btn">내 게시물 조회</label>
+            	</div>
             </div>
             <div>
                 <table id="board_table">
@@ -342,10 +356,15 @@
 	                <c:if test="${not empty membercomment}">
 	                	<c:forEach items="${membercomment}" var="volist">
 							<tr class="table_content">
-																		<!-- href 수정 예정 TODO -->
-								<td style="width: 10%;" class="tb_s"><a href="memberCommentRead?bno=${volist.rCnt}">${volist.rCnt }</a></td>
-								<td style="width: 43%;" class="tb_s"><a href="boardread?bno=${volist.boardNo }">${volist.commentContent }</a></td>
-								<td style="width: 25%;" class="tb_s">${volist.commentDate }</td>
+								<c:if test="${not empty volist.boardNo}">
+									<td style="width: 10%;" class="tb_s">${volist.rCnt}</td>
+									<td style="width: 43%;" class="tb_s">>${volist.commentContent}</td>
+								</c:if>
+								<c:if test="${empty volist.boardNo}">
+									<td style="width: 10%;" class="tb_s">${volist.rCnt}</td>
+									<td style="width: 43%;" class="tb_s">${volist.commentContent}</td>
+								</c:if>
+								<td style="width: 25%;" class="tb_s">${volist.commentDate}</td>
 								<td style="width: 22%;" class="tb_s"></td>
 							</tr>
 						</c:forEach>
@@ -354,11 +373,12 @@
 	                <!-- 게시물 -->
 	                <c:if test="${not empty memberboard}">
 		                <c:forEach items="${memberboard}" var="volist">
+		                <!-- 승택님 루틴게시판 끝나면 루틴게시물 자유게시물 상세 읽기 <a href>구분지어주기 TODO -->
 							<tr class="table_content">
-								<td style="width: 10%;" class="tb_s"><a href="boardread?bno=${volist.boardNo}">${volist.boardNo }</a></td>
-								<td style="width: 43%;" class="tb_s"><a href="boardread?bno=${volist.boardNo }">${volist.boardTitle }</a></td>
-								<td style="width: 25%;" class="tb_s">${volist.boardDate }</td>
-								<td style="width: 22%;" class="tb_s">${volist.boardCount }</td>
+								<td style="width: 10%;" class="tb_s">${volist.boardR}</td>
+								<td style="width: 43%;" class="tb_s"><a href="boardread?bno=${volist.boardNo}">${volist.boardTitle}</a></td>
+								<td style="width: 25%;" class="tb_s">${volist.boardDate}</td>
+								<td style="width: 22%;" class="tb_s">${volist.boardCount}</td>
 							</tr>
 						</c:forEach>
 					</c:if>	
@@ -414,8 +434,28 @@
                     <li id="info_edit">프로필 정보 수정</li>
                     <li id="password_edit">비밀번호 변경</li>
                     <li id="content_list">내 콘텐츠 조회</li>
-                    <li id="reservation_list">예약 프로그램 조회</li>
-                    <li id="to_trainer">트레이너 계정 전환</li>
+                    <li id="reservation_list">
+                    	<c:if test="${ssMvo.memberTrainer == 'F'}">
+                    		예약 프로그램 조회
+                    	</c:if>
+                    	<c:if test="${ssMvo.memberTrainer == 'R'}">
+                    		예약 프로그램 조회
+                    	</c:if>
+                    </li>
+                    <li id="to_trainer">
+                    	<c:if test="${ssMvo.memberTrainer == 'F'}">
+                    		트레이너 계정 전환
+                    	</c:if>
+                    	<c:if test="${ssMvo.memberTrainer == 'R'}">
+                    		트레이너 계정 전환
+                    	</c:if>
+                    </li>
+                    <li id="program_list">
+                    	<c:if test="${ssMvo.memberTrainer == 'T'}">
+                    		내 프로그램 조회
+                    	</c:if>
+                    </li>
+                    
                     <li id="inquiry">1:1 문의</li>
                     <li id="secession">탈퇴하기</li>
                 </ul>
@@ -444,6 +484,9 @@
 	$("#reservation_list").click(function(){
 		location.href="memberreadreservationlist";
 	})
+	$("#program_list").click(function(){
+		location.href="myptprogram";
+	})
 </script>
 <script>
 	$("#btn_comment_read").click(function(){
@@ -457,11 +500,18 @@
 				var html = "";
 				for(var i = 0; i < result.membercomment.length; i++){
                     var vo = result.membercomment[i];
-                    html += '<tr id="table_content" class="tb">';
-                    html += '<td style="width: 10%;" class="tb">'+vo.rCnt+'</td>';
-                    html += '<td style="width: 43%;" class="tb">'+vo.commentContent+'</td>';
-                    html += '<td style="width: 25%;" class="tb">'+vo.commentDate+'</td>';
-                    html += '<td style="width: 25%;" class="tb"></td>';
+                    html += '<tr id="table_content" class="tb_s">';
+                    if (vo.boardNo > 0) {
+                    	html += '<td style="width: 10%;" class="tb_s"><a href="boardread?bno='+vo.boardNo+'">'+vo.rCnt+'</a></td>';
+                    	html += '<td style="width: 43%;" class="tb_s"><a href="boardread?bno='+vo.boardNo+'">'+vo.commentContent+'</a></td>';
+                    } 
+                    else if (vo.boardNo == 0) {
+                    	<!-- 승택님 루틴게시판 끝나면 루틴게시물 자유게시물 상세 읽기 <a href>구분지어주기 TODO -->
+                		html += '<td style="width: 10%;" class="tb_s"><a href="routineboardread?bno='+vo.routineboardNo+'">'+vo.rCnt+'</a></td>';
+                		html += '<td style="width: 43%;" class="tb_s"><a href="routineboardread?bno='+vo.routineboardNo+'">'+vo.commentContent+'</a></td>';
+                    }
+                    html += '<td style="width: 25%;" class="tb_s">'+vo.commentDate+'</td>';
+                    html += '<td style="width: 22%;" class="tb_s"></td>';
                     html += '</tr>';
                 }
 				
@@ -506,11 +556,12 @@
 				var html = "";
 				for(var i = 0; i < result.memberboard.length; i++){
                     var vo = result.memberboard[i];
-                    html += '<tr id="table_content" class="tb">';
-                    html += '<td style="width: 10%;" class="tb"><a href="boardread?bno='+vo.boardNo+'">'+vo.boardNo+'</a></td>';
-                    html += '<td style="width: 43%;" class="tb"><a href="boardread?bno='+vo.boardNo+'">'+vo.boardTitle+'</a></td>';
-                    html += '<td style="width: 25%;" class="tb">'+vo.boardDate+'</td>';
-                    html += '<td style="width: 22%;" class="tb">'+vo.boardCount+'</td>';
+                    html += '<tr id="table_content" class="tb_s">';
+                    <!-- 승택님 루틴게시판 끝나면 루틴게시물 자유게시물 상세 읽기 <a href>구분지어주기 TODO -->
+                    html += '<td style="width: 10%;" class="tb_s">'+vo.boardR+'</td>';
+                    html += '<td style="width: 43%;" class="tb_s"><a href="boardread?bno='+vo.boardNo+'">'+vo.boardTitle+'</a></td>';
+                    html += '<td style="width: 25%;" class="tb_s">'+vo.boardDate+'</td>';
+                    html += '<td style="width: 22%;" class="tb_s">'+vo.boardCount+'</td>';
                     html += '</tr>';
                 }
 				
@@ -519,8 +570,10 @@
 					g += '<a class="page" href="memberreadcontent?page=${startPage-1 }">이전</a>';
 				}
 				var h = "";
-				for(var p = result.startPage; p <= result.endPage; p++){
-					h += '<a class="page" href="memberreadcontent?page='+p+'">'+p+'</a>';
+				if(result.memberboard.length > 0){
+					for(var p = result.startPage; p <= result.endPage; p++){
+						h += '<a class="page" href="memberreadcontent?page='+p+'">'+p+'</a>';
+					}	
 				}
 				var i ="";
 				if(result.endPage < result.totalpageCnt){

@@ -34,7 +34,7 @@ public class MemberCommentRead extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		MemberVo ssMvo = (MemberVo)request.getSession().getAttribute("ssMvo");
-		String memberId = ssMvo.getMemberId();
+		int memberNo = ssMvo.getMemberNo();
 		int currentPage = 1;
 		int filter = 0;
 		
@@ -53,8 +53,8 @@ public class MemberCommentRead extends HttpServlet {
 		int startRnum = 0;
 		int endRnum = 0;
 
-		int totalCnt = 0; // 회원의 총 게시물 수
-		totalCnt = countComment_member(memberId);
+		int totalCnt = 0; // 회원의 총 댓글 수
+		totalCnt = countComment_member(memberNo);
 		System.out.println("총" + totalCnt);
 
 		// Paging 처리
@@ -78,7 +78,7 @@ public class MemberCommentRead extends HttpServlet {
 		}
 
 		System.out.println("rnum:" + startRnum + "~" + endRnum);
-		ArrayList<CommentVo> volist = new BoardService().readOneMemberComment(startRnum, endRnum, memberId);
+		ArrayList<CommentVo> volist = new BoardService().readOneMemberComment(startRnum, endRnum, memberNo);
 		System.out.println(volist);
 		request.setAttribute("membercomment", volist);
 		request.setAttribute("startPage", startPage);
@@ -89,8 +89,8 @@ public class MemberCommentRead extends HttpServlet {
 		request.getRequestDispatcher("WEB-INF/view/testsyb/mypage_content_read.jsp").forward(request, response);
 	}
 	
-	private int countComment_member(String memberId) {
-		int result = new BoardService().countComment_member(memberId);
+	private int countComment_member(int memberNo) {
+		int result = new BoardService().countComment_member(memberNo);
 		System.out.println(result);
 		return result;
 	}

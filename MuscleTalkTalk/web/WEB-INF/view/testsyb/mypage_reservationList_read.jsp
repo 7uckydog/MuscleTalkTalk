@@ -33,7 +33,7 @@
 </style>
 <style>
 		#mp_main_text{
-            margin: 63px 0px 20px 63px;
+            margin: 63px 0px 32px 63px;
             font-size: 15px;
             font-family:'THEmpgtB';
             color: rgb(51, 51, 51);
@@ -133,13 +133,13 @@
                         <td colspan="10" class="line"></td>
                     </tr class="tb">
                     <tr id="table_title" class="tb">
-                        <td style="width: 10%;" class="tb"></td>
+                        <td style="width: 10%;" class="tb">번호</td>
                         <td style="width: 43%;" class="tb">프로그램명</td>
                         <td style="width: 25%;" class="tb">프로그램 진행일</td>
                         <td style="width: 11%;" class="tb" id="cnt"><!-- 수정 --></td>
                         <td style="width: 11%;" class="tb" id="cnt"><!-- 취소 --></td>
                     </tr>
-	                <tr class="tb tb_last" class="line">
+	                <tr class="tb" class="line">
 	                    <td colspan="10" class="line"></td>
 	                </tr>
 	                
@@ -200,8 +200,28 @@
                     <li id="info_edit">프로필 정보 수정</li>
                     <li id="password_edit">비밀번호 변경</li>
                     <li id="content_list">내 콘텐츠 조회</li>
-                    <li id="reservation_list">예약 프로그램 조회</li>
-                    <li id="to_trainer">트레이너 계정 전환</li>
+                    <li id="reservation_list">
+                    	<c:if test="${ssMvo.memberTrainer == 'F'}">
+                    		예약 프로그램 조회
+                    	</c:if>
+                    	<c:if test="${ssMvo.memberTrainer == 'R'}">
+                    		예약 프로그램 조회
+                    	</c:if>
+                    </li>
+                    <li id="to_trainer">
+                    	<c:if test="${ssMvo.memberTrainer == 'F'}">
+                    		트레이너 계정 전환
+                    	</c:if>
+                    	<c:if test="${ssMvo.memberTrainer == 'R'}">
+                    		트레이너 계정 전환
+                    	</c:if>
+                    </li>
+                    <li id="program_list">
+                    	<c:if test="${ssMvo.memberTrainer == 'T'}">
+                    		내 프로그램 조회
+                    	</c:if>
+                    </li>
+                    
                     <li id="inquiry">1:1 문의</li>
                     <li id="secession">탈퇴하기</li>
                 </ul>
@@ -210,6 +230,7 @@
         <script>
         // 예약 취소 버튼 클릭 시
         $("#rsv_cancel").click(function(){
+        	console.log("tq");
         	var pt_calendar_no = $(this).parent().prevAll("#pt_no_hidden").val();
         	$.ajax({
         		url:"membercancelreservation.ax",
@@ -254,6 +275,9 @@
 		})
 		$("#reservation_list").click(function(){
 			location.href="memberreadreservationlist";
+		})
+		$("#program_list").click(function(){
+			location.href="myptprogram";
 		})
 	</script>
 </body>

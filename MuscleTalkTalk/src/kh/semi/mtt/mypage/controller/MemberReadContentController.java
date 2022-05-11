@@ -33,7 +33,7 @@ public class MemberReadContentController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		MemberVo ssMvo = (MemberVo)request.getSession().getAttribute("ssMvo");
-		String memberId = ssMvo.getMemberId();
+		int memberNo = ssMvo.getMemberNo();
 		int currentPage = 1;
 		int filter = 0;
 		
@@ -53,7 +53,7 @@ public class MemberReadContentController extends HttpServlet {
 		int endRnum = 0;
 
 		int totalCnt = 0; // 회원의 총 게시물 수
-		totalCnt = countBoard_member(memberId);
+		totalCnt = countBoard_member(memberNo);
 		System.out.println("총" + totalCnt);
 
 		// Paging 처리
@@ -77,7 +77,7 @@ public class MemberReadContentController extends HttpServlet {
 		}
 
 		System.out.println("rnum:" + startRnum + "~" + endRnum);
-		ArrayList<BoardVo> volist = new BoardService().readOneMemberBoard(startRnum, endRnum, memberId);
+		ArrayList<BoardVo> volist = new BoardService().readOneMemberBoard(startRnum, endRnum, memberNo);
 		System.out.println(volist);
 		request.setAttribute("memberboard", volist);
 		request.setAttribute("startPage", startPage);
@@ -88,8 +88,8 @@ public class MemberReadContentController extends HttpServlet {
 		request.getRequestDispatcher("WEB-INF/view/testsyb/mypage_content_read.jsp").forward(request, response);
 	}
 	
-	private int countBoard_member(String memberId) {
-		int result = new BoardService().countBoard_member(memberId);
+	private int countBoard_member(int memberNo) {
+		int result = new BoardService().countBoard_member(memberNo);
 		return result;
 	}
 

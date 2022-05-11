@@ -170,6 +170,9 @@
         	text-align: center;
         	border: 0px;
         }
+        #member_nickname_check, #member_mail_check{
+        	display: none;
+        }
 </style>
 </head>
 <body>
@@ -338,9 +341,6 @@
                     		내 프로그램 조회
                     	</c:if>
                     </li>
-
-                    <!-- <li id="program_list">예약 프로그램 조회</li>
-                    <li id="to_trainer">트레이너 계정 전환</li> -->
                     
                     <li id="inquiry">1:1 문의</li>
                     <li id="secession">탈퇴하기</li>
@@ -449,6 +449,8 @@
         var chkEmail = false;
         
         $("#member_email_update").on("input", function(){
+        	$("#member_mail_check").show();
+			$("#member_mail_check2").hide();
         	var emailVal = $("#member_email_update").val();
 			var email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+)*$/;
 			
@@ -722,6 +724,9 @@
 		})
 		$("#reservation_list").click(function(){
 			location.href="memberreadreservationlist";
+		})
+		$("#program_list").click(function(){
+			location.href="myptprogram";
 		})
 	</script>
 

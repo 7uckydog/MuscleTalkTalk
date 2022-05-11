@@ -19,6 +19,7 @@ import com.google.gson.GsonBuilder;
 import kh.semi.mtt.board.model.service.BoardService;
 import kh.semi.mtt.board.model.vo.BoardVo;
 import kh.semi.mtt.comment.model.vo.CommentVo;
+import kh.semi.mtt.member.model.vo.MemberVo;
 
 /**
  * Servlet implementation class MemberReadContentController
@@ -49,6 +50,8 @@ public class MemberReadContentDoController extends HttpServlet {
 		Gson gobj = new GsonBuilder().setDateFormat("yyyy-MM-dd").setPrettyPrinting().create();
 
 		String memberId = request.getParameter("member_id");
+		MemberVo ssMvo = (MemberVo)request.getSession().getAttribute("ssMvo");
+		int memberNo = ssMvo.getMemberNo();
 		String currentPageStr = request.getParameter("page");
 		String button = request.getParameter("button");
 		int buttonInt = 0;
@@ -75,7 +78,7 @@ public class MemberReadContentDoController extends HttpServlet {
 
 		int totalCnt = 0; // 총 글수
 		if(buttonInt == 1) {
-			totalCnt = countBoard_member(memberId);
+			totalCnt = countBoard_member(memberNo);
 	
 			// Paging 처리
 			int totalpageCnt = (totalCnt / pageSize) + (totalCnt % pageSize == 0 ? 0 : 1);
@@ -98,7 +101,7 @@ public class MemberReadContentDoController extends HttpServlet {
 			}
 		
 		// 게시물 조회
-			ArrayList<BoardVo> volist = new BoardService().readOneMemberBoard(startRnum, endRnum, memberId);
+			ArrayList<BoardVo> volist = new BoardService().readOneMemberBoard(startRnum, endRnum, memberNo);
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("memberboard", volist);
 			map.put("startPage", startPage);
@@ -117,7 +120,7 @@ public class MemberReadContentDoController extends HttpServlet {
 		
 		// 댓글 조회
 		if(buttonInt == 2) {
-			totalCnt = countComment_member(memberId);
+			totalCnt = countComment_member(memberNo);
 
 			// Paging 처리
 			int totalpageCnt = (totalCnt / pageSize) + (totalCnt % pageSize == 0 ? 0 : 1);
@@ -141,8 +144,10 @@ public class MemberReadContentDoController extends HttpServlet {
 			System.out.println("startRnum & endRnum");
 			System.out.println(startRnum);
 			System.out.println(endRnum);
-			ArrayList<CommentVo> volist = new BoardService().readOneMemberComment(startRnum, endRnum, memberId);
+			ArrayList<CommentVo> volist = new BoardService().readOneMemberComment(startRnum, endRnum, memberNo);
 			HashMap<String, Object> map = new HashMap<String, Object>();
+			System.out.println("어쩔티비다:" + volist);
+			
 			map.put("membercomment", volist);
 			map.put("startPage", startPage);
 			map.put("currentPage", currentPage);
@@ -160,13 +165,13 @@ public class MemberReadContentDoController extends HttpServlet {
 	}
 	
 	
-	private int countBoard_member(String memberId) {
-		int result = new BoardService().countBoard_member(memberId);
+	private int countBoard_member(int memberNo) {
+		int result = new BoardService().countBoard_member(memberNo);
 		System.out.println(result);
 		return result;
 	}
-	private int countComment_member(String memberId) {
-		int result = new BoardService().countComment_member(memberId);
+	private int countComment_member(int memberNo) {
+		int result = new BoardService().countComment_member(memberNo);
 		System.out.println(result);
 		return result;
 	}

@@ -62,6 +62,8 @@ public class MemberUpdateProfileDoController extends HttpServlet {
 		if(!path.exists()) {
 			path.mkdirs();
 		}
+		
+		System.out.println("dsad ");
 		int maxFileSize = 50*1000*1000;
 		MultipartRequest multi = new MultipartRequest(request
 				, uploadPath

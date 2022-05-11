@@ -84,15 +84,20 @@ public class ReservationDao {
 		System.out.println("dao다 " + ptCalendarNo);
 		int result = -1;
 		String sql = "update tb_pt_calendar set pt_calendar_reservation_state = 'F', member_no = null where member_no = ? and pt_calendar_no = ?";
+		String sql2 = "delete from tb_payment where pt_calendar_no = ?";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, memberNo);
 			pstmt.setInt(2, ptCalendarNo);
 			result = pstmt.executeUpdate();
+			close(pstmt);
+			
+			pstmt = conn.prepareStatement(sql2);
+			pstmt.setInt(1, ptCalendarNo);
+			result = pstmt.executeUpdate();
 		} catch(Exception e){
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			close(pstmt);
 		}
 		return result;

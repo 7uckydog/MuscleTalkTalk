@@ -64,19 +64,19 @@ public class BoardService {
 		
 	}
 	
-	public ArrayList<BoardVo> readOneMemberBoard(int startRnum, int endRnum, String memberId){
+	public ArrayList<BoardVo> readOneMemberBoard(int startRnum, int endRnum, int memberNo){
 		Connection conn = null;
 		conn = getConnection();
 		
-		ArrayList<BoardVo> volist = dao.readOneMemberBoard(conn, startRnum, endRnum, memberId);
+		ArrayList<BoardVo> volist = dao.readOneMemberBoard(conn, startRnum, endRnum, memberNo);
 		close(conn);
 		return volist;
 	}
-	public ArrayList<CommentVo> readOneMemberComment(int startRnum, int endRnum, String memberId){
+	public ArrayList<CommentVo> readOneMemberComment(int startRnum, int endRnum, int memberNo){
 		Connection conn = null;
 		conn = getConnection();
 			
-		ArrayList<CommentVo> volist = dao.readOneMemberComment(conn, startRnum, endRnum, memberId);
+		ArrayList<CommentVo> volist = dao.readOneMemberComment(conn, startRnum, endRnum, memberNo);
 		close(conn);
 		return volist;
 	}
@@ -98,20 +98,20 @@ public class BoardService {
 		return result;
 	}
 	
-	public int countBoard_member(String memberId) {
+	public int countBoard_member(int memberNo) {
 		Connection conn = null;
 		conn = getConnection();
 			
-		int result =  dao.countBoard_member(conn, memberId);
+		int result =  dao.countBoard_member(conn, memberNo);
 		close(conn);
 		return result;
 	}
 	
-	public int countComment_member(String memberId) {
+	public int countComment_member(int memberNo) {
 		Connection conn = null;
 		conn = getConnection();
 				
-		int result =  dao.countComment_member(conn, memberId);
+		int result =  dao.countComment_member(conn, memberNo);
 		close(conn);
 		return result;
 	}
