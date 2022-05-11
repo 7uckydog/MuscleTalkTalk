@@ -1,5 +1,7 @@
 package kh.semi.mtt.review.model.vo;
 
+import java.sql.Date;
+
 public class ReviewVo {
 	private int reviewNo;
 	private int memberNo;
@@ -7,15 +9,28 @@ public class ReviewVo {
 	private String reviewContent;
 	private String memberNickname;
 	private String memberPhoto;
+	private Date reviewRegistDate;
 	
 	@Override
 	public String toString() {
 		return "ReviewVo [reviewNo=" + reviewNo + ", memberNo=" + memberNo + ", ptNo=" + ptNo + ", reviewContent=" + reviewContent + ", memberNickname=" + memberNickname + ", memberPhoto="
-				+ memberPhoto + "]";
+				+ memberPhoto + ", reviewRegistDate=" + reviewRegistDate + "]";
 	}
 	
 	
 	
+	public Date getReviewRegistDate() {
+		return reviewRegistDate;
+	}
+
+
+
+	public void setReviewRegistDate(Date reviewRegistDate) {
+		this.reviewRegistDate = reviewRegistDate;
+	}
+
+
+
 	public String getMemberNickname() {
 		return memberNickname;
 	}

@@ -65,6 +65,7 @@ public class ReviewDao {
 				vo.setReviewContent(rs.getString("review_content").replace("\r\n","<br>"));
 				vo.setMemberNickname(rs.getString("member_nickname"));
 				vo.setMemberPhoto(rs.getString("member_photo"));
+				vo.setReviewRegistDate(rs.getDate("review_regist_date"));
 				result.add(vo);
 			}
 
@@ -72,6 +73,99 @@ public class ReviewDao {
 			e.printStackTrace();
 		} finally {
 			close(rs);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int updateReview(Connection conn, ReviewVo vo) {
+		int result = 0;
+		String sql = "update tb_review "
+				+ "	set "
+				+ " review_content = ? "
+				+ " where review_no = ?";
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getReviewContent());
+			pstmt.setInt(2, vo.getReviewNo());
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public ReviewVo readOneReview(Connection conn, ReviewVo vo) {
+		ReviewVo result = null;
+		String sql = "";
+		if(vo.getReviewNo() == 0) {
+			sql = "select * "
+					+ "	from "
+					+ " tb_review tr"
+					+ " join tb_member tm"
+					+ " on tr.member_no = tm.member_no"
+					+ " where tr.member_no = ? and pt_no = ?";
+					
+		} else {
+			sql = "select * "
+					+ "	from "
+					+ " tb_review tr"
+					+ " join tb_member tm"
+					+ " on tr.member_no = tm.member_no"
+					+ " where review_no = ?";
+		}
+
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			if(vo.getReviewNo() == 0) {				
+				pstmt.setInt(1, vo.getMemberNo());
+				pstmt.setInt(2, vo.getPtNo());
+			} else {				
+				pstmt.setInt(1, vo.getReviewNo());
+			}
+
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = new ReviewVo();
+				result.setMemberNo(rs.getInt("member_no"));
+				result.setPtNo(rs.getInt("pt_no"));
+				result.setReviewNo(rs.getInt("review_no"));
+				result.setReviewContent(rs.getString("review_content").replace("\r\n","<br>"));
+				result.setMemberNickname(rs.getString("member_nickname"));
+				result.setMemberPhoto(rs.getString("member_photo"));
+				result.setReviewRegistDate(rs.getDate("review_regist_date"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int deleteReview(Connection conn, int reviewNo) {
+		int result = 0;
+		String sql = "delete tb_review "
+				+ " where review_no = ?";
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, reviewNo);
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
 			close(pstmt);
 		}
 		

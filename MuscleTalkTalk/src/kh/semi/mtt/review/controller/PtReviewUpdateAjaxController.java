@@ -16,16 +16,16 @@ import kh.semi.mtt.review.model.service.ReviewService;
 import kh.semi.mtt.review.model.vo.ReviewVo;
 
 /**
- * Servlet implementation class PtReviewInsertAjaxController
+ * Servlet implementation class PtReviewUpdateAjaxController
  */
-@WebServlet("/reviewinsert.ax")
-public class PtReviewInsertAjaxController extends HttpServlet {
+@WebServlet("/reviewupdate.ax")
+public class PtReviewUpdateAjaxController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PtReviewInsertAjaxController() {
+    public PtReviewUpdateAjaxController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,17 +42,19 @@ public class PtReviewInsertAjaxController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("/reviewinsert.ax 들어옴");
-		PrintWriter out = response.getWriter();
+		System.out.println("/reviewupdate.ax 들어옴");
 		
 		String ptNoStr = request.getParameter("ptNo");
 		String memberNoStr = request.getParameter("memberNo");
 		String reviewContent = request.getParameter("reviewContent");
+		String reviewNoStr = request.getParameter("reveiwNo");
 		int ptNo = 0;
 		int memberNo = 0;
+		int reviewNo = 0;
 		try {
 			ptNo = Integer.parseInt(ptNoStr);
 			memberNo = Integer.parseInt(memberNoStr);
+			reviewNo = Integer.parseInt(reviewNoStr);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		}
@@ -60,23 +62,19 @@ public class PtReviewInsertAjaxController extends HttpServlet {
 		rVo.setMemberNo(memberNo);
 		rVo.setPtNo(ptNo);
 		rVo.setReviewContent(reviewContent);
-		rVo.setReviewNo(0);
-		int result = new ReviewService().insertReview(rVo);
-		if (result == 1 ) {
-			rVo = new ReviewService().readOneReview(rVo);
-			if(rVo.getMemberPhoto() == null) {
-				rVo.setMemberPhoto("null");
-			}
-		} else {
-			out.print("fail");
-			out.flush();
-			out.close();
-			return;
-		}
+		rVo.setReviewNo(reviewNo);
+		int result = new ReviewService().updateReview(rVo);
+		PrintWriter out = response.getWriter();
 		Gson gobj = new GsonBuilder().setPrettyPrinting().create();
-		String jsonOut = gobj.toJson(rVo);
+		String jsonOut = "";
+		if(result == 1) {
+			rVo = new ReviewService().readOneReview(rVo);
+			jsonOut = gobj.toJson(rVo);
+			
+		} else {
+			jsonOut = gobj.toJson("fail");
+		}
 		out.print(jsonOut);
-		
 		out.flush();
 		out.close();
 	}

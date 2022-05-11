@@ -35,4 +35,37 @@ public class ReviewService {
 		close(conn);
 		return result;
 	}
+	
+	public int updateReview(ReviewVo vo) {
+		int result = 0;
+		Connection conn = null;
+		conn = getConnection();
+		
+		result = dao.updateReview(conn, vo);
+		
+		close(conn);
+		return result;
+	}
+	
+	public int deleteReview(int reviewNo) {
+		int result = 0;
+		Connection conn = null;
+		conn = getConnection();
+		
+		result = dao.deleteReview(conn, reviewNo);
+		
+		close(conn);
+		return result;
+	}
+	
+	public ReviewVo readOneReview(ReviewVo vo) {
+		ReviewVo result = null;
+		Connection conn = null;
+		conn = getConnection();
+		
+		result = dao.readOneReview(conn, vo);
+		
+		close(conn);
+		return result;
+	}
 }

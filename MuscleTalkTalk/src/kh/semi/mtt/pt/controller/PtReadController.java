@@ -67,11 +67,20 @@ public class PtReadController extends HttpServlet {
 		}
 		ArrayList<Integer> blacklistMember = new BlacklistService().blacklistMember(ptNo);
 		ArrayList<ReviewVo> reviewVoList = new ReviewService().readReview(ptNo);
+		boolean prevReviewChk = false;
+		if(mVo != null) {
+			for(ReviewVo temp : reviewVoList) {
+				if(mVo.getMemberNo() == temp.getMemberNo()) {
+					prevReviewChk = true;
+				}
+			}
+		}
 		request.setAttribute("pVo", pVo);
 		request.setAttribute("blacklistMember", blacklistMember);
 		request.setAttribute("myPtPageChk", myPtPageChk);
 		request.setAttribute("reviewVoList", reviewVoList);
 		request.setAttribute("reviewOpen", reviewOpen);
+		request.setAttribute("prevReviewChk", prevReviewChk);
 		request.getRequestDispatcher("WEB-INF/view/ptpage/ptread.jsp").forward(request, response);
 	}
 

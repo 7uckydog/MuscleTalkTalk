@@ -89,20 +89,21 @@
 						</c:if>
 							<div class="pt_read_review_member_info">
 								<div class="pt_read_review_member_name font_THEmpgtM font_12px">${vo.memberNickname }</div>
-								<div class="pt_read_review_regist_time font_THEmpgtM font_12px">2022-05-20 20:30:20</div>
+								<div class="pt_read_review_regist_time font_THEmpgtM font_12px">${vo.reviewRegistDate }</div>
 							</div>
 							<c:if test="${ssMvo.memberNo == vo.memberNo}">
 								<div class="pr_read_review_btns">
-									<button type="button" class="font_THEmpgtM font_12px">수정</button>
-									<button type="button" class="font_THEmpgtM font_12px">삭제</button>
+									<button type="button" id="pt_read_review_update_btn" class="font_THEmpgtM font_12px">수정</button>
+									<input type="hidden" class="pt_read_review_no" value="${vo.reviewNo }">
+									<button type="button" id="pt_read_review_delete_btn" class="font_THEmpgtM font_12px">삭제</button>
 								</div>
 							</c:if>
 						</div>
-						<div class="pt_read_review_content font_THEmpgtM font_12px">12311231232312312</div>
+						<div class="pt_read_review_content font_THEmpgtM font_12px">${vo.reviewContent }</div>
 						<input type="hidden" class="pt_read_review_member_no" value="${vo.memberNo }">
 					</div>
 				</c:forEach>
-				<c:if test="${reviewOpen == 'true' }">
+				<c:if test="${reviewOpen == 'true' && prevReviewChk == 'false'}">
 					<div id="pt_read_review_write_div">
 						<div id="pt_read_review_write_title" class="font_THEmpgtM font_12px">리뷰 작성하기</div>
 						<button type="button" id="pt_read_review_write_btn" class="font_THEmpgtM font_12px">등록하기</button>
@@ -162,18 +163,52 @@
 		update.submit();
 	});
 	
-	$("#pt_read_review_write_btn").click(function() {
+	function writeClickEvent() {
 		console.log("ptinsert.ax ajax로 호출");
 		 $.ajax({
-			url : 'ptinsert.ax',
+			url : 'reviewinsert.ax',
 			type : 'post',
 			data : {
 				ptNo : ${pVo.ptNo},
-				memberNo : ${ssMvo.memberNo},
+				memberNo : memberNo,
 				reviewContent : $("#pt_review").val()
 			},
+			dataType : 'json',
 			success : function(result) {
 				console.log(result);
+				if(result == 'fail') {
+					alert("리뷰 등록에 실패했습니다.");
+				} else {
+					var htmlTemp = '<div class="pt_read_review_div">';
+					htmlTemp += '<div class="pt_read_review_top">';
+					console.log('?????????');
+					console.log(result.memberPhoto);
+					console.log('?????????');
+					if(result.memberPhoto == 'null') {
+						htmlTemp += '<div class="pt_read_review_default_pf"></div>';
+					} else {
+						htmlTemp += '<img class="pt_read_review_pf" src="'+result.memberPhoto+'">';
+					}
+					htmlTemp += '<div class="pt_read_review_member_info">';
+					htmlTemp += '<div class="pt_read_review_member_name font_THEmpgtM font_12px">'+result.memberNickname+'</div>';
+					htmlTemp += '<div class="pt_read_review_regist_time font_THEmpgtM font_12px">'+result.reviewRegistDate+'</div>';
+					htmlTemp += '</div>';
+					htmlTemp += '<div class="pr_read_review_btns">';
+					htmlTemp += '<button type="button" id="pt_read_review_update_btn" class="font_THEmpgtM font_12px">수정</button>';
+					htmlTemp += '<input type="hidden" class="pt_read_review_no" value="'+result.reviewNo+'">';
+					htmlTemp += '<button type="button" id="pt_read_review_delete_btn" class="font_THEmpgtM font_12px">삭제</button>';
+					htmlTemp += '</div>';
+					htmlTemp += '</div>';
+					htmlTemp += '<div class="pt_read_review_content font_THEmpgtM font_12px">'+result.reviewContent +'</div>';
+					htmlTemp += '<input type="hidden" class="pt_read_review_member_no" value="'+result.memberNo+'">';
+					htmlTemp += '</div>';
+					$("#pt_read_review_wrap").append(htmlTemp);
+					$("#pt_read_review_write_div").remove();
+					$('#pt_read_review_update_btn').off('click');
+					$('#pt_read_review_delete_btn').off('click');
+					$('#pt_read_review_update_btn').on('click', updateClickEvent);
+					$('#pt_read_review_delete_btn').on('click', deleteClickEvent);
+				}
 			},
 			error : function(request, status, error) {
 				console.log(request);
@@ -181,9 +216,80 @@
 				console.log(error);
 			}
 		});  
-	});
+	}
 	
-
+	function updateClickEvent() {
+		var $temp = $(this).parents(".pt_read_review_top").next();
+		if($("#pt_review").length == 0) {
+			$temp.after('<textarea class="pt_write_textarea" name="pt_review" id="pt_review" cols="30" rows="10"></textarea>');
+			$('#pt_review').text($temp.text());
+			console.log($(this).next().val());
+			return;
+		} else {			
+			$.ajax({
+				url : 'reviewupdate.ax',
+				type : 'post',
+				data : {
+					ptNo : ${pVo.ptNo},
+					memberNo : memberNo,
+					reviewContent : $("#pt_review").val(),
+					reveiwNo : $(this).next().val()
+				},
+				dataType : 'json',
+				success : function(result) {
+					if(result == 'fail') {						
+						console.log(result);
+					} else {
+						$temp.text(result.reviewContent);
+						$("#pt_review").remove();
+					}
+				},
+				error : function(request, status, error) {
+					console.log(request);
+					console.log(status);
+					console.log(error);
+				}
+			});
+		}
+	}
+	
+	function deleteClickEvent() {
+		var $temp = $(this).parents(".pt_read_review_div");
+		if(confirm("리뷰를 삭제하시겠습니까?")) {
+			$.ajax({
+				url : 'reviewdelete.ax',
+				type : 'post',
+				data : {
+					reveiwNo : $(this).prev().val()
+				},
+				success : function(result) {
+					console.log(result);
+					if(result == '1') {
+						$temp.remove();
+						$("#pt_read_review_wrap").append('<div id="pt_read_review_write_div"></div>');
+						$('#pt_read_review_write_div').append('<div id="pt_read_review_write_title" class="font_THEmpgtM font_12px">리뷰 작성하기</div>');
+						$('#pt_read_review_write_div').append('<button type="button" id="pt_read_review_write_btn" class="font_THEmpgtM font_12px">등록하기</button>');
+						$('#pt_read_review_write_div').append('<br>');
+						$('#pt_read_review_write_div').append('<textarea class="pt_write_textarea" name="pt_review" id="pt_review" cols="30" rows="10"></textarea>');
+						$("#pt_read_review_write_btn").off('click');
+						$("#pt_read_review_write_btn").on('click', writeClickEvent);
+					} else {
+						alert("댓글 삭제에 실패했습니다.");
+					}
+				},
+				error : function(request, status, error) {
+					console.log(request);
+					console.log(status);
+					console.log(error);
+				}
+			});
+		}
+	}
+	$("#pt_read_review_write_btn").on('click', writeClickEvent);
+	
+	$('#pt_read_review_update_btn').on('click', updateClickEvent);
+	
+	$('#pt_read_review_delete_btn').on('click', deleteClickEvent);
 </script>
 </body>
 </html>
