@@ -1,15 +1,14 @@
 <%@ include file="/WEB-INF/view/font.jsp"%>
 <%@ include file="/WEB-INF/view/csslink3_mp.jsp"%>
 <%@page import="kh.semi.mtt.member.model.vo.MemberVo"%>
-<%@page import="kh.semi.mtt.inquiry.model.vo.InquiryVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>1:1 문의 상세 조회</title>
+<title>회원탈퇴</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style>
@@ -21,74 +20,52 @@
 	    text-decoration: none;
 	}
 	footer > div > ul{
-    	margin-left: 20px;
-    	padding: 30px;
-    	color: gray;
-    	line-height: 15px;
-	}
-	#member_info_read{
-		margin-bottom: 100px;
+	    margin-left: 20px;
+	    padding: 30px;
+	    color: gray;
+	    line-height: 15px;
 	}
 </style>
 <style>
-	#section1{
-            margin-left: 210px;
-            background-color: white;
-            border-radius: 10px 10px 0 0;
-            width: 780px;
-            float: left;
-            font-size: 12px;
-            font-family:'THEmpgtM';
-        }
-	#mp_main_text{
-            margin: 63px 0px 60px 63px;
-            font-size: 15px;
-            font-family:'THEmpgtB';
-            color: rgb(51, 51, 51);
-            line-height: 20px;
-            overflow: hidden;
-            width: 650px;
-        }
-        #ul_list{
-            width: 660px;
-            margin-left: 130px;
-            line-height: 15px;
-        }
-        .iq_menu{
-            float: left;
-            clear: both;
-            font-family:'THEmpgtB';
+		#wd_noti{
             text-align: center;
-            margin: 30px 45px 20px 10px;
-            width: 50px;
-            text-align: left;
-        }
-        #i_title{
-        	float: left;
-            clear: both;
-            font-family:'THEmpgtB';
-            text-align: center;
-        	margin: 30px 45px 0px 10px;
-        	width: 50px;
-            text-align: left;
-        }
-        .iq_info{
-            float: left;
             font-family:'THEmpgtR';
+            line-height: 18px;
+            margin-bottom: 40px;
+            font-size: 12px;
+        }
+        #pwd{
             text-align: center;
-            width: 400px;
-            margin: 30px 5px 45px 5px;
-            letter-spacing: 0.5px;
-            text-align: left;
+            width: 290px;
+            background-color: #ECECEC;
+            margin: 0 auto;
         }
-        #br{
-            clear: both;
-            width: 465px;
-            padding: 15px;
-            border-top: 1px solid lightgray;
-            margin-left: 10px;
+        #member_password_org{
+            float: left;
+            font-family:'THEmpgtB';
+            font-size: 11.5px;
+            color: rgb(94, 94, 94);
+            width: 200px;
+            height: 27px;
+            background-color: rgb(236, 236, 236);
+            border: 0px;
+            border-radius: 3px;
+            text-align: center;
+            vertical-align: middle;
         }
-        #ok_btn{
+        #pwd_see{
+            float: left;
+        	width: 70px; 
+            margin-left: 8px; 
+            height: 27px;
+            border: 0px;
+            font-size: 10.5px;
+            font-family:'THEmpgtM';
+            color: rgb(64, 64, 64);
+            background-color: rgb(224, 224, 224);
+            cursor: pointer;
+        }
+        #wd_btn{
             margin: 50px 80px 100px 630px;
             width: 70px;
             height: 30px;
@@ -99,44 +76,31 @@
             border: 0px;
             cursor: pointer;
         }
-        input::placeholder{
-        	font-family:'THEmpgtM';
-            font-size: 10.5px;
-        }
-        #inquiry{
-        	text-decoration: underline;
-        }
 </style>
 </head>
 <body>
 <c:if test="${empty ssMvo}">
 	<jsp:forward page="/WEB-INF/view/member/login.jsp"></jsp:forward>
 </c:if>
-<% InquiryVo ivo = (InquiryVo)request.getAttribute("ivo"); %>
 <%@ include file="/WEB-INF/view/template.jsp"%>
-		<section id="section1">
+	<section id="section1">
             <div id="mp_main_text">
-                <p style="height: 20px; width: 150px; float: left;">
-                    문의 상세 조회
+                <p>회원탈퇴
                 </p>
+                <p style="height: 20px;"></p>
             </div>
-            <div>
-                <ul id="ul_list">
-                    <li id="i_title">문의 제목</li>
-                    <li class="iq_info">${ivo.inquiryTitle}</li>
-                    <li class="iq_menu">문의 내용</li>
-                    <li class="iq_info">${ivo.inquiryContent}</li>
-                    <div id="br"></div>
-                    <li class="iq_menu">답변</li>
-                    <c:if test="${not empty ivo.inquiryAnswer}">
-						<li class="iq_info">${ivo.inquiryAnswer}</li>
-					</c:if>
-					<c:if test="${empty ivo.inquiryAnswer}">
-						<li class="iq_info">아직 등록된 답변이 없습니다.</li>
-					</c:if>
-                </ul>
+            <div id="member_info_read">
+                <p id="wd_noti">
+                    회원 탈퇴 시, 정보가 초기화 되며 모든 데이트가 복구할 수 없는 형태로 파기됩니다.
+                    <br>
+                    신중하게 결정 후 회원 탈퇴를 진행해 주세요.
+                </p>
+                <div id="pwd">
+                    <input type="password" id="member_password_org" placeholder="비밀번호 입력" required>
+                    <input type="button" id="pwd_see" value="보기">
+                </div>
+                <input type="button" id="wd_btn" value="탈퇴하기">
             </div>
-            <input type="button" value="확인" id="ok_btn">
             <%@ include file="/WEB-INF/view/footer.jsp"%>
         </section>
         <section id="section2">
@@ -181,10 +145,45 @@
                     </li>
                     
                     <li id="inquiry">1:1 문의</li>
-                    <li id="withdrawal">탈퇴하기</li>
+                    <li id="secession">탈퇴하기</li>
                 </ul>
             </div>
         </section>
+	<script type="text/javascript">
+		$("#pwd_see").click(function(){
+			if($("#member_password_org").val() == "" || $("#member_password_org").val() == null){
+				
+			} else {
+				if($("#member_password_org").attr("type") == "password"){
+					$("#member_password_org").attr("type","text");
+					$("#pwd_see").val("숨기기");
+				} else {
+					$("#member_password_org").attr("type","password");
+					$("#pwd_see").val("보기");
+				}			
+			}	
+		})
+		$("#wd_btn").click(function(){
+			// 비밀번호 입력을 안 했다면
+			if($("#member_password_org").val() == null || $("#member_password_org").val() == ""){
+				alert("비밀번호를 입력해주세요.");
+				return;
+			}
+			// 입력한 비밀번호가 회원 비밀번호와 일치하지 않다면
+			if($("#member_password_org").val() != ${ssMvo.memberPassword}){
+				alert("비밀번호가 일치하지 않습니다. 다시 입력해주세요.");
+				return;
+			}
+			
+			var msg = confirm ("한 번 회원 탈퇴가 진행되면 되돌릴 수 없습니다. 정말 탈퇴하시겠습니까?");
+			if(msg){
+				// 회원탈퇴 진행 TODO
+			} else {
+				alert("회원 탈퇴가 취소되었습니다.");
+				location.href="memberwithdrawalcontroller";
+			}
+		})
+	</script>
 <script>
 	$("#mp_logout").click(function(){
 		alert("로그아웃 되었습니다.");
@@ -217,6 +216,6 @@
 	$("#ok_btn").click(function(){
 		location.href="memberinquiry";
 	})
-</script>
+</script>        
 </body>
 </html>

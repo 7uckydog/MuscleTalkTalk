@@ -220,7 +220,7 @@
                     </li>
                     
                     <li id="inquiry">1:1 문의</li>
-                    <li id="secession">탈퇴하기</li>
+                    <li id="withdrawal">탈퇴하기</li>
                 </ul>
             </div>
         </section>
@@ -252,7 +252,10 @@
 	})
 	$("#program_list").click(function(){
 			location.href="myptprogram";
-		})
+	})
+	$("#withdrawal").click(function(){
+		location.href="memberwithdrawalcontroller";
+	})
 </script>
 </body>
 </html>

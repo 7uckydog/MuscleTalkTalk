@@ -34,6 +34,13 @@ public class LoginDoController extends HttpServlet {
 			request.getRequestDispatcher("WEB-INF/view/common/errorPage.jsp").forward(request, response);
 			
 		} else {
+			System.out.println(vo.getMemberAbsence());
+			if(vo.getMemberAbsence().equals("Y")) {
+				System.out.println("로그인 실패");
+				request.setAttribute("msg", "입력한 아이디와 비밀번호에 해당하는 회원을 조회할 수 없습니다.");
+				request.getRequestDispatcher("WEB-INF/view/common/errorPage.jsp").forward(request, response);
+				return;
+			}
 			System.out.println("로그인 성공");
 			request.getSession().setAttribute("ssMvo", vo);
 			

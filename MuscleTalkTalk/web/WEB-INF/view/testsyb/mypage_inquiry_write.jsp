@@ -178,7 +178,7 @@
                     </li>
                     
                     <li id="inquiry">1:1 문의</li>
-                    <li id="secession">탈퇴하기</li>
+                    <li id="withdrawal">탈퇴하기</li>
                 </ul>
             </div>
         </section>
@@ -206,8 +206,11 @@
 		location.href="memberreadreservationlist";
 	})
 	$("#program_list").click(function(){
-			location.href="myptprogram";
-		})
+		location.href="myptprogram";
+	})
+	$("#withdrawal").click(function(){
+		location.href="memberwithdrawalcontroller";
+	})
 	$("#ok_btn").click(function(){
 		if($("#i_title").val() != "" && $("#i_content").val() != ""){
 			
