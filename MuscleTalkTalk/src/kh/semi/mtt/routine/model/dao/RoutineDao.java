@@ -162,7 +162,26 @@ public class RoutineDao {
 		}
 	
 	
-	
+	public int MyRoutineDelete(Connection conn, RoutineVo rvo) {
+		int result = 0;
+		
+		String sql="DELETE from tb_routine where routine_no = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rvo.getRoutineNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 	
 	
 	

@@ -40,7 +40,15 @@ public class RoutineService {
 		
 	}
 	
-	
+	public int MyRoutineDelete(RoutineVo rvo) {
+		Connection conn = null;
+		conn = getConnection();
+		int result = dao.MyRoutineDelete(conn, rvo);
+		close(conn);
+		return result;
+		
+		
+	}
 	
 	
 	

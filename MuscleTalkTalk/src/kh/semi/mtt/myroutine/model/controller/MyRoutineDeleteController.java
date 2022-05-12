@@ -1,4 +1,4 @@
-package kh.semi.mtt.routine.controller;
+package kh.semi.mtt.myroutine.model.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,19 +7,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import kh.semi.mtt.member.model.vo.MemberVo;
+import kh.semi.mtt.routine.model.service.RoutineService;
+import kh.semi.mtt.routine.model.vo.RoutineVo;
 
 /**
- * Servlet implementation class RoutineInsertController
+ * Servlet implementation class MyRoutineDeleteController
  */
-@WebServlet("/routineinsert")
-public class RoutineInsertController extends HttpServlet {
+@WebServlet("/deleteroutine")
+public class MyRoutineDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RoutineInsertController() {
+    public MyRoutineDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,21 +29,23 @@ public class RoutineInsertController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		System.out.println("루틴삭제 들어옴");
+		int result = -1 ;
+		RoutineVo rvo = new RoutineVo();
 		
-		MemberVo mvo = (MemberVo) request.getSession().getAttribute("ssMvo");
-		if(mvo == null) {
-			request.getRequestDispatcher("WEB-INF/view/member/login.jsp").forward(request, response);
-			
-		}else {
+		rvo.setRoutineNo(Integer.parseInt(request.getParameter("routineno"))); 
 		
-		request.getRequestDispatcher("WEB-INF/view/routine/routineinsert.jsp").forward(request, response);
+		result = new RoutineService().MyRoutineDelete(rvo);
+		if(result == 1) {
+			System.out.println("삭제성공");
+			response.sendRedirect("myroutinelistall");
 		}
+		
+		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
+	
 //	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		// TODO Auto-generated method stub
 //		doGet(request, response);

@@ -13,6 +13,7 @@ import java.util.Date;
 import kh.semi.mtt.board.model.vo.BoardVo;
 import kh.semi.mtt.comment.model.vo.CommentVo;
 import kh.semi.mtt.member.model.vo.MemberVo;
+import kh.semi.mtt.totalboard.model.vo.TotalBoardVo;
 
 public class BoardDao {
 	private Statement stmt = null;
@@ -131,6 +132,132 @@ public class BoardDao {
 	}
 	
 	
+	
+	public ArrayList<TotalBoardVo> totalBoardReadAll(Connection conn, int startRnum, int endRnum){
+			ArrayList<TotalBoardVo> tolist = null;
+			System.out.println("통합보드 dao1");
+			
+			String sql = "select * "
+					+ " from (select rownum r, t1.*"
+					+ " from(select *"
+					+ " from (select tb.board_no, member_nickname, board_title, board_count, board_date, board_category_no, rcnt"
+					+ " from tb_board tb"
+					+ " left outer join (select count(comment_no) rcnt, board_no from tb_comment group by board_no) tc"
+					+ " on tb.board_no = tc.board_no"
+					+ " join tb_member tm"
+					+ " on tb.member_no = tm.member_no"
+					+ " "
+					+ " union"
+					+ " "
+					+ " select trb.routine_board_no, member_nickname, routine_board_title, routine_board_count, routine_board_date, board_category_no, rcnt"
+					+ " from tb_routine_board trb"
+					+ " left outer join (select count(comment_no) rcnt, routine_board_no from tb_comment group by routine_board_no) tc"
+					+ " on trb.routine_board_no = tc.routine_board_no"
+					+ " join tb_member tm"
+					+ " on trb.member_no = tm.member_no) "
+					+ " ) t1)"
+					+ " where r between ? and ? order by r desc ,board_date desc";
+			
+			System.out.println("통합보드 dao2");
+			try {
+				System.out.println("통합보드 dao2-1");
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, startRnum);
+				pstmt.setInt(2, endRnum);
+				
+				rs = pstmt.executeQuery();
+				System.out.println("통합보드 dao2-2");
+				if(rs != null) {
+					tolist = new ArrayList<TotalBoardVo>();
+					System.out.println("통합보드 dao2-3");
+					System.out.println(sql);
+						while(rs.next()) {
+							TotalBoardVo tvo = new TotalBoardVo();
+							
+							tvo.setTotalboardR(rs.getInt("r"));
+							tvo.setBoardNo(rs.getInt("BOARD_NO"));
+							tvo.setBoardTitle(rs.getString("board_title"));
+//							tvo.setBoardContent(rs.getString("board_content"));
+							tvo.setBoardCount(rs.getInt("board_count"));
+							tvo.setBoardDate(rs.getDate("board_date"));
+							tvo.setBoardCategoryNumber(rs.getInt("board_category_no"));
+//							tvo.setMemberNo(rs.getInt("member_no"));
+//							tvo.setRoutineboardNo(rs.getInt("routine_board_no"));
+//							tvo.setRoutineNo(rs.getInt("routine_no"));
+							tvo.setMemberNickname(rs.getString("member_nickname"));
+							tvo.setrCnt(rs.getInt("rcnt"));
+//							tvo.setRoutineboardTitle(rs.getString("routine_board_title"));
+//							tvo.setRoutineboardContent(rs.getString("routine_board_content"));
+//							tvo.setRoutineboardCount(rs.getInt("routine_board_count"));
+//							tvo.setRoutineboardDate(rs.getDate("routine_board_date"));
+//							tvo.setRoutineboardShare(rs.getInt("routine_board_share"));
+							
+							System.out.println("통합보드 dao3");
+							tolist.add(tvo);
+							System.out.println(tolist);
+						}
+				}
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			System.out.println("통합보드 dao4");
+			System.out.println(tolist);
+			return tolist;
+	}
+	
+	
+	public int countTotalBoard (Connection conn) {
+		int result = 0;
+		String sql = "select count(*) cnt from("
+				+ "select tb.board_no, member_nickname, board_title, board_count, board_date, board_category_no, rcnt"
+				+ "    from tb_board tb"
+				+ "    left outer join (select count(comment_no) rcnt, board_no from tb_comment group by board_no) tc"
+				+ "    on tb.board_no = tc.board_no"
+				+ "    join tb_member tm"
+				+ "    on tb.member_no = tm.member_no"
+				+ "    "
+				+ "    union"
+				+ "    "
+				+ "select trb.routine_board_no, member_nickname, routine_board_title, routine_board_count, routine_board_date, board_category_no, rcnt"
+				+ "    from tb_routine_board trb"
+				+ "    left outer join (select count(comment_no) rcnt, routine_board_no from tb_comment group by routine_board_no) tc"
+				+ "    on trb.routine_board_no = tc.routine_board_no"
+				+ "    join tb_member tm"
+				+ "    on trb.member_no = tm.member_no)";
+				
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getInt("cnt");
+			}
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public ArrayList<BoardVo> readAllBoard(Connection conn, int startRnum, int endRnum, int filterint, String search){ //매개인자로 필터 추가해서 정렬기능추가
 		ArrayList<BoardVo> volist = null;
 //		String sql = "select * from(select rownum r, t1.* from "
@@ -185,7 +312,9 @@ public class BoardDao {
 					+ "    order by BOARD_DATE, ROUTINE_BOARD_DATE)t1"
 					+ "    order by r desc";
 		}
+		System.out.println("자유게시판 sql");
 		System.out.println(sql);
+		System.out.println("자유게시판 sql-----");
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startRnum);		
@@ -210,7 +339,8 @@ public class BoardDao {
 					vo.setrCnt(rs.getInt("R_CNT"));
 //					System.out.println("댓글수"+rs.getInt("R_CNT"));
 					volist.add(vo);
-					
+					System.out.println("자유게시판 volist");
+					System.out.println(vo);
 				}
 			}
 			

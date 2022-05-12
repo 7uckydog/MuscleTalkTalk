@@ -243,7 +243,7 @@ section {
 	<section>
 		<div id="board_main">게시판</div>
 		<div id="board_category">
-			<a href="totalboard">통합 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="BoardReadAll">자유 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
+			<a href="totalboardreadall">통합 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="BoardReadAll">자유 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
 				href="routineboardreadall">루틴 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="noticereadall">공지사항</a>
 		</div>
 		<div id="board_note">
@@ -258,7 +258,7 @@ section {
 		</div>
 		<div id="board_information">
 			<div id="board_count">전체게시물 수:
-				&nbsp;${boardreadall.get(0).boardNo}</div>
+				&nbsp;${totalboardreadall.size()}</div>
 			<!-- <div id="board_search"> -->
 			<form class="search_board">
 				<button type="button" id="btn_search">검색</button>
@@ -363,9 +363,9 @@ section {
 			<tr>
 				<td colspan="6" class="table_line"></td>
 			</tr>
-			<c:forEach items="${boardreadall}" var="vo">
+			<c:forEach items="${totalboardreadall}" var="vo">
 				<tr class="table_content">
-					<td><a href="boardread?bno=${vo.boardNo}">${vo.boardNo }</a></td>
+					<td><a href="boardread?bno=${vo.boardNo}">${vo.totalboardR }</a></td>
 					<td><a href="boardread?bno=${vo.boardNo }">${vo.boardTitle }</a></td>
 					<td>${vo.boardDate }</td>
 					<td>&nbsp;&nbsp;&nbsp;${vo.boardCount }</td>
@@ -387,7 +387,9 @@ section {
 				</c:if>
 			</p>
 		</div>
+		<c:if test="${not empty ssMvo }">
 		<button onclick="location.href = 'boardinsert';" id="write_btn">글쓰기</button>
+		</c:if>
 	</section>
 
 	<%@ include file="/WEB-INF/view/footer.jsp"%>
