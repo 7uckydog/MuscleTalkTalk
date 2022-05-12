@@ -33,6 +33,7 @@ public class AdminInquiryController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("/admininquiry enter");
 		request = exec(request, response);
 		request.getRequestDispatcher("WEB-INF/view/admin/admininquiry.jsp").forward(request, response);
 	}

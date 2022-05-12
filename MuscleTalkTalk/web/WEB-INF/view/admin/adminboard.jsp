@@ -91,23 +91,25 @@ a, a:visited, a:link{
 	position: relative;
 }
 
-.Pageing {
+#pageing_all {
+	margin: 45px auto 60px auto;
 	text-align: center;
-	display: inline-blick;
+	font-family: 'THEmpgtM';
+	font-size: 0px;
 }
 
-.Pageing a {
-	border: 1px solid #4B4DB2;
+.page {
+	background-color: rgb(236, 236, 236);
+	border-radius: 3px;
+	color: rgb(127, 127, 127);
+	padding: 8px 11px 8px 11px;
+	display: inline-block;
+	margin: 0px 2px;
+	font-size: 10.5px;
 }
 
-.Pageingclick {
-	background-color: #4B4DB2;
-}
-
-.Page {
-	width: 30px;
-	height: 30px;
-	box-sizing: content-box;
+.npage{
+	cursor: pointer;
 }
 .search_notice {
 	display: inline-block;
@@ -285,7 +287,7 @@ a, a:visited, a:link{
 				</tr>
 			</c:forEach>
 		</table>
-		
+			<div id="pageing_all">
 			<div class="Pageing">
 					<c:if test="${startPage > 1 }">
 						<a class="Page" href="adminboard?page=${startPage-1 }">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -296,6 +298,7 @@ a, a:visited, a:link{
 					<c:if test="${endPage < totalpageCnt}">
 						<a class="Page" href="adminboard?page=${endPage+1 }">다음</a>
 					</c:if>
+			</div>
 			</div>
 			<div class="search_board">
 				<button type="button" id="btn_search">검색</button>
@@ -326,7 +329,7 @@ a, a:visited, a:link{
 				<li id="li_3"><a href="admincomment">댓글 관리</a></li>
 				<li id="li_4"><a href="adminnotice">공지사항 관리</a></li>
 				<li id="li_5"><a href="adminmember">회원 관리</a></li>
-				<li id="li_6">트레이너 관리</li>
+				<li id="li_6"><a href="admintrainer">트레이너 관리</a></li>
 				<li id="li_7"><a href="admininquiry">문의 확인</a></li>
 			</ul>
 		</div>

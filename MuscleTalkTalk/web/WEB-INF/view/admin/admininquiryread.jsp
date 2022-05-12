@@ -123,6 +123,9 @@
 	#li_7 {
 		text-decoration: underline;
 	}
+	a, a:visited, a:link{
+	    color: rgb(94, 94, 94);
+	}
 </style>
 </head>
 <body>
@@ -178,7 +181,7 @@
 					<li id="li_3"><a href="admincomment">댓글 관리</a></li>
 					<li id="li_4"><a href="adminnotice">공지사항 관리</a></li>
 					<li id="li_5"><a href="adminmemeber">회원 관리</a></li>
-					<li id="li_6">트레이너 관리</li>
+					<li id="li_6"><a href="admintrainer">트레이너 관리</a></li>
 					<li id="li_7"><a href="admininquiry">문의 확인</a></li>
 				</ul>
 			</div>

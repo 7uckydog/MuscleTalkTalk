@@ -46,7 +46,7 @@ public class NoticeDao {
 			if(rs.next()) {  //10 : 위 2번의 조건식 pk 이용 - 결과단일행. while반복 필요 x rs.next 해줘야 읽으러감
 //			11. 리턴 변수 값 채우기!!!!!!!	rs.getString("b_title");
 				vo.setNotiContent(rs.getString("notice_Content"));
-				vo.setNotiCnt(rs.getInt("notice_count"));
+				vo.setNotiCnt(rs.getInt("notice_count")+1);
 				vo.setNotiTitle(rs.getString("notice_title"));
 				vo.setNotiDate(rs.getTimestamp("notice_date"));
 				vo.setNoticeNo(rs.getInt("notice_no"));

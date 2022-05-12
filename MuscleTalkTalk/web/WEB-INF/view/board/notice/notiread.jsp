@@ -1,3 +1,4 @@
+<%@page import="kh.semi.mtt.member.model.service.MemberService"%>
 <%@page import="kh.semi.mtt.notice.model.vo.NoticeVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -165,6 +166,7 @@
         margin-right: 65px;
         text-align: right;
         flote: right;
+        display: none;
     }
     #notice_delete, #notice_update {
         width: 100px;
@@ -174,20 +176,17 @@
         background-color: white;
         border: 1px solid #4B4DB2;
     }
-
      
 </style>
 
 </head>
 <body>
+
 	<%@ include file="/WEB-INF/view/template.jsp"%>
 <%
 	NoticeVo vo = (NoticeVo) request.getAttribute("nvo");
-/* if(vo!=null){ */
 %>
-
 	<section>
-
 		<div id="notice_main">공지사항</div>
 		<div id="board_category">
 			<a href="totalboard">통합 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="BoardReadAll">자유 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
@@ -246,5 +245,10 @@
 	</section>
 
 	<%@ include file="/WEB-INF/view/footer.jsp"%>
+	<script type="text/javascript">
+	<c:if test="${not empty ssMvo && ssMvo.memberNo < 11}">
+		$('.btn_update_delete').css('display','block');
+	</c:if>
+</script>
 </body>
 </html>

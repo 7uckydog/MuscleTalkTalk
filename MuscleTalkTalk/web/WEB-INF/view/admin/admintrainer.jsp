@@ -143,7 +143,7 @@ a, a:visited, a:link{
 	line-height: 50px;
 }
 
-.table_content :first-child {
+.table_content td:first-child {
 	width: 60px;
 	padding-left: 10px;
 	box-sizing: border-box;
@@ -155,23 +155,25 @@ a, a:visited, a:link{
 	margin-right: 65px;
 }
 
-.Pageing {
+#pageing_all {
+	margin: 45px auto 60px auto;
 	text-align: center;
+	font-family: 'THEmpgtM';
+	font-size: 0px;
 }
 
-.Pageing a {
-	border: 1px solid #4B4DB2;
+.page {
+	background-color: rgb(236, 236, 236);
+	border-radius: 3px;
+	color: rgb(127, 127, 127);
+	padding: 8px 11px 8px 11px;
+	display: inline-block;
+	margin: 0px 2px;
+	font-size: 10.5px;
 }
 
-.Pageingclick {
-	background-color: #4B4DB2;
-}
-
-.Page {
-	width: 30px;
-	height: 30px;
-	box-sizing: content-box;
-	
+.npage{
+	cursor: pointer;
 }
 
 </style>
@@ -216,18 +218,20 @@ a, a:visited, a:link{
 				</tr>
 			</c:forEach>
 		</table>
-		<div class="Pageing">
-			<p>
-				<c:if test="${startPage > 1 }">
-					<a class="Page" href="adminmember?page=${startPage-1 }">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				</c:if>
-				<c:forEach begin="${startPage }" end="${endPage }" var="p">
-					<a class="Page" href="adminmember?page=${p }">${p }</a>&nbsp;&nbsp;&nbsp;&nbsp;
-				</c:forEach>
-				<c:if test="${endPage < totalPageCnt }">
-					<a class="Page" href="adminmember?page=${endPage+1 }">다음</a>
-				</c:if>
-			<p>
+		<div id="pageing_all">
+			<div class="Pageing">
+				<p>
+					<c:if test="${startPage > 1 }">
+						<a class="Page" href="admintrainer?page=${startPage-1 }">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					</c:if>
+					<c:forEach begin="${startPage }" end="${endPage }" var="p">
+						<a class="Page" href="admintrainer?page=${p }">${p }</a>&nbsp;&nbsp;&nbsp;&nbsp;
+					</c:forEach>
+					<c:if test="${endPage < totalPageCnt }">
+						<a class="Page" href="admintrainer?page=${endPage+1 }">다음</a>
+					</c:if>
+				<p>
+			</div>
 		</div>
 		<div class="search_memeber">
 				<button type="button" id="btn_search">검색</button>

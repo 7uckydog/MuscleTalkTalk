@@ -21,6 +21,14 @@ public class MemberService {
 		return retVo;
 	}
 	
+	public MemberVo readOneMember(int memberNO) {
+		MemberVo retVo = null;
+		Connection conn = getConnection();
+		retVo = dao.readOneMember(conn, memberNO);
+		close(conn);
+		return retVo;
+	}
+	
 	public MemberVo login(String memeberId, String memberPassword) {
 		MemberVo retVo = null;
 		Connection conn = null;

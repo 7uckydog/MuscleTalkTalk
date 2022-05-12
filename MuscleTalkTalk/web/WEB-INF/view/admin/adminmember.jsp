@@ -211,8 +211,8 @@ a, a:visited, a:link {
 			<c:forEach var="vo" items="${memberreadall}">
 				<tr class="table_content">
 					<td>${vo.rownum}</td>
-					<td><a href="memberread?memeberNo=${vo.memberNo}">${vo.memberName }</a></td>
-					<td><a href="memberread?memeberNo=${vo.memberNo}">${vo.memberNo}</a></td>
+					<td><a href="adminmemberread?memberNo=${vo.memberNo}">${vo.memberName }</a></td>
+					<td><a href="adminmemberread?memberNo=${vo.memberNo}">${vo.memberNo}</a></td>
 					<td>${vo.memberJoinDate}</td>
 					<td>${vo.sumPrice}</td>
 					<td>${vo.boardReportCnt}</td>
@@ -262,7 +262,7 @@ a, a:visited, a:link {
 				<li id="li_3"><a href="admincomment">댓글 관리</a></li>
 				<li id="li_4"><a href="adminnotice">공지사항 관리</a></li>
 				<li id="li_5"><a href="adminmemeber">회원 관리</a></li>
-				<li id="li_6">트레이너 관리</li>
+				<li id="li_6"><a href="admintrainer">트레이너 관리</a></li>
 				<li id="li_7"><a href="admininquiry">문의 확인</a></li>
 			</ul>
 		</div>

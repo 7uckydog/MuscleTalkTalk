@@ -45,7 +45,7 @@ section {
 	margin-left: 65px;
 	font-weight: bold;
 	display: inline-block;
-	/* margin-bottom: 40px; */
+	margin-bottom: 40px; 
 	font-size: 15px;
 }
 
@@ -62,7 +62,64 @@ section {
 	float: right;
 	font-size: 12px;
 }
-
+#board_note {
+		border: 1px solid #4B4DB2;
+		border-bottom: 0;
+		width: 800px;
+		box-sizing: border-box;
+		height: 150px;
+		/* padding: 40px 30px 30px 30px; */
+		padding-left: 50px;
+		margin: 0 65px;
+		text-align: left;
+	}
+	
+	#note_title {
+		margin-top: 20.5px;
+		margin-bottom: 20px;
+		font-size: 12px;
+	}
+	
+	.note_content_1 {
+		font-weight: 100;
+		margin-top: 20px;
+	}
+	
+	.note_content_2 {
+		font-weight: 100;
+		margin-top: 15px;
+		margin-bottom: 15px;
+	}
+	
+	.note_content_3 {
+		font-weight: 100;
+		/* margin-top: 20px; */
+	}
+	
+	.note_content_1, .note_content_2, .note_content_3 {
+		font-size: 12px;
+	}
+	
+	#board_information {
+		border: 1px solid #4B4DB2;
+		background-color: #4B4DB2;
+		width: 800px;
+		box-sizing: border-box;
+		height: 55px;
+		padding: 10px 30px 10px 50px;
+		margin: 0px auto;
+		text-align: left;
+		position: relative;
+		overflow: hidden;
+		vertical-align: middle;
+	}
+	#writer_board{
+            display: inline-block;
+            /* margin: auto; */
+            line-height: 30px;
+            font-size: 12px;
+            color: white;
+        }
 
 
 
@@ -135,23 +192,25 @@ section {
 	margin-right: 60px;
 }
 
-.Pageing {
+#pageing_all {
+	margin: 45px auto 60px auto;
 	text-align: center;
+	font-family: 'THEmpgtM';
+	font-size: 0px;
 }
 
-.Pageing a {
-	border: 1px solid #4B4DB2;
+.page {
+	background-color: rgb(236, 236, 236);
+	border-radius: 3px;
+	color: rgb(127, 127, 127);
+	padding: 8px 11px 8px 11px;
+	display: inline-block;
+	margin: 0px 2px;
+	font-size: 10.5px;
 }
 
-.Pageingclick {
-	background-color: #4B4DB2;
-}
-
-.Page {
-	width: 30px;
-	height: 30px;
-	box-sizing: content-box;
-	
+.npage{
+	cursor: pointer;
 }
 
 
@@ -165,6 +224,23 @@ section {
 			<a href="totalboard">통합 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="BoardReadAll">자유 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
 				href="routineboardreadall">루틴 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="noticereadall">공지사항</a>
 		</div>
+		<div id="board_note">
+            <div id="note_title">게시판 유의사항</div>
+            <div class="note_content_1">
+                - 욕설,상업적 내용,광고,정치,특정 회원 및 트레이너 혹은 프로그램 등을 비방하는 내용의 악의적인 게시물은 신고 및 삭제될 수 있습니다.
+            </div>
+            <div class="note_content_2">
+                - 친목,금전거래,재산권 침해,근거 없는 허위사실 유포 또한 신고 및 삭제될 수 있습니다.
+            </div>
+            <div class="note_content_3">
+                - 전 회원의 보다 편리한 게시판 사용 및 홈페이지 관리를 위한 에티켓을 지켜주세요.
+            </div>
+        </div>
+        <div id="board_information">
+            <div id="writer_board">
+                공지사항
+            </div>
+        </div>
 		<table id="notice_table">
 			<tr>
 				<td colspan="3" class="table_line"></td>
@@ -185,6 +261,7 @@ section {
 				</tr>
 			</c:forEach>
 		</table>
+		<div id="pageing_all">
 		<div class="Pageing">
 			<p>
 				<c:if test="${startPage > 1 }">
@@ -197,6 +274,7 @@ section {
 					<a class="Page" href="noticereadall?page=${endPage+1 }">다음</a>
 				</c:if>
 			<p>
+		</div>
 		</div>
 		<div class="search_notice">
 				<button type="button" id="btn_search">검색</button>
