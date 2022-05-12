@@ -21,6 +21,14 @@ public class MemberService {
 		return retVo;
 	}
 	
+	public MemberVo readTrainerMember(int trainerNo) {
+		MemberVo retVo = null;
+		Connection conn = getConnection();
+		retVo = dao.readTrainerMember(conn, trainerNo);
+		close(conn);
+		return retVo;
+	}
+	
 	public MemberVo readOneMember(int memberNO) {
 		MemberVo retVo = null;
 		Connection conn = getConnection();

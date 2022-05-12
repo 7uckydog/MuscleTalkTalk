@@ -27,7 +27,7 @@ public class MemberVo {
 	private String trainerFile;
 	private String gymName;
 	private String gymLocation;
-
+	private String trainerConfirm;
 	@Override
 	public String toString() {
 		return "MemberVo [memberNo=" + memberNo + ", memberId=" + memberId + ", memberPassword=" + memberPassword
@@ -38,28 +38,48 @@ public class MemberVo {
 				+ ", memberTrainer=" + memberTrainer + ", memberAbsence=" + memberAbsence + ", memberJoinDate="
 				+ memberJoinDate + ", memberLeaveDate=" + memberLeaveDate + ", memberNickname=" + memberNickname
 				+ ", trainerNo=" + trainerNo + ", trainerFile=" + trainerFile + ", gymName=" + gymName
-				+ ", gymLocation=" + gymLocation + "]";
+				+ ", gymLocation=" + gymLocation + ", trainerConfirm=" + trainerConfirm + "]";
 	}
-
-	
-	public String getMemberPhotoName() {
-		return memberPhotoName;
-	}
-
-
-	public void setMemberPhotoName(String memberPhotoName) {
+	public MemberVo(int memberNo, String memberId, String memberPassword, String memberEmail, String memberName,
+			String memberPhone, String memberGender, int memberAge, int memberHeight, int memberWeight,
+			int memberPurpose, int memberConcern, String memberPhoto, String memberPhotoName, String memberTrainer,
+			String memberAbsence, Date memberJoinDate, Date memberLeaveDate, String memberNickname, int trainerNo,
+			String trainerFile, String gymName, String gymLocation, String trainerConfirm) {
+		super();
+		this.memberNo = memberNo;
+		this.memberId = memberId;
+		this.memberPassword = memberPassword;
+		this.memberEmail = memberEmail;
+		this.memberName = memberName;
+		this.memberPhone = memberPhone;
+		this.memberGender = memberGender;
+		this.memberAge = memberAge;
+		this.memberHeight = memberHeight;
+		this.memberWeight = memberWeight;
+		this.memberPurpose = memberPurpose;
+		this.memberConcern = memberConcern;
+		this.memberPhoto = memberPhoto;
 		this.memberPhotoName = memberPhotoName;
+		this.memberTrainer = memberTrainer;
+		this.memberAbsence = memberAbsence;
+		this.memberJoinDate = memberJoinDate;
+		this.memberLeaveDate = memberLeaveDate;
+		this.memberNickname = memberNickname;
+		this.trainerNo = trainerNo;
+		this.trainerFile = trainerFile;
+		this.gymName = gymName;
+		this.gymLocation = gymLocation;
+		this.trainerConfirm = trainerConfirm;
 	}
-
-
+	public MemberVo() {
+		super();
+	}
 	public int getMemberNo() {
 		return memberNo;
 	}
-
 	public void setMemberNo(int memberNo) {
 		this.memberNo = memberNo;
 	}
-
 	public String getMemberId() {
 		return memberId;
 	}
@@ -132,6 +152,12 @@ public class MemberVo {
 	public void setMemberPhoto(String memberPhoto) {
 		this.memberPhoto = memberPhoto;
 	}
+	public String getMemberPhotoName() {
+		return memberPhotoName;
+	}
+	public void setMemberPhotoName(String memberPhotoName) {
+		this.memberPhotoName = memberPhotoName;
+	}
 	public String getMemberTrainer() {
 		return memberTrainer;
 	}
@@ -156,48 +182,41 @@ public class MemberVo {
 	public void setMemberLeaveDate(Date memberLeaveDate) {
 		this.memberLeaveDate = memberLeaveDate;
 	}
-
 	public String getMemberNickname() {
 		return memberNickname;
 	}
-
 	public void setMemberNickname(String memberNickname) {
 		this.memberNickname = memberNickname;
 	}
-	
-	
-	
 	public int getTrainerNo() {
 		return trainerNo;
 	}
-
 	public void setTrainerNo(int trainerNo) {
 		this.trainerNo = trainerNo;
 	}
-
 	public String getTrainerFile() {
 		return trainerFile;
 	}
-
 	public void setTrainerFile(String trainerFile) {
 		this.trainerFile = trainerFile;
 	}
-
 	public String getGymName() {
 		return gymName;
 	}
-
 	public void setGymName(String gymName) {
 		this.gymName = gymName;
 	}
-
 	public String getGymLocation() {
 		return gymLocation;
 	}
-
 	public void setGymLocation(String gymLocation) {
 		this.gymLocation = gymLocation;
 	}
-	
-	
+	public String getTrainerConfirm() {
+		return trainerConfirm;
+	}
+	public void setTrainerConfirm(String trainerConfirm) {
+		this.trainerConfirm = trainerConfirm;
+	}
+
 }

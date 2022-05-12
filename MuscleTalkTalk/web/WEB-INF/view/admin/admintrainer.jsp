@@ -210,8 +210,8 @@ a, a:visited, a:link{
 			<c:forEach var="vo" items="${trainerreadall}">
 				<tr class="table_content">
 					<td>${vo.rownum}</td>
-					<td><a href="memberread?memeberNo=${vo.trainerNo}">${vo.memberNickname }</a></td>
-					<td><a href="memberread?memeberNo=${vo.trainerNo}">${vo.trainerNo}</a></td>
+					<td><a href="admintrainerread?TrainerNo=${vo.trainerNo}">${vo.memberNickname }</a></td>
+					<td><a href="admintrainerread?TrainerNo=${vo.trainerNo}">${vo.trainerNo}</a></td>
 					<td>${vo.memberJoinDate}</td>
 					<td>${vo.sumPrice}</td>
 					<td>${vo.trainerConfirm}</td>

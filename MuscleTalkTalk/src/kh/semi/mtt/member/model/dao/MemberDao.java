@@ -58,6 +58,49 @@ public class MemberDao {
 		return retVo;
 	}
 	
+	public MemberVo readTrainerMember(Connection conn, int trainerNo) {
+		MemberVo retVo = null;
+		String sql = "select * from tb_member a, tb_trainer b where a.member_no = b.member_no(+) and b.trainer_no = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, trainerNo);
+			rs = pstmt.executeQuery();
+			if (rs != null) {
+				rs.next();
+				retVo = new MemberVo();
+				retVo.setMemberNo(rs.getInt("member_no"));
+				retVo.setMemberId(rs.getString("member_id"));
+				retVo.setMemberPassword(rs.getString("member_password"));
+				retVo.setMemberNickname(rs.getString("member_nickname"));
+				retVo.setMemberEmail(rs.getString("member_email"));
+				retVo.setMemberName(rs.getString("member_name"));
+				retVo.setMemberPhone(rs.getString("member_phone"));
+				retVo.setMemberGender(rs.getString("member_gender"));
+				retVo.setMemberAge(rs.getInt("member_age"));
+				retVo.setMemberHeight(rs.getInt("member_height"));
+				retVo.setMemberWeight(rs.getInt("member_weight"));
+				retVo.setMemberPurpose(rs.getInt("member_purpose"));
+				retVo.setMemberConcern(rs.getInt("member_concern"));
+				retVo.setMemberPhoto(rs.getString("member_photo"));
+				retVo.setMemberTrainer(rs.getString("member_trainer"));
+				retVo.setMemberAbsence(rs.getString("member_absence"));
+				retVo.setMemberJoinDate(rs.getDate("member_join_date"));
+				retVo.setMemberLeaveDate(rs.getDate("member_leave_date"));
+				retVo.setTrainerNo(rs.getInt("trainer_no"));
+				retVo.setTrainerFile(rs.getString("trainer_file"));
+				retVo.setGymName(rs.getString("gym_name"));
+				retVo.setGymLocation(rs.getString("gym_location"));
+				retVo.setTrainerConfirm(rs.getString("trainer_confirm"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return retVo;
+	}
+	
 	public MemberVo readOneMember(Connection conn, int memberNo) {
 		MemberVo retVo = null;
 		String sql = "select * from tb_member a, tb_trainer b where a.member_no = b.member_no(+) and a.member_no = ?";
@@ -462,6 +505,79 @@ public class MemberDao {
 			}
 			return result;
 		}
-	
+		///트레이너인증 - tb_member
+		public int confirmMember(Connection conn, int memberNo) {
+			int result = 0;
+			String sql = "update tb_member set member_trainer = 'T' where member_no = ?";
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, memberNo);
+				
+				result = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rs);
+				close(pstmt);
+			}
+			return result;
+		}
+		///트레이너인증 - tb_trainer
+		public int confirmTrainer(Connection conn, int memberNo) {
+			int result = 0;
+			String sql = "update tb_trainer set trainer_confirm = 'T' where member_no = ?";
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, memberNo);
+				
+				result = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rs);
+				close(pstmt);
+			}
+			return result;
+		}
+		///트레이너반려 - tb_member
+		public int rejectMember(Connection conn, int memberNo) {
+			int result = 0;
+			String sql = "update tb_member set member_trainer = 'F' where member_no = ? ";
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, memberNo);
+				
+				result = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rs);
+				close(pstmt);
+			}
+			return result;
+		}
+		///트레이너반려 - tb_trainer
+		public int rejectTrainer(Connection conn, int memberNo) {
+			int result = 0;
+			String sql = "update tb_trainer set trainer_confirm = 'F' where member_no = ?";
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, memberNo);
+				
+				result = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rs);
+				close(pstmt);
+			}
+			return result;
+		}
+		
+		
 	
 }
