@@ -115,32 +115,43 @@ public class MemberService {
 	}
 	
 	// 회원 비밀번호 수정 - 업데이트
-		public int updatePassword(String memberId, String memberPassword, String memberNewPassword) {
-			int result = 0;
-			Connection conn = null;
-			conn = getConnection();
-			result = new MemberDao().updatePassword(conn, memberId, memberPassword, memberNewPassword);
+	public int updatePassword(String memberId, String memberPassword, String memberNewPassword) {
+		int result = 0;
+		Connection conn = null;
+		conn = getConnection();
+		result = new MemberDao().updatePassword(conn, memberId, memberPassword, memberNewPassword);
 			
-			close(conn);
-			return result;
-		}
+		close(conn);
+		return result;
+	}
+	
+	//회원 탈퇴
+	public int withdrawal(String memberId, String memberPassword) {
+		int result = -1;
+		Connection conn = null;
+		conn = getConnection();
+		result = new MemberDao().withdrawal(conn, memberId, memberPassword);
 		
+		close(conn);
+		return result;
+	}
+	
 	//회원 전체조회
-		public ArrayList<AdminVo> readAllMember(int startRnum, int endRnum, String search){
-			Connection conn = null;
-			conn = getConnection();
-			ArrayList<AdminVo> result = dao.readAllMember(conn, startRnum, endRnum, search);
-			close(conn);
-			return result;
-		}
+	public ArrayList<AdminVo> readAllMember(int startRnum, int endRnum, String search){
+		Connection conn = null;
+		conn = getConnection();
+		ArrayList<AdminVo> result = dao.readAllMember(conn, startRnum, endRnum, search);
+		close(conn);
+		return result;
+	}
 	
 	//갯수세기
-		public int countMember() {
-			Connection conn = null;
-			conn = getConnection();
-			int result = dao.countMember(conn);
-			close(conn);
-			return result;
-		}
+	public int countMember() {
+		Connection conn = null;
+		conn = getConnection();
+		int result = dao.countMember(conn);
+		close(conn);
+		return result;
+	}
 		
 }

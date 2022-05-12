@@ -177,7 +177,23 @@
 			
 			var msg = confirm ("한 번 회원 탈퇴가 진행되면 되돌릴 수 없습니다. 정말 탈퇴하시겠습니까?");
 			if(msg){
-				// 회원탈퇴 진행 TODO
+				$.ajax({
+					url:"memberwithdrawal.ax",
+					type: "post",
+					data: {memberPassword: $("#member_password_org").val()},
+					success: function(result){
+						if(result == 1){
+							alert("회원 탈퇴가 완료되었습니다. 머슬톡톡을 이용해주셔 감사합니다.");
+							location.href="main";
+						} else if (result == 0){
+							alert("회원 탈퇴에 실패했습니다. 탈퇴를 다시 진행해주세요.");
+							location.href="memberwithdrawalcontroller";
+						}
+					},
+					error: function(result){
+						alert("오류 - 회원 탈퇴 실패");
+					}
+				})
 			} else {
 				alert("회원 탈퇴가 취소되었습니다.");
 				location.href="memberwithdrawalcontroller";

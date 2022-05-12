@@ -457,7 +457,7 @@
                     </li>
                     
                     <li id="inquiry">1:1 문의</li>
-                    <li id="withdrawalal">탈퇴하기</li>
+                    <li id="withdrawal">탈퇴하기</li>
                 </ul>
             </div>
         </section>

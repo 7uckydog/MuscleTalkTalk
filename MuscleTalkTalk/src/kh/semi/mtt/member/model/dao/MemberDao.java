@@ -328,6 +328,31 @@ public class MemberDao {
 			return result;
 		}
 	
+	// 회원 탈퇴
+		public int withdrawal(Connection conn, String memberId, String memberPassword) {
+			int result = -1;
+			System.out.println("모");
+			System.out.println(memberId);
+			String sql = "update tb_member set member_absence = 'Y', member_leave_date = sysdate where member_id= ? and member_password= ?";
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, memberId);
+				pstmt.setString(2, memberPassword);
+				
+				System.out.println("모2");
+				result = pstmt.executeUpdate();
+				System.out.println("모3");
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				close(rs);
+				close(pstmt);
+			}
+			System.out.println("모4" + result);
+			return result;
+		}
+		
 	//멤버 전체조회 (진정)
 		public ArrayList<AdminVo> readAllMember(Connection conn, int startRnum, int endRnum, String search){
 			ArrayList<AdminVo> volist = null;
