@@ -18,7 +18,7 @@
 	<div id="pt_reservation_time_info_modal_div">
 		<div id="pt_reservation_time_info_div">
 			<p id="time_info_title">프로그램 진행표</p>
-			<div id="time_info_day_hour">${pVo.ptTimeInfo }<hr>${pVo.ptPrice }<p>* 모든 PT 프로그램은 1시간 단위로 진행됩니다.</p></div>
+			<div id="time_info_day_hour"><div class="font_THEmpgtM font_12px time_info_day_hour_div"></div><hr>${pVo.ptPrice }<p>* 모든 PT 프로그램은 1시간 단위로 진행됩니다.</p></div>
 			<button type="button" id="pt_reservation_time_info_cancle">취소</button>
 			<button type="button" id="pt_reservation_time_info_select">확인</button>
 		</div>
@@ -126,7 +126,16 @@
 	<c:if test="${not empty ssMvo}">
 	var memberNo = ${ssMvo.memberNo};
 	</c:if>
-
+	
+	var ptTimeInfo =  "${pVo.ptTimeInfo }";
+	var ptTimeInfoArray = ptTimeInfo.split(",");
+	var ptTimeInfoStr = "";
+	for(var i = 0; i < ptTimeInfoArray.length; i = i + 3) {
+		ptTimeInfoStr += ptTimeInfoArray[i] + " " + ptTimeInfoArray[i+1] + "~" + ptTimeInfoArray[i+2] + "<br>";
+	}
+	console.log(ptTimeInfoStr);
+	$('.time_info_day_hour_div').html(ptTimeInfoStr);
+	
 	$("#pt_read_page_reseration_btn").click(function() {
 		if(blacklistMember.includes(memberNo)) {
 			alert("블랙리스트에 등록되어 예약이 불가능 합니다.");

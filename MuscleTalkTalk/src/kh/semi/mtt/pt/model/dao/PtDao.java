@@ -326,27 +326,129 @@ public class PtDao {
 		return ptVoList;
 	}
 	
-	public ArrayList<PtVo> readAllPt(Connection conn, int startRnum, int endRnum) {
+	public ArrayList<PtVo> readAllPt(Connection conn,int categoryInt, int timeInt, int startRnum, int endRnum) {
 		ArrayList<PtVo> ptVoList = null;
 		ResultSet rs = null;
-		String sql = "select *"
-				+ "    from (select rownum r, t1.*"
-				+ "    from (select tb_pt.pt_no, pt_name, pt_category ,pt_file,"
-				+ "				 tb_member.member_nickname, pt_price, gym_location, favorite_cnt "
-				+ "				from tb_pt "
-				+ "				join (select * from tb_pt_file "
-				+ "				where pt_file_no in  "
-				+ "				(select min(pt_file_no) from tb_pt_file group by pt_no)) tbB "
-				+ "				on tb_pt.pt_no = tbB.pt_no "
-				+ "				join tb_trainer "
-				+ "				on tb_pt.trainer_no = tb_trainer.trainer_no "
-				+ "				join tb_member "
-				+ "				on tb_trainer.member_no = tb_member.member_no "
-				+ "				left outer join (select count(favorite_no) favorite_cnt, pt_no from tb_pt_favorite group by pt_no) tFcnt "
-				+ "				on tb_pt.pt_no = tFcnt.pt_no "
-				+ "				where pt_delete = 'F' "
-				+ "				order by tb_pt.pt_regist_date desc) t1) "
-				+ "                where r between ? and ?";
+		String timeStr = "";
+		switch (timeInt) {
+			case 1 :
+				timeStr = "월요일";
+				break;
+			case 2 :
+				timeStr = "화요일";
+				break;
+			case 3 :
+				timeStr = "수요일";
+				break;
+			case 4 :
+				timeStr = "목요일";
+				break;
+			case 5 :
+				timeStr = "금요일";
+				break;
+			case 6 :
+				timeStr = "토요일";
+				break;
+			case 7 :
+				timeStr = "일요일";
+				break;
+
+			default :
+				break;
+		}
+		
+		String sql = "";
+		
+		
+		if(categoryInt == 0 && timeInt == 0) {			
+			sql = "select *"
+					+ "    from (select rownum r, t1.*"
+					+ "    from (select tb_pt.pt_no, pt_name, pt_category ,pt_file,"
+					+ "				 tb_member.member_nickname, pt_price, gym_location, favorite_cnt "
+					+ "				from tb_pt "
+					+ "				join (select * from tb_pt_file "
+					+ "				where pt_file_no in  "
+					+ "				(select min(pt_file_no) from tb_pt_file group by pt_no)) tbB "
+					+ "				on tb_pt.pt_no = tbB.pt_no "
+					+ "				join tb_trainer "
+					+ "				on tb_pt.trainer_no = tb_trainer.trainer_no "
+					+ "				join tb_member "
+					+ "				on tb_trainer.member_no = tb_member.member_no "
+					+ "				left outer join (select count(favorite_no) favorite_cnt, pt_no from tb_pt_favorite group by pt_no) tFcnt "
+					+ "				on tb_pt.pt_no = tFcnt.pt_no "
+					+ "				where pt_delete = 'F' "
+					+ "				order by tb_pt.pt_regist_date desc) t1) "
+					+ "                where r between ? and ?";
+		} else if(categoryInt == 0) {
+			
+			sql = "select *"
+					+ "    from (select rownum r, t1.*"
+					+ "    from (select tb_pt.pt_no, pt_name, pt_category ,pt_file,"
+					+ "				 tb_member.member_nickname, pt_price, gym_location, favorite_cnt "
+					+ "				from tb_pt "
+					+ "				join (select * from tb_pt_file "
+					+ "				where pt_file_no in  "
+					+ "				(select min(pt_file_no) from tb_pt_file group by pt_no)) tbB "
+					+ "				on tb_pt.pt_no = tbB.pt_no "
+					+ "				join tb_trainer "
+					+ "				on tb_pt.trainer_no = tb_trainer.trainer_no "
+					+ "				join tb_member "
+					+ "				on tb_trainer.member_no = tb_member.member_no "
+					+ "				left outer join (select count(favorite_no) favorite_cnt, pt_no from tb_pt_favorite group by pt_no) tFcnt "
+					+ "				on tb_pt.pt_no = tFcnt.pt_no "
+					+ "				where pt_delete = 'F' and "
+					+ "             pt_time_info like '%"+timeStr+"%'"
+					+ "				order by tb_pt.pt_regist_date desc) t1) "
+					+ "                where r between ? and ?";
+			
+		} else if(timeInt == 0) {
+			
+			sql = "select *"
+					+ "    from (select rownum r, t1.*"
+					+ "    from (select tb_pt.pt_no, pt_name, pt_category ,pt_file,"
+					+ "				 tb_member.member_nickname, pt_price, gym_location, favorite_cnt "
+					+ "				from tb_pt "
+					+ "				join (select * from tb_pt_file "
+					+ "				where pt_file_no in  "
+					+ "				(select min(pt_file_no) from tb_pt_file group by pt_no)) tbB "
+					+ "				on tb_pt.pt_no = tbB.pt_no "
+					+ "				join tb_trainer "
+					+ "				on tb_pt.trainer_no = tb_trainer.trainer_no "
+					+ "				join tb_member "
+					+ "				on tb_trainer.member_no = tb_member.member_no "
+					+ "				left outer join (select count(favorite_no) favorite_cnt, pt_no from tb_pt_favorite group by pt_no) tFcnt "
+					+ "				on tb_pt.pt_no = tFcnt.pt_no "
+					+ "				where pt_delete = 'F' and "
+					+ "             pt_category = " + categoryInt + " "
+					+ "				order by tb_pt.pt_regist_date desc) t1) "
+					+ "                where r between ? and ?";
+			
+		} else {
+			
+			sql = "select *"
+					+ "    from (select rownum r, t1.*"
+					+ "    from (select tb_pt.pt_no, pt_name, pt_category ,pt_file,"
+					+ "				 tb_member.member_nickname, pt_price, gym_location, favorite_cnt "
+					+ "				from tb_pt "
+					+ "				join (select * from tb_pt_file "
+					+ "				where pt_file_no in  "
+					+ "				(select min(pt_file_no) from tb_pt_file group by pt_no)) tbB "
+					+ "				on tb_pt.pt_no = tbB.pt_no "
+					+ "				join tb_trainer "
+					+ "				on tb_pt.trainer_no = tb_trainer.trainer_no "
+					+ "				join tb_member "
+					+ "				on tb_trainer.member_no = tb_member.member_no "
+					+ "				left outer join (select count(favorite_no) favorite_cnt, pt_no from tb_pt_favorite group by pt_no) tFcnt "
+					+ "				on tb_pt.pt_no = tFcnt.pt_no "
+					+ "				where pt_delete = 'F' and "
+					+ "             pt_category = " + categoryInt + " and "
+					+ "             pt_time_info like '%"+timeStr+"%'"
+					+ "				order by tb_pt.pt_regist_date desc) t1) "
+					+ "                where r between ? and ?";
+			
+		}
+		
+
 	    
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -453,9 +555,48 @@ public class PtDao {
 		return ptVoList;
 	}
 	
-	public int countPt(Connection conn) {
+	public int countPt(Connection conn, int categoryInt, int timeInt) {
 		int result = 0;
-		String sql = "select count(pt_no) from tb_pt";
+		String timeStr = "";
+		switch (timeInt) {
+			case 1 :
+				timeStr = "월요일";
+				break;
+			case 2 :
+				timeStr = "화요일";
+				break;
+			case 3 :
+				timeStr = "수요일";
+				break;
+			case 4 :
+				timeStr = "목요일";
+				break;
+			case 5 :
+				timeStr = "금요일";
+				break;
+			case 6 :
+				timeStr = "토요일";
+				break;
+			case 7 :
+				timeStr = "일요일";
+				break;
+
+			default :
+				break;
+		}
+		String sql = "";
+		if(categoryInt == 0 && timeInt == 0) {			
+			sql = "select count(pt_no) from tb_pt where pt_delete = 'F'";
+		} else if(categoryInt == 0) {
+			sql = "select count(pt_no) from tb_pt where pt_time_info like '%"+timeStr+"%' and pt_delete = 'F'";
+		} else if(timeInt == 0) {
+			sql = "select count(pt_no) from tb_pt where pt_category = " + categoryInt;
+		} else {
+			sql = "select count(pt_no) from tb_pt  "
+					+ "where pt_time_info like '%"+timeStr+"%' "
+					+ "and pt_category = " + categoryInt + " "
+					+ "and pt_delete = 'F'";
+		}
 
 	    
 		try {

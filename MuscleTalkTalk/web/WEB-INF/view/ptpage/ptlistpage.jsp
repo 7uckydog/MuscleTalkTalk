@@ -26,12 +26,13 @@
 			</div>
 			<div id="pt_list_filter">
 				<div id="pt_list_page_category_div">
-					<p>카테고리 선택</p>
+					<p></p>
 					<i class="fa-solid fa-sort-up pt_list_page_category_arrow"></i>
 					<i class="fa-solid fa-sort-down pt_list_page_category_arrow"></i>
 				</div>
 					<div id="pt_list_page_category_list">
 						<ul id="pt_list_page_category_list_box">
+							<li>전체</li>
 							<li>웨이트</li>
 							<li>다이어트</li>
 							<li>재활</li>
@@ -49,12 +50,13 @@
 					</ul>
 				</div>
 				<div id="pt_list_page_time_div">
-					<p>일정</p>
+					<p></p>
 					<i class="fa-solid fa-sort-up pt_list_page_category_arrow"></i>
 					<i class="fa-solid fa-sort-down pt_list_page_category_arrow"></i>
 				</div>
 				<div id="pt_list_page_time_list">
 					<ul id="pt_list_page_time_list_box">
+						<li>전체</li>
 						<li>월요일</li>
 						<li>화요일</li>
 						<li>수요일</li>
@@ -104,11 +106,11 @@
 	$('.pt_list_page_prev_btn').click(function() {
 		console.log(${startPage});
 		console.log(${startPage - 1});
-		location.href="ptlist?page=${startPage-1 }";
+		location.href = "ptlist?page=${startPage-1 }&category="+categoryNum+"&time="+timeNum;
 	});
 	for(var i = 0; i < $('.pt_list_page_btn').length; i++) {	
 		$('.pt_list_page_btn').eq(i).click(function() {
-			location.href="ptlist?page="+$(this).text();
+			location.href = "ptlist?page="+$(this).text()+"&category="+categoryNum+"&time="+timeNum;
 		});
 		if($('.pt_list_page_btn').eq(i).text() == Number(${pageInt})) {
 			$('.pt_list_page_btn').eq(i).css({
@@ -118,7 +120,7 @@
 		}
 	}
 	$('.pt_list_page_next_btn').click(function() {
-		location.href="ptlist?page=${endPage+1 }";
+		location.href = "ptlist?page=${endPage+1 }&category="+categoryNum+"&time="+timeNum;
 	});
 	
 	$(window).resize(function() {
@@ -178,7 +180,7 @@
 			$("#pt_list_page_category_list").css("height", "0px");
 			$("#pt_list_page_category_list").css("border-color", "rgba(75, 77, 178, 0.0)");
 		} else {
-			$("#pt_list_page_category_list").css("height", "90px");
+			$("#pt_list_page_category_list").css("height", "120px");
 			$("#pt_list_page_category_list").css("border-color", "rgba(75, 77, 178, 1)");
 		}
 		if($("#pt_list_page_category_div").css("border") == '1px solid rgba(75, 77, 178, 0.3)') {
@@ -210,7 +212,7 @@
 			$("#pt_list_page_time_list").css("height", "0px");
 			$("#pt_list_page_time_list").css("border-color", "rgba(75, 77, 178, 0.0)");
 		} else {
-			$("#pt_list_page_time_list").css("height", "210px");
+			$("#pt_list_page_time_list").css("height", "240px");
 			$("#pt_list_page_time_list").css("border-color", "rgba(75, 77, 178, 1)");
 		}
 		if($("#pt_list_page_time_div").css("border") == '1px solid rgba(75, 77, 178, 0.3)') {
@@ -381,6 +383,125 @@
 	
 	$('#pt_list_favorite_list_btn').click(function() {
 		location.href = "favoritelist";
+	});
+	var categoryNum = ${categoryInt};
+	var timeNum = ${timeInt};
+	$('#pt_list_page_category_list_box li').on('click', function() {
+		
+		switch ($(this).text()) {
+		case '전체':
+			categoryNum = 0;
+			break;
+		case '웨이트':
+			categoryNum = 1;
+			break;
+		case '다이어트':
+			categoryNum = 2;
+			break;
+		case '재활':
+			categoryNum = 3;
+			break;
+
+		default:
+			break;
+		}
+		location.href = "ptlist?page=1&category="+categoryNum+"&time="+timeNum;
+		//$("#pt_list_page_category_div p").text($(this).text());
+		//$("#pt_list_page_category_div").css("border", '1px solid rgba(75, 77, 178, 0.3)');
+		//$("#pt_list_page_category_list").css("height", "0px");
+		//$("#pt_list_page_category_list").css("border-color", "rgba(75, 77, 178, 0.0)");
+	});
+	
+	$('#pt_list_page_time_list_box li').on('click', function() {
+		switch ($(this).text()) {
+		case '전체':
+			timeNum = 0;
+			break;
+		case '월요일':
+			timeNum = 1;
+			break;
+		case '화요일':
+			timeNum = 2;
+			break;
+		case '수요일':
+			timeNum = 3;
+			break;
+		case '목요일':
+			timeNum = 4;
+			break;
+		case '금요일':
+			timeNum = 5;
+			break;
+		case '토요일':
+			timeNum = 6;
+			break;
+		case '일요일':
+			timeNum = 7;
+			break;
+
+		default:
+			break;
+		}
+		location.href = "ptlist?page=1&category="+categoryNum+"&time="+timeNum;
+		//$("#pt_list_page_time_div").css("border", '1px solid rgba(75, 77, 178, 0.3)');
+		//$("#pt_list_page_time_list").css("height", "0px");
+		//$("#pt_list_page_time_list").css("border-color", "rgba(75, 77, 178, 0.0)");
+	});
+	
+	$(function() {
+		var categoryInt = ${categoryInt};
+		var categoryTemp;
+		switch (categoryInt) {
+		case 0:
+			categoryTemp = '카테고리 선택'
+			break;
+		case 1:
+			categoryTemp = '웨이트'
+			break;
+		case 2:
+			categoryTemp = '다이어트'
+			break;
+		case 3:
+			categoryTemp = '재활'
+			break;
+
+		default:
+			break;
+		}
+		$("#pt_list_page_category_div p").text(categoryTemp);
+		
+		var timeInt = ${timeInt};
+		var timeTemp;
+		switch (timeInt) {
+		case 0:
+			timeTemp = '일정'
+			break;
+		case 1:
+			timeTemp = '월요일'
+			break;
+		case 2:
+			timeTemp = '화요일'
+			break;
+		case 3:
+			timeTemp = '수요일'
+			break;
+		case 4:
+			timeTemp = '목요일'
+			break;
+		case 5:
+			timeTemp = '금요일'
+			break;
+		case 6:
+			timeTemp = '토요일'
+			break;
+		case 7:
+			timeTemp = '일요일'
+			break;
+
+		default:
+			break;
+		}
+		$("#pt_list_page_time_div p").text(timeTemp);
 	});
 	
 	</script>

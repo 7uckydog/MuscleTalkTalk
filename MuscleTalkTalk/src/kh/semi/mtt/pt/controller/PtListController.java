@@ -40,7 +40,7 @@ public class PtListController extends HttpServlet {
 		String pageStr = request.getParameter("page");
 		int pageInt = 0;
 		if(pageStr == null) {
-			response.sendRedirect("ptlist?page=1");
+			response.sendRedirect("ptlist?page=1&category=0&time=0");
 			return;
 		} else {
 			try {
@@ -48,6 +48,18 @@ public class PtListController extends HttpServlet {
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
 			}
+		}
+		
+		String categoryStr = request.getParameter("category");
+		String timeStr = request.getParameter("time");
+		int categoryInt = 0;
+		int timeInt = 0;
+		
+		try {
+			categoryInt = Integer.parseInt(categoryStr);
+			timeInt = Integer.parseInt(timeStr);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
 		}
 		
 		int pageSize = 8;
@@ -58,7 +70,7 @@ public class PtListController extends HttpServlet {
 		int startRnum = 0;
 		int endRnum = 0;
 		
-		int totalCnt = new PtService().countPt();
+		int totalCnt = new PtService().countPt(categoryInt, timeInt);
 		
 		int totalpageCnt = (totalCnt / pageSize) + (totalCnt % pageSize == 0 ? 0 : 1);
 		if (pageInt % pageBlock == 0) {
@@ -79,7 +91,7 @@ public class PtListController extends HttpServlet {
 		
 		
 		
-		ArrayList<PtVo> ptVoList = new PtService().readAllPt(startRnum, endRnum); 
+		ArrayList<PtVo> ptVoList = new PtService().readAllPt(categoryInt, timeInt, startRnum, endRnum); 
 		System.out.println("/ptlist doGet ptVoList 결과:  " + ptVoList);
 		ArrayList<PtFavoriteVo> ptFavoriteVoList = null;
 		if(request.getSession().getAttribute("ssMvo") != null) {
@@ -101,6 +113,10 @@ public class PtListController extends HttpServlet {
 		request.setAttribute("pageBlock", pageBlock);
 		request.setAttribute("totalpageCnt", totalpageCnt);
 		request.setAttribute("pageInt", pageInt);
+		request.setAttribute("categoryInt", categoryInt);
+		request.setAttribute("timeInt", timeInt);
+		System.out.println("startPage : " + startPage);
+		System.out.println("endPage : " + endPage);
 		request.getRequestDispatcher("WEB-INF/view/ptpage/ptlistpage.jsp").forward(request, response);
 	}
 
