@@ -22,6 +22,16 @@ public class TrainerService {
 		close(conn);
 		return result;
 	}
+	// 회원 -> 트레이너 전환
+	public int switchAccount(int memberNo, String gymName, String gymLocation, String trainerFile) {
+		int result = 0;
+		Connection conn =null;
+		conn = getConnection();
+		
+		result = new TrainerDao().switchAccount(conn, memberNo, gymName, gymLocation, trainerFile);
+		close(conn);
+		return result;
+	}
 	
 	//트레이너 전체보기 (진정)
 	public ArrayList<TrainerVo> readAllTrainer(int startRnum, int endRnum, String search){

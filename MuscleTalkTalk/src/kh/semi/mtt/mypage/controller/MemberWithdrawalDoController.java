@@ -39,14 +39,12 @@ public class MemberWithdrawalDoController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
-		System.out.println("에이작스 하러 왔습니다");
 		MemberVo ssMvo = (MemberVo)request.getSession().getAttribute("ssMvo");
 		String memberId = ssMvo.getMemberId();
 		String memberPassword = request.getParameter("memberPassword");
 		
 		int num = -1;
 		int result = -1;
-		System.out.println("야!");
 		result = new MemberService().withdrawal(memberId, memberPassword);
 		
 		if(result == 0) {

@@ -209,9 +209,6 @@
                     	<c:if test="${ssMvo.memberTrainer == 'F'}">
                     		트레이너 계정 전환
                     	</c:if>
-                    	<c:if test="${ssMvo.memberTrainer == 'R'}">
-                    		트레이너 계정 전환
-                    	</c:if>
                     </li>
                     <li id="program_list">
                     	<c:if test="${ssMvo.memberTrainer == 'T'}">
@@ -251,11 +248,15 @@
 		location.href="memberreadreservationlist";
 	})
 	$("#program_list").click(function(){
-			location.href="myptprogram";
+		location.href="myptprogram";
 	})
 	$("#withdrawal").click(function(){
 		location.href="memberwithdrawalcontroller";
 	})
+	$("#to_trainer").click(function(){
+		location.href="memberswitchaccount";
+	})
+
 </script>
 </body>
 </html>

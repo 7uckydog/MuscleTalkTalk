@@ -8,10 +8,10 @@
 </head>
 <body>
 	<script>
-		var locationVal = '${location}';
-		if(locationVal != '') {
-			location.replace(locationVal);
-			/* history.go(-2); */
+		var msgVal = '${msg}';
+		if(msgVal != '') {
+			alert(msgVal);
+			location.href= "membermypage";
 		}
 	</script>
 </body>

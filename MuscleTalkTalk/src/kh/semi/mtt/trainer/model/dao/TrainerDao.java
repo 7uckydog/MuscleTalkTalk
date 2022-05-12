@@ -52,6 +52,35 @@ public class TrainerDao {
 		return result;
 	}
 	
+	// 회원 -> 트레이너 전환
+	public int switchAccount(Connection conn, int memberNo, String gymName, String gymLocation, String trainerFile) {
+		int result = -1;
+		sql = "insert into tb_trainer (trainer_no, member_no, trainer_file, trainer_confirm, gym_name, gym_location, trainer_etr)"
+				+ "values( (select nvl(max(trainer_no),0)+1 from tb_trainer), ?, ?, default, ?, ?, null)";
+		String sql2 = "update tb_member set member_trainer = 'R'"
+				+ "where member_no= ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memberNo);
+			pstmt.setString(2, trainerFile);
+			pstmt.setString(3, gymName);
+			pstmt.setString(4, gymLocation);
+			
+			result = pstmt.executeUpdate();
+			close(pstmt);
+			
+			pstmt = conn.prepareStatement(sql2);
+			pstmt.setInt(1, memberNo);
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
 	//트레이너 전체보기 (진정)
 	public ArrayList<TrainerVo> readAllTrainer(Connection conn, int startRnum, int endRnum, String search){
 		ArrayList<TrainerVo> volist = null;

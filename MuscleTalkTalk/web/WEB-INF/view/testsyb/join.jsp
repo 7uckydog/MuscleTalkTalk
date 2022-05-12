@@ -861,7 +861,7 @@
         	console.log($("#gym_location" == ""));
         	console.log("test 종료");
 		    if($("#file_upload")== ""){
-		        alert("경력을 인증할 이미지를 첨부해주세요.");
+		        alert("트레이너임을 인증할 이미지를 첨부해주세요.");
 	            return rt = false;
 		    }
 		    if($("#gym_name") == ""){

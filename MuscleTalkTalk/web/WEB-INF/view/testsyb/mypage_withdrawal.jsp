@@ -76,6 +76,9 @@
             border: 0px;
             cursor: pointer;
         }
+        #withdrawal{
+        	text-decoration: underline;
+        }
 </style>
 </head>
 <body>
@@ -132,9 +135,6 @@
                     </li>
                     <li id="to_trainer">
                     	<c:if test="${ssMvo.memberTrainer == 'F'}">
-                    		트레이너 계정 전환
-                    	</c:if>
-                    	<c:if test="${ssMvo.memberTrainer == 'R'}">
                     		트레이너 계정 전환
                     	</c:if>
                     </li>
@@ -228,6 +228,9 @@
 	})
 	$("#withdrawal").click(function(){
 		location.href="memberwithdrawalcontroller";
+	})
+	$("#to_trainer").click(function(){
+		location.href="memberswitchaccount";
 	})
 	$("#ok_btn").click(function(){
 		location.href="memberinquiry";
