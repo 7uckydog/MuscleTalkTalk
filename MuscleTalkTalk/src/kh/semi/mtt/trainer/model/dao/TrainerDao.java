@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
 import static kh.semi.mtt.common.jdbc.JdbcTemplate.*;
 import kh.semi.mtt.member.model.vo.MemberVo;
 import kh.semi.mtt.member.model.vo.TrainerVo;
@@ -49,4 +51,73 @@ public class TrainerDao {
 		}
 		return result;
 	}
+	
+	//트레이너 전체보기 (진정)
+	public ArrayList<TrainerVo> readAllTrainer(Connection conn, int startRnum, int endRnum, String search){
+		ArrayList<TrainerVo> volist = null;
+		String sql = "select * from"
+				+ "    (select rownum r, t.* "
+				+ "        from (select tm.member_nickname, ttr.trainer_no, tm.member_join_date, sum(payment_price) sum_price, ttr.trainer_confirm"
+				+ "            from tb_payment tp"
+				+ "            right outer join tb_pt_calendar tpc on tp.pt_calendar_no = tpc.pt_calendar_no"
+				+ "            right outer join tb_pt tpp on tpc.pt_no = tpp.pt_no"
+				+ "            right outer join tb_trainer ttr on tpp.trainer_no = ttr.trainer_no"
+				+ "            join tb_member tm on ttr.member_no = tm.member_no"
+				+ "            group by ttr.trainer_no, ttr.member_no, tm.member_nickname, tm.member_join_date, ttr.trainer_confirm"
+				+ "            order by tm.member_join_date desc)t"
+				+ "        order by r desc)"
+				+ "    where r between ? and ?";
+		
+		try {
+			System.out.println("startRnum :" + startRnum);
+			System.out.println("endRnum :" + endRnum);
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRnum);
+			pstmt.setInt(2, endRnum);
+			
+			rs = pstmt.executeQuery();
+			if(rs != null) {
+				volist = new ArrayList<TrainerVo>();
+				while(rs.next()) {
+					TrainerVo vo = new TrainerVo();
+					vo.setTrainerNo(rs.getInt("trainer_no"));
+					vo.setMemberNickname(rs.getString("member_nickname"));
+					vo.setSumPrice(rs.getInt("sum_price"));
+					vo.setMemberJoinDate(rs.getDate("member_join_date"));
+					vo.setRownum(rs.getInt("r"));
+					vo.setTrainerConfirm(rs.getString("trainer_confirm"));
+					volist.add(vo);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return volist;
+	}
+	
+	public int countTrainer(Connection conn) {
+		int result = 0;
+		String sql = "select count(*) as cnt from tb_trainer";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result = rs.getInt("cnt");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+	
 }
+
+
+

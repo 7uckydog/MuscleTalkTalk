@@ -1,33 +1,29 @@
-<%@ include file="/WEB-INF/view/csslink2.jsp"%>
-<%@page import="kh.semi.mtt.member.model.vo.MemberVo"%>
+<%@ include file="/WEB-INF/view/csslink2.jsp" %>
+<%@page import="kh.semi.mtt.member.model.vo.TrainerVo"%>
 <%@page import="java.util.ArrayList"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>admin-member</title>
+<title>admin-trainer</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<%@ include file="/WEB-INF/view/font.jsp"%>
+<%@ include file="/WEB-INF/view/font.jsp" %>
 
 <style>
-section {
-	font-family: 'THEmpgtM';
+section{
+font-family:'THEmpgtM';
 }
-
-a, a:visited, a:link {
-	color: rgb(94, 94, 94);
+a, a:visited, a:link{
+    color: rgb(94, 94, 94);
 }
-
 .menu>ul>li {
 	display: list-item;
 	text-align: center;
 	padding-top: 12px;
 }
-
-#li_5 {
+#li_6 {
 	text-decoration: underline;
 }
 /* #memeber_main {
@@ -39,6 +35,7 @@ a, a:visited, a:link {
 	margin-bottom: 0;
 	font-size: 15px;
 } */
+
 #memeber_table {
 	margin: 20px auto;
 	width: 650px;
@@ -46,28 +43,27 @@ a, a:visited, a:link {
 	clear: both;
 }
 
-.board_top {
+
+.board_top{
 	position: relative;
 }
-
-#memeber_main {
+ #memeber_main {
 	padding-top: 65px;
 	margin-left: 65px;
 	font-weight: bold;
 	display: inline-block;
 	padding-bottom: 15px;
 	font-size: 15px;
-}
+} 
 
-#memeber_top_button {
+#memeber_top_button{
 	padding-top: 65px;
 	margin-bottom: 0;
 	float: right;
 	position: absolute;
-	bottom: 0;
-	right: 0;
+    bottom: 0;
+    right: 0;
 }
-
 #write_btn {
 	color: white;
 	border: 1px solid white;
@@ -78,9 +74,9 @@ a, a:visited, a:link {
 	font-size: 12px;
 	margin-right: 65px;
 	cursor: pointer;
-}
 
-#write_btn:hover {
+}
+#write_btn:hover{
 	color: #4B4DB2;
 	background-color: white;
 	border: 1px solid #4B4DB2;
@@ -92,6 +88,9 @@ a, a:visited, a:link {
 	float: right;
 	font-size: 12px;
 }
+
+
+
 
 #btn_search {
 	height: 27px;
@@ -156,39 +155,37 @@ a, a:visited, a:link {
 	margin-right: 65px;
 }
 
-
-#pageing_all {
-	margin: 45px auto 60px auto;
+.Pageing {
 	text-align: center;
-	font-family: 'THEmpgtM';
-	font-size: 0px;
 }
 
-.page {
-	background-color: rgb(236, 236, 236);
-	border-radius: 3px;
-	color: rgb(127, 127, 127);
-	padding: 8px 11px 8px 11px;
-	display: inline-block;
-	margin: 0px 2px;
-	font-size: 10.5px;
+.Pageing a {
+	border: 1px solid #4B4DB2;
 }
 
-.npage{
-	cursor: pointer;
+.Pageingclick {
+	background-color: #4B4DB2;
 }
+
+.Page {
+	width: 30px;
+	height: 30px;
+	box-sizing: content-box;
+	
+}
+
 </style>
 
 </head>
 <body>
 	<%
-		MemberVo vo = (MemberVo) request.getAttribute("mvo");
+		TrainerVo vo = (TrainerVo) request.getAttribute("tvo");
 	%>
-	<%@ include file="/WEB-INF/view/template.jsp"%>
+	<%@ include file="/WEB-INF/view/template.jsp" %>
 	<section id="section1">
 		<div class="board_top">
-
-			<div id="memeber_main">회원 관리</div>
+	
+			<div id="memeber_main">트레이너 관리</div>
 			<div id="memeber_top_button">
 				<button onclick="location.href = 'memeberinsert';" id="write_btn">임시자리</button>
 			</div>
@@ -199,47 +196,45 @@ a, a:visited, a:link {
 			</tr>
 			<tr id="table_title">
 				<td class="first_col" style="width: 10%;"></td>
-				<td style="width: 15%;">회원명</td>
-				<td style="width: 15%;">회원번호</td>
+				<td style="width: 15%;">트레이너명</td>
+				<td style="width: 15%;">트레이너번호</td>
 				<td style="width: 20%;">가입일</td>
-				<td style="width: 20%;">누적결제액(원)</td>
-				<td style="width: 20%;">누적신고횟수</td>
+				<td style="width: 20%;">누적매출액(원)</td>
+				<td style="width: 20%;">승인여부</td>
 			</tr>
 			<tr>
 				<td colspan="6" class="table_line"></td>
-			</tr>
-			<c:forEach var="vo" items="${memberreadall}">
+			</tr>						 
+			<c:forEach var="vo" items="${trainerreadall}">
 				<tr class="table_content">
 					<td>${vo.rownum}</td>
-					<td><a href="memberread?memeberNo=${vo.memberNo}">${vo.memberName }</a></td>
-					<td><a href="memberread?memeberNo=${vo.memberNo}">${vo.memberNo}</a></td>
+					<td><a href="memberread?memeberNo=${vo.trainerNo}">${vo.memberNickname }</a></td>
+					<td><a href="memberread?memeberNo=${vo.trainerNo}">${vo.trainerNo}</a></td>
 					<td>${vo.memberJoinDate}</td>
 					<td>${vo.sumPrice}</td>
-					<td>${vo.boardReportCnt}</td>
+					<td>${vo.trainerConfirm}</td>
 				</tr>
 			</c:forEach>
 		</table>
-		<div id="pageing_all">
-			<div class="pageing">
-				<p id="p_c">
-					<c:if test="${startPage > 1 }">
-						<a class="page" href="adminmember?page=${startPage-1 }">이전</a>
-					</c:if>
-					<c:forEach begin="${startPage }" end="${endPage }" var="p">
-						<a class="page" href="adminmember?page=${p }">${p }</a>
-					</c:forEach>
-					<c:if test="${endPage < totalpageCnt}">
-						<a class="page" href="adminmember?page=${endPage+1 }">다음</a>
-					</c:if>
-				</p>
-			</div>
+		<div class="Pageing">
+			<p>
+				<c:if test="${startPage > 1 }">
+					<a class="Page" href="adminmember?page=${startPage-1 }">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				</c:if>
+				<c:forEach begin="${startPage }" end="${endPage }" var="p">
+					<a class="Page" href="adminmember?page=${p }">${p }</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				</c:forEach>
+				<c:if test="${endPage < totalPageCnt }">
+					<a class="Page" href="adminmember?page=${endPage+1 }">다음</a>
+				</c:if>
+			<p>
 		</div>
 		<div class="search_memeber">
-			<button type="button" id="btn_search">검색</button>
-			<input id="input_search" type="text" name="searchInput"
-				placeholder="검색어입력">
+				<button type="button" id="btn_search">검색</button>
+				<input id="input_search" type="text" name="searchInput" 
+					placeholder="검색어입력">
 		</div>
-
+		
 	</section>
 	<section id="section2">
 		<div class="profile">
@@ -262,57 +257,41 @@ a, a:visited, a:link {
 				<li id="li_3"><a href="admincomment">댓글 관리</a></li>
 				<li id="li_4"><a href="adminnotice">공지사항 관리</a></li>
 				<li id="li_5"><a href="adminmemeber">회원 관리</a></li>
-				<li id="li_6">트레이너 관리</li>
+				<li id="li_6"><a href="admintrainer">트레이너 관리</a></li>
 				<li id="li_7"><a href="admininquiry">문의 확인</a></li>
 			</ul>
 		</div>
 	</section>
 	<script>
-		$("#btn_search")
-				.click(
-						function() {
-							console.log("btn_search CLICK");
-							$
-									.ajax({
-										url : "memeberreadall",
-										type : "post",
-										data : {
-											inputsearch : $("#input_search")
-													.val()
-										},
-										dataType : "json",
-										success : function(result) {
-											console.log(result);
-											var html = "";
-											for (var i = 0; i < result.memeberreadall.length; i++) {
-												var vo = result.memeberreadall[i];
-												html += '<tr class="table_content">';
-												html += '<td><a href="memeberread?memeberNo='
-														+ vo.memeberNo
-														+ '">'
-														+ vo.memeberNo
-														+ '</a></td>';
-												html += '<td><a href="memeberread?memeberNo='
-														+ vo.memeberNo
-														+ '">'
-														+ vo.notiTitle
-														+ '</a></td>';
-												html += '<td>' + vo.notiDate
-														+ '</td>';
-												html += '</tr>';
-											}
-											$("#table_title").next().nextAll()
-													.remove();
-											$("#memeber_table").append(html);
-										},
-										error : function(result) {
-
-										}
-									});
-						});
+	$("#btn_search").click(function(){
+		console.log("btn_search CLICK");
+		$.ajax({
+			url:"memeberreadall",
+			type:"post",
+			data:{inputsearch:$("#input_search").val()},
+			dataType:"json",
+			success: function(result){
+				console.log(result);
+				var html = "";
+				for(var i = 0; i < result.memeberreadall.length; i++){
+                    var vo = result.memeberreadall[i];
+                    html += '<tr class="table_content">';
+                    html += '<td><a href="memeberread?memeberNo='+vo.memeberNo+'">'+vo.memeberNo+'</a></td>';
+                    html += '<td><a href="memeberread?memeberNo='+vo.memeberNo+'">'+vo.notiTitle+'</a></td>';
+                    html += '<td>'+vo.notiDate+'</td>';
+                    html += '</tr>';
+                }
+				$("#table_title").next().nextAll().remove();
+				$("#memeber_table").append(html);
+			},
+			error: function(result){
+				
+			}
+		});
+	});
 	</script>
-	<%@ include file="/WEB-INF/view/footer.jsp"%>
-
-
+	<%@ include file="/WEB-INF/view/footer.jsp" %>
+	
+	
 </body>
 </html>

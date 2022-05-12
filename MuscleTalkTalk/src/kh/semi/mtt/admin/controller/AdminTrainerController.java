@@ -11,30 +11,26 @@ import javax.servlet.http.HttpServletResponse;
 
 import kh.semi.mtt.common.function.PagingController;
 import kh.semi.mtt.common.function.PagingVo;
-import kh.semi.mtt.inquiry.model.service.InquiryService;
-import kh.semi.mtt.inquiry.model.vo.InquiryVo;
+import kh.semi.mtt.member.model.vo.TrainerVo;
+import kh.semi.mtt.trainer.model.service.TrainerService;
 
 /**
- * Servlet implementation class AdminInquiryController
+ * Servlet implementation class AdminMemberController
  */
-@WebServlet("/admininquiry")
-public class AdminInquiryController extends HttpServlet {
+@WebServlet("/admintrainer")
+public class AdminTrainerController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	 private InquiryService service = new InquiryService();    
+    private TrainerService service = new TrainerService(); 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminInquiryController() {
+    public AdminTrainerController() {
         super();
-        // TODO Auto-generated constructor stub
     }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request = exec(request, response);
-		request.getRequestDispatcher("WEB-INF/view/admin/admininquiry.jsp").forward(request, response);
+		request.getRequestDispatcher("WEB-INF/view/admin/admintrainer.jsp").forward(request, response);
 	}
 
 	/**
@@ -44,22 +40,22 @@ public class AdminInquiryController extends HttpServlet {
 //		// TODO Auto-generated method stub
 //		doGet(request, response);
 //	}
-	private int countInquiry() {
-		int result = service.countInquiry();
+	private int countTrainer() {
+		int result = service.countTrainer();
 		return result;
 	}
+	
 	private HttpServletRequest exec(HttpServletRequest request, HttpServletResponse response) {
 		HttpServletRequest resultRequest = null;
-		
-		int totalCnt = new InquiryService().countInquiry();
+		int totalCnt = new TrainerService().countTrainer();
 		PagingVo setVo = new PagingVo(10, 5, request.getParameter(""), request.getParameter("page"), totalCnt);
 		PagingVo pageVo = new PagingController().setPagingValue(setVo);
 		System.out.println("pageVo:" + pageVo);
 		
-		ArrayList<InquiryVo> result = service.readAllInquiry(pageVo.getStartRnum(), pageVo.getEndRnum(), pageVo.getSearch());
+		ArrayList<TrainerVo> result = service.readAllTrainer(pageVo.getStartRnum(), pageVo.getEndRnum(), pageVo.getSearch());
 		System.out.println("exec에서 result"+result);
 
-		request.setAttribute("inquiryreadall", result);
+		request.setAttribute("trainerreadall", result);
 		request.setAttribute("startPage", pageVo.getStartPage());
 		request.setAttribute("endPage", pageVo.getEndPage());
 		request.setAttribute("totalpageCnt", pageVo.getTotalpageCnt());
@@ -67,4 +63,5 @@ public class AdminInquiryController extends HttpServlet {
 		resultRequest = request;
 		return resultRequest;
 	}
+
 }

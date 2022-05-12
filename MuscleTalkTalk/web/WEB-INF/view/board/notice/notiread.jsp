@@ -22,13 +22,24 @@
 		src: url("./fonts/THEmpgtR.woff");
 	}
 	
-	#notice_main, #note_title, #writer_board, .table_title{
+	#notice_main, #note_title, #writer_board, .table_title, a, button{
 		font-family: THEmpgtM;
 	}
 	.note_content_1, .note_content_2, .note_content_3, .table_content{
 		font-family: THEmpgtR;
 	}
-	
+	a{
+	      text-decoration: none;
+	      color: black;
+	}
+	a:visited {
+	      text-decoration: none;
+	      color: black;
+	}
+	a:link{
+	      text-decoration: none;
+	      color: black;
+	}
 	section {
 		margin-left: 210px;
 		background-color: white;
@@ -36,6 +47,12 @@
 		width: 930px;
 		height: 2000px;
 		position: relative;
+	}
+	#board_category {
+		padding-top: 65px;
+		margin-right: 65px;
+		float: right;
+		font-size: 12px;
 	}
 	
 	#notice_main {
@@ -171,12 +188,12 @@
 
 	<section>
 
-		<div id="notice_main">
-            공지사항
-        </div>
-        <!-- <div id="board_category">
-            <a href="">통합 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="">자유 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="">루틴 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="">공지사항</a>
-        </div> -->
+		<div id="notice_main">공지사항</div>
+		<div id="board_category">
+			<a href="totalboard">통합 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="BoardReadAll">자유 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
+				href="routineboardreadall">루틴 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="noticereadall">공지사항</a>
+		</div>
+       
         <div id="board_note">
             <div id="note_title">게시판 유의사항</div>
             <div class="note_content_1">

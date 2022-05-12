@@ -328,7 +328,7 @@ public class MemberDao {
 			return result;
 		}
 	
-	//멤버 전체조회
+	//멤버 전체조회 (진정)
 		public ArrayList<AdminVo> readAllMember(Connection conn, int startRnum, int endRnum, String search){
 			ArrayList<AdminVo> volist = null;
 			String sql = "select * from (select rownum r, tm.member_name, tm.member_no, tm.MEMBER_JOIN_DATE, nvl(price_sum,0) sum_price, nvl(b_report_count,0) b_report_cnt, nvl(rb_report_count,0) rb_report_cnt "

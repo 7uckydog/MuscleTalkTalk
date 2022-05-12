@@ -161,6 +161,10 @@ section {
 <%@ include file="/WEB-INF/view/template.jsp"%>
 	<section>
 		<div id="notice_main">공지사항</div>
+		<div id="board_category">
+			<a href="totalboard">통합 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="BoardReadAll">자유 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
+				href="routineboardreadall">루틴 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="noticereadall">공지사항</a>
+		</div>
 		<table id="notice_table">
 			<tr>
 				<td colspan="3" class="table_line"></td>
