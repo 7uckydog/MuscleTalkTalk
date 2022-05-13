@@ -168,6 +168,7 @@ public class RoutineInsertAjaxController extends HttpServlet {
 				reVo.setRoutineExerciseRepeat(awsInt.get(i));
 				reVo.setRoutineExerciseWeight(awwInt.get(i));
 				reVo.setExerciseName(awnStr.get(i));
+				reVo.setRoutineExerciseSequence(sqsInt.get(i));
 //				reVo.setRoutineDay(routineDay);
 				
 				routineExerciseVoList.add(reVo);
