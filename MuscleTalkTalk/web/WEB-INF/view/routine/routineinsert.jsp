@@ -1141,8 +1141,8 @@ border-left: 0px !important;
        	   	});
         	
         });
-        
-        
+        // sequence Number!!
+        var workoutSeqNum = 1;
         // show -요일 - 부위 -위를 토대로 선택부위를 보여줌
         // 추가버튼 클릭 이벤트 - 요일, - 추가된 운동명
         $(".workout_inputBtn").on("click",function(){
@@ -1231,7 +1231,10 @@ border-left: 0px !important;
                     $('.addworkoutTr').eq(prevTrLength+i).append('<input class=addworkoutsetinput name="addworkoutset"></input>');
                     $('.addworkoutsetinput').eq(prevTrLength+i).val((i+1)+"세트");
                     //$('.Btn_cancel_inset').after('<input type="text" value="" class="routineAllData" name="routineAllData">');
+                    $('.addworkoutTr').eq(prevTrLength+i).append('<input class=addworkoutseq name="addworkoutseq"></input>');
+                    $('.addworkoutseq').eq(prevTrLength+i).val(workoutSeqNum);
                 }
+                workoutSeqNum++;
             } else {
                 var prevTrLength = $('.addworkoutTable').eq(dayTemp).children('.addworkoutTr').length;
 /*                 console.log(prevTrLength); */
@@ -1260,7 +1263,10 @@ border-left: 0px !important;
                     $('.addworkoutTr').eq(dayTemp).append('<input class=addworkoutsetinput name="addworkoutset"></input>');
                     $('.addworkoutsetinput').eq(dayTemp).val((i+1)+"세트");
                     //$('.Btn_cancel_inset').after('<input type="text" value="" class="routineAllData" name="routineAllData">');
+                    $('.addworkoutTr').eq(prevTrLength+i).append('<input class=addworkoutseq name="addworkoutseq"></input>');
+                    $('.addworkoutseq').eq(prevTrLength+i).val(workoutSeqNum);
                 }
+                workoutSeqNum++;
             }
 /*             	// 운동이름 담을 인풋박스 만들기
                 $('.addworkoutname').eq($('.addworkoutname').length-1).append('<input class="addworkoutnameinput" name="addworkoutname"></input>');

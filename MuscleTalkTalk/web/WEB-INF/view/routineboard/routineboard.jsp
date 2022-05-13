@@ -343,7 +343,7 @@ section {
 					<a class="Page" href="routineboardreadall?page=${startPage-1 }">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;
 			</c:if>
 				<c:forEach begin="${startPage }" end="${endPage }" var="p">
-					<a class="Page" id="xxx" href="routineboardreadalll?page=${p }">${p }</a>&nbsp;&nbsp;&nbsp;&nbsp;
+					<a class="Page" id="xxx" href="routineboardreadall?page=${p }">${p }</a>&nbsp;&nbsp;&nbsp;&nbsp;
 			</c:forEach>
 				<c:if test="${endPage < totalpageCnt}">
 					<a class="Page" href="routineboardreadall?page=${endPage+1 }">다음</a>

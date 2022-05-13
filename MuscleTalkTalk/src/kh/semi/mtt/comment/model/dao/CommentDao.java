@@ -43,6 +43,73 @@ public class CommentDao {
 		}
 		return result;
 	}
+	public int writeRoutineBoardReComment(Connection conn, CommentVo vo,MemberVo mvo) {
+		// TODO: member 로그인 완료 후 수정
+		int memberNo = 13;
+		int result = 0;
+		
+		String sql = "insert into tb_comment (COMMENT_NO, routine_board_no, MEMBER_NO, COMMENT_DATE, COMMENT_EDIT_DATE, COMMENT_CONTENT)values"
+				+ "	((select nvl(max(COMMENT_NO),0)+1 from tb_comment),?"
+				+ "	,?,sysdate,sysdate,?)";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			// ? 에 값 지정
+			pstmt.setInt(1, vo.getRoutineboardNo()); 
+			pstmt.setInt(2, mvo.getMemberNo());
+			pstmt.setString(3, vo.getCommentContent());
+
+			// sql문 실행
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	
+	public ArrayList<CommentVo> readRoutineBoardReComment(Connection conn, int routineboardNo){
+		ArrayList<CommentVo> rvolist = null;
+		String sql = "		select rownum r, t1.* from(select comment_no, routine_board_no, member_nickname, comment_content, comment_date, comment_edit_date "
+				+ "				from tb_comment \r\n"
+				+ "				join tb_member on tb_comment.member_no = tb_member.member_no "
+				+ "				where routine_board_no = ? order by comment_date desc) t1 "
+				+ "				order by r desc";
+		
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, routineboardNo);
+				rs = pstmt.executeQuery();
+				rvolist = new ArrayList<CommentVo>();
+				
+				while(rs.next()) { 
+					CommentVo vo = new CommentVo();
+					vo.setBoardNo(rs.getInt("routine_BOARD_NO"));
+					vo.setCommentContent(rs.getNString("COMMENT_CONTENT"));
+					vo.setCommentNo(rs.getInt("COMMENT_NO"));
+					vo.setCommentDate(rs.getTimestamp("COMMENT_DATE"));
+					vo.setCommentEditDate(rs.getTimestamp("COMMENT_EDIT_DATE"));
+					vo.setMemberNickname(rs.getString("MEMBER_NICKNAME"));
+					vo.setRownum(rs.getInt("r"));
+					rvolist.add(vo);  
+				} 
+			} catch (SQLException e) {
+			
+				e.printStackTrace();
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			
+			return rvolist;
+		}
+		
+	
+	
+	
+	
+
 	
 	public ArrayList<CommentVo> readBoardReComment(Connection conn, int boardNo){
 		ArrayList<CommentVo> volist = null;

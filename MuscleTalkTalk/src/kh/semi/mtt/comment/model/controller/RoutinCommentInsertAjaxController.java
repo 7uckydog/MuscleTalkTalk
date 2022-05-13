@@ -12,16 +12,16 @@ import kh.semi.mtt.comment.model.vo.CommentVo;
 import kh.semi.mtt.member.model.vo.MemberVo;
 
 /**
- * Servlet implementation class CommentInsertAjaxController
+ * Servlet implementation class RoutinCommentInsertAjaxController
  */
-@WebServlet("/commentinsert.ax")
-public class CommentInsertAjaxController extends HttpServlet {
+@WebServlet("/routincommentinsert.ax")
+public class RoutinCommentInsertAjaxController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CommentInsertAjaxController() {
+    public RoutinCommentInsertAjaxController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,6 +38,8 @@ public class CommentInsertAjaxController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("루틴보드댓글에이작스 들어옴");
+		
 		String bNoStr = request.getParameter("bNo");
 		int bNo = 0;
 		try {
@@ -46,20 +48,21 @@ public class CommentInsertAjaxController extends HttpServlet {
 			e.printStackTrace();
 		}
 		if(bNo <= 0) {  // 숫자로 변환하지 못한 경우, bNo에 0,음수가 입력되어 들어온 경우
-			response.sendRedirect("BoardReadAll");
+			response.sendRedirect("routineboardreadall");
 			return;
 		}
 		String reComment = request.getParameter("reComment");
 		CommentVo vo  = new CommentVo();
 		MemberVo mvo = (MemberVo) request.getSession().getAttribute("ssMvo");
 		
-		vo.setBoardNo(bNo);
+		vo.setRoutineboardNo(bNo);
 		vo.setCommentContent(reComment);
-		int result = new CommentService().writeBoardReComment(vo,mvo);
+		int result = new CommentService().writeRoutineBoardReComment(vo,mvo);
 		if(result<1) {
-			response.sendRedirect("BoardReadAll");
+			response.sendRedirect("routineboardreadall");
 		} else {
-			response.sendRedirect("boardread?bno="+bNo);
+			response.sendRedirect("routineboardread?bno="+bNo);
 		}
 	}
+
 }

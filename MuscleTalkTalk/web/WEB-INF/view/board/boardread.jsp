@@ -16,10 +16,6 @@
 <%@ include file="/WEB-INF/view/font.jsp"%>
 
 <style>
-@font-face {
-	font-family: THEmpgtM;
-	src: url("./fonts/THEmpgtM.woff");
-}
 
 body {
 	width: 1200px;
@@ -258,8 +254,9 @@ hr {
 }
 
 #member_image {
-	margin-left: 65px;
-	display: inline-block;
+	margin-left: 55px;
+	/* display: inline-block; */
+	
 }
 
 #memberName {
@@ -397,6 +394,17 @@ hr {
         z-index: 1;
         background-color: rgba(128, 128, 128, .5);
         }
+        
+#prifile {
+   background-color: rgb(200, 200, 200);
+   width: 45px;
+   height: 45px;
+   border-radius: 50%;
+   position: relative;
+   float: left;
+   box-sizing: border-box;
+   grid-row: 1;
+}
 
 </style>
 </head>
@@ -449,7 +457,13 @@ hr {
 		<div id="recomment">댓글</div>
 		<c:forEach var="cvo" items="${cVoList }">
 			<div class="more_recomment">
-				<div id="member_image">이미지</div>
+			<!-- 이미지 -->
+				<div id="member_image"><c:if test="${not empty ssMvo.memberPhoto}">
+               <img id="prifile" src="${ssMvo.memberPhoto}">
+            </c:if>
+            <c:if test="${empty ssMvo.memberPhoto}">
+               <img id="prifile" src="<%= request.getContextPath() %>/cssfolder/images/default_pf.png">
+            </c:if></div>
 				<div id="memberName">${cvo.memberNickname } -
 					${cvo.commentDate }</div>
 				<div id="readrecomment">${cvo.commentContent }</div>

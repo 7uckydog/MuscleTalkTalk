@@ -59,6 +59,45 @@ public class RoutineBoradDao {
 		
 	}
 	
+	public RoutineBoardVo readRoutineBoard(Connection conn, int routineboardNo) {
+		RoutineBoardVo rvo = null;
+		
+		String sql = "select R, routine_board_no, member_nickname, routine_board_title, routine_board_content, routine_board_count, routine_board_date, board_category_no, r_cnt from "
+				+ "				(select rownum r, t1.* from (select b1.*,(select count(*) from "
+				+ "				tb_comment r1 where r1.board_no = b1.routine_board_no) r_cnt "
+				+ "				from tb_routine_board b1 order by routine_board_no desc) t1)tba join tb_member tbm on tba.member_no = tbm.member_no "
+				+ "				where routine_board_no=?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, routineboardNo);
+			rs = pstmt.executeQuery();
+			
+			rvo = new RoutineBoardVo();
+			
+			if(rs.next()) {
+				rvo.setRoutineboardNo(rs.getInt("routine_board_no"));
+				rvo.setRoutineboardTitle(rs.getString("routine_BOARD_TITLE"));
+				rvo.setMemberNickname(rs.getString("MEMBER_NICKNAME"));
+				rvo.setRoutineboardContent(rs.getString("routine_BOARD_CONTENT"));
+				rvo.setRoutineboardCount(rs.getInt("routine_board_count"));
+				rvo.setRoutineboardDate(rs.getDate("routine_board_date"));
+				rvo.setrCnt(rs.getInt("R_CNT"));
+				
+				System.out.println("루틴보드rs에 담긴 값");
+			}
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return rvo;
+	}
+	
 	
 	public int countRoutineBoard(Connection conn) {
 		int result = 0;

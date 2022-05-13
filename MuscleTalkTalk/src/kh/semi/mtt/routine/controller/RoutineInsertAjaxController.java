@@ -54,10 +54,13 @@ public class RoutineInsertAjaxController extends HttpServlet {
 			String rw[] = request.getParameterValues("addworkoutDayweekinput"); // 주차 - 1주차 2주차..
 			String rd[] = request.getParameterValues("addworkDay"); // 요일 - 월 화...
 //			String od[] = request.getParameterValues("addworkoutoneDay"); // day1..day2..
+			
+			String sqs[] = request.getParameterValues("addworkoutseq"); //n번째 운동
 			String st = request.getParameter("settime"); // 세트시간
 			String wt = request.getParameter("worktime"); // 운동시간
 			String tg = request.getParameter("routine_tagetName"); // 루틴목표 - 다이어트, 근비대...
 			String rm = request.getParameter("routineMemo");
+			
 			ArrayList<Integer> arrInt = new ArrayList<Integer>();
 			ArrayList<String> awnStr = new ArrayList<String>();
 			ArrayList<Integer> awsInt = new ArrayList<Integer>();
@@ -65,11 +68,18 @@ public class RoutineInsertAjaxController extends HttpServlet {
 			ArrayList<Integer> rwInt = new ArrayList<Integer>();
 			ArrayList<Integer> rdInt = new ArrayList<Integer>();
 			ArrayList<Integer> odInt = new ArrayList<Integer>();
+			ArrayList<Integer> sqsInt = new ArrayList<Integer>();
+			
+			
 			try {
 //				for(String tempStr : od) {
 //					odInt.add(Integer.parseInt(tempStr.substring(3, 4)));
 //				}
+
 				
+				for(String tempStr : sqs) {
+					sqsInt.add(Integer.parseInt(tempStr));
+				}
 				for(String tempStr : arr) {
 					arrInt.add(Integer.parseInt(tempStr.substring(0, tempStr.length()-2)));
 				}
@@ -140,6 +150,7 @@ public class RoutineInsertAjaxController extends HttpServlet {
 			System.out.println(awsInt);
 			System.out.println(awwInt);
 			System.out.println(odInt);
+			System.out.println("n번째운동카운트: "+sqsInt);
 			
 			RoutineVo routineVo = new RoutineVo();
 			routineVo.setRoutineName(rnb);

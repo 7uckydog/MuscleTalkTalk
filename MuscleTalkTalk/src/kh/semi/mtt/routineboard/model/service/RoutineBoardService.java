@@ -21,6 +21,17 @@ public class RoutineBoardService {
 		close(conn);
 		return result;
 	}
+	public RoutineBoardVo readRoutineBoard(int routineboardNo) {
+		Connection conn = null;
+		conn = getConnection();
+		
+		RoutineBoardVo result = dao.readRoutineBoard(conn, routineboardNo);
+		close(conn);
+		return result;
+		
+		
+		
+	}
 	
 	public int countRoutineBoard() {
 		Connection conn = null;

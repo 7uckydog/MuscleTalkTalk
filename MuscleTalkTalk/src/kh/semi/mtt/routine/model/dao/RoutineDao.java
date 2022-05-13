@@ -96,11 +96,13 @@ public class RoutineDao {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		
 		String sql = "select tr.*,tre.*, te.exercise_name, te.exercise_Part "
-				+ "    from tb_routine tr, tb_member tm, tb_routine_exercise tre, tb_exercise te "
-				+ "    where tr.member_no = tm.member_no "
-				+ "    and tr.routine_no = tre.routine_no "
-				+ "	   and tre.exercise_no = te.exercise_no "
-				+ "	   and tm.member_no = ? ";
+				+ "				    from tb_routine tr, tb_member tm, tb_routine_exercise tre, tb_exercise te "
+				+ "				    where tr.member_no = tm.member_no "
+				+ "				    and tr.routine_no = tre.routine_no "
+				+ "					   and tre.exercise_no = te.exercise_no "
+				+ "					   and tm.member_no = ? "
+				+ "                       order by tr.routine_no desc, tre.routine_week asc, "
+				+ "						tre.routine_exercise_day asc, tre.routine_exercise_set asc";
 		
 			try {
 				pstmt = conn.prepareStatement(sql);

@@ -24,6 +24,28 @@ public class CommentService {
 		return result;
 		
 	}
+	public int writeRoutineBoardReComment(CommentVo vo,MemberVo mvo) {
+		Connection conn = null;
+		conn =  getConnection();
+		
+		int result = dao.writeRoutineBoardReComment(conn, vo, mvo);
+		close(conn);
+		return result;
+		
+	}
+	public ArrayList<CommentVo> readRoutineBoardReComment(int routineboardNo){
+		Connection conn = null;
+		conn = getConnection();
+		
+		ArrayList<CommentVo> rvo = dao.readRoutineBoardReComment(conn, routineboardNo);
+		
+		close(conn);
+		
+		return rvo;
+		
+	}
+	
+	
 	public ArrayList<CommentVo> readBoardReComment(int boardNo){
 		Connection conn = null;
 		conn = getConnection();
