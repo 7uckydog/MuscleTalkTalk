@@ -84,16 +84,28 @@ public class MemberSwitchDoToTrainerAccount extends HttpServlet {
 		System.out.println("호호" + gymLocation);
 		MemberVo ssMvo = (MemberVo)request.getSession().getAttribute("ssMvo");
 		int memberNo = ssMvo.getMemberNo();
+		String memberTrainer = ssMvo.getMemberTrainer();
+		System.out.println("memberTrainer: " + memberTrainer);
+		int result = -1;
 		
-		int result = new TrainerService().switchAccount(memberNo, gymName, gymLocation, trainerFile);
-		
-		if(result == 0) {
-			System.out.println("insert 실패");
-		} else if(result == 1) {
-			System.out.println("insert 성공");
-			request.setAttribute("msg", "트레이너 심사 요청되었습니다. 관리자 확인 후, 트레이너 계정으로 전환됩니다.");
-			request.getRequestDispatcher("WEB-INF/view/common/pageReplace.jsp").forward(request, response);
+		if(memberTrainer == "R") {
+			request.setAttribute("msg", "이미 심사 요청이 진행되고 있습니다. 관리자 확인 후, 트레이너 계정으로 전환됩니다.");
+			request.getRequestDispatcher("WEB-INF/view/common/errorPage.jsp").forward(request, response);
+		} else {
+			result = new TrainerService().switchAccount(memberNo, gymName, gymLocation, trainerFile);
+			
+			if(result == 0) {
+				System.out.println("insert 실패");
+			} else if(result == 1) {
+				System.out.println("insert 성공");
+				ssMvo.setMemberTrainer("R");
+				ssMvo.setTrainerConfirm("R");
+				request.getSession().setAttribute("ssMvo", ssMvo);
+				request.setAttribute("msg", "트레이너 심사 요청되었습니다. 관리자 확인 후, 트레이너 계정으로 전환됩니다.");
+				request.getRequestDispatcher("WEB-INF/view/common/pageReplace.jsp").forward(request, response);
+			}
 		}
+		
 	}
 
 }

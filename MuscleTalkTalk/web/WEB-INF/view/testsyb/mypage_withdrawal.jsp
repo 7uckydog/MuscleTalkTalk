@@ -132,6 +132,9 @@
                     	<c:if test="${ssMvo.memberTrainer == 'R'}">
                     		예약 프로그램 조회
                     	</c:if>
+                    	<c:if test="${ssMvo.memberTrainer == 'T'}">
+                    		예약 프로그램 조회
+                    	</c:if>
                     </li>
                     <li id="to_trainer">
                     	<c:if test="${ssMvo.memberTrainer == 'F'}">
@@ -184,7 +187,7 @@
 					success: function(result){
 						if(result == 1){
 							alert("회원 탈퇴가 완료되었습니다. 머슬톡톡을 이용해주셔 감사합니다.");
-							location.href="main";
+							location.href="logout";
 						} else if (result == 0){
 							alert("회원 탈퇴에 실패했습니다. 탈퇴를 다시 진행해주세요.");
 							location.href="memberwithdrawalcontroller";

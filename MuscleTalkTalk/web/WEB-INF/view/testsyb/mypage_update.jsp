@@ -327,6 +327,9 @@
                     	<c:if test="${ssMvo.memberTrainer == 'R'}">
                     		예약 프로그램 조회
                     	</c:if>
+                    	<c:if test="${ssMvo.memberTrainer == 'T'}">
+                    		예약 프로그램 조회
+                    	</c:if>
                     </li>
                     <li id="to_trainer">
                     	<c:if test="${ssMvo.memberTrainer == 'F'}">
@@ -617,25 +620,36 @@
 	            }
 	        }
 	     	
+	     	// 전화번호 형식 확인
+	        var chkPhone = false;
+	        
+			var phoneVal = $("#member_phone").val();
+			var phone = /^[0-9]{9,12}$/;
+		    		
+			if(!phone.test(phoneVal)){
+		    	alert("번호를 9-12자리 숫자로 입력해 주세요.");
+		    	return;
+		    }
+	     	
 	     	// 나이, 신장, 몸무게에 number만 넣을 수 있도록 유효성 검사
 	    	var ageVal = $("#member_age").val();
 	    	var age = /^[0-9]{1,3}$/;
 	    	if(!age.test(ageVal)){
-	    	    alert("나이를 0이상의 숫자 값으로 입력해 주세요.");
+	    	    alert("나이를 3자리 숫자 값으로 입력해 주세요.");
 	    	    return;
 	    	}
 	    	
 	    	var heightVal = $("#member_height").val();
 	    	var height = /^[0-9]{1,3}$/;
 	    	if(!height.test(heightVal)){
-	    	    alert("신장을 0이상의 숫자 값으로 입력해 주세요.");
+	    	    alert("신장을 3자리 숫자 값으로 입력해 주세요.");
 	    	    return;
 	    	}
 	    	
 	    	var weightVal = $("#member_weight").val();
 	    	var weight = /^[0-9]{1,3}$/;
 	    	if(!height.test(heightVal)){
-	    	    alert("몸무게를 0이상의 숫자 값으로 입력해 주세요.");
+	    	    alert("몸무게를 3자리 숫자 값으로 입력해 주세요.");
 	    	    return;
 	    	}
 	    	/* data: {

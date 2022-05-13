@@ -54,6 +54,7 @@ public class MemberWithdrawalDoController extends HttpServlet {
 			System.out.println("회원 탈퇴 성공");
 			num = 1;
 		}
+		
 		out.print(num);
 		out.flush();
 		out.close();

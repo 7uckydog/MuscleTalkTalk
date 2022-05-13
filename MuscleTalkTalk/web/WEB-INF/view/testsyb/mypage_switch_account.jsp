@@ -83,7 +83,7 @@
             border: 0px;
             cursor: pointer;
         }
-         #to_trainer{
+        #to_trainer{
         	text-decoration: underline;
         }
 </style>
@@ -142,6 +142,9 @@
                     		예약 프로그램 조회
                     	</c:if>
                     	<c:if test="${ssMvo.memberTrainer == 'R'}">
+                    		예약 프로그램 조회
+                    	</c:if>
+                    	<c:if test="${ssMvo.memberTrainer == 'T'}">
                     		예약 프로그램 조회
                     	</c:if>
                     </li>

@@ -35,7 +35,6 @@ public class MainControllerServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("/ »£√‚ µ ");
 		ArrayList<BoardVo> boardVoList = new BoardService().mainBoard();
 		ArrayList<PtVo> ptVoList = new PtService().mainPt();
 		ArrayList<NoticeVo> noticeVoList = new NoticeService().mainNotice();

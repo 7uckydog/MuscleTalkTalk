@@ -162,12 +162,15 @@
                     	<c:if test="${ssMvo.memberTrainer == 'F'}">
                     		예약 프로그램 조회
                     	</c:if>
+                    	<c:if test="${ssMvo.memberTrainer == 'R'}">
+                    		예약 프로그램 조회
+                    	</c:if>
+                    	<c:if test="${ssMvo.memberTrainer == 'T'}">
+                    		예약 프로그램 조회
+                    	</c:if>
                     </li>
                     <li id="to_trainer">
                     	<c:if test="${ssMvo.memberTrainer == 'F'}">
-                    		트레이너 계정 전환
-                    	</c:if>
-                    	<c:if test="${ssMvo.memberTrainer == 'R'}">
                     		트레이너 계정 전환
                     	</c:if>
                     </li>
