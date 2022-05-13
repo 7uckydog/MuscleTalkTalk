@@ -27,10 +27,11 @@
             background-color: white;
             border-radius: 10px 10px 0 0;
             width: 930px;
-            height: 2000px;
+            height: auto;
             overflow: hidden;
             position: relative;
             font-family: THEmpgtM;
+            padding-bottom: 60px;
         }
         #board_main{
            /* margin-top: 65px; */
@@ -286,11 +287,12 @@
         }
         #modal_RoutineMemo{
             margin-top: 30px;
-            margin-left: 155px;
+            margin-left: 146.5px;
             width: 640px;
             height: 80px;
             resize: none;
             overflow-y: scroll;
+            border: 1px solid gray;
         }
         .modal_RoutineMainDiv{
             height: 420px;
@@ -343,7 +345,13 @@
         .modalTable td:nth-child(1){
             border-right: 0px;
         }
-
+        .rest_column {
+        	grid-column: 1/5;
+        }
+        table{
+        table-layout: fixed;
+        word-break: break-all;
+        }
     </style>
     
 </head>
@@ -443,7 +451,7 @@ ${revolist.get(revolist.size() - 1).routineWeek } --%>
                        	
                        	</div>
                     </div>
-                    <textarea id="modal_RoutineMemo" name="">루틴메모내용</textarea>
+                    <textarea id="modal_RoutineMemo" name="" readonly>루틴메모내용</textarea>
                     <div class="routineBtnDiv">
                         <button type="button" class="routineModalUpdateBtn">
                             수정
@@ -685,6 +693,7 @@ ${revolist.get(revolist.size() - 1).routineWeek } --%>
 	            			routineIndexTemp = voList[i].routineWeek;
 	            			$('.weekDiv').append('<input type="radio" class="weekradio" name="weekradio" id="weekradio'+routineIndexTemp+'" value="'+routineIndexTemp+'">');
 	            			$('.weekDiv').append('<label for="weekradio'+routineIndexTemp+'">'+routineIndexTemp+'주차</label>');
+	            			$('#modal_RoutineMemo').text(voList[i].routineContent);
 	            			routineExerciseDayTemp = 0;
 	            			$thisTemp1 = $('.weekradio').eq($('.weekradio').length - 1);
 	            			$thisTemp2 = $('.weekDiv label').eq($('.weekDiv label').length - 1);
@@ -709,7 +718,8 @@ ${revolist.get(revolist.size() - 1).routineWeek } --%>
             			}
             		} else {
             			routineDayWeekTemp = 'day';
-            		} 
+            		}
+            		
             	}
         
             
@@ -774,6 +784,7 @@ ${revolist.get(revolist.size() - 1).routineWeek } --%>
 
   	
   	function modal_exercise_input() {
+  		modalDayInput();
   		$('.grid_content').empty();
 		//console.log($("#hidden_routine_no").val());
 		//console.log($('input[name=weekradio]:checked').val());
@@ -781,6 +792,7 @@ ${revolist.get(revolist.size() - 1).routineWeek } --%>
 		var hrn = $("#hidden_routine_no").val();
 		var iwc = $('input[name=weekradio]:checked').val();
 		var idc = $('input[name=dayradio]:checked').val();
+		var flagTemp = false;
 		for(var i = 0; i < voList.length; i++) {
 			var vli = voList[i];
 			if(vli.routineNo == hrn && vli.routineWeek == iwc && vli.routineExerciseDay == idc) {
@@ -789,10 +801,31 @@ ${revolist.get(revolist.size() - 1).routineWeek } --%>
 				$('.grid_content').append('<div>'+vli.routineExerciseWeight+'kg</div>');
 				$('.grid_content').append('<div>'+vli.routineExerciseRepeat+'회</div>');
 				$('.grid_content').append('<div>'+vli.routineExerciseSet+'세트</div>');
+				flagTemp = true;
 			}
+		}
+		if(!flagTemp) {
+			$('.grid_content').append('<div class="rest_column">휴식</div>');
 		}
 	}
   	
+  	function modalDayInput() {
+  		if($('.dayradio:checked').val() == 1){
+			$('.modalDay').text("월요일");
+		}else if($('.dayradio:checked').val() == 2){
+			$('.modalDay').text("화요일");
+		}else if($('.dayradio:checked').val() == 3){
+			$('.modalDay').text("수요일");
+		}else if($('.dayradio:checked').val() == 4){
+			$('.modalDay').text("목요일");
+		}else if($('.dayradio:checked').val() == 5){
+			$('.modalDay').text("금요일");
+		}else if($('.dayradio:checked').val() == 6){
+			$('.modalDay').text("토요일");
+		}else if($('.dayradio:checked').val() == 7){
+			$('.modalDay').text("일요일");
+		}
+	}
   	
 
 	</script>

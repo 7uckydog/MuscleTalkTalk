@@ -51,7 +51,7 @@ public class RoutineDao {
 					+ "	            values ((select nvl(max(ROUTINE_EXERCISE_NO),0)+"+(routineExerciseNo++)+" from TB_ROUTINE_EXERCISE), (select EXERCISE_NO"
 					+ "    			from tb_exercise"
 					+ "    			where exercise_name = ?),(select nvl(max(ROUTINE_NO),0)+1 from tb_routine)"
-					+ "				, ?, ?, null, ?, ?, ?, null, null, null ,null, null, 'f') ";
+					+ "				, ?, ?, null, ?, ?, ?, null, null, null ,null, ?, 'f') ";
 		}
 		sql += "select * from dual";
 		try {
@@ -63,16 +63,16 @@ public class RoutineDao {
 		
 			
 			for(int i = 0; i < rouExerVoList.size(); i++) {
-				pstmt.setString(5+i*6, rouExerVoList.get(i).getExerciseName());      // 운동이름 notnull
-				pstmt.setInt(6+i*6, rouExerVoList.get(i).getRoutineExerciseDay());  // 운동요일 notnull
-				pstmt.setInt(7+i*6, rouExerVoList.get(i).getRoutineWeek());  // 루틴수행주차
+				pstmt.setString(5+i*7, rouExerVoList.get(i).getExerciseName());      // 운동이름 notnull
+				pstmt.setInt(6+i*7, rouExerVoList.get(i).getRoutineExerciseDay());  // 운동요일 notnull
+				pstmt.setInt(7+i*7, rouExerVoList.get(i).getRoutineWeek());  // 루틴수행주차
 //				pstmt.setInt(8+i*6, rouExerVoList.get(i).getRoutineDay());   //  루틴수행n번째일 지금만 막아놈
-				pstmt.setInt(8+i*6, rouExerVoList.get(i).getRoutineExerciseSet());   // 루틴운동 세트수
-				pstmt.setInt(9+i*6, rouExerVoList.get(i).getRoutineExerciseRepeat());  // 루틴운동 반복횟수
-				pstmt.setInt(10+i*6, rouExerVoList.get(i).getRoutineExerciseWeight());  // 루틴무게
+				pstmt.setInt(8+i*7, rouExerVoList.get(i).getRoutineExerciseSet());   // 루틴운동 세트수
+				pstmt.setInt(9+i*7, rouExerVoList.get(i).getRoutineExerciseRepeat());  // 루틴운동 반복횟수
+				pstmt.setInt(10+i*7, rouExerVoList.get(i).getRoutineExerciseWeight());  // 루틴무게
 //				pstmt.setInt(12+i, rouExerVoList.get(i).getRoutineExerciseTime());  // null
 //				pstmt.setInt(13+i, rouExerVoList.get(i).getRoutineExerciseDistance());  // null
-//				pstmt.setInt(14+i, rouExerVoList.get(i).getRoutineExerciseSequence());  // null
+				pstmt.setInt(11+i*7, rouExerVoList.get(i).getRoutineExerciseSequence());  
 			}
 			result = pstmt.executeUpdate();
 			System.out.println("제바류ㅠ");
@@ -101,8 +101,8 @@ public class RoutineDao {
 				+ "				    and tr.routine_no = tre.routine_no "
 				+ "					   and tre.exercise_no = te.exercise_no "
 				+ "					   and tm.member_no = ? "
-				+ "                       order by tr.routine_no desc, tre.routine_week asc, "
-				+ "						tre.routine_exercise_day asc, tre.routine_exercise_set asc";
+				+ "                       order by tr.routine_no desc, tre.routine_week asc,  "
+				+ "						tre.routine_exercise_day asc, ROUTINE_EXERCISE_SEQUENCE asc, tre.routine_exercise_set asc";
 		
 			try {
 				pstmt = conn.prepareStatement(sql);
