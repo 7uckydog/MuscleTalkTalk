@@ -1,3 +1,4 @@
+<%@page import="kh.semi.mtt.totalboard.model.vo.TotalBoardVo"%>
 <%@ include file="/WEB-INF/view/csslink2.jsp" %>
 <%@page import="kh.semi.mtt.board.model.vo.BoardVo"%>
 <%@page import="java.util.ArrayList"%>
@@ -213,19 +214,21 @@ a, a:visited, a:link{
 					var html = "";
 					for(var i = 0; i < result.boardreadall.length; i++){
 	                    var vo = result.boardreadall[i];
-	                    html += '<tr class="table_content">';
-	                    html += '<td><a href="boardread?bno='+vo.boardNo+'">'+vo.boardNo+'</a></td>';
-	                    html += '<td><a href="boardread?bno='+vo.boardNo+'">'+vo.boardTitle+'</a></td>';
-	                    html += '<td>'+vo.boardDate+'</td>';
-	                    html += '<td>'+vo.boardCount+'</td>';
-	                    html += '<td>'
-	                    if(vo.boardCategoryNumber == 1) {
-	                    	html += "자유게시판";
-	                    } else if (vo.boardCategoryNumber == 2) {
-							html += "루틴게시판";
-	                    }
-						html += '</td>';
-	                    html += '</tr>';
+	                    //if(vo.boardCategoryNumber == 1) {
+		                    html += '<tr class="table_content">';
+		                    html += '<td><a href="boardread?bno='+vo.boardNo+'">'+vo.totalboardR+'</a></td>';
+		                    html += '<td><a href="boardread?bno='+vo.boardNo+'">'+vo.boardTitle+'</a></td>';
+		                    html += '<td>'+vo.boardDate+'</td>';
+		                    html += '<td>'+vo.boardCount+'</td>';
+		                    html += '<td>'
+		                    if(vo.boardCategoryNumber == 1) {
+		                    	html += "자유게시판";
+		                    } else if (vo.boardCategoryNumber == 2) {
+								html += "루틴게시판";
+		                    }
+							html += '</td>';
+		                    html += '</tr>';
+	                    //}
 	                }
 					$("#table_title").next().nextAll().remove();
 					$("#board_table").append(html);
@@ -245,7 +248,7 @@ a, a:visited, a:link{
 </head>
 <body>
 	<%
-		BoardVo vo = (BoardVo) request.getAttribute("bvo");
+		TotalBoardVo vo = (TotalBoardVo) request.getAttribute("bvo");
 	%>
 	<%@ include file="/WEB-INF/view/template.jsp" %>
 	<section id="section1">
@@ -272,8 +275,14 @@ a, a:visited, a:link{
 			</tr>
 			<c:forEach items="${boardreadall}" var="vo">
 				<tr class="table_content">
-					<td><a href="boardread?bno=${vo.boardNo}">${vo.boardNo }</a></td>
-					<td><a href="boardread?bno=${vo.boardNo }">${vo.boardTitle }</a></td>
+					<c:if test="${vo.boardCategoryNumber == 1}">
+						<td><a href="boardread?bno=${vo.boardNo}">${vo.totalboardR }</a></td>
+						<td><a href="boardread?bno=${vo.boardNo }">${vo.boardTitle }</a></td>
+					</c:if>
+					<c:if test="${vo.boardCategoryNumber == 2}">
+						<td><a href="routineboardread?bno=${vo.boardNo}">${vo.totalboardR }</a></td>
+						<td><a href="routineboardread?bno=${vo.boardNo }">${vo.boardTitle }</a></td>
+					</c:if>
 					<td>${vo.boardDate }</td>
 					<td>&nbsp;&nbsp;&nbsp;${vo.boardCount }</td>
 					<td>
@@ -310,17 +319,19 @@ a, a:visited, a:link{
 	</section>
 	<section id="section2">
 		<div class="profile">
-			<img src="">
-			<div id="camera">
-				<img src="<%=request.getContextPath()%>/cssfolder/images/camera.png">
-			</div>
+			<c:if test="${not empty ssMvo.memberPhoto}">
+            	<img id="prifile" src="${ssMvo.memberPhoto}">
+            </c:if>
+            <c:if test="${empty ssMvo.memberPhoto}">
+            	<img id="prifile" src="<%= request.getContextPath() %>/cssfolder/images/default_pf.png">
+            </c:if>
 		</div>
 		<div class="my_info">
-			<div>Admin</div>
-			<div>admin 2</div>
+			<div id="member_nickname">${ssMvo.memberNickname}</div>
+			<div id="member_id">${ssMvo.memberId}</div>
 		</div>
 		<div class="logout">
-			<button>로그아웃</button>
+			<input type="button" name="mp_logout" id="mp_logout" value="로그아웃">
 		</div>
 		<div class="menu">
 			<ul>
@@ -336,7 +347,16 @@ a, a:visited, a:link{
 	</section>
 	
 	<%@ include file="/WEB-INF/view/footer.jsp" %>
-	
+	<script>
+	for(var i = 0; i < $('.Page').length; i++) {
+		if($('.Page').eq(i).text() == '${currentPage}') {
+			$('.Page').eq(i).css({
+				backgroundColor : '#4B4DB2',
+				color : 'white'
+			})
+		}
+	}
+	</script>
 	
 </body>
 </html>

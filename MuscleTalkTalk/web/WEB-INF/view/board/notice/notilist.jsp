@@ -311,6 +311,14 @@ section {
 			}
 		});
 	});
+	for(var i = 0; i < $('.Page').length; i++) {
+		if($('.Page').eq(i).text() == '${currentPage}') {
+			$('.Page').eq(i).css({
+				backgroundColor : '#4B4DB2',
+				color : 'white'
+			})
+		}
+	}
 	</script>
 </body>
 </html>

@@ -144,13 +144,13 @@
         </div>
         <form action="noticeupdate.do" method="post">
         <div>
-            <input id="notice_title" name="notiTitle" type="text" placeholder="공지사항 제목 입력">
+            <input id="notice_title" name="notiTitle" type="text" placeholder="공지사항 제목 입력" value="${nvo.notiTitle}">
         </div>
         <div id="notice_content">
             공지사항 내용
         </div>
         <div id="textEditer">
-            <textarea id="notice_content1" name="notiContent" placeholder="공지사항 내용을 입력해 주세요."></textarea>
+            <textarea id="notice_content1" name="notiContent" placeholder="공지사항 내용을 입력해 주세요." value="${nvo.notiContent}"></textarea>
         	<script>
         		CKEDITOR.replace('notice_content1', {width :'800px', 
         											height : '360px',

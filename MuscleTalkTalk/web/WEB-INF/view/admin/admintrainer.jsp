@@ -242,17 +242,19 @@ a, a:visited, a:link{
 	</section>
 	<section id="section2">
 		<div class="profile">
-			<img src="">
-			<div id="camera">
-				<img src="<%=request.getContextPath()%>/cssfolder/images/camera.png">
-			</div>
+			<c:if test="${not empty ssMvo.memberPhoto}">
+            	<img id="prifile" src="${ssMvo.memberPhoto}">
+            </c:if>
+            <c:if test="${empty ssMvo.memberPhoto}">
+            	<img id="prifile" src="<%= request.getContextPath() %>/cssfolder/images/default_pf.png">
+            </c:if>
 		</div>
 		<div class="my_info">
-			<div>Admin</div>
-			<div>admin 2</div>
+			<div id="member_nickname">${ssMvo.memberNickname}</div>
+			<div id="member_id">${ssMvo.memberId}</div>
 		</div>
 		<div class="logout">
-			<button>로그아웃</button>
+			<input type="button" name="mp_logout" id="mp_logout" value="로그아웃">
 		</div>
 		<div class="menu">
 			<ul>
@@ -293,6 +295,15 @@ a, a:visited, a:link{
 			}
 		});
 	});
+	
+	for(var i = 0; i < $('.Page').length; i++) {
+		if($('.Page').eq(i).text() == '${currentPage}') {
+			$('.Page').eq(i).css({
+				backgroundColor : '#4B4DB2',
+				color : 'white'
+			})
+		}
+	}
 	</script>
 	<%@ include file="/WEB-INF/view/footer.jsp" %>
 	

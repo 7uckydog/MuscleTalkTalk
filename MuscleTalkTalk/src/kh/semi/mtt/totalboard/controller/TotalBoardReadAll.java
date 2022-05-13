@@ -85,8 +85,9 @@ public class TotalBoardReadAll extends HttpServlet {
 		System.out.println(startRnum);
 		System.out.println(endRnum);
 		
-		
-		ArrayList<TotalBoardVo> result = service.totalBoardReadAll(endRnum,startRnum);
+		int filterint = 0;
+		String search = null;
+		ArrayList<TotalBoardVo> result = service.totalBoardReadAll(endRnum,startRnum, filterint, search);
 		
 		request.setAttribute("totalboardreadall", result);
 		request.setAttribute("startPage", startPage);

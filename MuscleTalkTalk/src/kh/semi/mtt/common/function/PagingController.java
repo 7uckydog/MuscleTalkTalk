@@ -52,8 +52,10 @@ public class PagingController {
 		System.out.println("page:" + startPage + "~" + endPage);
 
 		// rownum 처리
-		startRnum = (currentPage - 1) * pageSize + 1;
-		endRnum = startRnum + pageSize - 1;
+		//startRnum = (currentPage - 1) * pageSize + 1; // currentPage = 1 -> startRnum  = 1
+		//endRnum = startRnum + pageSize - 1; // endRnum = 10
+		endRnum = totalCnt - pageSize * (currentPage - 1);
+		startRnum = endRnum - pageSize + 1;
 		if (endRnum > totalCnt) {
 			endRnum = totalCnt;
 		}

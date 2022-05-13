@@ -133,7 +133,7 @@ public class BoardDao {
 	
 	
 	
-	public ArrayList<TotalBoardVo> totalBoardReadAll(Connection conn, int startRnum, int endRnum){
+	public ArrayList<TotalBoardVo> totalBoardReadAll(Connection conn, int startRnum, int endRnum, int filterint, String search){
 			ArrayList<TotalBoardVo> tolist = null;
 			System.out.println("통합보드 dao1");
 			

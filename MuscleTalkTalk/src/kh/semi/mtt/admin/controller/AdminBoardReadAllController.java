@@ -14,10 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import kh.semi.mtt.board.model.service.BoardService;
-import kh.semi.mtt.board.model.vo.BoardVo;
 import kh.semi.mtt.common.function.PagingController;
 import kh.semi.mtt.common.function.PagingVo;
+import kh.semi.mtt.totalboard.model.vo.TotalBoardVo;
+import kh.semi.mtt.totalboard.service.TotalBoardService;
 
 /**
  * Servlet implementation class BoardReadAllControllerServlet
@@ -25,7 +25,7 @@ import kh.semi.mtt.common.function.PagingVo;
 @WebServlet("/adminboard")
 public class AdminBoardReadAllController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private BoardService service = new BoardService();
+	private TotalBoardService service = new TotalBoardService();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -67,7 +67,7 @@ public class AdminBoardReadAllController extends HttpServlet {
 
 	private void exec(HttpServletRequest request, HttpServletResponse response) {
 		HttpServletRequest resultRequest = null;
-		int totalCnt = new BoardService().countBoard();
+		int totalCnt = new TotalBoardService().countTotalBoard();
 		PagingVo setVo = new PagingVo(10, 5, request.getParameter(""), request.getParameter("page"), totalCnt);
 		PagingVo pageVo = new PagingController().setPagingValue(setVo);
 		System.out.println("pageVo:" + pageVo);
@@ -78,8 +78,9 @@ public class AdminBoardReadAllController extends HttpServlet {
 //			search = search_;
 //		}
 		//
-		ArrayList<BoardVo> result = service.readAllBoard(pageVo.getStartRnum(), pageVo.getEndRnum(), pageVo.getFilterint(), pageVo.getSearch());
+		ArrayList<TotalBoardVo> result = service.totalBoardReadAll(pageVo.getStartRnum(), pageVo.getEndRnum(), pageVo.getFilterint(), pageVo.getSearch());
 		System.out.println(result);
+		System.out.println("여기루 오나요???");
 
 		request.setAttribute("boardreadall", result);
 		request.setAttribute("startPage", pageVo.getStartPage());

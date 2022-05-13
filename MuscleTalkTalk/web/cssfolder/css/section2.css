@@ -22,7 +22,6 @@
 	grid-template-columns: 1;
 }
 
-
 .profile {
 	background-color: rgb(200, 200, 200);
 	width: 120px;
@@ -34,7 +33,41 @@
 	grid-row: 1;
 }
 
+#prifile {
+	border-radius: 50%;
+	width: 120px;
+	height: 120px;
+	background-color: lightgray;
+}
+
+#member_nickname {
+	font-size: 18px;
+	font-family: 'THEmpgtB';
+	color: rgb(51, 51, 51);
+	margin-bottom: 7px;
+}
+
+#member_id {
+	font-family: 'THEmpgtM';
+	font-size: 12px;
+	margin-bottom: 50px;
+}
+
+#mp_logout {
+	margin-bottom: 40px;
+	font-family: 'THEmpgtM';
+	width: 90px;
+	height: 40px;
+	color: white;
+	background-color: #4B4DB2;
+	font-size: 10.5px;
+	font-weight: lighter;
+	border: 0;
+	cursor: pointer;
+}
+
 .my_info {
+	padding-top: 40px;
 	float: left;
 	position: relative;
 	box-sizing: border-box;
@@ -59,18 +92,16 @@
 	text-align: center;
 	padding-top: 12px;
 }
+
 #li_1:hover, #li_2:hover, #li_3:hover, #li_4:hover, #li_5:hover, #li_6:hover,
 	#li_7:hover {
 	opacity: 0.5;
 	cursor: pointer;
 }
 
-.profile>img {
-	width: 110px;
-	height: 110px;
-}
 
-#camera img {
+
+/* #camera img {
 	position: absolute;
 	right: 0;
 	bottom: 0;
@@ -78,7 +109,8 @@
 	height: 30px;
 	cursor: pointer;
 }
-
+ */
+/* 
 .logout>button {
 	font-family: 'THEmpgtM';
 	width: 90px;
@@ -88,8 +120,7 @@
 	font-size: 10.5px;
 	font-weight: lighter;
 	border: 0;
-}
-
+} */
 button {
 	cursor: pointer;
 }

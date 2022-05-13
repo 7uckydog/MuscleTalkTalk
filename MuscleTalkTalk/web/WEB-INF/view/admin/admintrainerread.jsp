@@ -1,5 +1,5 @@
 <%@ include file="/WEB-INF/view/font.jsp"%>
-<%@ include file="/WEB-INF/view/csslink3_mp.jsp"%>
+<%@ include file="/WEB-INF/view/csslink2.jsp"%>
 <%@page import="kh.semi.mtt.member.model.vo.MemberVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -41,11 +41,40 @@
 a, a:visited, a:link{
     color: rgb(94, 94, 94);
 }
+#btn_reject, #btn_confirm{
+        width: 130px;
+        height: 30px;
+        font-size: 12px;
+        color: white;
+        background-color: #4B4DB2;
+        border: 1px solid #4B4DB2;
+        line-height: 30px;
+        cursor: pointer;
+    }
+#btn_reject:hover, #btn_confirm:hover{
+	color: #4B4DB2;
+	background-color: white;
+	border: 1px solid #4B4DB2;
+}
+.btn_reject_confirm{
+	font-family:'THEmpgtR';
+	text-align: right;
+    float: right;
+    margin-right: 65px;
+    display: inline-block;
+    margin-bottom: 65px;
+   /*  position: absolute; */
+}
 </style>
 </head>
 <body>
 <%
 	MemberVo vo = (MemberVo) request.getAttribute("mvo");
+	
+	request.setAttribute("memberNo", vo.getMemberNo());
+	request.setAttribute("trainerConfirm", vo.getTrainerConfirm());
+	request.setAttribute("memberTrainer", vo.getMemberTrainer());
+	
 %>
 <c:if test="${empty ssMvo}">
 	<jsp:forward page="/WEB-INF/view/member/login.jsp"></jsp:forward>
@@ -154,6 +183,15 @@ a, a:visited, a:link{
 		 			</c:if>
 		 		</ul>
 		 	</div>
+		 	<div class="btn_reject_confirm">
+	            <button type="button"  id="btn_reject">트레이너 신청 반려</button>
+	            <button type="button"  id="btn_confirm">트레이너 인증 처리</button>
+	            <form name="confirm_form">
+	            	<input type="hidden" id="input_hidden_member_no" name="memberNo">
+	            	<input type="hidden" id="input_hidden_member_trainer" name="memberTrainer">
+	            	<input type="hidden" id="input_hidden_trainer_confirm" name="trainerConfirm">
+	            </form>
+	        </div>
 		 	<%@ include file="/WEB-INF/view/footer.jsp"%>		
         </section>
         <section id="section2">
@@ -181,14 +219,30 @@ a, a:visited, a:link{
 					<li id="li_7"><a href="admininquiry">문의 확인</a></li>
                 </ul>
             </div>
-        </div>    
+        	
         </section>
 	<script>
 	    $("#mp_logout").click(function(){
 	    	alert("로그아웃 되었습니다.");
 	    	location.href="logout";
 	    })
-	   
+	    $("#btn_confirm").click(function(){
+        	$("#input_hidden_member_no").val(${mvo.memberNo});
+        	$("#input_hidden_member_trainer").val('${mvo.memberTrainer}');
+        	$("#input_hidden_trainer_confirm").val('${mvo.trainerConfirm}');
+	    	confirm_form.action = "trainerconfirm";
+	    	confirm_form.method = 'post';
+	    	confirm_form.submit();
+	    })
+	    $("#btn_reject").click(function(){
+        	$("#input_hidden_member_no").val(${mvo.memberNo});
+        	$("#input_hidden_member_trainer").val('${mvo.memberTrainer}');
+        	$("#input_hidden_trainer_confirm").val('${mvo.trainerConfirm}');
+	    	confirm_form.action = "trainerreject";
+	    	confirm_form.method = 'post';
+	    	confirm_form.submit();
+	    })
+	  
 	</script>
         
 </body>

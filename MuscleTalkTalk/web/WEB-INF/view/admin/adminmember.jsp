@@ -30,7 +30,7 @@ a, a:visited, a:link {
 #li_5 {
 	text-decoration: underline;
 }
-/* #memeber_main {
+/* #member_main {
 	padding-top: 65px;
 	padding-bottom: 15px;
 	margin-left: 65px;
@@ -39,7 +39,7 @@ a, a:visited, a:link {
 	margin-bottom: 0;
 	font-size: 15px;
 } */
-#memeber_table {
+#member_table {
 	margin: 20px auto;
 	width: 650px;
 	font-size: 12px;
@@ -49,8 +49,24 @@ a, a:visited, a:link {
 .board_top {
 	position: relative;
 }
+#sort {
+	width: 105px;
+	height: 30px;
+	margin-top: 10px;
+	margin-bottom: 0px;
+	margin-right: 65px;
+	float: right;
+	font-size: 12px;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	border-color: rgb(200, 200, 200);
+	color: #404299;
+	border-radius: 3px;
+	font-family: 'THEmpgtM'
+}
 
-#memeber_main {
+#member_main {
 	padding-top: 65px;
 	margin-left: 65px;
 	font-weight: bold;
@@ -59,7 +75,7 @@ a, a:visited, a:link {
 	font-size: 15px;
 }
 
-#memeber_top_button {
+#member_top_button {
 	padding-top: 65px;
 	margin-bottom: 0;
 	float: right;
@@ -118,16 +134,6 @@ a, a:visited, a:link {
 	outline: none;
 }
 
-#sort {
-	width: 94.5px;
-	height: 32px;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	margin-right: 65px;
-	float: right;
-	font-size: 12px;
-}
-
 .table_line {
 	background: gray;
 	background-clip: content-box;
@@ -150,7 +156,7 @@ a, a:visited, a:link {
 	box-sizing: border-box;
 }
 
-.search_memeber {
+.search_member {
 	display: inline-block;
 	float: right;
 	margin-right: 65px;
@@ -187,13 +193,13 @@ a, a:visited, a:link {
 	<%@ include file="/WEB-INF/view/template.jsp"%>
 	<section id="section1">
 		<div class="board_top">
-
-			<div id="memeber_main">회원 관리</div>
-			<div id="memeber_top_button">
-				<button onclick="location.href = 'memeberinsert';" id="write_btn">임시자리</button>
-			</div>
+			<div id="member_main">회원 관리</div>
+			<select id="sort">
+				<option class="Filter" name="Filter" value="1">가입순</option>
+				<option class="Filter" name="Filter" value="2">누적 결제액순</option>
+			</select>
 		</div>
-		<table id="memeber_table">
+		<table id="member_table">
 			<tr>
 				<td colspan="6" class="table_line"></td>
 			</tr>
@@ -234,7 +240,7 @@ a, a:visited, a:link {
 				</p>
 			</div>
 		</div>
-		<div class="search_memeber">
+		<div class="search_member">
 			<button type="button" id="btn_search">검색</button>
 			<input id="input_search" type="text" name="searchInput"
 				placeholder="검색어입력">
@@ -243,17 +249,19 @@ a, a:visited, a:link {
 	</section>
 	<section id="section2">
 		<div class="profile">
-			<img src="">
-			<div id="camera">
-				<img src="<%=request.getContextPath()%>/cssfolder/images/camera.png">
-			</div>
+			<c:if test="${not empty ssMvo.memberPhoto}">
+            	<img id="prifile" src="${ssMvo.memberPhoto}">
+            </c:if>
+            <c:if test="${empty ssMvo.memberPhoto}">
+            	<img id="prifile" src="<%= request.getContextPath() %>/cssfolder/images/default_pf.png">
+            </c:if>
 		</div>
 		<div class="my_info">
-			<div>Admin</div>
-			<div>admin 2</div>
+			<div id="member_nickname">${ssMvo.memberNickname}</div>
+			<div id="member_id">${ssMvo.memberId}</div>
 		</div>
 		<div class="logout">
-			<button>로그아웃</button>
+			<input type="button" name="mp_logout" id="mp_logout" value="로그아웃">
 		</div>
 		<div class="menu">
 			<ul>
@@ -261,55 +269,94 @@ a, a:visited, a:link {
 				<li id="li_2"><a href="adminboard">게시물 관리</a></li>
 				<li id="li_3"><a href="admincomment">댓글 관리</a></li>
 				<li id="li_4"><a href="adminnotice">공지사항 관리</a></li>
-				<li id="li_5"><a href="adminmemeber">회원 관리</a></li>
+				<li id="li_5"><a href="adminmember">회원 관리</a></li>
 				<li id="li_6"><a href="admintrainer">트레이너 관리</a></li>
 				<li id="li_7"><a href="admininquiry">문의 확인</a></li>
 			</ul>
 		</div>
 	</section>
 	<script>
-		$("#btn_search")
-				.click(
-						function() {
-							console.log("btn_search CLICK");
-							$
-									.ajax({
-										url : "memeberreadall",
-										type : "post",
-										data : {
-											inputsearch : $("#input_search")
-													.val()
-										},
-										dataType : "json",
-										success : function(result) {
-											console.log(result);
-											var html = "";
-											for (var i = 0; i < result.memeberreadall.length; i++) {
-												var vo = result.memeberreadall[i];
-												html += '<tr class="table_content">';
-												html += '<td><a href="memeberread?memeberNo='
-														+ vo.memeberNo
-														+ '">'
-														+ vo.memeberNo
-														+ '</a></td>';
-												html += '<td><a href="memeberread?memeberNo='
-														+ vo.memeberNo
-														+ '">'
-														+ vo.notiTitle
-														+ '</a></td>';
-												html += '<td>' + vo.notiDate
-														+ '</td>';
-												html += '</tr>';
-											}
-											$("#table_title").next().nextAll()
-													.remove();
-											$("#memeber_table").append(html);
-										},
-										error : function(result) {
+		$("#btn_search").click(function() {
+			console.log("btn_search CLICK");
+			$.ajax({
+					url : "memberreadall",
+					type : "post",
+					data : {inputsearch : $("#input_search").val()},
+					dataType : "json",
+					success : function(result) {
+						console.log(result);
+						var html = "";
+						for (var i = 0; i < result.memberreadall.length; i++) {
+							var vo = result.memberreadall[i];
+							html += '<tr class="table_content">';
+							html += '<td><a href="memberread?memberNo='
+									+ vo.memberNo
+									+ '">'
+									+ vo.memberNo
+									+ '</a></td>';
+							html += '<td><a href="memberread?memberNo='
+									+ vo.memberNo
+									+ '">'
+									+ vo.notiTitle
+									+ '</a></td>';
+							html += '<td>' + vo.notiDate
+									+ '</td>';
+							html += '</tr>';
+						}
+						$("#table_title").next().nextAll()
+								.remove();
+						$("#member_table").append(html);
+					},
+					error : function(result) {
 
-										}
-									});
-						});
+					}
+				});
+		});
+		
+		$("#sort").on("change",function(){
+			console.log("test");
+			console.log($("#sort").val());
+			//$(".Filter").val()
+			$.ajax({
+				url:"adminmember",
+				type:"post",
+				data:{filters:$("#sort").val(), page:${currentPage}},
+				dataType:"json",
+				success: function(result) {
+						console.log(result);
+						console.log(result+'여기에요에이쟉스!!');
+							var html = "";
+						for(var i = 0; i < result.memberreadall.length; i++){
+		                    var vo = result.memberreadall[i];
+		                    html += '<tr class="table_content">';
+		                    html += '<td>'+vo.rownum+'</td>';
+		                    html += '<td><a href="adminmemberread?memberNo='+vo.memberNo+'">'+vo.memberName+'</a></td>';
+		                    html += '<td><a href="adminmemberread?memberNo='+vo.memberNo+'">'+vo.memberNo+'</a></td>';
+		                    html += '<td>'+vo.memberJoinDate+'</td>';
+		                    html += '<td>'+vo.sumPrice+'</td>';
+		                    html += '<td>'+vo.boardReportCnt+'</td>';
+		                    html += '</tr>';
+		                }
+						
+						console.log($("#table_title").next());
+						$("#table_title").next().nextAll().remove();
+						$("#member_table").append(html);
+						return;
+				} ,
+				error: function(result){
+					console.log("ajax 오류");
+				}
+				});
+			});
+		
+		for(var i = 0; i < $('.Page').length; i++) {
+			if($('.Page').eq(i).text() == '${currentPage}') {
+				$('.Page').eq(i).css({
+					backgroundColor : '#4B4DB2',
+					color : 'white'
+				})
+			}
+		}
 	</script>
 	<%@ include file="/WEB-INF/view/footer.jsp"%>
 

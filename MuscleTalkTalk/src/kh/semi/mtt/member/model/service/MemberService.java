@@ -3,9 +3,10 @@ package kh.semi.mtt.member.model.service;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import static kh.semi.mtt.common.jdbc.JdbcTemplate.close;
+import static kh.semi.mtt.common.jdbc.JdbcTemplate.*;
 import static kh.semi.mtt.common.jdbc.JdbcTemplate.getConnection;
 
+import kh.semi.mtt.common.jdbc.JdbcTemplate;
 import kh.semi.mtt.member.model.dao.MemberDao;
 import kh.semi.mtt.member.model.vo.AdminVo;
 import kh.semi.mtt.member.model.vo.MemberVo;
@@ -153,10 +154,10 @@ public class MemberService {
 	}
 	
 	//회원 전체조회
-	public ArrayList<AdminVo> readAllMember(int startRnum, int endRnum, String search){
+	public ArrayList<AdminVo> readAllMember(int startRnum, int endRnum, String search, int filterint){
 		Connection conn = null;
 		conn = getConnection();
-		ArrayList<AdminVo> result = dao.readAllMember(conn, startRnum, endRnum, search);
+		ArrayList<AdminVo> result = dao.readAllMember(conn, startRnum, endRnum, search, filterint);
 		close(conn);
 		return result;
 	}
@@ -166,6 +167,40 @@ public class MemberService {
 		Connection conn = null;
 		conn = getConnection();
 		int result = dao.countMember(conn);
+		close(conn);
+		return result;
+	}
+	
+	// 트레이너 신청 받아주기 (멤버에서)
+	public int confirmTrainer(int memberNo) {
+		Connection conn = null;
+		conn = getConnection();
+		setAutocommit(conn, false);
+		
+		int result = dao.confirmTrainer(conn, memberNo);
+		if(result>0) {
+			result = dao.confirmMember(conn, memberNo);
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
+	// 트레이너 신청 반려하기 (멤버에서)
+	public int rejectTrainer(int memberNo) {
+		Connection conn = null;
+		conn = getConnection();
+		setAutocommit(conn, false);
+		
+		int result = dao.rejectTrainer(conn, memberNo);
+		if(result>0) {
+			result = dao.rejectMember(conn, memberNo);
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
 		close(conn);
 		return result;
 	}
