@@ -628,6 +628,36 @@ public class MemberDao {
 			return result;
 		}
 		
-		
-	
+		//dashboard 숫자세기 (진정)
+		public ArrayList<AdminVo> dashboardMember(Connection conn){
+			ArrayList<AdminVo> volist = null;
+			String sql = "select count(*) dcnt, sysdate Dateval from tb_member where member_join_date <= sysdate"
+					+ "    union select count(*) dcnt, sysdate-1 Dateval from tb_member where member_join_date <= sysdate - 1"
+					+ "    union select count(*) dcnt, sysdate-2 Dateval from tb_member where member_join_date <= sysdate - 2"
+					+ "    union select count(*) dcnt, sysdate-3 Dateval from tb_member where member_join_date <= sysdate - 3"
+					+ "    union select count(*) dcnt, sysdate-4 Dateval from tb_member where member_join_date <= sysdate - 4"
+					+ "    union select count(*) dcnt, sysdate-5 Dateval from tb_member where member_join_date <= sysdate - 5"
+					+ "    order by Dateval desc";
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				if (rs != null) {
+					volist = new ArrayList<AdminVo>();
+					while(rs.next()) {
+						AdminVo vo = new AdminVo();
+						vo.setDcnt(rs.getInt("dcnt"));
+						vo.setDateval(rs.getDate("dateval"));
+						volist.add(vo);
+					}
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rs);
+				close(pstmt);
+			}
+			
+			return volist;
+		}
 }

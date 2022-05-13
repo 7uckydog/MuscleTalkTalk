@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import kh.semi.mtt.board.model.dao.BoardDao;
 import kh.semi.mtt.board.model.vo.BoardVo;
 import kh.semi.mtt.comment.model.vo.CommentVo;
+import kh.semi.mtt.member.model.vo.AdminVo;
 import kh.semi.mtt.member.model.vo.MemberVo;
 
 public class BoardService {
@@ -127,5 +128,14 @@ public class BoardService {
 		
 		return result;
 	}
+	
+	// 진정 대시보드
+		public ArrayList<AdminVo> dashboardBoard(){
+			Connection conn = null;
+			conn = getConnection();
+			ArrayList<AdminVo> vo = dao.dashboardBoard(conn);
+			close(conn);
+			return vo;
+		}
 	
 }

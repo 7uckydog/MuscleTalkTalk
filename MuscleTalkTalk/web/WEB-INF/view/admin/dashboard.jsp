@@ -207,7 +207,7 @@ function getTodayDate() {
             labels: dateStrArray,
             datasets: [{
                 label: '회원 수',
-                data: [1, 2, 3, 4, 5, ${NOM.memberCnt}],
+                data: [${NOTM.get(5).dcnt}, ${NOTM.get(4).dcnt}, ${NOTM.get(3).dcnt}, ${NOTM.get(2).dcnt}, ${NOTM.get(1).dcnt}, ${NOTM.get(0).dcnt}],
                 backgroundColor: [
                     '#6B6EFF','#6063E6','#5658CC','#4B4DB2','#404299','#363780'
                 ],
@@ -226,7 +226,7 @@ function getTodayDate() {
             labels: dateStrArray,
             datasets: [{
                 label: '게시물 수',
-                data: [1, 2, 3, 4, 5, ${NOB.totalCnt}],
+                data: [${NOTB.get(5).dcnt}, ${NOTB.get(4).dcnt}, ${NOTB.get(3).dcnt}, ${NOTB.get(2).dcnt}, ${NOTB.get(1).dcnt}, ${NOTB.get(0).dcnt}],
                 backgroundColor: [
                     '#6B6EFF','#6063E6','#5658CC','#4B4DB2','#404299','#363780'
                 ],
@@ -245,7 +245,7 @@ function getTodayDate() {
             labels: dateStrArray,
             datasets: [{
                 label: '댓글 수',
-                data: [1, 2, 3, 4, 5, 6],
+                data: [${NOTC.get(5).dcnt}, ${NOTC.get(4).dcnt}, ${NOTC.get(3).dcnt}, ${NOTC.get(2).dcnt}, ${NOTC.get(1).dcnt}, ${NOTC.get(0).dcnt}],
                 backgroundColor: [
                     '#6B6EFF','#6063E6','#5658CC','#4B4DB2','#404299','#363780'
                 ],

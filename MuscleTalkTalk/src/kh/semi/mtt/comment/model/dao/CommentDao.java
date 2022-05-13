@@ -8,8 +8,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import kh.semi.mtt.comment.model.vo.CommentVo;
+import kh.semi.mtt.member.model.vo.AdminVo;
 import kh.semi.mtt.member.model.vo.MemberVo;
 
 public class CommentDao {
@@ -199,6 +201,9 @@ public class CommentDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
 		}
 		
 		return volist;
@@ -220,6 +225,39 @@ public class CommentDao {
 			close(pstmt);
 		}
 		return result;
+		
 	}
 	
+	//dashboard 숫자세기 (진정)
+	public ArrayList<AdminVo> dashboardComment(Connection conn){
+		ArrayList<AdminVo> volist = null;
+		String sql = "select count(*) dcnt, sysdate Dateval from tb_comment where comment_date <= sysdate"
+				+ "    union select count(*) dcnt, sysdate-1 Dateval from tb_comment where comment_date <= sysdate - 1"
+				+ "    union select count(*) dcnt, sysdate-2 Dateval from tb_comment where comment_date <= sysdate - 2"
+				+ "    union select count(*) dcnt, sysdate-3 Dateval from tb_comment where comment_date <= sysdate - 3"
+				+ "    union select count(*) dcnt, sysdate-4 Dateval from tb_comment where comment_date <= sysdate - 4"
+				+ "    union select count(*) dcnt, sysdate-5 Dateval from tb_comment where comment_date <= sysdate - 5"
+				+ "    order by Dateval desc";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (rs != null) {
+				volist = new ArrayList<AdminVo>();
+				while(rs.next()) {
+					AdminVo vo = new AdminVo();
+					vo.setDcnt(rs.getInt("dcnt"));
+					vo.setDateval(rs.getDate("dateval"));
+					volist.add(vo);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return volist;
+	}
 }

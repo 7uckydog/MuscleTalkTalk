@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import static kh.semi.mtt.common.jdbc.JdbcTemplate.*;
-import static kh.semi.mtt.common.jdbc.JdbcTemplate.getConnection;
 
 import kh.semi.mtt.common.jdbc.JdbcTemplate;
 import kh.semi.mtt.member.model.dao.MemberDao;
@@ -203,6 +202,15 @@ public class MemberService {
 		}
 		close(conn);
 		return result;
+	}
+	
+	//dashboard 숫자세기 (진정)
+	public ArrayList<AdminVo> dashboardMember(){
+		Connection conn = null;
+		conn = getConnection();
+		ArrayList<AdminVo> vo = dao.dashboardMember(conn);
+		close(conn);
+		return vo;
 	}
 		
 }

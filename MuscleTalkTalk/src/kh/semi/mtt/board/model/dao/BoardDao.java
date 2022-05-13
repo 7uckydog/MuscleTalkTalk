@@ -12,6 +12,7 @@ import java.util.Date;
 
 import kh.semi.mtt.board.model.vo.BoardVo;
 import kh.semi.mtt.comment.model.vo.CommentVo;
+import kh.semi.mtt.member.model.vo.AdminVo;
 import kh.semi.mtt.member.model.vo.MemberVo;
 import kh.semi.mtt.totalboard.model.vo.TotalBoardVo;
 
@@ -249,15 +250,6 @@ public class BoardDao {
 		
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	public ArrayList<BoardVo> readAllBoard(Connection conn, int startRnum, int endRnum, int filterint, String search){ //매개인자로 필터 추가해서 정렬기능추가
 		ArrayList<BoardVo> volist = null;
 //		String sql = "select * from(select rownum r, t1.* from "
@@ -463,17 +455,6 @@ public class BoardDao {
 		}
 
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 	
 	// 보드 카운트 (기본)
 	public int countBoard(Connection conn) {
@@ -579,4 +560,36 @@ public class BoardDao {
 			return volist;
 		}
 		
+		//dashboard 숫자세기 (진정)
+		public ArrayList<AdminVo> dashboardBoard(Connection conn){
+			ArrayList<AdminVo> volist = null;
+			String sql = "select count(*) dcnt, sysdate Dateval from tb_board where board_date <= sysdate"
+					+ "    union select count(*) dcnt, sysdate-1 Dateval from tb_board where board_date <= sysdate - 1"
+					+ "    union select count(*) dcnt, sysdate-2 Dateval from tb_board where board_date <= sysdate - 2"
+					+ "    union select count(*) dcnt, sysdate-3 Dateval from tb_board where board_date <= sysdate - 3"
+					+ "    union select count(*) dcnt, sysdate-4 Dateval from tb_board where board_date <= sysdate - 4"
+					+ "    union select count(*) dcnt, sysdate-5 Dateval from tb_board where board_date <= sysdate - 5"
+					+ "    order by Dateval desc";
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				if (rs != null) {
+					volist = new ArrayList<AdminVo>();
+					while(rs.next()) {
+						AdminVo vo = new AdminVo();
+						vo.setDcnt(rs.getInt("dcnt"));
+						vo.setDateval(rs.getDate("dateval"));
+						volist.add(vo);
+					}
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rs);
+				close(pstmt);
+			}
+			
+			return volist;
+		}
 }

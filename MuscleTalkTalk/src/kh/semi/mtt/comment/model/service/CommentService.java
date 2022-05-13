@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import kh.semi.mtt.comment.model.dao.CommentDao;
 import kh.semi.mtt.comment.model.vo.CommentVo;
+import kh.semi.mtt.member.model.vo.AdminVo;
 import kh.semi.mtt.member.model.vo.MemberVo;
 
 public class CommentService {
@@ -74,6 +75,13 @@ public class CommentService {
 		close(conn);
 		return result;
 	}
-
-
+	
+	// 진정 대시보드
+	public ArrayList<AdminVo> dashboardComment(){
+		Connection conn = null;
+		conn = getConnection();
+		ArrayList<AdminVo> vo = dao.dashboardComment(conn);
+		close(conn);
+		return vo;
+	}
 }
