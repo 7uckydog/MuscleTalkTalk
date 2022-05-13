@@ -60,4 +60,11 @@ public class NoticeService {
 		return result;
 	}
 	
+	public ArrayList<NoticeVo> mainNotice(){   
+		Connection conn=null;
+		conn = getConnection();
+		ArrayList<NoticeVo> result = dao.mainNotice(conn);
+		close(conn);
+		return result;
+	}
 }

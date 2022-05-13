@@ -549,6 +549,7 @@ public class PtDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+			close(rs);
 			close(pstmt);
 		}
 		
@@ -718,4 +719,45 @@ public class PtDao {
 		
 		return result;
 	}
+	
+	public ArrayList<PtVo> mainPt(Connection conn) {
+		ArrayList<PtVo> ptVoList = null;
+		ResultSet rs = null;
+		String sql = "select * "
+				+ "    from (select rownum r, t1.* "
+				+ "    from (select tp.pt_no, pt_name, favorite_cnt "
+				+ "    from tb_pt tp "
+				+ "    left join (select count(favorite_no) favorite_cnt, pt_no from tb_pt_favorite group by pt_no )tpf "
+				+ "    on tp.pt_no = tpf.pt_no "
+				+ "    where pt_delete = 'F'"
+				+ "    order by favorite_cnt desc nulls last) t1) "
+				+ "    where r between 1 and 10";
+
+	    
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				ptVoList = new ArrayList<PtVo>();
+				do {
+					PtVo pVo = new PtVo();
+					pVo.setPtNo(rs.getInt("PT_NO"));
+					pVo.setPtName(rs.getString("PT_NAME"));
+					pVo.setFavoriteCnt(rs.getInt("FAVORITE_CNT"));
+					ptVoList.add(pVo);
+				}while(rs.next());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return ptVoList;
+	}
+	
 }

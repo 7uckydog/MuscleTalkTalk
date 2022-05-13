@@ -110,6 +110,17 @@ public class PtService {
 		return result;
 	}
 	
+	public ArrayList<PtVo> mainPt() {
+		ArrayList<PtVo> result = null;
+		Connection conn = null;
+		conn = getConnection();
+		
+		result = dao.mainPt(conn);
+		System.out.println("PtService mainPt()매소드 결과:  " + result);
+		close(conn);
+		return result;
+	}
+	
 	public ArrayList<PtVo> readAllPt(int categoryInt, int timeInt, int startRnum, int endRnum) {
 		ArrayList<PtVo> result = null;
 		Connection conn = null;

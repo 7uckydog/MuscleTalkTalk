@@ -175,4 +175,32 @@ public class NoticeDao {
 		}
 		return result;
 	}
+	
+	public ArrayList<NoticeVo> mainNotice(Connection conn){
+		ArrayList<NoticeVo> volist = new ArrayList<NoticeVo>();
+		String sql = "select notice_no, notice_title, notice_date from tb_notice order by notice_date desc";
+
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+				
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				NoticeVo nVo = new NoticeVo();
+				nVo.setNoticeNo(rs.getInt("notice_no"));
+				nVo.setNotiTitle(rs.getString("notice_title"));
+				nVo.setNotiDate(rs.getTimestamp("notice_date"));
+				
+				volist.add(nVo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return volist;
+		
+	}
 }

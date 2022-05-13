@@ -1,0 +1,183 @@
+#main_section {
+		height : auto;
+		box-sizing: border-box;
+		width: 930px;
+		background-color: #ECECEC;
+		border-radius: 0;
+		display: grid;
+		grid-template-columns: 550px 355px;
+		grid-template-rows : 270px 435px 370px;
+		gap : 25px;
+}
+
+.float_right {
+	float: right;
+}
+
+.main_btn {
+	border: 1px solid #4B4DB2;
+	display: block;
+	font-size: 12px;
+	font-family:'THEmpgtM';
+	width: 275px;
+	height: 40px;
+	line-height: 28px;
+	background-color: #4B4DB2;
+	color: white;
+	margin: 0 auto;
+ 	cursor: pointer;
+}
+
+.display_linline_block {
+	display: inline-block;
+}
+
+.width_auto {
+	width: auto;
+}
+.main_btn:hover {
+	background-color: white;
+	color: #4B4DB2;
+}
+
+.font_color_rgb {
+	color : rgb(94, 94, 94);
+}
+
+.font_THEmpgtM {
+	font-family:'THEmpgtM';
+}
+
+.font_THEmpgtB {
+	font-family:'THEmpgtB';
+}
+
+.font_12px {
+	font-size: 12px;
+}
+
+.font_15px {
+	font-size: 15px;
+}
+
+.back_white {
+	background-color: white;
+}
+
+.radius {
+	border-radius: 10px;
+}
+
+#main_board_wrap {
+	grid-row : 1/3;
+	padding: 45px 40px;
+}
+
+#main_board_title {
+	margin-bottom : 10px;
+}
+
+#main_free_board_title {
+	margin-top : 20px;
+	margin-bottom : 13px;
+	cursor : pointer;
+}
+
+#main_routine_board_title {
+	margin-top : 20px;
+	margin-bottom : 13px;
+	cursor : pointer;
+}
+
+#board_input_div {
+	margin-top : 13px;
+	margin-bottom : 13px;
+}
+
+#routineboard_input_div {
+	margin-top : 13px;
+}
+
+.board_input_title {
+	margin-bottom: 13px;
+}
+
+.routineboard_input_title {
+	margin-bottom: 13px;
+}
+
+#main_user_wrap {
+	padding: 45px 40px;
+}
+
+#main_login_btn, #main_logout_btn {
+	margin-top : 25px;
+	margin-bottom : 10px;
+}
+
+#main_join_btn, #main_mypage_btn {
+	margin-bottom : 25px;
+}
+
+#main_user_title {
+	margin-bottom: 10px;
+}
+
+#main_find_wrap {
+	text-align: center;
+}
+
+#main_find_id {
+	cursor : pointer;
+}
+
+#main_find_pwd {
+	cursor : pointer;
+}
+
+#main_pt_wrap {
+	padding: 45px 40px;
+}
+
+#main_pt_title {
+	margin-bottom: 10px;
+}
+
+#main_pt_board_title {
+	margin-top: 30px;
+	margin-bottom: 13px;
+	cursor : pointer;
+}
+
+#pt_input_div {
+	margin-top : 13px;
+	margin-bottom : 13px;
+}
+
+.pt_input_title {
+	margin-bottom: 13px;
+}
+
+#main_notice_wrap {
+	grid-column: 1/3;
+	border-radius: 10px 10px 0 0;
+	padding: 45px 40px;
+}
+
+#main_notice_title {
+	margin-bottom : 30px;
+	cursor : pointer;
+}
+
+.notice_div {
+	margin-bottom: 13px;
+}
+
+.notice_input_date {
+	display: inline-block;
+	width : 150px;
+}
+
+.notice_input_title {
+	display: inline-block;
+}

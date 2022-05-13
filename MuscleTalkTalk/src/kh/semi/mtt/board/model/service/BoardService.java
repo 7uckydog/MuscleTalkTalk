@@ -118,6 +118,14 @@ public class BoardService {
 		return result;
 	}
 	
-	
+	public ArrayList<BoardVo> mainBoard() {
+		Connection conn = null;
+		conn = getConnection();
+		
+		ArrayList<BoardVo> result = dao.mainBoard(conn);
+		close(conn);
+		
+		return result;
+	}
 	
 }

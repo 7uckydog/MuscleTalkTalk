@@ -543,4 +543,40 @@ public class BoardDao {
 			return result;
 		}
 	
+		
+		public ArrayList<BoardVo> mainBoard(Connection conn) { //매개인자로 필터 추가해서 정렬기능추가
+			ArrayList<BoardVo> volist = new ArrayList<BoardVo>();
+			String sql = "select * "
+					+ "    from (select rownum r, t1.* "
+					+ "    from (select tb.board_no, board_title, tbcnt.comment_cnt "
+					+ "    from tb_board tb "
+					+ "    left outer join (select count(comment_no) comment_cnt, board_no from tb_comment "
+					+ "    where board_no is not null "
+					+ "    group by board_no) tbcnt "
+					+ "    on tb.board_no = tbcnt.board_no "
+					+ "    where board_date "
+					+ "    between sysdate - 1 and sysdate "
+					+ "    order by board_count desc) t1) "
+					+ "    where r between 1 and 10";
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				rs = pstmt.executeQuery();
+				while(rs.next()) {
+					BoardVo vo = new BoardVo();
+					vo.setBoardNo(rs.getInt("board_no"));
+					vo.setBoardTitle(rs.getString("board_title"));
+					vo.setrCnt(rs.getInt("comment_cnt"));
+					
+					volist.add(vo);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}  finally {
+				close(rs);
+				close(pstmt);
+			}
+			return volist;
+		}
+		
 }
