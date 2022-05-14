@@ -613,7 +613,7 @@ border-left: 0px !important;
 	cursor: pointer;
 }
 .addworkoutAllDiv input {
-/* 	display: none; */
+	display: none; 
 }
 </style>
 </head>

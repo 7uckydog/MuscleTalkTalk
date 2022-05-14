@@ -332,7 +332,7 @@ section {
 					<td><a href="routineboardread?bno=${rvo.routineboardNo }">${rvo.routineboardTitle }</a></td>
 					<td>${rvo.routineboardDate }</td>
 					<td>&nbsp;&nbsp;&nbsp;${rvo.routineboardCount }</td>
-					<td>${rvo.rCnt }</td>
+					<td class="table_rCnt">${rvo.rCnt }</td>
 					<td>${rvo.memberNickname }</td>
 				</tr>
 			</c:forEach>

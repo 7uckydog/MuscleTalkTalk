@@ -6,9 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static kh.semi.mtt.common.jdbc.JdbcTemplate.*;
+
+import kh.semi.mtt.exercise.model.vo.ExerciseVo;
+import kh.semi.mtt.routine.model.vo.RoutineVo;
 import kh.semi.mtt.routineboard.model.vo.RoutineBoardVo;
+import kh.semi.mtt.routineexercise.model.vo.RoutineExerciseVo;
 
 public class RoutineBoradDao {
 	private Statement stmt = null;
@@ -64,7 +70,7 @@ public class RoutineBoradDao {
 		
 		String sql = "select R, routine_board_no, member_nickname, routine_board_title, routine_board_content, routine_board_count, routine_board_date, board_category_no, r_cnt from "
 				+ "				(select rownum r, t1.* from (select b1.*,(select count(*) from "
-				+ "				tb_comment r1 where r1.board_no = b1.routine_board_no) r_cnt "
+				+ "				tb_comment r1 where r1.routine_board_no = b1.routine_board_no) r_cnt "
 				+ "				from tb_routine_board b1 order by routine_board_no desc) t1)tba join tb_member tbm on tba.member_no = tbm.member_no "
 				+ "				where routine_board_no=?";
 		
@@ -97,6 +103,85 @@ public class RoutineBoradDao {
 		
 		return rvo;
 	}
+	
+	public Map<String, Object> readRoutineBoardRouintenInformation(Connection conn, int routineboardNo) {
+		
+		ArrayList<RoutineVo> rvolist = null;
+		ArrayList<RoutineExerciseVo> revolist = null;
+		ArrayList<ExerciseVo> evolist = null;
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		String sql = "    select tr.*,tre.*, te.exercise_name , te.exercise_Part , tm.* "
+				+ "		from tb_routine tr, tb_routine_board tm, tb_routine_exercise tre, tb_exercise te "
+				+ "		where tr.routine_no = tm.routine_no "
+				+ "		and tr.routine_no = tre.routine_no "
+				+ "		and tre.exercise_no = te.exercise_no"
+				+ "     and tm.routine_board_no = ?"
+				+ "		order by tr.routine_no desc, tre.routine_week asc,  "
+				+ "		tre.routine_exercise_day asc, ROUTINE_EXERCISE_SEQUENCE asc, tre.routine_exercise_set asc ";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, routineboardNo);
+			rs = pstmt.executeQuery();
+			if(rs != null) {
+				rvolist = new ArrayList<RoutineVo>();
+				revolist = new ArrayList<RoutineExerciseVo>();
+				evolist = new ArrayList<ExerciseVo>();
+				while(rs.next()) {
+					RoutineVo rvo = new RoutineVo();
+					RoutineExerciseVo revo = new RoutineExerciseVo();
+					ExerciseVo evo = new ExerciseVo();
+					
+					rvo.setRoutineNo(rs.getInt("ROUTINE_NO"));
+					rvo.setMemberNo(rs.getInt("MEMBER_NO"));
+					rvo.setRoutineName(rs.getString("ROUTINE_NAME"));
+					rvo.setRoutineDisable(rs.getString("ROUTINE_DISABLE"));
+					rvo.setRoutineTarget(rs.getString("ROUTINE_TARGET"));
+					rvo.setRoutineContent(rs.getString("ROUTINE_CONTENT"));
+					rvo.setRoutineSetRestTime(rs.getInt("ROUTINE_SET_REST_TIME"));
+					rvo.setRoutineExerciseRestTime(rs.getInt("ROUTINE_EXERCISE_REST_TIME"));
+					
+					revo.setRoutineExerciseNo(rs.getInt("ROUTINE_EXERCISE_NO"));
+					revo.setExerciseNo(rs.getInt("EXERCISE_NO"));
+					revo.setRoutineExerciseDay(rs.getInt("ROUTINE_EXERCISE_DAY"));
+					revo.setRoutineWeek(rs.getInt("ROUTINE_WEEK"));
+					revo.setRoutineDay(rs.getInt("ROUTINE_DAY"));
+					revo.setRoutineExerciseSet(rs.getInt("ROUTINE_EXERCISE_SET"));
+					revo.setRoutineExerciseRepeat(rs.getInt("ROUTINE_EXERCISE_REPEAT"));
+					revo.setRoutineExerciseWeight(rs.getInt("ROUTINE_EXERCISE_WEIGHT"));
+					revo.setRoutineExerciseCopy(rs.getString("ROUTINE_EXERCISE_COPY"));
+					
+					evo.setExerciseName(rs.getString("EXERCISE_NAME"));
+					evo.setExerciseNo(rs.getInt("EXERCISE_NO"));
+					evo.setExercisePart(rs.getString("EXERCISE_PART"));
+					
+					
+					rvolist.add(rvo);
+					revolist.add(revo);
+					evolist.add(evo);
+				}
+				resultMap.put("rvolist", rvolist);
+				resultMap.put("revolist", revolist);
+				resultMap.put("evolist", evolist);
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return resultMap;
+		
+	}
+	
+	
+	
+	
+	
 	
 	
 	public int countRoutineBoard(Connection conn) {

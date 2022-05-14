@@ -106,7 +106,7 @@
         .routine_modal{
         display: none;
         width: 950px;
-        height: 600px;
+        height: auto;
         border: #4B4DB2 solid 1px;
         background-color: white;
         position: fixed;  
@@ -295,12 +295,13 @@
             border: 1px solid gray;
         }
         .modal_RoutineMainDiv{
-            height: 420px;
+            height: auto;
             overflow-y: scroll;
         }
         .routineBtnDiv{
             margin-top: 50px;
             margin-left: 155px;
+            margin-bottom: 65px;
         }
         .routineModalUpdateBtn{
             font-size: 11px;
@@ -459,7 +460,7 @@ ${revolist.get(revolist.size() - 1).routineWeek } --%>
                         <button type="button" class="routineCalendarBtn">
                             캘린더로 보내기
                         </button>
-                        <button type="button" class="routineshareBtn">
+                        <button onclick="location.href = 'boardinsert';" type="button" class="routineshareBtn">
                             루틴 공유
                         </button>
                     </div>
@@ -526,13 +527,12 @@ ${revolist.get(revolist.size() - 1).routineWeek } --%>
             $(this).remove();
         });
 
-        
-
-
 
     </script>
     <script type="text/javascript">
 	var voList = [];
+	<c:if test="${rvolist.size() > 0}" >
+	
 	<c:forEach var="i" begin="0" end="${rvolist.size()-1 }" step="1">
 	console.log(${rvolist.get(i).routineNo});
 		var vo = {
@@ -562,6 +562,7 @@ ${revolist.get(revolist.size() - 1).routineWeek } --%>
 		
 		voList.push(vo);
 	</c:forEach>
+	</c:if>
     console.log(voList);
     
     
@@ -681,6 +682,7 @@ ${revolist.get(revolist.size() - 1).routineWeek } --%>
             bagModal.style.display ="block";
             eleModal.style.display ="block";
             var routineNo = $(this).parents('.myRoutineListTable').next().val();
+            console.log("루틴no에 담긴 디스부모값"+routineNo);
             var routineDayWeekTemp = "";
             var routineIndexTemp = 0;
             var routineExerciseDayTemp = 0;
@@ -773,8 +775,27 @@ ${revolist.get(revolist.size() - 1).routineWeek } --%>
 		
     	function delectRoutine() {
     		var routineNoTemp = $(this).prev().val();
-    		location.href = "deleteroutine?routineno="+routineNoTemp;
-    		alert("삭제되었습니다.");
+    		console.log(routineNoTemp);
+    		$.ajax({
+    			url : 'deleteroutine',
+    			type : 'post',
+    			data : {
+    				routineno : routineNoTemp
+    			},
+    			success : function(result) {
+					console.log(result);
+					if(result == 1) {
+						alert("성공");
+						location.href = "myroutinelistall";
+					} else {
+						alert("실패");
+					}
+				},
+				error : function(error) {
+					console.log(error);
+				}
+    		});
+    		
     	};
     	
     	$('.DeleteP').on('click',delectRoutine);

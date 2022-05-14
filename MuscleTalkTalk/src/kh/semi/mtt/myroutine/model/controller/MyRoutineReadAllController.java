@@ -36,6 +36,13 @@ public class MyRoutineReadAllController extends HttpServlet {
 		MemberVo mvo = (MemberVo) request.getSession().getAttribute("ssMvo");
 		
 		Map<String, Object> result = service.myRoutineReadAll(mvo);
+		System.out.println("result사이즈"+ result.size());
+		
+//		if(result.length) {
+//			request.getRequestDispatcher("WEB-INF/view/myroutine/myroutinelistnull.jsp").forward(request, response);
+//		}else {
+//			request.getRequestDispatcher("WEB-INF/view/myroutine/myroutinelist.jsp").forward(request, response);
+//		}
 		
 		request.setAttribute("rvolist",result.get("rvolist"));
 		request.setAttribute("revolist",result.get("revolist"));
@@ -44,7 +51,7 @@ public class MyRoutineReadAllController extends HttpServlet {
 		if(mvo !=null) {
 			
 			request.getRequestDispatcher("WEB-INF/view/myroutine/myroutinelist.jsp").forward(request, response);
-		}else {
+		}else if(mvo == null){
 			
 			request.getRequestDispatcher("WEB-INF/view/member/login.jsp").forward(request, response);
 		}

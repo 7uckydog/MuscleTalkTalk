@@ -501,6 +501,7 @@
         .weekDiv label{
             float: left;
             flex-basis: 160px;
+            flex-grow: 1;
 /*             display: inline-block;
             width: 160px; */
             height: 30px;
@@ -576,18 +577,39 @@
         }
 
         .modalDay{
-            width: 160px;
+            width: 640px;
             height: 28px;
             line-height: 28px;
             background-color: #4B4DB2;
             color: white ;
             font-size: 11px;
-            margin-left: 60px;
+            margin : 0 auto;
             margin-top: 30px;
+            margin-bottom : 10px;
             text-align: center;
         }
         .modalTableDiv{
+            width : 640px;
+        	margin : 0 auto;
+        	display: grid;
+        	grid-template-columns : 640px;
+        	gap : 10px;
             font-size: 11px;
+        }
+        .grid_content {
+        	height: auto;
+        	display : grid;
+        	grid-template-columns : repeat(4, 160px);
+        	border-top : 1px solid #4B4DB2;
+        	border-left : 1px solid #4B4DB2;
+        }
+        
+        .grid_content > div {
+        	border-bottom : 1px solid #4B4DB2;
+        	border-right : 1px solid #4B4DB2;
+        	color : #4B4DB2;
+        	text-align: center;
+        	line-height: 29px;
         }
         .modalTable{
             margin-top: 10px;
@@ -628,6 +650,9 @@
 			margin-top: 20px;
 			margin-left: 150px;
 		}
+		.rest_column {
+        	grid-column: 1/5;
+        }
 		ul{
 		margin-top: 0px;
 		}
@@ -635,10 +660,12 @@
 		margin-left:60px;
 		display: none;
 		}
+		.myRoutineListTableDiv{
+		display: none;
+		}
     </style>
 </head>
 <body bgcolor=" #ECECEC">
-    
     
     
 	<%@ include file="/WEB-INF/view/template.jsp" %>
@@ -693,17 +720,21 @@
         <!-- <div id="board_content">
             게시물 내용
         </div> -->
+         <div class="myRoutineListTableDiv">
+        	
+        </div>
         <div>
-            <textarea id="modal_RoutineMemo" name="">루틴메모내용</textarea>
+            <textarea id="modal_RoutineMemo" name="" readonly>루틴메모내용</textarea>
         </div>
         <div class="routine_modal">
+        <input type="hidden" id="hidden_routine_no" >
             <div class="modal_content">
                 <!-- 모달창내용작성 -->
                     <div class="routineDetail">
                         루틴정보
                     </div>
                     <div class="weekDiv">
-                        <input type="radio" name="weekradio" id="weekradio1" value="1" checked>
+<!--                         <input type="radio" name="weekradio" id="weekradio1" value="1" checked>
                         <input type="radio" name="weekradio" id="weekradio2" value="2">
                         <input type="radio" name="weekradio" id="weekradio3" value="3">
                         <input type="radio" name="weekradio" id="weekradio4" value="4">
@@ -712,16 +743,16 @@
                         <label for="weekradio2">2주차</label>
                         <label for="weekradio3">3주차</label>
                         <label for="weekradio4">4주차</label>
-                        <label for="weekradio5">5주차</label>
+                        <label for="weekradio5">5주차</label> -->
                     </div>
                     <div class="dayDiv">
-                        <input type="radio" name="dayradio" id="dayradio1" value="1" checked>
-                        <input type="radio" name="dayradio" id="dayradio2" value="2">
-                        <input type="radio" name="dayradio" id="dayradio3" value="3">
-                        <input type="radio" name="dayradio" id="dayradio4" value="4">
-                        <input type="radio" name="dayradio" id="dayradio5" value="5">
-                        <input type="radio" name="dayradio" id="dayradio6" value="6">
-                        <input type="radio" name="dayradio" id="dayradio7" value="7">
+                        <input type="radio" name="dayradio" id="dayradio1" class="dayradio" value="1">
+                        <input type="radio" name="dayradio" id="dayradio2" class="dayradio" value="2">
+                        <input type="radio" name="dayradio" id="dayradio3" class="dayradio" value="3">
+                        <input type="radio" name="dayradio" id="dayradio4" class="dayradio" value="4">
+                        <input type="radio" name="dayradio" id="dayradio5" class="dayradio" value="5">
+                        <input type="radio" name="dayradio" id="dayradio6" class="dayradio" value="6">
+                        <input type="radio" name="dayradio" id="dayradio7" class="dayradio" value="7">
                         <label for="dayradio1">월요일</label>
                         <label for="dayradio2">화요일</label>
                         <label for="dayradio3">수요일</label>
@@ -736,22 +767,9 @@
                         월요일
                     </div>
                     <div class="modalTableDiv">
-                        <table class="modalTable">
-                            <tr>
-                                <td>
-                                    운동명
-                                </td>
-                                <td>
-                                    무게
-                                </td>
-                                <td>
-                                    횟수
-                                </td>
-                                <td>
-                                    세트
-                                </td>
-                            </tr>
-                        </table>
+                        <div class="grid_content">
+                       	
+                       	</div>
                     </div>
                     
                 </div>
@@ -888,6 +906,260 @@
             console.log($(this).next().remove());
             $(this).remove();
         });
+    </script>
+    <script type="text/javascript">
+	var voList = [];
+	<c:forEach var="i" begin="0" end="${rvolist.size()-1 }" step="1">
+	console.log(${rvolist.get(i).routineNo});
+		var vo = {
+				routineNo : ${rvolist.get(i).routineNo},
+				memberNo : ${rvolist.get(i).memberNo},
+				routineName : "${rvolist.get(i).routineName}",
+				routineDisable : "${rvolist.get(i).routineDisable}",
+				routineTarget : "${rvolist.get(i).routineTarget}",
+				routineContent : "${rvolist.get(i).routineContent}",
+				routineSetRestTime : ${rvolist.get(i).routineSetRestTime},
+				routineExerciseRestTime : ${rvolist.get(i).routineExerciseRestTime},
+				
+				routineExerciseNo : ${revolist.get(i).routineExerciseNo},
+				exerciseNo : ${revolist.get(i).exerciseNo},
+				routineExerciseDay : ${revolist.get(i).routineExerciseDay},
+				routineWeek : ${revolist.get(i).routineWeek},
+				routineDay : ${revolist.get(i).routineDay},
+				routineExerciseSet : ${revolist.get(i).routineExerciseSet},
+				routineExerciseRepeat : ${revolist.get(i).routineExerciseRepeat},
+				routineExerciseWeight : ${revolist.get(i).routineExerciseWeight},
+				routineExerciseCopy : "${revolist.get(i).routineExerciseCopy}",
+				
+				exerciseName : "${evolist.get(i).exerciseName}",
+				exerciseNo : ${evolist.get(i).exerciseNo},
+				exercisePart : "${evolist.get(i).exercisePart}"
+				};
+		
+		voList.push(vo);
+	</c:forEach>
+    console.log(voList);
+    
+    $(function() {
+    	var tableIndex = 0;
+    	if(voList.length != 0) {
+			$(".myRoutineListTableDiv").append('<table class="myRoutineListTable"></table>');
+			var routineTarget;
+			switch (voList[tableIndex].routineTarget) {
+			case 'N':
+				routineTarget = '전체';
+				break;
+			case 'M':
+				routineTarget = '근비대';
+				break;
+			case 'D':
+				routineTarget = '다이어트';
+				break;
+			case 'S':
+				routineTarget = '스트랭스';
+				break;
+			case 'B':
+				routineTarget = '맨몸운동';
+				break;
+
+			default:
+				break;
+			}
+			var routineDayWeek;
+			if(voList[tableIndex].routineDay == 0) {
+				routineDayWeek = '주간';
+			} else {
+				routineDayWeek = '일간';
+			}
+			var htmlText = '<tr><th class="routineview">'+ voList[tableIndex].routineName +'</th>';
+			htmlText += '<td class="td_routineTarget">'+routineTarget+'</td>';
+			htmlText += '<td class="td_routine_duration"></td>';
+			htmlText += '<td class="td_routine_day_week">'+routineDayWeek+'</td>';
+			htmlText += '</tr>';
+			$(".myRoutineListTable").eq(tableIndex).append(htmlText);
+			$(".myRoutineListTable").eq(tableIndex).after('<p class="DeleteP">'+"삭제하기"+'</p>');
+			$(".myRoutineListTable").eq(tableIndex).after('<input type = "hidden" class="routinte_no_hidden" value="'+voList[tableIndex].routineNo+'">');
+    	} else {
+    		return;
+    	}
+    	
+		var voListIndex = 0;
+		var prevTemp = voList[0].routineNo;
+		var currTemp = -1;
+		while(true) {
+			currTemp = voList[voListIndex].routineNo;
+			if(prevTemp != currTemp) {
+				if($('.td_routine_day_week').eq(tableIndex).text() == '주간') {
+					$('.td_routine_duration').eq(tableIndex++).text(voList[voListIndex - 1].routineWeek + '주');
+				} else {
+					$('.td_routine_duration').eq(tableIndex++).text(voList[voListIndex - 1].routineDay + '일');
+				}
+				$(".myRoutineListTableDiv").append('<table class="myRoutineListTable"></table>');
+				var routineTarget;
+				switch (voList[tableIndex].routineTarget) {
+				case 'N':
+					routineTarget = '전체';
+					break;
+				case 'M':
+					routineTarget = '근비대';
+					break;
+				case 'D':
+					routineTarget = '다이어트';
+					break;
+				case 'S':
+					routineTarget = '스트랭스';
+					break;
+				case 'B':
+					routineTarget = '맨몸운동';
+					break;
+
+				default:
+					break;
+				}
+				var routineDayWeek;
+				if(voList[tableIndex].routineDay == 0) {
+					routineDayWeek = '주간';
+				} else {
+					routineDayWeek = '일간';
+				}
+				var htmlText = '<tr><th class="routineview">'+ voList[voListIndex].routineName +'</th>';
+				htmlText += '<td class="td_routineTarget">'+routineTarget+'</td>';
+				htmlText += '<td class="td_routine_duration"></td>';
+				htmlText += '<td class="td_routine_day_week">'+routineDayWeek+'</td>';
+				htmlText += '</tr>';
+				$(".myRoutineListTable").eq(tableIndex).append(htmlText);
+				$(".myRoutineListTable").eq(tableIndex).after('<p class="DeleteP">'+"삭제하기"+'</p>');
+				$(".myRoutineListTable").eq(tableIndex).after('<input type = "hidden" class="routinte_no_hidden" value="'+currTemp+'">');
+			}
+			
+			voListIndex++;
+			prevTemp = currTemp;
+			if(voListIndex == voList.length) {
+				if($('.td_routine_day_week').eq(tableIndex).text() == '주간') {
+					$('.td_routine_duration').eq(tableIndex++).text(voList[voListIndex - 1].routineWeek + '주');
+				} else {
+					$('.td_routine_duration').eq(tableIndex++).text(voList[voListIndex - 1].routineDay + '일');
+				}
+				break;
+			}
+		}
+	});
+
+				
+		$(function() {		
+           /*  var routineNo = 1; */
+            //var routineNo = $(this).parents('.myRoutineListTable').next().val();
+            var routineNo = $('.routinte_no_hidden').val();
+            var routineDayWeekTemp = "";
+            var routineIndexTemp = 0;
+            var routineExerciseDayTemp = 0;
+            $('#hidden_routine_no').val(routineNo);
+            for(var i  = 0; i < voList.length; i++) {
+            	if(voList[i].routineNo == routineNo) {
+            		if(voList[i].routineDay == 0) {
+            			 routineDayWeekTemp = 'week';
+            				if(voList[i].routineWeek != routineIndexTemp) {
+	            			routineIndexTemp = voList[i].routineWeek;
+	            			$('.weekDiv').append('<input type="radio" class="weekradio" name="weekradio" id="weekradio'+routineIndexTemp+'" value="'+routineIndexTemp+'">');
+	            			$('.weekDiv').append('<label for="weekradio'+routineIndexTemp+'">'+routineIndexTemp+'주차</label>');
+	            			$('#modal_RoutineMemo').text(voList[i].routineContent);
+	            			routineExerciseDayTemp = 0;
+	            			$thisTemp1 = $('.weekradio').eq($('.weekradio').length - 1);
+	            			$thisTemp2 = $('.weekDiv label').eq($('.weekDiv label').length - 1);
+	            				 if($('.weekradio').length != 1) {
+	            					for(var j = $('.weekradio').length - 1; j > 0; j--) {
+	            						for(var k = 0; k < j; k++) {
+											if($('.weekradio').eq(k).val() > $('.weekradio').eq(k+1).val() ) {
+												$('.weekradio').eq(k).before($('.weekradio').eq(k+1));
+												$('.weekradio').eq(k).after($('.weekDiv label').eq(k+1));
+											}    						
+		            					}
+	            					}
+	            				}
+	            			} 
+            			}
+            			if(voList[i].routineWeek == routineIndexTemp) {
+            				if(voList[i].routineExerciseDay != routineExerciseDayTemp) {
+            					// 운동하는 날
+            				} else {
+            					// 쉬는 날
+            				}
+            			}
+            		} else {
+            			routineDayWeekTemp = 'day';
+            		}
+            		
+            	}
+        
+            
+            //console.log(vo);
+            //console.log($('.routinte_no_hidden').val());
+            
+            $('.weekradio').eq(0).prop('checked',true);
+            $('.dayradio').eq(0).prop('checked',true);
+            
+            
+            $('input[name="dayradio"]').off('change');
+            
+            $('input[name="dayradio"]').change(function() {
+            	console.log("데이라디오눌림");
+            	${voList}
+            	console.log(voList);
+      			modal_exercise_input()
+    		});
+      		$('input[name="weekradio"]').change(function() {
+      			console.log("윜라디오눌림")
+      			modal_exercise_input()
+    		});
+            modal_exercise_input();
+        
+    	});
+		
+    
+  	function modal_exercise_input() {
+  		modalDayInput();
+  		$('.grid_content').empty();
+		//console.log($("#hidden_routine_no").val());
+		//console.log($('input[name=weekradio]:checked').val());
+		//console.log($('input[name=dayradio]:checked').val());
+		var hrn = $("#hidden_routine_no").val();
+		var iwc = $('input[name=weekradio]:checked').val();
+		var idc = $('input[name=dayradio]:checked').val();
+		var flagTemp = false;
+		for(var i = 0; i < voList.length; i++) {
+			var vli = voList[i];
+			if(vli.routineNo == hrn && vli.routineWeek == iwc && vli.routineExerciseDay == idc) {
+				console.log(vli);
+				$('.grid_content').append('<div>'+vli.exerciseName+'</div>');
+				$('.grid_content').append('<div>'+vli.routineExerciseWeight+'kg</div>');
+				$('.grid_content').append('<div>'+vli.routineExerciseRepeat+'회</div>');
+				$('.grid_content').append('<div>'+vli.routineExerciseSet+'세트</div>');
+				flagTemp = true;
+			}
+		}
+		if(!flagTemp) {
+			$('.grid_content').append('<div class="rest_column">휴식</div>');
+		}
+	}
+  	
+  	function modalDayInput() {
+  		if($('.dayradio:checked').val() == 1){
+			$('.modalDay').text("월요일");
+		}else if($('.dayradio:checked').val() == 2){
+			$('.modalDay').text("화요일");
+		}else if($('.dayradio:checked').val() == 3){
+			$('.modalDay').text("수요일");
+		}else if($('.dayradio:checked').val() == 4){
+			$('.modalDay').text("목요일");
+		}else if($('.dayradio:checked').val() == 5){
+			$('.modalDay').text("금요일");
+		}else if($('.dayradio:checked').val() == 6){
+			$('.modalDay').text("토요일");
+		}else if($('.dayradio:checked').val() == 7){
+			$('.modalDay').text("일요일");
+		}
+	}
+    
     </script>
 
 

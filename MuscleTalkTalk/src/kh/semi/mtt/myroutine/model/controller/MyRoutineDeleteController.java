@@ -1,6 +1,8 @@
 package kh.semi.mtt.myroutine.model.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,7 +30,14 @@ public class MyRoutineDeleteController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		
+//		
+//	}
+
+	
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("루틴삭제 들어옴");
 		int result = -1 ;
 		RoutineVo rvo = new RoutineVo();
@@ -38,17 +47,11 @@ public class MyRoutineDeleteController extends HttpServlet {
 		result = new RoutineService().MyRoutineDelete(rvo);
 		if(result == 1) {
 			System.out.println("삭제성공");
-			response.sendRedirect("myroutinelistall");
 		}
-		
-		
+		PrintWriter out = response.getWriter();
+		out.print(result);
+		out.flush();
+		out.close();
 	}
-
-	
-	
-//	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		// TODO Auto-generated method stub
-//		doGet(request, response);
-//	}
 
 }

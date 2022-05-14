@@ -2,6 +2,7 @@ package kh.semi.mtt.routineboard.model.service;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Map;
 
 import static kh.semi.mtt.common.jdbc.JdbcTemplate.*;
 
@@ -10,6 +11,20 @@ import kh.semi.mtt.routineboard.model.vo.RoutineBoardVo;
 
 public class RoutineBoardService {
 	private RoutineBoradDao dao = new RoutineBoradDao();
+	
+	
+	
+	
+	public Map<String, Object> readRoutineBoardRouintenInformation(int routineboardNo) {
+		
+		Connection conn = null;
+		conn = getConnection();
+		
+		Map<String, Object> result2 = dao.readRoutineBoardRouintenInformation(conn, routineboardNo);
+		close(conn);
+		return result2;
+		
+	}
 	
 	public ArrayList<RoutineBoardVo> readAllRoutineBoard(int startRnum, int endRnum) {
 		

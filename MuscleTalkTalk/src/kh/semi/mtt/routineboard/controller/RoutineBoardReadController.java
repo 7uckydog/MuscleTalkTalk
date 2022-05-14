@@ -2,6 +2,7 @@ package kh.semi.mtt.routineboard.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -52,6 +53,14 @@ public class RoutineBoardReadController extends HttpServlet {
 		System.out.println(cVoList);
 		request.setAttribute("bvo", result);
 		request.setAttribute("cVoList", cVoList);
+		
+		Map<String, Object> result2 = new RoutineBoardService().readRoutineBoardRouintenInformation(bNo);
+		
+		request.setAttribute("rvolist",result2.get("rvolist"));
+		request.setAttribute("revolist",result2.get("revolist"));
+		request.setAttribute("evolist",result2.get("evolist"));
+		
+		
 
 		request.getRequestDispatcher("WEB-INF/view/routineboard/routineread.jsp").forward(request, response);
 	}

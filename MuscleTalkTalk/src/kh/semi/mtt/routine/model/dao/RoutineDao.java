@@ -51,7 +51,7 @@ public class RoutineDao {
 					+ "	            values ((select nvl(max(ROUTINE_EXERCISE_NO),0)+"+(routineExerciseNo++)+" from TB_ROUTINE_EXERCISE), (select EXERCISE_NO"
 					+ "    			from tb_exercise"
 					+ "    			where exercise_name = ?),(select nvl(max(ROUTINE_NO),0)+1 from tb_routine)"
-					+ "				, ?, ?, null, ?, ?, ?, null, null, null ,null, ?, 'f') ";
+					+ "				, ?, ?, null, ?, ?, ?, null, null, null ,null, ?, 'F') ";
 		}
 		sql += "select * from dual";
 		try {
@@ -100,6 +100,7 @@ public class RoutineDao {
 				+ "				    where tr.member_no = tm.member_no "
 				+ "				    and tr.routine_no = tre.routine_no "
 				+ "					   and tre.exercise_no = te.exercise_no "
+				+ "						and tr.routine_disable = 'F' "
 				+ "					   and tm.member_no = ? "
 				+ "                       order by tr.routine_no desc, tre.routine_week asc,  "
 				+ "						tre.routine_exercise_day asc, ROUTINE_EXERCISE_SEQUENCE asc, tre.routine_exercise_set asc";
@@ -167,7 +168,7 @@ public class RoutineDao {
 	public int MyRoutineDelete(Connection conn, RoutineVo rvo) {
 		int result = 0;
 		
-		String sql="DELETE from tb_routine where routine_no = ?";
+		String sql="update tb_routine set routine_disable = 'T'  where routine_no = ?";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);

@@ -15,7 +15,6 @@
 <style>
         @font-face {
             font-family: THEmpgtM;
-            src: url("./fonts/THEmpgtM.woff");
         }
         body{
             width: 1200px;
@@ -30,7 +29,7 @@
             background-color: white;
             border-radius: 10px 10px 0 0;
             width: 930px;
-            height: 2000px;
+            height: auto;
             position: relative;
             font-family: 'THEmpgtM';
             
@@ -155,16 +154,32 @@
             color: white;
             background-color: #4B4DB2;
             border: 1px solid #4B4DB2;
+            
         }
         #btn_cancel_register{
             margin-top: 62px;
             text-align: center;
+            padding-bottom: 100px;
         }
         #textEditer{
         	margin: 0px 65px
         }
         button {
 			cursor: pointer;
+		}
+		.routineinportBtn{
+		float: right;
+		width: 140px;
+		height: 30px;
+		margin-right: 65px;
+		display: none;
+		line-height:30px;
+		vertical-align: bottom;
+		font-size: 11px;
+		background-color:white;
+		border: 1px solid #4B4DB2;
+		color: #4B4DB2;
+		margin-top: 15px;
 		}
     </style>
 </head>
@@ -206,6 +221,7 @@
                 <option id="board_select1" name="board_category" value="f">자유 게시판</option>
                 <option id="board_select1" name="board_category" value="r">루틴 게시판</option>
             </select>
+            <button type="button" class="routineinportBtn" onclick="location.href = 'myroutinelistall';">루틴 불러오기</button>
         </div>
         <div id="board_content">
             게시물 내용
@@ -230,5 +246,21 @@
     </section>
     
 	<%@ include file="/WEB-INF/view/footer.jsp"%>
+	<script type="text/javascript">
+		$(function() {
+			$('#board_select').change(function() {
+				console.log("체인지이벤트");
+				
+				if($('#board_select').val() == 'r'){
+				$('.routineinportBtn').css('display','block');
+				}else{
+					$('.routineinportBtn').css('display','none');
+				}
+			});
+			
+			
+			
+		});
+	</script>
 </body>
 </html>
