@@ -36,4 +36,13 @@ public class ReservationService {
 		close(conn);
 		return result;
 	}
+	public int cancelReservation2(int memberNo) {
+		int result = -1;
+		Connection conn = null;
+		conn = getConnection();
+		
+		result = new ReservationDao().cancelReservation2(conn, memberNo);
+		close(conn);
+		return result;
+	}
 }

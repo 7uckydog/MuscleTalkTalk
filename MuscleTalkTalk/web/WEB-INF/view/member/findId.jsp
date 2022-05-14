@@ -395,6 +395,7 @@
                      },
                      error: function(request, status, error){
                         console.log(error);
+                        alert("올바른 정보를 입력해주세요.");
                         location.href="FindId";
                         return;
                      }
@@ -405,7 +406,7 @@
 	$("#submit").submit(function(){
             var rt = true;
             if($("#mail_check").is(":visible")){
-                alert("아메일 인증을 완료해주세요.");
+                alert("이메일 인증을 완료해주세요.");
                 return rt = false;
             }
 	})

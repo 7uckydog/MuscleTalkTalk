@@ -12,152 +12,152 @@ commit;
 --회원 테이블 1~10 관리자 11~20 일반 회원
 INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_NAME,
     MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_HEIGHT, MEMBER_WEIGHT, MEMBER_PURPOSE, MEMBER_CONCERN, MEMBER_TRAINER, MEMBER_ABSENCE, MEMBER_JOIN_DATE) VALUES(
-    (SELECT nvl(max(member_no),0)+1 from tb_member), 'admin1', '1234', 'Admin1', 'admin1@gmail.com', '관리자', '010-0000-0000', 'M', 0, 
+    (SELECT nvl(max(member_no),0)+1 from tb_member), 'admin1', '1234', 'Admin1', 'admin1@gmail.com', '관리자', '01000000000', 'M', 0, 
     0, 0, 0, 0, DEFAULT, DEFAULT, DEFAULT);
 
 INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_NAME,
     MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_HEIGHT, MEMBER_WEIGHT, MEMBER_PURPOSE, MEMBER_CONCERN, MEMBER_TRAINER, MEMBER_ABSENCE, MEMBER_JOIN_DATE) VALUES(
-    (SELECT nvl(max(member_no),0)+1 from tb_member), 'admin2', '1234', 'Admin2', 'admin2@gmail.com', '관리자', '010-0000-0000', 'M', 0, 
+    (SELECT nvl(max(member_no),0)+1 from tb_member), 'admin2', '1234', 'Admin2', 'admin2@gmail.com', '관리자', '01000000000', 'M', 0, 
     0, 0, 0, 0, DEFAULT, DEFAULT, DEFAULT);
     
 INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_NAME,
     MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_HEIGHT, MEMBER_WEIGHT, MEMBER_PURPOSE, MEMBER_CONCERN, MEMBER_TRAINER, MEMBER_ABSENCE, MEMBER_JOIN_DATE) VALUES(
-    (SELECT nvl(max(member_no),0)+1 from tb_member), 'admin3', '1234', 'Admin3', 'admin3@gmail.com', '관리자', '010-0000-0000', 'M', 0, 
+    (SELECT nvl(max(member_no),0)+1 from tb_member), 'admin3', '1234', 'Admin3', 'admin3@gmail.com', '관리자', '01000000000', 'M', 0, 
     0, 0, 0, 0, DEFAULT, DEFAULT, DEFAULT);
 
 INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_NAME,
     MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_HEIGHT, MEMBER_WEIGHT, MEMBER_PURPOSE, MEMBER_CONCERN, MEMBER_TRAINER, MEMBER_ABSENCE, MEMBER_JOIN_DATE) VALUES(
-    (SELECT nvl(max(member_no),0)+1 from tb_member), 'admin4', '1234', 'Admin4', 'admin4@gmail.com', '관리자', '010-0000-0000', 'M', 0, 
+    (SELECT nvl(max(member_no),0)+1 from tb_member), 'admin4', '1234', 'Admin4', 'admin4@gmail.com', '관리자', '01000000000', 'M', 0, 
     0, 0, 0, 0, DEFAULT, DEFAULT, DEFAULT);
 
 INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_NAME,
     MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_HEIGHT, MEMBER_WEIGHT, MEMBER_PURPOSE, MEMBER_CONCERN, MEMBER_TRAINER, MEMBER_ABSENCE, MEMBER_JOIN_DATE) VALUES(
-    (SELECT nvl(max(member_no),0)+1 from tb_member), 'admin5', '1234', 'Admin5', 'admin5@gmail.com', '관리자', '010-0000-0000', 'M', 0, 
+    (SELECT nvl(max(member_no),0)+1 from tb_member), 'admin5', '1234', 'Admin5', 'admin5@gmail.com', '관리자', '01000000000', 'M', 0, 
     0, 0, 0, 0, DEFAULT, DEFAULT, DEFAULT);
 
 INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_NAME,
     MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_HEIGHT, MEMBER_WEIGHT, MEMBER_PURPOSE, MEMBER_CONCERN, MEMBER_TRAINER, MEMBER_ABSENCE, MEMBER_JOIN_DATE) VALUES(
-    (SELECT nvl(max(member_no),0)+1 from tb_member), 'admin6', '1234', 'Admin6', 'admin6@gmail.com', '관리자', '010-0000-0000', 'M', 0, 
+    (SELECT nvl(max(member_no),0)+1 from tb_member), 'admin6', '1234', 'Admin6', 'admin6@gmail.com', '관리자', '01000000000', 'M', 0, 
     0, 0, 0, 0, DEFAULT, DEFAULT, DEFAULT);
 
 INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_NAME,
     MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_HEIGHT, MEMBER_WEIGHT, MEMBER_PURPOSE, MEMBER_CONCERN, MEMBER_TRAINER, MEMBER_ABSENCE, MEMBER_JOIN_DATE) VALUES(
-    (SELECT nvl(max(member_no),0)+1 from tb_member), 'admin7', '1234', 'Admin7', 'admin7@gmail.com', '관리자', '010-0000-0000', 'M', 0, 
+    (SELECT nvl(max(member_no),0)+1 from tb_member), 'admin7', '1234', 'Admin7', 'admin7@gmail.com', '관리자', '01000000000', 'M', 0, 
     0, 0, 0, 0, DEFAULT, DEFAULT, DEFAULT);
     
 INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_NAME,
     MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_HEIGHT, MEMBER_WEIGHT, MEMBER_PURPOSE, MEMBER_CONCERN, MEMBER_TRAINER, MEMBER_ABSENCE, MEMBER_JOIN_DATE) VALUES(
-    (SELECT nvl(max(member_no),0)+1 from tb_member), 'admin8', '1234', 'Admin8', 'admin8@gmail.com', '관리자', '010-0000-0000', 'M', 0, 
+    (SELECT nvl(max(member_no),0)+1 from tb_member), 'admin8', '1234', 'Admin8', 'admin8@gmail.com', '관리자', '01000000000', 'M', 0, 
     0, 0, 0, 0, DEFAULT, DEFAULT, DEFAULT);
 
 INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_NAME,
     MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_HEIGHT, MEMBER_WEIGHT, MEMBER_PURPOSE, MEMBER_CONCERN, MEMBER_TRAINER, MEMBER_ABSENCE, MEMBER_JOIN_DATE) VALUES(
-    (SELECT nvl(max(member_no),0)+1 from tb_member), 'admin9', '1234', 'Admin9', 'admin9@gmail.com', '관리자', '010-0000-0000', 'M', 0, 
+    (SELECT nvl(max(member_no),0)+1 from tb_member), 'admin9', '1234', 'Admin9', 'admin9@gmail.com', '관리자', '01000000000', 'M', 0, 
     0, 0, 0, 0, DEFAULT, DEFAULT, DEFAULT);
 
 INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_NAME,
     MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_HEIGHT, MEMBER_WEIGHT, MEMBER_PURPOSE, MEMBER_CONCERN, MEMBER_TRAINER, MEMBER_ABSENCE, MEMBER_JOIN_DATE) VALUES(
-    (SELECT nvl(max(member_no),0)+1 from tb_member), 'admin10', '1234', 'Admin10', 'admin10@gmail.com', '관리자', '010-0000-0000', 'M', 0, 
+    (SELECT nvl(max(member_no),0)+1 from tb_member), 'admin10', '1234', 'Admin10', 'admin10@gmail.com', '관리자', '01000000000', 'M', 0, 
     0, 0, 0, 0, DEFAULT, DEFAULT, DEFAULT);
 commit;
 INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_NAME,
     MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_HEIGHT, MEMBER_WEIGHT, MEMBER_PURPOSE, MEMBER_CONCERN, MEMBER_TRAINER, MEMBER_ABSENCE, MEMBER_JOIN_DATE) VALUES(
-    (SELECT nvl(max(member_no),0)+1 from tb_member), 'user1', '1234', '서유빈', 'user1@gmail.com', '서유빈', '010-0000-0000', 'F', 0, 
+    (SELECT nvl(max(member_no),0)+1 from tb_member), 'user1', '1234', '서유빈', 'user1@gmail.com', '서유빈', '01000000000', 'F', 0, 
     0, 0, 0, 0, DEFAULT, DEFAULT, DEFAULT);
     
 INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_NAME,
     MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_HEIGHT, MEMBER_WEIGHT, MEMBER_PURPOSE, MEMBER_CONCERN, MEMBER_TRAINER, MEMBER_ABSENCE, MEMBER_JOIN_DATE) VALUES(
-    (SELECT nvl(max(member_no),0)+1 from tb_member), 'user2', '1234', '민승택', 'user2@gmail.com', '민승택', '010-0000-0000', 'M', 0, 
+    (SELECT nvl(max(member_no),0)+1 from tb_member), 'user2', '1234', '민승택', 'user2@gmail.com', '민승택', '01000000000', 'M', 0, 
     0, 0, 0, 0, DEFAULT, DEFAULT, DEFAULT);    
     
 INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_NAME,
     MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_HEIGHT, MEMBER_WEIGHT, MEMBER_PURPOSE, MEMBER_CONCERN, MEMBER_TRAINER, MEMBER_ABSENCE, MEMBER_JOIN_DATE) VALUES(
-    (SELECT nvl(max(member_no),0)+1 from tb_member), 'user3', '1234', '이진정', 'user3@gmail.com', '이진정', '010-0000-0000', 'F', 0, 
+    (SELECT nvl(max(member_no),0)+1 from tb_member), 'user3', '1234', '이진정', 'user3@gmail.com', '이진정', '01000000000', 'F', 0, 
     0, 0, 0, 0, DEFAULT, DEFAULT, DEFAULT);
     
 INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_NAME,
     MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_HEIGHT, MEMBER_WEIGHT, MEMBER_PURPOSE, MEMBER_CONCERN, MEMBER_TRAINER, MEMBER_ABSENCE, MEMBER_JOIN_DATE) VALUES(
-    (SELECT nvl(max(member_no),0)+1 from tb_member), 'user4', '1234', '박재민', 'user4@gmail.com', '박재민', '010-0000-0000', 'M', 0, 
+    (SELECT nvl(max(member_no),0)+1 from tb_member), 'user4', '1234', '박재민', 'user4@gmail.com', '박재민', '01000000000', 'M', 0, 
     0, 0, 0, 0, DEFAULT, DEFAULT, DEFAULT);
 
 INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_NAME,
     MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_HEIGHT, MEMBER_WEIGHT, MEMBER_PURPOSE, MEMBER_CONCERN, MEMBER_TRAINER, MEMBER_ABSENCE, MEMBER_JOIN_DATE) VALUES(
-    (SELECT nvl(max(member_no),0)+1 from tb_member), 'user5', '1234', '유저5', 'user5@gmail.com', '아무개', '010-0000-0000', 'M', 0, 
+    (SELECT nvl(max(member_no),0)+1 from tb_member), 'user5', '1234', '유저5', 'user5@gmail.com', '아무개', '01000000000', 'M', 0, 
     0, 0, 0, 0, DEFAULT, DEFAULT, DEFAULT);  
     
 INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_NAME,
     MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_HEIGHT, MEMBER_WEIGHT, MEMBER_PURPOSE, MEMBER_CONCERN, MEMBER_TRAINER, MEMBER_ABSENCE, MEMBER_JOIN_DATE) VALUES(
-    (SELECT nvl(max(member_no),0)+1 from tb_member), 'user6', '1234', '유저6', 'user6@gmail.com', '아무개', '010-0000-0000', 'M', 0, 
+    (SELECT nvl(max(member_no),0)+1 from tb_member), 'user6', '1234', '유저6', 'user6@gmail.com', '아무개', '01000000000', 'M', 0, 
     0, 0, 0, 0, DEFAULT, DEFAULT, DEFAULT);     
 
 INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_NAME,
     MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_HEIGHT, MEMBER_WEIGHT, MEMBER_PURPOSE, MEMBER_CONCERN, MEMBER_TRAINER, MEMBER_ABSENCE, MEMBER_JOIN_DATE) VALUES(
-    (SELECT nvl(max(member_no),0)+1 from tb_member), 'user7', '1234', '유저7', 'user7@gmail.com', '아무개', '010-0000-0000', 'M', 0, 
+    (SELECT nvl(max(member_no),0)+1 from tb_member), 'user7', '1234', '유저7', 'user7@gmail.com', '아무개', '01000000000', 'M', 0, 
     0, 0, 0, 0, DEFAULT, DEFAULT, DEFAULT);  
     
 INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_NAME,
     MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_HEIGHT, MEMBER_WEIGHT, MEMBER_PURPOSE, MEMBER_CONCERN, MEMBER_TRAINER, MEMBER_ABSENCE, MEMBER_JOIN_DATE) VALUES(
-    (SELECT nvl(max(member_no),0)+1 from tb_member), 'user8', '1234', '유저8', 'user8@gmail.com', '아무개', '010-0000-0000', 'M', 0, 
+    (SELECT nvl(max(member_no),0)+1 from tb_member), 'user8', '1234', '유저8', 'user8@gmail.com', '아무개', '01000000000', 'M', 0, 
     0, 0, 0, 0, DEFAULT, DEFAULT, DEFAULT);  
 
 INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_NAME,
     MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_HEIGHT, MEMBER_WEIGHT, MEMBER_PURPOSE, MEMBER_CONCERN, MEMBER_TRAINER, MEMBER_ABSENCE, MEMBER_JOIN_DATE) VALUES(
-    (SELECT nvl(max(member_no),0)+1 from tb_member), 'user9', '1234', '유저9', 'user9@gmail.com', '아무개', '010-0000-0000', 'M', 0, 
+    (SELECT nvl(max(member_no),0)+1 from tb_member), 'user9', '1234', '유저9', 'user9@gmail.com', '아무개', '01000000000', 'M', 0, 
     0, 0, 0, 0, DEFAULT, DEFAULT, DEFAULT);  
     
 INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_NAME,
     MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_HEIGHT, MEMBER_WEIGHT, MEMBER_PURPOSE, MEMBER_CONCERN, MEMBER_TRAINER, MEMBER_ABSENCE, MEMBER_JOIN_DATE) VALUES(
-    (SELECT nvl(max(member_no),0)+1 from tb_member), 'user10', '1234', '유저10', 'user10@gmail.com', '아무개', '010-0000-0000', 'M', 0, 
+    (SELECT nvl(max(member_no),0)+1 from tb_member), 'user10', '1234', '유저10', 'user10@gmail.com', '아무개', '01000000000', 'M', 0, 
     0, 0, 0, 0, DEFAULT, DEFAULT, DEFAULT);  
 commit;    
 INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_NAME,
     MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_HEIGHT, MEMBER_WEIGHT, MEMBER_PURPOSE, MEMBER_CONCERN, MEMBER_TRAINER, MEMBER_ABSENCE, MEMBER_JOIN_DATE) VALUES(
-    (SELECT nvl(max(member_no),0)+1 from tb_member), 'trainer1', '1234', '트레이너1', 'trainer1@gmail.com', '아무개', '010-0000-0000', 'M', 0, 
+    (SELECT nvl(max(member_no),0)+1 from tb_member), 'trainer1', '1234', '트레이너1', 'trainer1@gmail.com', '아무개', '01000000000', 'M', 0, 
     0, 0, 0, 0, 'T', DEFAULT, DEFAULT);  
      
 INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_NAME,
     MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_HEIGHT, MEMBER_WEIGHT, MEMBER_PURPOSE, MEMBER_CONCERN, MEMBER_TRAINER, MEMBER_ABSENCE, MEMBER_JOIN_DATE) VALUES(
-    (SELECT nvl(max(member_no),0)+1 from tb_member), 'trainer2', '1234', '트레이너2', 'trainer2@gmail.com', '아무개', '010-0000-0000', 'M', 0, 
+    (SELECT nvl(max(member_no),0)+1 from tb_member), 'trainer2', '1234', '트레이너2', 'trainer2@gmail.com', '아무개', '01000000000', 'M', 0, 
     0, 0, 0, 0, 'T', DEFAULT, DEFAULT);  
 
 INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_NAME,
     MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_HEIGHT, MEMBER_WEIGHT, MEMBER_PURPOSE, MEMBER_CONCERN, MEMBER_TRAINER, MEMBER_ABSENCE, MEMBER_JOIN_DATE) VALUES(
-    (SELECT nvl(max(member_no),0)+1 from tb_member), 'trainer3', '1234', '트레이너3', 'trainer3@gmail.com', '아무개', '010-0000-0000', 'M', 0, 
+    (SELECT nvl(max(member_no),0)+1 from tb_member), 'trainer3', '1234', '트레이너3', 'trainer3@gmail.com', '아무개', '01000000000', 'M', 0, 
     0, 0, 0, 0, 'T', DEFAULT, DEFAULT);  
      
 INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_NAME,
     MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_HEIGHT, MEMBER_WEIGHT, MEMBER_PURPOSE, MEMBER_CONCERN, MEMBER_TRAINER, MEMBER_ABSENCE, MEMBER_JOIN_DATE) VALUES(
-    (SELECT nvl(max(member_no),0)+1 from tb_member), 'trainer4', '1234', '트레이너4', 'trainer4@gmail.com', '아무개', '010-0000-0000', 'M', 0, 
+    (SELECT nvl(max(member_no),0)+1 from tb_member), 'trainer4', '1234', '트레이너4', 'trainer4@gmail.com', '아무개', '01000000000', 'M', 0, 
     0, 0, 0, 0, 'T', DEFAULT, DEFAULT);
 
 INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_NAME,
     MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_HEIGHT, MEMBER_WEIGHT, MEMBER_PURPOSE, MEMBER_CONCERN, MEMBER_TRAINER, MEMBER_ABSENCE, MEMBER_JOIN_DATE) VALUES(
-    (SELECT nvl(max(member_no),0)+1 from tb_member), 'trainer5', '1234', '트레이너5', 'trainer5@gmail.com', '아무개', '010-0000-0000', 'M', 0, 
+    (SELECT nvl(max(member_no),0)+1 from tb_member), 'trainer5', '1234', '트레이너5', 'trainer5@gmail.com', '아무개', '01000000000', 'M', 0, 
     0, 0, 0, 0, 'T', DEFAULT, DEFAULT);  
      
 INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_NAME,
     MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_HEIGHT, MEMBER_WEIGHT, MEMBER_PURPOSE, MEMBER_CONCERN, MEMBER_TRAINER, MEMBER_ABSENCE, MEMBER_JOIN_DATE) VALUES(
-    (SELECT nvl(max(member_no),0)+1 from tb_member), 'trainer6', '1234', '트레이너6', 'trainer6@gmail.com', '아무개', '010-0000-0000', 'M', 0, 
+    (SELECT nvl(max(member_no),0)+1 from tb_member), 'trainer6', '1234', '트레이너6', 'trainer6@gmail.com', '아무개', '01000000000', 'M', 0, 
     0, 0, 0, 0, 'T', DEFAULT, DEFAULT);  
 
 INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_NAME,
     MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_HEIGHT, MEMBER_WEIGHT, MEMBER_PURPOSE, MEMBER_CONCERN, MEMBER_TRAINER, MEMBER_ABSENCE, MEMBER_JOIN_DATE) VALUES(
-    (SELECT nvl(max(member_no),0)+1 from tb_member), 'trainer7', '1234', '트레이너7', 'trainer7@gmail.com', '아무개', '010-0000-0000', 'M', 0, 
+    (SELECT nvl(max(member_no),0)+1 from tb_member), 'trainer7', '1234', '트레이너7', 'trainer7@gmail.com', '아무개', '01000000000', 'M', 0, 
     0, 0, 0, 0, 'T', DEFAULT, DEFAULT);  
      
 INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_NAME,
     MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_HEIGHT, MEMBER_WEIGHT, MEMBER_PURPOSE, MEMBER_CONCERN, MEMBER_TRAINER, MEMBER_ABSENCE, MEMBER_JOIN_DATE) VALUES(
-    (SELECT nvl(max(member_no),0)+1 from tb_member), 'trainer8', '1234', '트레이너8', 'trainer8@gmail.com', '아무개', '010-0000-0000', 'M', 0, 
+    (SELECT nvl(max(member_no),0)+1 from tb_member), 'trainer8', '1234', '트레이너8', 'trainer8@gmail.com', '아무개', '01000000000', 'M', 0, 
     0, 0, 0, 0, 'T', DEFAULT, DEFAULT);
 
 INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_NAME,
     MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_HEIGHT, MEMBER_WEIGHT, MEMBER_PURPOSE, MEMBER_CONCERN, MEMBER_TRAINER, MEMBER_ABSENCE, MEMBER_JOIN_DATE) VALUES(
-    (SELECT nvl(max(member_no),0)+1 from tb_member), 'trainer9', '1234', '트레이너9', 'trainer9@gmail.com', '아무개', '010-0000-0000', 'M', 0, 
+    (SELECT nvl(max(member_no),0)+1 from tb_member), 'trainer9', '1234', '트레이너9', 'trainer9@gmail.com', '아무개', '01000000000', 'M', 0, 
     0, 0, 0, 0, 'T', DEFAULT, DEFAULT);  
      
 INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_NAME,
     MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_HEIGHT, MEMBER_WEIGHT, MEMBER_PURPOSE, MEMBER_CONCERN, MEMBER_TRAINER, MEMBER_ABSENCE, MEMBER_JOIN_DATE) VALUES(
-    (SELECT nvl(max(member_no),0)+1 from tb_member), 'trainer10', '1234', '트레이너10', 'trainer10@gmail.com', '아무개', '010-0000-0000', 'M', 0, 
+    (SELECT nvl(max(member_no),0)+1 from tb_member), 'trainer10', '1234', '트레이너10', 'trainer10@gmail.com', '아무개', '01000000000', 'M', 0, 
     0, 0, 0, 0, 'T', DEFAULT, DEFAULT);
 commit;
 INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_NAME,
@@ -177,42 +177,42 @@ INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, M
      
 INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_NAME,
     MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_HEIGHT, MEMBER_WEIGHT, MEMBER_PURPOSE, MEMBER_CONCERN, MEMBER_TRAINER, MEMBER_ABSENCE, MEMBER_JOIN_DATE) VALUES(
-    (SELECT nvl(max(member_no),0)+1 from tb_member), 'trainerR4', '1234', '트레이너R4', 'trainerR4@gmail.com', '아무개', '010-0000-0000', 'M', 0, 
+    (SELECT nvl(max(member_no),0)+1 from tb_member), 'trainerR4', '1234', '트레이너R4', 'trainerR4@gmail.com', '아무개', '01000000000', 'M', 0, 
     0, 0, 0, 0, 'R', DEFAULT, DEFAULT);
 
 INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_NAME,
     MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_HEIGHT, MEMBER_WEIGHT, MEMBER_PURPOSE, MEMBER_CONCERN, MEMBER_TRAINER, MEMBER_ABSENCE, MEMBER_JOIN_DATE) VALUES(
-    (SELECT nvl(max(member_no),0)+1 from tb_member), 'trainerR5', '1234', '트레이너R5', 'trainerR5@gmail.com', '아무개', '010-0000-0000', 'M', 0, 
+    (SELECT nvl(max(member_no),0)+1 from tb_member), 'trainerR5', '1234', '트레이너R5', 'trainerR5@gmail.com', '아무개', '01000000000', 'M', 0, 
     0, 0, 0, 0, 'R', DEFAULT, DEFAULT);  
      
 INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_NAME,
     MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_HEIGHT, MEMBER_WEIGHT, MEMBER_PURPOSE, MEMBER_CONCERN, MEMBER_TRAINER, MEMBER_ABSENCE, MEMBER_JOIN_DATE) VALUES(
-    (SELECT nvl(max(member_no),0)+1 from tb_member), 'trainerR6', '1234', '트레이너R6', 'trainerR6@gmail.com', '아무개', '010-0000-0000', 'M', 0, 
+    (SELECT nvl(max(member_no),0)+1 from tb_member), 'trainerR6', '1234', '트레이너R6', 'trainerR6@gmail.com', '아무개', '01000000000', 'M', 0, 
     0, 0, 0, 0, 'R', DEFAULT, DEFAULT);  
 
 INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_NAME,
     MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_HEIGHT, MEMBER_WEIGHT, MEMBER_PURPOSE, MEMBER_CONCERN, MEMBER_TRAINER, MEMBER_ABSENCE, MEMBER_JOIN_DATE) VALUES(
-    (SELECT nvl(max(member_no),0)+1 from tb_member), 'trainerR7', '1234', '트레이너R7', 'trainerR7@gmail.com', '아무개', '010-0000-0000', 'M', 0, 
+    (SELECT nvl(max(member_no),0)+1 from tb_member), 'trainerR7', '1234', '트레이너R7', 'trainerR7@gmail.com', '아무개', '01000000000', 'M', 0, 
     0, 0, 0, 0, 'R', DEFAULT, DEFAULT);  
      
 INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_NAME,
     MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_HEIGHT, MEMBER_WEIGHT, MEMBER_PURPOSE, MEMBER_CONCERN, MEMBER_TRAINER, MEMBER_ABSENCE, MEMBER_JOIN_DATE) VALUES(
-    (SELECT nvl(max(member_no),0)+1 from tb_member), 'trainerR8', '1234', '트레이너R8', 'trainerR8@gmail.com', '아무개', '010-0000-0000', 'M', 0, 
+    (SELECT nvl(max(member_no),0)+1 from tb_member), 'trainerR8', '1234', '트레이너R8', 'trainerR8@gmail.com', '아무개', '01000000000', 'M', 0, 
     0, 0, 0, 0, 'R', DEFAULT, DEFAULT);
 
 INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_NAME,
     MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_HEIGHT, MEMBER_WEIGHT, MEMBER_PURPOSE, MEMBER_CONCERN, MEMBER_TRAINER, MEMBER_ABSENCE, MEMBER_JOIN_DATE) VALUES(
-    (SELECT nvl(max(member_no),0)+1 from tb_member), 'trainerR9', '1234', '트레이너R9', 'trainerR9@gmail.com', '아무개', '010-0000-0000', 'M', 0, 
+    (SELECT nvl(max(member_no),0)+1 from tb_member), 'trainerR9', '1234', '트레이너R9', 'trainerR9@gmail.com', '아무개', '01000000000', 'M', 0, 
     0, 0, 0, 0, 'R', DEFAULT, DEFAULT);  
      
 INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_NAME,
     MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_HEIGHT, MEMBER_WEIGHT, MEMBER_PURPOSE, MEMBER_CONCERN, MEMBER_TRAINER, MEMBER_ABSENCE, MEMBER_JOIN_DATE) VALUES(
-    (SELECT nvl(max(member_no),0)+1 from tb_member), 'trainerR10', '1234', '트레이너R10', 'trainerR10@gmail.com', '아무개', '010-0000-0000', 'M', 0, 
+    (SELECT nvl(max(member_no),0)+1 from tb_member), 'trainerR10', '1234', '트레이너R10', 'trainerR10@gmail.com', '아무개', '01000000000', 'M', 0, 
     0, 0, 0, 0, 'R', DEFAULT, DEFAULT);
 
 INSERT INTO TB_MEMBER (MEMBER_NO, MEMBER_ID, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_NAME,
     MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_HEIGHT, MEMBER_WEIGHT, MEMBER_PURPOSE, MEMBER_CONCERN, MEMBER_TRAINER, MEMBER_ABSENCE, MEMBER_JOIN_DATE) VALUES(
-    (SELECT nvl(max(member_no),0)+1 from tb_member), '테스트', '1234', '테스트', '7uckydog@gmail.com' ,'테스트', '010-0000-0000', '여자', 10, 
+    (SELECT nvl(max(member_no),0)+1 from tb_member), '테스트', '1234', '테스트', '7uckydog@gmail.com' ,'테스트', '01000000000', '여자', 10, 
     11, 12, 1, 2, 'R', DEFAULT, DEFAULT);
 
 commit;

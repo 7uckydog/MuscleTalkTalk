@@ -13,15 +13,17 @@ public class TrainerVo {
 	private int sumPrice;
 	private String trainerConfirm;
 	private int rownum;
+	private int ptNo;
+	
 	@Override
 	public String toString() {
 		return "TrainerVo [trainerNo=" + trainerNo + ", trainerFile=" + trainerFile + ", gymName=" + gymName
 				+ ", gymLocation=" + gymLocation + ", memberNickname=" + memberNickname + ", memberJoinDate="
 				+ memberJoinDate + ", sumPrice=" + sumPrice + ", trainerConfirm=" + trainerConfirm + ", rownum="
-				+ rownum + "]";
+				+ rownum + ", ptNo=" + ptNo + "]";
 	}
 	public TrainerVo(int trainerNo, String trainerFile, String gymName, String gymLocation, String memberNickname,
-			Date memberJoinDate, int sumPrice, String trainerConfirm, int rownum) {
+			Date memberJoinDate, int sumPrice, String trainerConfirm, int rownum, int ptNo) {
 		super();
 		this.trainerNo = trainerNo;
 		this.trainerFile = trainerFile;
@@ -32,6 +34,7 @@ public class TrainerVo {
 		this.sumPrice = sumPrice;
 		this.trainerConfirm = trainerConfirm;
 		this.rownum = rownum;
+		this.ptNo = ptNo;
 	}
 	public TrainerVo() {
 		super();
@@ -90,6 +93,11 @@ public class TrainerVo {
 	public void setRownum(int rownum) {
 		this.rownum = rownum;
 	}
-
+	public int getPtNo() {
+		return ptNo;
+	}
+	public void setPtNo(int ptNo) {
+		this.ptNo = ptNo;
+	}
 	
 }

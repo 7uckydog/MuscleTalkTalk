@@ -103,5 +103,28 @@ public class ReservationDao {
 		return result;
 	}
 	
+	//회원 탈퇴용 예약 취소
+		public int cancelReservation2(Connection conn, int memberNo) {
+			int result = -1;
+			String sql = "update tb_pt_calendar set pt_calendar_reservation_state = 'F', member_no = null where member_no = ?";
+			String sql2 = "delete from tb_payment where member_no = ?";
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, memberNo);
+				result = pstmt.executeUpdate();
+				System.out.println("sql1: " + result);
+				close(pstmt);
+				
+				pstmt = conn.prepareStatement(sql2);
+				pstmt.setInt(1, memberNo);
+				result = pstmt.executeUpdate();
+				System.out.println("sql2: " + result);
+			} catch(Exception e){
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			return result;
+		}
 	
 }

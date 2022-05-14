@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kh.semi.mtt.member.model.vo.MemberVo;
+
 /**
  * Servlet implementation class MemberWithdrawalController
  */
@@ -26,6 +28,7 @@ public class MemberWithdrawalController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		MemberVo ssMvo = (MemberVo)request.getSession().getAttribute("ssMvo");
 		request.getRequestDispatcher("WEB-INF/view/testsyb/mypage_withdrawal.jsp").forward(request, response);
 	}
 

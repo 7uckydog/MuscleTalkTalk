@@ -48,6 +48,21 @@ public class MemberDao {
 				retVo.setTrainerFile(rs.getString("trainer_file"));
 				retVo.setGymName(rs.getString("gym_name"));
 				retVo.setGymLocation(rs.getString("gym_location"));
+				retVo.setTrainerEtr(rs.getString("trainer_etr"));
+				
+				String sql2 = "select max(c.pt_calendar_start_time) max"
+						+ "    from tb_trainer t inner join tb_pt p on t.trainer_no = p.trainer_no"
+						+ "    inner join tb_pt_calendar c on p.pt_no = c.pt_no"
+						+ "    where pt_calendar_reservation_state = 'T' and trainer_etr ='I' and t.trainer_no = ?"
+						+ "    group by t.trainer_no";
+				pstmt = conn.prepareStatement(sql2);
+				pstmt.setInt(1, retVo.getTrainerNo());
+				rs = pstmt.executeQuery();
+				if(rs!=null) {
+					if(rs.next()) {
+						retVo.setWithdrawalDate(rs.getTimestamp("max"));
+					}
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -178,7 +193,23 @@ public class MemberDao {
 					retVo.setTrainerFile(rs.getString("trainer_file"));
 					retVo.setGymName(rs.getString("gym_name"));
 					retVo.setGymLocation(rs.getString("gym_location"));
-					
+					retVo.setTrainerEtr(rs.getString("trainer_etr"));
+					System.out.println("우하하하하ㅏ하ㅏ" + retVo.getTrainerNo());
+				}
+			}
+			close(rs);
+			close(pstmt);
+			String sql2 = "select max(c.pt_calendar_start_time) max"
+					+ "    from tb_trainer t inner join tb_pt p on t.trainer_no = p.trainer_no"
+					+ "    inner join tb_pt_calendar c on p.pt_no = c.pt_no"
+					+ "    where pt_calendar_reservation_state = 'T' and trainer_etr ='I' and t.trainer_no = ?"
+					+ "    group by t.trainer_no";
+			pstmt = conn.prepareStatement(sql2);
+			pstmt.setInt(1, retVo.getTrainerNo());
+			rs = pstmt.executeQuery();
+			if(rs!=null) {
+				if(rs.next()) {
+					retVo.setWithdrawalDate(rs.getTimestamp("max"));
 				}
 			}
 		} 

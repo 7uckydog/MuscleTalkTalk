@@ -1,6 +1,7 @@
 package kh.semi.mtt.member.model.vo;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class MemberVo {
 	private int memberNo;
@@ -28,6 +29,11 @@ public class MemberVo {
 	private String gymName;
 	private String gymLocation;
 	private String trainerConfirm;
+	private String trainerEtr;
+	private Timestamp withdrawalDate;
+	
+	
+	
 	@Override
 	public String toString() {
 		return "MemberVo [memberNo=" + memberNo + ", memberId=" + memberId + ", memberPassword=" + memberPassword
@@ -38,13 +44,16 @@ public class MemberVo {
 				+ ", memberTrainer=" + memberTrainer + ", memberAbsence=" + memberAbsence + ", memberJoinDate="
 				+ memberJoinDate + ", memberLeaveDate=" + memberLeaveDate + ", memberNickname=" + memberNickname
 				+ ", trainerNo=" + trainerNo + ", trainerFile=" + trainerFile + ", gymName=" + gymName
-				+ ", gymLocation=" + gymLocation + ", trainerConfirm=" + trainerConfirm + "]";
+				+ ", gymLocation=" + gymLocation + ", trainerConfirm=" + trainerConfirm + ", trainerEtr=" + trainerEtr
+				+ ", withdrawalDate=" + withdrawalDate + "]";
 	}
+	
 	public MemberVo(int memberNo, String memberId, String memberPassword, String memberEmail, String memberName,
 			String memberPhone, String memberGender, int memberAge, int memberHeight, int memberWeight,
 			int memberPurpose, int memberConcern, String memberPhoto, String memberPhotoName, String memberTrainer,
 			String memberAbsence, Date memberJoinDate, Date memberLeaveDate, String memberNickname, int trainerNo,
-			String trainerFile, String gymName, String gymLocation, String trainerConfirm) {
+			String trainerFile, String gymName, String gymLocation, String trainerConfirm, String trainerEtr,
+			Timestamp withdrawalDate) {
 		super();
 		this.memberNo = memberNo;
 		this.memberId = memberId;
@@ -70,7 +79,10 @@ public class MemberVo {
 		this.gymName = gymName;
 		this.gymLocation = gymLocation;
 		this.trainerConfirm = trainerConfirm;
+		this.trainerEtr = trainerEtr;
+		this.withdrawalDate = withdrawalDate;
 	}
+
 	public MemberVo() {
 		super();
 	}
@@ -218,5 +230,20 @@ public class MemberVo {
 	public void setTrainerConfirm(String trainerConfirm) {
 		this.trainerConfirm = trainerConfirm;
 	}
+	public String getTrainerEtr() {
+		return trainerEtr;
+	}
+	public void setTrainerEtr(String trainerEtr) {
+		this.trainerEtr = trainerEtr;
+	}
 
+	public Timestamp getWithdrawalDate() {
+		return withdrawalDate;
+	}
+
+	public void setWithdrawalDate(Timestamp withdrawalDate) {
+		this.withdrawalDate = withdrawalDate;
+	}
+	
+	
 }

@@ -409,6 +409,7 @@
                      },
                      error: function(request, status, error){
                         console.log(error);
+                        alert("올바른 정보를 입력해주세요.");
                         location.href="findpwd";
                         return;
                      }

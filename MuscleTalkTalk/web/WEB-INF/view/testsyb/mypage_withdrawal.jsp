@@ -79,6 +79,9 @@
         #withdrawal{
         	text-decoration: underline;
         }
+        .t_noti{
+        	color: #B70000;
+        }
 </style>
 </head>
 <body>
@@ -86,13 +89,14 @@
 	<jsp:forward page="/WEB-INF/view/member/login.jsp"></jsp:forward>
 </c:if>
 <%@ include file="/WEB-INF/view/template.jsp"%>
-	<section id="section1">
-            <div id="mp_main_text">
+		<section id="section1">
+	<c:if test="${ssMvo.memberTrainer == 'F'}">
+		<div id="mp_main_text">
                 <p>회원탈퇴
                 </p>
                 <p style="height: 20px;"></p>
-            </div>
-            <div id="member_info_read">
+        </div>
+        <div id="member_info_read">
                 <p id="wd_noti">
                     회원 탈퇴 시, 정보가 초기화 되며 모든 데이트가 복구할 수 없는 형태로 파기됩니다.
                     <br>
@@ -103,7 +107,69 @@
                     <input type="button" id="pwd_see" value="보기">
                 </div>
                 <input type="button" id="wd_btn" value="탈퇴하기">
-            </div>
+        </div>        
+    </c:if>
+    <c:if test="${ssMvo.memberTrainer == 'R'}">
+    	<div id="mp_main_text">
+                <p>회원탈퇴
+                </p>
+                <p style="height: 20px;"></p>
+        </div>
+        <div id="member_info_read">
+                <p id="wd_noti">
+                    회원 탈퇴 시, 정보가 초기화 되며 모든 데이트가 복구할 수 없는 형태로 파기됩니다.
+                    <br>
+                    신중하게 결정 후 회원 탈퇴를 진행해 주세요.
+                </p>
+                <div id="pwd">
+                    <input type="password" id="member_password_org" placeholder="비밀번호 입력" required>
+                    <input type="button" id="pwd_see" value="보기">
+                </div>
+                <input type="button" id="wd_btn" value="탈퇴하기">
+        </div>
+    </c:if>
+    <c:if test="${ssMvo.memberTrainer == 'T'}">
+    	<div id="mp_main_text">
+                <p>트레이너 탈퇴
+                </p>
+                <p style="height: 20px;"></p>
+        </div>
+        <c:if test="${empty ssMvo.trainerEtr}">
+	        <div id="member_info_read">
+	                <p id="wd_noti">
+	                    트레이너 탈퇴 시, 정보가 초기화 되며 모든 데이트가 복구할 수 없는 형태로 파기됩니다.
+	                    <br>
+	                    신중하게 결정 후 회원 탈퇴를 진행해 주세요.
+	                    <br>
+	                    <br>
+	                    <a class="t_noti">* 예약 중인 프로그램이 있다면, 마지막 예약일을 기준으로 자동 탈퇴 예약이 진행되며 </a>
+	                    <br>
+	                    <a class="t_noti">탈퇴 예약 이후에는 등록된 모든 프로그램이 삭제되어 추가 예약 진행이 불가합니다.</a>
+	                    <br>
+	                </p>
+	                <div id="pwd">
+	                    <input type="password" id="member_password_org" placeholder="비밀번호 입력" required>
+	                    <input type="button" id="pwd_see" value="보기">
+	                </div>
+	                <input type="button" id="wd_btn" value="탈퇴하기">
+	        </div>
+	    </c:if>
+	    <c:if test="${ssMvo.trainerEtr == 'I' }">
+	        <div id="member_info_read">
+	                <p id="wd_noti">
+	                    트레이너 탈퇴가 예약된 상태입니다.
+	                    <br>
+	                    프로그램의 마지막 예약일에 트레이너 탈퇴가 자동 진행됩니다.
+	                    <br>
+	                    <br>
+	                    <a class="t_noti">탈퇴 예정일:</a>
+	                    <br>
+	                    <a class="t_noti" style="margin-bottom: 100px";>${ssMvo.withdrawalDate}</a>
+	                    <br>
+	                </p>
+	        </div>
+	    </c:if>      
+    </c:if>
             <%@ include file="/WEB-INF/view/footer.jsp"%>
         </section>
         <section id="section2">
@@ -148,7 +214,8 @@
                     </li>
                     
                     <li id="inquiry">1:1 문의</li>
-                    <li id="secession">탈퇴하기</li>
+                    <li id="withdrawal">탈퇴하기</li>
+
                 </ul>
             </div>
         </section>
@@ -178,19 +245,28 @@
 				return;
 			}
 			
-			var msg = confirm ("한 번 회원 탈퇴가 진행되면 되돌릴 수 없습니다. 정말 탈퇴하시겠습니까?");
+			var msg = confirm ("한 번 탈퇴가 진행되면 되돌릴 수 없습니다. 정말 탈퇴하시겠습니까?");
 			if(msg){
 				$.ajax({
 					url:"memberwithdrawal.ax",
 					type: "post",
+					dataType: "json",
 					data: {memberPassword: $("#member_password_org").val()},
 					success: function(result){
+						console.log("으악으악");
 						if(result == 1){
+							console.log("탈퇴 성공");
 							alert("회원 탈퇴가 완료되었습니다. 머슬톡톡을 이용해주셔 감사합니다.");
 							location.href="logout";
 						} else if (result == 0){
-							alert("회원 탈퇴에 실패했습니다. 탈퇴를 다시 진행해주세요.");
+							alert("탈퇴에 실패했습니다. 탈퇴를 다시 진행해주세요.");
 							location.href="memberwithdrawalcontroller";
+						} else if (result == 2){
+							alert("예약 진행 중인 프로그램이 존재하여 탈퇴 예약이 진행되었습니다. 프로그램 진행 종료 후 자동 탈퇴됩니다. 머슬톡톡을 이용해주셔 감사합니다.");
+							location.href="membermypage";
+						} else if (result == 3){
+							alert("트레이너 탈퇴가 완료되었습니다. 머슬톡톡을 이용해주셔 감사합니다.")
+							location.href="logout";
 						}
 					},
 					error: function(result){
