@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Map;
 
+import javax.print.DocFlavor.STRING;
+
 import static kh.semi.mtt.common.jdbc.JdbcTemplate.*;
 
 import kh.semi.mtt.member.model.vo.MemberVo;
@@ -40,10 +42,42 @@ public class RoutineService {
 		
 	}
 	
+	public Map<String, Object> myRoutinePlan(MemberVo mvo){
+		
+		Connection conn = null;
+		conn = getConnection();
+		
+		Map<String, Object> result = dao.myRoutinePlan(conn, mvo);
+		close(conn);
+		
+		return result;
+		
+		
+		
+	}
+	
+	
 	public int MyRoutineDelete(RoutineVo rvo) {
 		Connection conn = null;
 		conn = getConnection();
 		int result = dao.MyRoutineDelete(conn, rvo);
+		close(conn);
+		return result;
+		
+		
+	}
+	
+	public int routinePlan(ArrayList<Integer> routineExerciseNoList, ArrayList<String> routineExerciseDDayList) {
+		Connection conn = null;
+		conn = getConnection();
+		setAutocommit(conn, false);
+		
+		int result = dao.routinePlan(conn, routineExerciseNoList, routineExerciseDDayList);
+		if(result != 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
 		close(conn);
 		return result;
 		

@@ -45,6 +45,10 @@
 							<p class="option_title font_12px font_THEmpgtM font_color_rgb">PT 예약(트레이너용)</p>
 						</div>
 					</c:if>
+					<div class="option_wrap">
+						<i class="fa-solid fa-check font_20px option_check" chk="false"></i>
+						<p class="option_title font_12px font_THEmpgtM font_color_rgb">루틴</p>
+					</div>
 				</div>
 				<div id="calendar">
 				</div>
@@ -107,7 +111,64 @@
 			reservEventSourceTrainer.push(vo);
 		}
 	</c:if>
+	
+	
+	
+	var rvolistInput = [];
+	var revolistInput = [];
+	var evolistInput = [];
+	<c:forEach var="vo" items="${rvolist}">
+		var vo = {
+			routineNo : ${vo.routineNo},
+			memberNo : ${vo.memberNo},
+			routineName : '${vo.routineName}',
+			routineTarget : '${vo.routineTarget}'
+		};
+		rvolistInput.push(vo);
+	</c:forEach>
+	
+	<c:forEach var="vo" items="${revolist}">
+		var vo = {
+			routineExerciseNo : ${vo.routineExerciseNo},
+			exerciseNo : ${vo.exerciseNo},
+			routineNo : ${vo.routineNo},
+			routineExerciseDay : ${vo.routineExerciseDay},
+			routineWeek : ${vo.routineWeek},
+			routineExerciseSet : ${vo.routineExerciseSet},
+			routineExerciseRepeat : ${vo.routineExerciseRepeat},
+			routineExerciseWeight : ${vo.routineExerciseWeight},
+			routineExerciseDDay : new Date('${vo.routineExerciseDDay}'),
+		};
+		revolistInput.push(vo);
+	</c:forEach>
+	<c:forEach var="vo" items="${evolist}">
+		var vo = {
+			exerciseNo : ${vo.exerciseNo},
+			exerciseName : '${vo.exerciseName}',
+			exercisePart : '${vo.exercisePart}'
+		};
+		evolistInput.push(vo);
+	</c:forEach>
+	console.log(rvolistInput);
+	console.log(revolistInput);
+	console.log(evolistInput);
 	var routineEventSource = [];
+	for(var i = 0; i < rvolistInput.length; i++) {
+		if(i != 0) {
+			if(getFormatDate(revolistInput[i-1].routineExerciseDDay) == getFormatDate(revolistInput[i].routineExerciseDDay)) {
+				continue;
+			}
+		}
+		var temp = 'routineNo-'+revolistInput[i].routineNo;
+		var temp2 = 'routineExerciseNo-'+revolistInput[i].routineExerciseNo;
+		var vo = {
+			title: rvolistInput[i].routineName,
+			color: '#42B36A',
+			start: getFormatDate(revolistInput[i].routineExerciseDDay),
+			className : ["event_routine", temp, temp2]
+		}
+		routineEventSource.push(vo);
+	}
     var routineList;
     var revoList;
     var evoList;
@@ -155,6 +216,13 @@
 										$(".routine_import_btn").off('click');
 										$(".routine_import_btn").on('click', function() {
 											$('#hidden_routineNo').val($(this).next().val());
+											for(var i = 0; i < rvolistInput.length; i++) {
+												if(rvolistInput[i].routineNo == $('#hidden_routineNo').val()) {
+													alert("이미 등록된 루틴입니다.");
+													closeModal();
+													return;
+												}
+											}
 											closeModal();
 											routineWeekSelect();
 										});
@@ -275,6 +343,13 @@
 						ptDeleteTrainer();
 					}
 				}
+				if($(this).next().text() == '루틴') {
+					if($(this).attr('chk') == 'true') {
+						routineAdd();
+					} else if ($(this).attr('chk') == 'false') {
+						routineDelete();
+					}
+				}
 				
 			});
 			
@@ -309,7 +384,7 @@
 			});
 		}
 		
-		function ptDeleteTrainer() {
+		function routineDelete() {
 			calendar.getEventSourceById('routine').remove();
 		}
 		
@@ -567,39 +642,83 @@
 				console.log(revoListTemp);
 				console.log(evoListTemp);
 				var startIndexTemp = 0;
+				var sendroutineExerciseNo = [];
+				var sendroutineExerciseDDay = [];
 				for(var i = 0; i < routineListTemp.length; i++) {
+					sendroutineExerciseNo.push(revoListTemp[i].routineExerciseNo);
+					var startDateTemp2 = new Date(startDateTemp.getFullYear(), startDateTemp.getMonth(), startDateTemp.getDate());
+					if(revoListTemp[i].routineExerciseDay != 7) {
+						startDateTemp2.setDate(startDateTemp.getDate() + ((revoListTemp[i].routineWeek-1)*7) + (revoListTemp[i].routineExerciseDay));			
+					} else {
+						startDateTemp2.setDate(startDateTemp.getDate() + ((revoListTemp[i].routineWeek-1)*7));
+					}
+					sendroutineExerciseDDay.push(getFormatDate(startDateTemp2));
 					if(startIndexTemp == ((revoListTemp[i].routineWeek-1)*7) + (revoListTemp[i].routineExerciseDay)) {
 						continue;
 					} else {
 						startIndexTemp = ((revoListTemp[i].routineWeek-1)*7) + (revoListTemp[i].routineExerciseDay);
 					}
-					var startDateTemp2 = new Date(startDateTemp.getFullYear(), startDateTemp.getMonth(), startDateTemp.getDate());
-					console.log(startDateTemp2);
-					if(revoListTemp[i].routineExerciseDay != 7) {
-						console.log("upper");
-						console.log(((revoListTemp[i].routineWeek-1)*7) + (revoListTemp[i].routineExerciseDay));
-						startDateTemp2.setDate(startDateTemp.getDate() + ((revoListTemp[i].routineWeek-1)*7) + (revoListTemp[i].routineExerciseDay));			
-					} else {
-						console.log("lower");
-						console.log(((revoListTemp[i].routineWeek-1)*7));
-						startDateTemp2.setDate(startDateTemp.getDate() + ((revoListTemp[i].routineWeek-1)*7));
-					}
-					console.log(startDateTemp2);
 					var temp = 'routineNo-'+revoListTemp[i].routineNo;
+					var temp2 = 'routineExerciseNo-'+revoListTemp[i].routineExerciseNo;
 					var vo = {
 						title: routineListTemp[i].routineName,
 						color: '#42B36A',
 						start: getFormatDate(startDateTemp2),
-						className : ["event_routine", temp]
+						className : ["event_routine", temp, temp2]
 					}
 					routineEventSource.push(vo);
 				}
-				console.log(routineEventSource);
+				console.log("test22");
+				console.log(sendroutineExerciseNo);
+				console.log(sendroutineExerciseDDay);
+				console.log("test22");
+				$.ajax({
+					url : 'routineplan.ax',
+					type : 'post',
+					traditional : true,
+					data : {
+						sendroutineExerciseNo : sendroutineExerciseNo,
+						sendroutineExerciseDDay : sendroutineExerciseDDay
+					},
+					success : function(result) {
+						console.log(result);
+					},
+					error : function(request, status, error) {
+						console.log(request);
+						console.log(status);
+						console.log(error);
+					}
+				});
+				
 				routineAdd();
-				//getFormatDate
-				/* $('.fc-daygrid-day').off('mouseenter');
+				
+				$('.fc-daygrid-day').off('mouseenter');
 				$('.fc-daygrid-day').off('mouseleave');
-				$('.fc-daygrid-day').off('click'); */
+				$('.fc-daygrid-day').off('click');
+				
+				$(this).css("backgroundColor", "white");
+				var dateTempCurrent = new Date($(this).attr('data-date'));
+				while(dateTempCurrent.getDay() != 0) {
+					dateTempCurrent.setDate(dateTempCurrent.getDate() - 1);
+					$('.fc-daygrid-day[data-date='+ getFormatDate(dateTempCurrent) +']').css("backgroundColor",'white');
+				}
+				dateTempCurrent = new Date($(this).attr('data-date'));
+				while(dateTempCurrent.getDay() != 6) {
+					dateTempCurrent.setDate(dateTempCurrent.getDate() + 1);
+					$('.fc-daygrid-day[data-date='+ getFormatDate(dateTempCurrent) +']').css("backgroundColor",'white');
+				}
+				$('.fc-day-today').css("backgroundColor","rgba(255,220,40,.15)");
+				
+				for(var i = 0; i < $('.option_check').length; i++) {
+					if($('.option_check').eq(i).next().text() == '루틴') {
+						$('.option_check').eq(i).attr('chk','true');
+						$('.option_check').eq(i).css({
+							border : '2px solid rgba(75, 77, 178, 1)',
+							backgroundColor : 'rgba(75, 77, 178, 1)'
+						});
+					}
+				}
+				
 			});
 		};
     </script>

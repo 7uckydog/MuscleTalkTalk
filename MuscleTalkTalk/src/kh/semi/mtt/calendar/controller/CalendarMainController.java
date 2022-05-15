@@ -2,6 +2,7 @@ package kh.semi.mtt.calendar.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import kh.semi.mtt.member.model.vo.MemberVo;
 import kh.semi.mtt.ptcalendar.model.service.PtCalendarService;
 import kh.semi.mtt.ptcalendar.model.vo.PtCalendarVo;
+import kh.semi.mtt.routine.model.service.RoutineService;
 
 /**
  * Servlet implementation class CalendarMainController
@@ -49,6 +51,11 @@ public class CalendarMainController extends HttpServlet {
 		ArrayList<PtCalendarVo> ptCalList = new PtCalendarService().readMyReservation(mvo.getMemberNo());
 		
 		request.setAttribute("ptCalList", ptCalList);
+		
+		Map<String, Object> result = new RoutineService().myRoutinePlan(mvo);
+		request.setAttribute("rvolist",result.get("rvolist"));
+		request.setAttribute("revolist",result.get("revolist"));
+		request.setAttribute("evolist",result.get("evolist"));
 		
 		request.getRequestDispatcher("WEB-INF/view/calendar/calendar.jsp").forward(request, response);
 	}

@@ -165,6 +165,84 @@ public class RoutineDao {
 			return resultMap;
 		}
 	
+	public Map<String, Object> myRoutinePlan(Connection conn, MemberVo mvo){
+		ArrayList<RoutineVo> rvolist = null;
+		ArrayList<RoutineExerciseVo> revolist = null;
+		ArrayList<ExerciseVo> evolist = null;
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		String sql = "select tr.*,tre.*, te.exercise_name, te.exercise_Part "
+				+ "				    from tb_routine tr, tb_member tm, tb_routine_exercise tre, tb_exercise te "
+				+ "				    where tr.member_no = tm.member_no "
+				+ "				    and tr.routine_no = tre.routine_no "
+				+ "					   and tre.exercise_no = te.exercise_no "
+				+ "						and tr.routine_disable = 'F' "
+				+ "					   and tm.member_no = ? "
+				+ "						and tre.routine_exercise_d_day is not null "
+				+ "                       order by tr.routine_no desc, tre.routine_week asc,  "
+				+ "						tre.routine_exercise_day asc, ROUTINE_EXERCISE_SEQUENCE asc, tre.routine_exercise_set asc";
+		
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, mvo.getMemberNo());
+				
+				rs = pstmt.executeQuery();
+				if(rs != null) {
+					rvolist = new ArrayList<RoutineVo>();
+					revolist = new ArrayList<RoutineExerciseVo>();
+					evolist = new ArrayList<ExerciseVo>();
+					while(rs.next()) {
+						RoutineVo rvo = new RoutineVo();
+						RoutineExerciseVo revo = new RoutineExerciseVo();
+						ExerciseVo evo = new ExerciseVo();
+						
+						rvo.setRoutineNo(rs.getInt("ROUTINE_NO"));
+						rvo.setMemberNo(rs.getInt("MEMBER_NO"));
+						rvo.setRoutineName(rs.getString("ROUTINE_NAME"));
+						rvo.setRoutineDisable(rs.getString("ROUTINE_DISABLE"));
+						rvo.setRoutineTarget(rs.getString("ROUTINE_TARGET"));
+						rvo.setRoutineContent(rs.getString("ROUTINE_CONTENT"));
+						rvo.setRoutineSetRestTime(rs.getInt("ROUTINE_SET_REST_TIME"));
+						rvo.setRoutineExerciseRestTime(rs.getInt("ROUTINE_EXERCISE_REST_TIME"));
+						
+						revo.setRoutineExerciseNo(rs.getInt("ROUTINE_EXERCISE_NO"));
+						revo.setExerciseNo(rs.getInt("EXERCISE_NO"));
+						revo.setRoutineNo(rs.getInt("routine_no"));
+						revo.setRoutineExerciseDay(rs.getInt("ROUTINE_EXERCISE_DAY"));
+						revo.setRoutineWeek(rs.getInt("ROUTINE_WEEK"));
+						revo.setRoutineDay(rs.getInt("ROUTINE_DAY"));
+						revo.setRoutineExerciseSet(rs.getInt("ROUTINE_EXERCISE_SET"));
+						revo.setRoutineExerciseRepeat(rs.getInt("ROUTINE_EXERCISE_REPEAT"));
+						revo.setRoutineExerciseWeight(rs.getInt("ROUTINE_EXERCISE_WEIGHT"));
+						revo.setRoutineExerciseCopy(rs.getString("ROUTINE_EXERCISE_COPY"));
+						revo.setRoutineExerciseDDay(rs.getDate("ROUTINE_EXERCISE_D_DAY"));
+						
+						evo.setExerciseName(rs.getString("EXERCISE_NAME"));
+						evo.setExerciseNo(rs.getInt("EXERCISE_NO"));
+						evo.setExercisePart(rs.getString("EXERCISE_PART"));
+						
+						
+						rvolist.add(rvo);
+						revolist.add(revo);
+						evolist.add(evo);
+					}
+					
+					resultMap.put("rvolist", rvolist);
+					resultMap.put("revolist", revolist);
+					resultMap.put("evolist", evolist);
+					//ArrayList<RoutineVo> test = (ArrayList<RoutineVo>)resultMap.get("rvolist");
+				}
+				
+				
+			}catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			return resultMap;
+	}
+	
 	
 	public int MyRoutineDelete(Connection conn, RoutineVo rvo) {
 		int result = 0;
@@ -187,6 +265,31 @@ public class RoutineDao {
 		return result;
 	}
 	
+	public int routinePlan(Connection conn, ArrayList<Integer> routineExerciseNoList, ArrayList<String> routineExerciseDDayList) {
+		int result = 0;
+		System.out.println(routineExerciseNoList);
+		System.out.println(routineExerciseDDayList);
+		
+		try {
+			for(int i = 0; i < routineExerciseNoList.size(); i++) {				
+				String sql="update tb_routine_exercise "
+						+ " set routine_exercise_d_day = to_timestamp('"+routineExerciseDDayList.get(i)+"', 'yyyy-mm-dd')  "
+						+ " where routine_exercise_no = ? ";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, routineExerciseNoList.get(i));
+				result += pstmt.executeUpdate();
+				close(pstmt);
+			}
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 	
 	
 }

@@ -42,7 +42,8 @@ public class MyPtProgramController extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/");
 			return;
 		}
-		if(vo.getTrainerEtr().equals("I")) {
+		
+		if(vo.getTrainerEtr() != null && vo.getTrainerEtr().equals("I")) {
 			request.setAttribute("msg", "탈퇴 중인 트레이너는 내 프로그램 관리 기능을 이용할 수 없습니다.");
 			request.setAttribute("href", "ptlist");
 			request.getRequestDispatcher("WEB-INF/view/calendar/calendarError.jsp").forward(request, response);;
