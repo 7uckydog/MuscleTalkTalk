@@ -295,7 +295,7 @@
             border: 1px solid gray;
         }
         .modal_RoutineMainDiv{
-            height: auto;
+            height: 470px;
             overflow-y: scroll;
         }
         .routineBtnDiv{
