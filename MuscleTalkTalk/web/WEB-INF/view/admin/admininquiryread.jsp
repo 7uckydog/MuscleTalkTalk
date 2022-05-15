@@ -212,6 +212,8 @@
 	/* $("#ok_btn").click(function(){
 		location.href="admininquiryread";
 	}) */
+	
+	
 </script>
 </body>
 </html>

@@ -358,6 +358,11 @@ a, a:visited, a:link{
 			})
 		}
 	}
+	
+	$("#mp_logout").click(function(){
+    	alert("로그아웃 되었습니다.");
+    	location.href="logout";
+    });
 	</script>	
 	
 </body>

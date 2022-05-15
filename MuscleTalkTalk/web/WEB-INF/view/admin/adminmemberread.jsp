@@ -1,5 +1,5 @@
 <%@ include file="/WEB-INF/view/font.jsp"%>
-<%@ include file="/WEB-INF/view/csslink2.jsp"%>
+<%@ include file="/WEB-INF/view/csslink3_mp.jsp"%>
 <%@page import="kh.semi.mtt.member.model.vo.MemberVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>

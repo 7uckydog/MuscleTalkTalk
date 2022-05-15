@@ -83,6 +83,11 @@
         });
      	// 회원 아이콘 내, 마이페이지 버튼 클릭 시 마이페이로 이동
      	$("#mypage").click(function(){
+     		<c:if test="${not empty ssMvo && ssMvo.memberNo < 11}">
+     		location.href= "dashboard";
+    		</c:if>
+     		<c:if test="${not empty ssMvo && ssMvo.memberNo > 10}">
      		location.href= "membermypage";
+    		</c:if>
      	});
     </script>

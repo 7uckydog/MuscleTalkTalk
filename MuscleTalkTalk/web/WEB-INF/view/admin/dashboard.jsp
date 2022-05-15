@@ -60,7 +60,7 @@ a, a:visited, a:link {
 	height: 55px;
 	padding: 10px 30px 10px 50px;
 	margin: 20px auto 0;
-	text-align: left;
+	text-align: center;
 	position: relative;
 	overflow: hidden;
 	vertical-align: middle;
@@ -105,7 +105,7 @@ a, a:visited, a:link {
 			<div id="board_main">대시보드</div>
 		</div>
 		<div id="dashboard_title">
-                <div id="dashboard_count">전체게시물 수:</div>  
+                <div id="dashboard_count">전체게시물 수: ${NOTB.get(0).dcnt} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 전체 회원 수: ${NOTM.get(0).dcnt} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 전체 댓글 수: ${NOTC.get(0).dcnt} </div>  
             </div>
             <div id="dashboard_content">
                 <div class="charts">
@@ -257,7 +257,11 @@ function getTodayDate() {
             }
         }
     });
-
+	
+    $("#mp_logout").click(function(){
+    	alert("로그아웃 되었습니다.");
+    	location.href="logout";
+    });
 /* 	$(window).click(function () {
 		console.log("test");
 		var testDate1 = new Date();
