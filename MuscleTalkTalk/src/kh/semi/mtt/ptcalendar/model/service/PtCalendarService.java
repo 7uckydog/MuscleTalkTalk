@@ -111,6 +111,18 @@ public class PtCalendarService {
 		return ptCalList;
 	}
 	
+	public ArrayList<PtCalendarVo> readTrainerReservation(int trainerNo) {
+		ArrayList<PtCalendarVo> ptCalList = null;
+		Connection conn = null;
+		conn = getConnection();
+		
+		ptCalList = dao.readTrainerReservation(conn, trainerNo);
+		System.out.println("PtCalendarService readTrainerReservation()매소드 결과: " + ptCalList);
+		
+		close(conn);
+		return ptCalList;
+	}
+	
 	public PtCalendarVo readOneReservation(int ptCalendarNo) {
 		PtCalendarVo ptCalList = null;
 		Connection conn = null;

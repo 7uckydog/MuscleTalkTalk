@@ -35,8 +35,8 @@
 			</div>
 			<hr id="pt_calendar_hr">
 			<div id="pt_calendar_summary">
-				<p id="pt_calendar_summary_timtle">예약 정보</p>
-				<div id="pt_calendar_summary_container">
+				<p class="pt_calendar_summary_timtle">예약 정보</p>
+				<div class="pt_calendar_summary_container">
 					<p class="summary_left">예약자</p>
 					<p class="summary_right">${ssMvo.memberName }</p>
 					<p class="summary_left">예약일</p>

@@ -220,6 +220,37 @@ public class PtCalendarDao {
 		return ptCalList;
 	}
 	
+	public ArrayList<PtCalendarVo> readTrainerReservation(Connection conn, int trainerNo) {
+		ArrayList<PtCalendarVo> ptCalList = new ArrayList<PtCalendarVo>();
+		PtCalendarVo ptCalVo = null;
+		String sql =  "select tpc.pt_calendar_no, tpc.pt_no, tpc.member_no, tpc.pt_calendar_start_time, tp.pt_name  "
+				+ "    from tb_pt_calendar tpc  "
+				+ "    join tb_pt tp  "
+				+ "    on tpc.pt_no = tp.pt_no  "
+				+ "    where tp.trainer_no = ? and pt_calendar_reservation_state = 'T' ";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, trainerNo);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ptCalVo = new PtCalendarVo();
+				ptCalVo.setPtCalendarNo(rs.getInt("PT_CALENDAR_NO"));
+				ptCalVo.setPtNo(rs.getInt("PT_NO"));
+				ptCalVo.setMemberNo(rs.getInt("member_no"));
+				ptCalVo.setPtName(rs.getString("pt_name"));
+				ptCalVo.setPtCalendarStartTime(rs.getTimestamp("PT_CALENDAR_START_TIME"));
+				ptCalList.add(ptCalVo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	finally {
+			close(rs);
+			close(pstmt);
+		}
+		return ptCalList;
+	}
+	
 	public PtCalendarVo readOneReservation(Connection conn, int ptCalendarNo) {
 		PtCalendarVo result = new PtCalendarVo();
 		String sql = "select tm.member_name, tpc.pt_calendar_start_time, tp.pt_name, "

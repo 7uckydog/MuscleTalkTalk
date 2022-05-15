@@ -130,6 +130,7 @@ public class RoutineDao {
 						
 						revo.setRoutineExerciseNo(rs.getInt("ROUTINE_EXERCISE_NO"));
 						revo.setExerciseNo(rs.getInt("EXERCISE_NO"));
+						revo.setRoutineNo(rs.getInt("routine_no"));
 						revo.setRoutineExerciseDay(rs.getInt("ROUTINE_EXERCISE_DAY"));
 						revo.setRoutineWeek(rs.getInt("ROUTINE_WEEK"));
 						revo.setRoutineDay(rs.getInt("ROUTINE_DAY"));

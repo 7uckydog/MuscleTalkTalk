@@ -156,3 +156,37 @@
 	color: white;
 	cursor : pointer;
 }
+.routine_title {
+	height: 30px;
+	line-height: 28px;
+	text-align: left;
+	padding-left: 20px;
+	box-sizing: border-box;
+}
+.routine_import_btn {
+	margin-left : 20px;
+	border : 1px solid #4B4DB2;
+	font-size: 12px;
+	font-family:'THEmpgtM';
+	width: 60px;
+	height: 30px;
+	line-height: 28px;
+	background-color: #4B4DB2;
+	color: white;
+	cursor : pointer;
+}
+
+.routine_import_btn:hover {
+	background-color: white;
+	color: #4B4DB2;
+}
+
+.routine_border {
+	border-top: 1px solid #4B4DB2;
+	border-bottom: 1px solid #4B4DB2;
+	border-right: 1px solid #4B4DB2;
+}
+
+.routine_border_left {
+	border-left: 1px solid #4B4DB2;
+}

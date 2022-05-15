@@ -40,6 +40,12 @@ public class CalendarMainController extends HttpServlet {
 			request.getRequestDispatcher("WEB-INF/view/calendar/calendarError.jsp").forward(request, response);
 			return;
 		}
+		
+		if(mvo.getMemberTrainer().equals("T")) {
+			ArrayList<PtCalendarVo> ptCalListTrainer = new PtCalendarService().readTrainerReservation(mvo.getTrainerNo());
+			request.setAttribute("ptCalListTrainer", ptCalListTrainer);
+		}
+		
 		ArrayList<PtCalendarVo> ptCalList = new PtCalendarService().readMyReservation(mvo.getMemberNo());
 		
 		request.setAttribute("ptCalList", ptCalList);

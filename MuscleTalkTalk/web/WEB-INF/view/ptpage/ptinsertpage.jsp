@@ -42,8 +42,9 @@
 					</div>
 				</div>
 				<div class="row">
-					<input type="file" class="input_ptimg_file" id="input_ptimg_file1" name="input_ptimg_file1""> <input type="file" class="input_ptimg_file" id="input_ptimg_file2" name="input_ptimg_file2""> <input type="file" class="input_ptimg_file" id="input_ptimg_file3" name="input_ptimg_file3"">
-					<button type="button" id="test_input_data">테스트</button>
+					<input type="file" class="input_ptimg_file" id="input_ptimg_file1" name="input_ptimg_file1""> 
+					<input type="file" class="input_ptimg_file" id="input_ptimg_file2" name="input_ptimg_file2""> 
+					<input type="file" class="input_ptimg_file" id="input_ptimg_file3" name="input_ptimg_file3"">
 					<div class="col_25">
 						<label for="">커버 이미지</label>
 					</div>
@@ -62,7 +63,8 @@
 					<div class="col_75 position_none">
 						<div id="pt_category_div">
 							<p>카테고리 선택</p>
-							<i class="fa-solid fa-sort-up pt_category_arrow"></i> <i class="fa-solid fa-sort-down pt_category_arrow"></i>
+							<i class="fa-solid fa-sort-up pt_category_arrow"></i> 
+							<i class="fa-solid fa-sort-down pt_category_arrow"></i>
 						</div>
 						<div id="pt_category_list">
 							<ul id="pt_category_list_box">
@@ -234,9 +236,7 @@
 			if (files[0].type.match(/image.*/)) {
 				$(e.target).css(
 						{
-							"background-image" : "url("
-									+ window.URL.createObjectURL(files[0])
-									+ ")",
+							"background-image" : "url("+ window.URL.createObjectURL(files[0])+ ")",
 							"outline" : "none",
 							"background-size" : "contain",
 							"background-repeat" : "no-repeat",
@@ -411,9 +411,7 @@
 		}
 
 		//카테고리 리스트 박스
-		$("#pt_category_div")
-				.click(
-						function() {
+		$("#pt_category_div").click(function() {
 							if ($("#pt_category_list").css("height") != '0px') {
 								$("#pt_category_list").css("height", "0px");
 								$("#pt_category_list").css("border", "1px solid rgba(75, 77, 178, 0.0)");
@@ -422,11 +420,9 @@
 								$("#pt_category_list").css("border", "1px solid rgba(75, 77, 178, 1)");
 							}
 							if ($("#pt_category_div").css("border") == '1px solid rgba(75, 77, 178, 0.3)') {
-								$("#pt_category_div").css("border",
-										'1px solid rgba(75, 77, 178, 1)');
+								$("#pt_category_div").css("border",'1px solid rgba(75, 77, 178, 1)');
 							} else {
-								$("#pt_category_div").css("border",
-										'1px solid rgba(75, 77, 178, 0.3)');
+								$("#pt_category_div").css("border",'1px solid rgba(75, 77, 178, 0.3)');
 							}
 						});
 
@@ -631,11 +627,8 @@
 			});
 		});
 
-		$("#pt_time_add_btn")
-				.click(
-						function() {
-							var dayInfo = [ '월요일', '화요일', '수요일', '목요일', '금요일',
-									'토요일', '일요일' ];
+		$("#pt_time_add_btn").click(function() {
+							var dayInfo = [ '월요일', '화요일', '수요일', '목요일', '금요일','토요일', '일요일' ];
 							var dayInfoTemp = [];
 							var day = $(".pt_time_div p").eq(0).text();
 							var startTime = $(".pt_time_div p").eq(1).text();
@@ -659,14 +652,10 @@
 							if (day != '요일 선택' && startTime != '시작 시간 선택'
 									&& endTime != '종료 시간 선택') {
 								for (var i = 0; i < $(".time_info_div").length; i++) {
-									dayInfoTemp.push($(".time_info_div").eq(i)
-											.children().eq(0).text());
-									if (day == $(".time_info_div").eq(i)
-											.children().eq(0).text()) { //해당하는 요일이 있다면
-										$(".time_info_div").eq(i).children()
-												.eq(1).text(startTime);
-										$(".time_info_div").eq(i).children()
-												.eq(2).text(endTime);
+									dayInfoTemp.push($(".time_info_div").eq(i).children().eq(0).text());
+									if (day == $(".time_info_div").eq(i).children().eq(0).text()) { //해당하는 요일이 있다면
+										$(".time_info_div").eq(i).children().eq(1).text(startTime);
+										$(".time_info_div").eq(i).children().eq(2).text(endTime);
 										// 해당요일에 시간 업데이트
 										return;
 									}
@@ -689,44 +678,22 @@
 									}
 								}
 								if (dayTemp != -1) {
-									$(".time_info_div")
-											.eq(dayTemp)
-											.after(
-													'<div class="time_info_div"></div>');
+									$(".time_info_div").eq(dayTemp).after('<div class="time_info_div"></div>');
 									for (var i = 0; i < 3; i++) {
-										$(".time_info_div")
-												.eq(dayTemp + 1)
-												.append(
-														'<p class="time_info_p"></p>');
+										$(".time_info_div").eq(dayTemp + 1).append('<p class="time_info_p"></p>');
 									}
-									$(".time_info_div")
-											.eq(dayTemp + 1)
-											.append(
-													"<button type='button' class='pt_time_delete_btn'>제거</button>");
-									$(".time_info_div").eq(dayTemp + 1)
-											.children().eq(0).text(day);
-									$(".time_info_div").eq(dayTemp + 1)
-											.children().eq(1).text(startTime);
-									$(".time_info_div").eq(dayTemp + 1)
-											.children().eq(2).text(endTime);
+									$(".time_info_div").eq(dayTemp + 1).append("<button type='button' class='pt_time_delete_btn'>제거</button>");
+									$(".time_info_div").eq(dayTemp + 1).children().eq(0).text(day);
+									$(".time_info_div").eq(dayTemp + 1).children().eq(1).text(startTime);
+									$(".time_info_div").eq(dayTemp + 1).children().eq(2).text(endTime);
 								} else {
-									$("#pt_time_notice")
-											.after(
-													'<div class="time_info_div"></div>');
-									for (var i = 0; i < 3; i++) {
-										$(".time_info_div").eq(0).append(
-												'<p class="time_info_p"></p>');
+									$("#pt_time_notice").after('<div class="time_info_div"></div>');
+									for (var i = 0; i < 3; i++) {$(".time_info_div").eq(0).append('<p class="time_info_p"></p>');
 									}
-									$(".time_info_div")
-											.eq(0)
-											.append(
-													"<button type='button' class='pt_time_delete_btn'>제거</button>");
-									$(".time_info_div").eq(0).children().eq(0)
-											.text(day);
-									$(".time_info_div").eq(0).children().eq(1)
-											.text(startTime);
-									$(".time_info_div").eq(0).children().eq(2)
-											.text(endTime);
+									$(".time_info_div").eq(0).append("<button type='button' class='pt_time_delete_btn'>제거</button>");
+									$(".time_info_div").eq(0).children().eq(0).text(day);
+									$(".time_info_div").eq(0).children().eq(1).text(startTime);
+									$(".time_info_div").eq(0).children().eq(2).text(endTime);
 								}
 
 								$(".pt_time_delete_btn").off('click');

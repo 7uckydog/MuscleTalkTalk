@@ -287,12 +287,12 @@ a:visited {
 }
 
 .pt_category_arrow {
-	font-size: 28px;
+	font-size: 14px;
 	color: rgba(75, 77, 178, 0.3);
 	position: absolute;
-	left: 90%;
-	top: 0%;
-	line-height: 28px;
+	right: 5px;
+	top: 7px;
+	
 }
 
 #pt_category_list {
@@ -344,12 +344,11 @@ a:visited {
 }
 
 .pt_time_arrow {
-	font-size: 28px;
+	font-size: 14px;
 	color: rgba(75, 77, 178, 0.3);
 	position: absolute;
-	left: 80%;
-	top: 0%;
-	line-height: 28px;
+	right: 5px;
+	top: 7px;
 }
 
 #pt_day_list {
@@ -771,12 +770,11 @@ a:visited {
 }
 
 .pt_list_page_category_arrow {
-	font-size: 28px;
+	font-size: 14px;
 	color: rgba(75, 77, 178, 0.3);
 	position: absolute;
-	right: 10px;
-	top: 0%;
-	line-height: 28px;
+	right: 5px;
+	top: 7px;
 }
 
 
@@ -894,6 +892,7 @@ a:visited {
 	height: 30px;
 	margin-right: 5px;
 	cursor : pointer;
+	border-radius : 3px; 
 }
 
 .pt_list_page_favortie {
