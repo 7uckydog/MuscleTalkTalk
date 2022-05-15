@@ -77,14 +77,16 @@ public class MemberJoinDoController extends HttpServlet {
 		
 		String filePath = "";
 		String member_trainer = multi.getParameter("trainer_join");
-		if(member_trainer != null || member_trainer != "") {
+		TrainerVo tvo = new TrainerVo();
+		if(member_trainer != null) {
 			filePath = fileSavePath + "/" + upload;
 			System.out.println(filePath);
+			File cloudinaryFile = new File(uploadPath + "\\" + upload);
+			Map uploadResult = cloudinary.uploader().upload(cloudinaryFile, ObjectUtils.emptyMap());
+			String trainerFile = (String) uploadResult.get("url");
+			tvo.setTrainerFile(trainerFile);
 		}
 		
-		File cloudinaryFile = new File(uploadPath + "\\" + upload);
-		Map uploadResult = cloudinary.uploader().upload(cloudinaryFile, ObjectUtils.emptyMap());
-		String trainerFile = (String) uploadResult.get("url");
 		
 		// 회원가입 정보 처리
 		String member_id = multi.getParameter("member_id");
@@ -163,8 +165,6 @@ public class MemberJoinDoController extends HttpServlet {
 		vo.setMemberConcern(member_concern);
 		vo.setMemberTrainer(member_trainer);
 		
-		TrainerVo tvo = new TrainerVo();
-		tvo.setTrainerFile(trainerFile);
 		tvo.setGymName(gym_name);
 		tvo.setGymLocation(gym_location);
 		System.out.println(tvo);

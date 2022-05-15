@@ -25,16 +25,6 @@
 					<p id="main_routine_board_title" class="font_THEmpgtB font_15px font_color_rgb">루틴 게시물</p>
 					<hr class="font_color_rgb">
 					<div id="routineboard_input_div">
-						<p class="routineboard_input_title font_THEmpgtM font_12px font_color_rgb">민승톡, 오늘도 헬스장 찢었습니다.[21]</p>
-						<p class="routineboard_input_title font_THEmpgtM font_12px font_color_rgb">민승톡, 오늘도 헬스장 찢었습니다.[21]</p>
-						<p class="routineboard_input_title font_THEmpgtM font_12px font_color_rgb">민승톡, 오늘도 헬스장 찢었습니다.[21]</p>
-						<p class="routineboard_input_title font_THEmpgtM font_12px font_color_rgb">민승톡, 오늘도 헬스장 찢었습니다.[21]</p>
-						<p class="routineboard_input_title font_THEmpgtM font_12px font_color_rgb">민승톡, 오늘도 헬스장 찢었습니다.[21]</p>
-						<p class="routineboard_input_title font_THEmpgtM font_12px font_color_rgb">민승톡, 오늘도 헬스장 찢었습니다.[21]</p>
-						<p class="routineboard_input_title font_THEmpgtM font_12px font_color_rgb">민승톡, 오늘도 헬스장 찢었습니다.[21]</p>
-						<p class="routineboard_input_title font_THEmpgtM font_12px font_color_rgb">민승톡, 오늘도 헬스장 찢었습니다.[21]</p>
-						<p class="routineboard_input_title font_THEmpgtM font_12px font_color_rgb">민승톡, 오늘도 헬스장 찢었습니다.[21]</p>
-						<p class="routineboard_input_title font_THEmpgtM font_12px font_color_rgb">민승톡, 오늘도 헬스장 찢었습니다.[21]</p>
 					</div>
 				</div>
 			</div>
@@ -149,6 +139,16 @@
 			noticeVoList.push(vo);
 		</c:forEach>
 		
+		var routineVoList = [];
+		<c:forEach var="vo" items="${routineVoList}">
+			var vo = {
+				routineboardNo : ${vo.routineboardNo},
+				routineboardTitle : "${vo.routineboardTitle}",
+				rCnt : '${vo.rCnt}'
+			}
+			routineVoList.push(vo);
+		</c:forEach>
+		
 		function getFormatDate(date) {
 			var year = date.getFullYear(); //yyyy
 			var month = (1 + date.getMonth()); //M
@@ -167,6 +167,14 @@
 				$('.board_input_title span').eq(i).css('cursor', 'pointer');
 			}
 			
+			for(var i = 0; i < routineVoList.length; i++) {
+				$("#routineboard_input_div").append('<p class="routineboard_input_title font_THEmpgtM font_12px font_color_rgb"><span>'+routineVoList[i].routineboardTitle +'['+routineVoList[i].rCnt+']</span></p>');
+				$('.board_input_title span').eq(i).click(function() {
+					location.href = "routineboardread?bno=" + routineVoList[$('.board_input_title span').index(this)].routineboardNo;
+				});
+				$('.routineboard_input_title span').eq(i).css('cursor', 'pointer');
+			}
+			
 			for(var i = 0; i < ptVoList.length; i++) {
 				$("#pt_input_div").append('<p class="pt_input_title font_THEmpgtM font_12px font_color_rgb"><span class="pt_lacation_href">'+ptVoList[i].ptName +'<span class="float_right cursor_none">즐겨찾기:'+ptVoList[i].favoriteCnt+'</span></p>');
 				$('.pt_lacation_href').eq(i).click(function() {
@@ -175,7 +183,6 @@
 				$('.pt_lacation_href').eq(i).css('cursor', 'pointer');
 				$('.cursor_none').eq(i).css('cursor', 'none');
 			}
-			
 			for(var i = 0; i < noticeVoList.length; i++) {
 				$("#notice_input_div").append('<div class="notice_div"></div>');
 				$('.notice_div').eq(i).append('<p class="notice_input_date font_THEmpgtM font_12px font_color_rgb">'+ getFormatDate(noticeVoList[i].notiDate) +'</p>');

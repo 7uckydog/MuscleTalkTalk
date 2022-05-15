@@ -67,6 +67,50 @@ public class RoutineBoradDao {
 		
 	}
 	
+	public ArrayList<RoutineBoardVo> mainRoutineBoard(Connection conn) {
+		ArrayList<RoutineBoardVo> rvolist = null;
+		
+		String sql ="select * "
+				+ "   from (select rownum r, t1.* "
+				+ "   from (select tb.routine_board_no, routine_board_title, tbcnt.comment_cnt "
+				+ "   from tb_routine_board tb "
+				+ "   left outer join (select count(comment_no) comment_cnt, routine_board_no from tb_comment "
+				+ "   where routine_board_no is not null "
+				+ "   group by routine_board_no) tbcnt "
+				+ "   on tb.routine_board_no = tbcnt.routine_board_no "
+				+ "   where routine_board_date "
+				+ "   between sysdate - 1 and sysdate "
+				+ "   order by routine_board_count desc) t1) "
+				+ "   where r between 1 and 10";
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			
+			
+			rs = pstmt.executeQuery();
+			if(rs !=null) {
+				rvolist = new ArrayList<RoutineBoardVo>();
+				while(rs.next()) {
+					RoutineBoardVo rvo = new RoutineBoardVo();
+					rvo.setRoutineboardNo(rs.getInt("ROUTINE_BOARD_NO"));
+					rvo.setRoutineboardTitle(rs.getString("ROUTINE_BOARD_TITLE"));
+					rvo.setrCnt(rs.getInt("comment_cnt"));
+					
+					rvolist.add(rvo);
+				}
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return rvolist;
+		
+	}
+	
+	
 	public int insertRoutineboard (Connection conn, RoutineBoardVo rvo, MemberVo mvo) {
 		
 		int result = 0;

@@ -15,6 +15,8 @@ import kh.semi.mtt.notice.model.service.NoticeService;
 import kh.semi.mtt.notice.model.vo.NoticeVo;
 import kh.semi.mtt.pt.model.service.PtService;
 import kh.semi.mtt.pt.model.vo.PtVo;
+import kh.semi.mtt.routineboard.model.service.RoutineBoardService;
+import kh.semi.mtt.routineboard.model.vo.RoutineBoardVo;
 
 /**
  * Servlet implementation class MainControllerServlet
@@ -38,9 +40,11 @@ public class MainControllerServlet extends HttpServlet {
 		ArrayList<BoardVo> boardVoList = new BoardService().mainBoard();
 		ArrayList<PtVo> ptVoList = new PtService().mainPt();
 		ArrayList<NoticeVo> noticeVoList = new NoticeService().mainNotice();
+		ArrayList<RoutineBoardVo> routineVoList = new RoutineBoardService().mainRoutineBoard();;
 		request.setAttribute("boardVoList", boardVoList);
 		request.setAttribute("ptVoList", ptVoList);
 		request.setAttribute("noticeVoList", noticeVoList);
+		request.setAttribute("routineVoList", routineVoList);
 		request.getRequestDispatcher("WEB-INF/view/main.jsp").forward(request, response);
 	}
 

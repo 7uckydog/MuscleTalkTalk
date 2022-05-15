@@ -483,14 +483,16 @@ public class BoardDao {
 	// 보드 카운트 (서유빈)
 	public int countBoard_member(Connection conn, int memberNo) {
 		int result = 0;
-		String sql = "select count(*) as cnt from tb_board b full outer join tb_routine_board t on b.member_no = t.member_no  where b.member_no= ?";
+		String sql = "select * from (select count(*) cnt1 from tb_board where member_no = ?), (select count(*) cnt2 from tb_routine_board where member_no = ?)";
 
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, memberNo);	
+			pstmt.setInt(2, memberNo);	
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				result = rs.getInt("cnt");
+				result += rs.getInt("cnt1");
+				result += rs.getInt("cnt2");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

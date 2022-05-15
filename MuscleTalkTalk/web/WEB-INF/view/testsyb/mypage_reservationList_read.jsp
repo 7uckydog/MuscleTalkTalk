@@ -147,16 +147,19 @@
 	                <c:if test="${not empty memberreservation}">
 		                <c:forEach items="${memberreservation}" var="volist">
 							<tr class="table_content">
-								<input type="hidden" id="pt_no_hidden" value="${volist.ptCalendarNo}">
-								<td style="width: 10%;" class="tb_s"><a href="ptread?ptNo=${volist.ptNo}">${volist.rNo}</a></td>
-								<td style="width: 43%;" class="tb_s"><a href="ptread?ptNo=${volist.ptNo}">${volist.ptName}</a></td>
-								<td style="width: 25%;" class="tb_s">${volist.ptCalendarStartTime}</td>
-								<td style="width: 11%; padding-right: 0px;" class="tb_s">
-									<input type=button value="수정" id="rsv_edit">
-								</td>
-								<td style="width: 11%;" class="tb_s">
-									<input type=button value="취소" id="rsv_cancel">
-								</td>
+								<form action="ptreservationupdate" method="post">
+									<input type="hidden" name="ptNo" value="${volist.ptNo }">
+									<input type="hidden" id="pt_no_hidden" name="ptCalendarNo" value="${volist.ptCalendarNo}">
+									<td style="width: 10%;" class="tb_s"><a href="ptread?ptNo=${volist.ptNo}">${volist.rNo}</a></td>
+									<td style="width: 43%;" class="tb_s"><a href="ptread?ptNo=${volist.ptNo}">${volist.ptName}</a></td>
+									<td style="width: 25%;" class="tb_s">${volist.ptCalendarStartTime}</td>
+									<td style="width: 11%; padding-right: 0px;" class="tb_s">
+										<input type=submit value="수정" id="rsv_edit">
+									</td>
+									<td style="width: 11%;" class="tb_s">
+										<input type=button value="취소" id="rsv_cancel">
+									</td>
+								</form>
 							</tr>
 						</c:forEach>
 					</c:if>	

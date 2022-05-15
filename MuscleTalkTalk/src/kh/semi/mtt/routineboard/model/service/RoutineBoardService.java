@@ -37,6 +37,18 @@ public class RoutineBoardService {
 		close(conn);
 		return result;
 	}
+	
+	public ArrayList<RoutineBoardVo> mainRoutineBoard() {
+		
+		Connection conn = null;
+		conn = getConnection();
+		
+		ArrayList<RoutineBoardVo> result = dao.mainRoutineBoard(conn);
+		
+		close(conn);
+		return result;
+	}
+	
 	public RoutineBoardVo readRoutineBoard(int routineboardNo) {
 		Connection conn = null;
 		conn = getConnection();

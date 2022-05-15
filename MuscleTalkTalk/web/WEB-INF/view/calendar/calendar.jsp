@@ -49,6 +49,7 @@
 				<div id="calendar">
 				</div>
 			</div>
+			<input type="hidden" id="hidden_routineNo">
         </section>
 
     <%@ include file="/WEB-INF/view/footer.jsp" %>
@@ -106,7 +107,10 @@
 			reservEventSourceTrainer.push(vo);
 		}
 	</c:if>
+	var routineEventSource = [];
     var routineList;
+    var revoList;
+    var evoList;
     var calendar;
 		$(function() {
 			var calendarEl = $('#calendar')[0];
@@ -130,6 +134,8 @@
 								success : function(result) {
 									console.log(result);
 									routineList = result.rvolist;
+									revoList = result.revolist;
+									evoList = result.evolist;
 									$('#modal_title').text('루틴 불러오기');
 									$('#modal_grid').css("grid-template-columns", "100px 100px 100px 100px 90px");
 									$('#modal_grid').css("padding-left", "10px");
@@ -144,10 +150,11 @@
 											$("#modal_grid").append('<p class="font_THEmpgtM font_12px routine_title routine_border">'+routineList[i].routineName+'</p>');
 											$("#modal_grid").append('<p class="font_THEmpgtM font_12px routine_title routine_border">'+routineList[i].routineName+'</p>');
 											$("#modal_grid").append('<button type="button" class="routine_import_btn">불러오기</button>');
+											$("#modal_grid").append('<input type="hidden" value="'+routineNoTemp+'">');
 										}
 										$(".routine_import_btn").off('click');
 										$(".routine_import_btn").on('click', function() {
-											
+											$('#hidden_routineNo').val($(this).next().val());
 											closeModal();
 											routineWeekSelect();
 										});
@@ -223,7 +230,7 @@
 			});
 			
 			
-			
+			$('.fc-prev-button, .fc-next-button').on('click', routineWeekSelect);
 			
 			
 			
@@ -293,6 +300,17 @@
 		}
 		function ptDeleteTrainer() {
 			calendar.getEventSourceById('pt_trainer').remove();
+		}
+		
+		function routineAdd() {
+			calendar.addEventSource({
+				id : 'routine',
+				events : routineEventSource
+			});
+		}
+		
+		function ptDeleteTrainer() {
+			calendar.getEventSourceById('routine').remove();
 		}
 		
 		$("#close_btn").click(function() {
@@ -486,7 +504,8 @@
 		};
 		
 		function routineWeekSelect() {
-			console.log('testTest');
+			$('.fc-daygrid-day').off('mouseenter');
+			$('.fc-daygrid-day').off('mouseleave');
 			$('.fc-daygrid-day').hover(
 				function() {
 					$(this).css("backgroundColor", "rgba(75, 77, 178, 0.3)");
@@ -505,7 +524,6 @@
 					$(this).css("backgroundColor", "white");
 					var dateTempCurrent = new Date($(this).attr('data-date'));
 					while(dateTempCurrent.getDay() != 0) {
-						console.log("not sunday");
 						dateTempCurrent.setDate(dateTempCurrent.getDate() - 1);
 						$('.fc-daygrid-day[data-date='+ getFormatDate(dateTempCurrent) +']').css("backgroundColor",'white');
 					}
@@ -517,25 +535,72 @@
 					$('.fc-day-today').css("backgroundColor","rgba(255,220,40,.15)");
 				}
 			);
-			$(window).off('click');
-			$(window).on('click', function(event) {
-				$temp = $(event.target);
-				if($temp.attr('class') == undefined) {
-					alert("루틴을 시작할 주를 선택해주세요.");
+			$('.fc-daygrid-day').off('click');
+			$('.fc-daygrid-day').on('click', function() {
+				if($(this).attr('data-date') <= getFormatDate(new Date())) {
+					alert("다음주 루틴을 추가할 수 있습니다.");
 					return;
 				}
-				if(!$temp.attr('class').split(" ").includes('fc-daygrid-day')) {
-					if($temp.parents('.fc-daygrid-day').length != 0) {
-						$temp = $temp.parents('.fc-daygrid-day');
-					} else {
-						alert("루틴을 시작할 주를 선택해주세요.");
+				var dateTempCurrent = new Date($(this).attr('data-date'));
+				var startDateTemp;
+				while(dateTempCurrent.getDay() != 0) {
+					dateTempCurrent.setDate(dateTempCurrent.getDate() - 1);
+					startDateTemp = dateTempCurrent;
+					if(getFormatDate(new Date()) >= getFormatDate(dateTempCurrent)) {
+						alert("다음주 루틴을 추가할 수 있습니다.");
 						return;
 					}
 				}
-				
+				var routineNoTemp = $('#hidden_routineNo').val();
+				var routineListTemp = [];
+				var revoListTemp = [];
+				var evoListTemp = [];
+				for(var i = 0; i < routineList.length; i++) {
+					if(routineList[i].routineNo == routineNoTemp) {
+						routineListTemp.push(routineList[i]);
+						revoListTemp.push(revoList[i]);
+						evoListTemp.push(evoList[i]);
+					}
+				}
+				console.log(startDateTemp);
+				console.log(routineListTemp);
+				console.log(revoListTemp);
+				console.log(evoListTemp);
+				var startIndexTemp = 0;
+				for(var i = 0; i < routineListTemp.length; i++) {
+					if(startIndexTemp == ((revoListTemp[i].routineWeek-1)*7) + (revoListTemp[i].routineExerciseDay)) {
+						continue;
+					} else {
+						startIndexTemp = ((revoListTemp[i].routineWeek-1)*7) + (revoListTemp[i].routineExerciseDay);
+					}
+					var startDateTemp2 = new Date(startDateTemp.getFullYear(), startDateTemp.getMonth(), startDateTemp.getDate());
+					console.log(startDateTemp2);
+					if(revoListTemp[i].routineExerciseDay != 7) {
+						console.log("upper");
+						console.log(((revoListTemp[i].routineWeek-1)*7) + (revoListTemp[i].routineExerciseDay));
+						startDateTemp2.setDate(startDateTemp.getDate() + ((revoListTemp[i].routineWeek-1)*7) + (revoListTemp[i].routineExerciseDay));			
+					} else {
+						console.log("lower");
+						console.log(((revoListTemp[i].routineWeek-1)*7));
+						startDateTemp2.setDate(startDateTemp.getDate() + ((revoListTemp[i].routineWeek-1)*7));
+					}
+					console.log(startDateTemp2);
+					var temp = 'routineNo-'+revoListTemp[i].routineNo;
+					var vo = {
+						title: routineListTemp[i].routineName,
+						color: '#42B36A',
+						start: getFormatDate(startDateTemp2),
+						className : ["event_routine", temp]
+					}
+					routineEventSource.push(vo);
+				}
+				console.log(routineEventSource);
+				routineAdd();
+				//getFormatDate
+				/* $('.fc-daygrid-day').off('mouseenter');
+				$('.fc-daygrid-day').off('mouseleave');
+				$('.fc-daygrid-day').off('click'); */
 			});
-			//$('.fc-daygrid-day').off('mouseenter');
-			//$('.fc-daygrid-day').off('mouseleave');
 		};
     </script>
 </body>
