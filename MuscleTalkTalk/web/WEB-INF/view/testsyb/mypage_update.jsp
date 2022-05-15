@@ -41,7 +41,7 @@
             color: rgb(64, 64, 64);
             background-color: rgb(224, 224, 224);
             cursor: pointer;
-           margin-top: 3.5px;
+            margin-top: 3.5px;
         }
         #member_mail_check{
         	margin-top: 7.5px;
@@ -169,9 +169,6 @@
         	color: rgb(64, 64, 64);
         	text-align: center;
         	border: 0px;
-        }
-        #member_nickname_check, #member_mail_check{
-        	display: none;
         }
 </style>
 </head>

@@ -101,7 +101,7 @@
                     </a>
                 </div>
                 <div>
-                    <a href="BoardReadAll">
+                    <a href="totalboardreadall">
                         <img src="<%= request.getContextPath() %>/cssfolder/images/com.png">
                         <p>커뮤니티</p>
                     </a>

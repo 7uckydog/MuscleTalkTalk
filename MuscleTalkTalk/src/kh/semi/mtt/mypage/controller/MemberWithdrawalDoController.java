@@ -15,7 +15,6 @@ import com.google.gson.GsonBuilder;
 
 import kh.semi.mtt.member.model.service.MemberService;
 import kh.semi.mtt.member.model.vo.MemberVo;
-import kh.semi.mtt.member.model.vo.TestVo;
 import kh.semi.mtt.member.model.vo.TestTempVo;
 import kh.semi.mtt.member.model.vo.WithdrawVo;
 import kh.semi.mtt.reservation.model.service.ReservationService;
