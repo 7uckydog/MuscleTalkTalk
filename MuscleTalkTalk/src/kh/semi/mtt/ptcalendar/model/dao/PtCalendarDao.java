@@ -164,4 +164,96 @@ public class PtCalendarDao {
 		}
 		return result;
 	}
+	
+	public int updatePrevReservation(Connection conn, int prevPtCalendarNo) {
+		int result = 0;
+		String sql = "update tb_pt_calendar   "
+				+ "set member_no = null,   "
+				+ "pt_calendar_reservation_state = 'F'   "
+				+ "where pt_calendar_no = ?  ";
+
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, prevPtCalendarNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	
+	public ArrayList<PtCalendarVo> readMyReservation(Connection conn, int memberNo) {
+		ArrayList<PtCalendarVo> ptCalList = new ArrayList<PtCalendarVo>();
+		PtCalendarVo ptCalVo = null;
+		String sql = "select pt_calendar_no, tpc.pt_no, member_no, "
+				+ "    pt_calendar_start_time, pt_calendar_reservation_state, pt_name "
+				+ "    from tb_pt_calendar tpc "
+				+ "    join tb_pt tp "
+				+ "    on tpc.pt_no = tp.pt_no "
+				+ "    where member_no = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memberNo);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ptCalVo = new PtCalendarVo();
+				ptCalVo.setPtCalendarNo(rs.getInt("PT_CALENDAR_NO"));
+				ptCalVo.setPtNo(rs.getInt("PT_NO"));
+				ptCalVo.setMemberNo(rs.getInt("member_no"));
+				ptCalVo.setPtName(rs.getString("pt_name"));
+				ptCalVo.setPtCalendarStartTime(rs.getTimestamp("PT_CALENDAR_START_TIME"));
+				ptCalVo.setPtCalendarReservationState(rs.getString("PT_CALENDAR_RESERVATION_STATE"));
+				ptCalList.add(ptCalVo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	finally {
+			close(rs);
+			close(pstmt);
+		}
+		return ptCalList;
+	}
+	
+	public PtCalendarVo readOneReservation(Connection conn, int ptCalendarNo) {
+		PtCalendarVo result = new PtCalendarVo();
+		String sql = "select tm.member_name, tpc.pt_calendar_start_time, tp.pt_name, "
+				+ "                    tt.gym_name, tt.gym_location, tp.pt_price"
+				+ "				    from tb_pt_calendar tpc "
+				+ "				    join tb_pt tp "
+				+ "				    on tpc.pt_no = tp.pt_no "
+				+ "                    join tb_member tm "
+				+ "                    on tpc.member_no = tm.member_no "
+				+ "                    join tb_trainer tt "
+				+ "                    on tp.trainer_no = tt.trainer_no "
+				+ "				    where  pt_calendar_no= ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, ptCalendarNo);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				result = new PtCalendarVo();
+				result.setMemberName(rs.getString("member_name"));
+				result.setPtName(rs.getString("pt_name"));
+				result.setGymName(rs.getString("gym_name"));
+				result.setGymLocation(rs.getString("gym_location"));
+				result.setPtCalendarStartTime(rs.getTimestamp("pt_calendar_start_time"));
+				result.setPtPrice(rs.getInt("pt_price"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	
 }

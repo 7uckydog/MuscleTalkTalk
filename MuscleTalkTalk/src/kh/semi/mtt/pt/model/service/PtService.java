@@ -22,12 +22,12 @@ public class PtService {
 		close(conn);
 		return result;
 	}
-	public int countPt(int categoryInt, int timeInt) {
+	public int countPt(int categoryInt, int timeInt, String search) {
 		int result = 0;
 		Connection conn = null;
 		conn = getConnection();
 		
-		result = dao.countPt(conn, categoryInt, timeInt);
+		result = dao.countPt(conn, categoryInt, timeInt, search);
 		
 		close(conn);
 		return result;
@@ -121,12 +121,12 @@ public class PtService {
 		return result;
 	}
 	
-	public ArrayList<PtVo> readAllPt(int categoryInt, int timeInt, int startRnum, int endRnum) {
+	public ArrayList<PtVo> readAllPt(int categoryInt, int timeInt, String search, int startRnum, int endRnum) {
 		ArrayList<PtVo> result = null;
 		Connection conn = null;
 		conn = getConnection();
 		
-		result = dao.readAllPt(conn, categoryInt, timeInt, startRnum, endRnum);
+		result = dao.readAllPt(conn, categoryInt, timeInt, search, startRnum, endRnum);
 		System.out.println("PtService readAllPt()매소드 결과:  " + result);
 		close(conn);
 		return result;

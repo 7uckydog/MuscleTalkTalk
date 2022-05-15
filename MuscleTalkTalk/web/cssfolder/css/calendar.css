@@ -1,0 +1,158 @@
+#calendar_section {
+	height : auto;
+}
+
+#calendar_section_div {
+	padding: 60px 30px;
+	position: relative;
+	display: grid;
+	grid-template-columns: 160px 710px;
+	font-size: 0px;
+}
+
+.font_color_rgb {
+	color : rgb(94, 94, 94);
+}
+
+.font_THEmpgtM {
+	font-family:'THEmpgtM';
+}
+
+.font_THEmpgtB {
+	font-family:'THEmpgtB';
+}
+
+.font_12px {
+	font-size: 12px;
+}
+
+.font_15px {
+	font-size: 15px;
+}
+
+.font_20px {
+	font-size: 20px;
+}
+
+#calendar {
+	font-size: 12px;
+	font-family:'THEmpgtM';
+}
+
+.option_check {
+	border : 2px solid rgba(75, 77, 178, 0.3);
+	line-height: 20px;
+	border-radius: 6px;
+	width: 20px;
+	text-align: center;
+	transition: 0.3s;
+	cursor: pointer;
+	display: inline-block;
+	color : white;
+}
+
+
+.option_title {
+	width: 130px;
+	display: inline-block;
+	margin-left: 6px;
+	height : 24px;
+	line-height: 24px;
+	vertical-align: top;
+}
+
+.option_wrap {
+	margin-bottom: 10px;
+}
+
+.fc-button {
+  box-shadow: none !important;
+}
+
+.fc-event-time {
+	overflow: visible !important;
+} 
+
+.fc-event-main {
+	cursor: pointer;
+}
+
+#calendar_modal {
+	z-index: 2;
+	background-color: rgba(128, 128, 128, 0.356);
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	font-family:'THEmpgtM';
+	font-size: 0px;
+	display: none;
+}
+
+#calendar_modal_div {
+	border: 1px solid #4B4DB2;
+	width: 500px;
+	height: auto;
+	position: absolute;
+ 	top: 50%;
+  	left: 50%;
+  	transform: translate(-50%,-50%);
+  	background-color: white;
+  	position: relative;
+}
+
+#modal_grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	row-gap: 20px;
+	text-align: center;
+	margin: 20px 0;
+}
+
+#modal_title {
+	margin: 20px;
+}
+
+#close_btn {
+	position: absolute;
+	top : 10px;
+	right : 10px;
+	font-size: 20px;
+	cursor : pointer;
+	color : rgba(75, 77, 178, 0.3);
+}
+
+#close_btn:hover {
+	color : rgba(75, 77, 178, 1);
+}
+
+#modal_btn_wrap button:hover {
+	background-color: white;
+	color: #4B4DB2;
+}
+
+#reservation_update_btn {
+	border-top : 1px solid #4B4DB2;
+	font-size: 12px;
+	font-family:'THEmpgtM';
+	width: 250px;
+	height: 30px;
+	line-height: 28px;
+	background-color: #4B4DB2;
+	color: white;
+	cursor : pointer;
+}
+
+#reservation_cancle_btn {
+	border-top : 1px solid #4B4DB2;
+	font-size: 12px;
+	font-family:'THEmpgtM';
+	width: 250px;
+	height: 30px;
+	line-height: 28px;
+	background-color: #4B4DB2;
+	color: white;
+	cursor : pointer;
+}

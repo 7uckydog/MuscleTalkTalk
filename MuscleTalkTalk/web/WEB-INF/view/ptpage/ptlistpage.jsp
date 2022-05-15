@@ -106,11 +106,11 @@
 	$('.pt_list_page_prev_btn').click(function() {
 		console.log(${startPage});
 		console.log(${startPage - 1});
-		location.href = "ptlist?page=${startPage-1 }&category="+categoryNum+"&time="+timeNum;
+		location.href = "ptlist?page=${startPage-1 }&category="+categoryNum+"&time="+timeNum + "&search="+$("#pt_list_page_text").val().trim();
 	});
 	for(var i = 0; i < $('.pt_list_page_btn').length; i++) {	
 		$('.pt_list_page_btn').eq(i).click(function() {
-			location.href = "ptlist?page="+$(this).text()+"&category="+categoryNum+"&time="+timeNum;
+			location.href = "ptlist?page="+$(this).text()+"&category="+categoryNum+"&time="+timeNum + "&search="+$("#pt_list_page_text").val().trim();
 		});
 		if($('.pt_list_page_btn').eq(i).text() == Number(${pageInt})) {
 			$('.pt_list_page_btn').eq(i).css({
@@ -120,7 +120,7 @@
 		}
 	}
 	$('.pt_list_page_next_btn').click(function() {
-		location.href = "ptlist?page=${endPage+1 }&category="+categoryNum+"&time="+timeNum;
+		location.href = "ptlist?page=${endPage+1 }&category="+categoryNum+"&time="+timeNum + "&search="+$("#pt_list_page_text").val().trim();
 	});
 	
 	$(window).resize(function() {
@@ -335,7 +335,7 @@
  		<c:if test="${empty ssMvo}">
  			alert("로그인후 가능합니다.");
  		</c:if>
-		
+ 		
 	});
 	
 	var ptFavoriteVoList = [];
@@ -386,6 +386,9 @@
 	});
 	var categoryNum = ${categoryInt};
 	var timeNum = ${timeInt};
+	<c:if test="${not empty search}">
+		$("#pt_list_page_text").val('${search}');
+	</c:if>
 	$('#pt_list_page_category_list_box li').on('click', function() {
 		
 		switch ($(this).text()) {
@@ -405,7 +408,7 @@
 		default:
 			break;
 		}
-		location.href = "ptlist?page=1&category="+categoryNum+"&time="+timeNum;
+		urlMapping();
 		//$("#pt_list_page_category_div p").text($(this).text());
 		//$("#pt_list_page_category_div").css("border", '1px solid rgba(75, 77, 178, 0.3)');
 		//$("#pt_list_page_category_list").css("height", "0px");
@@ -442,7 +445,7 @@
 		default:
 			break;
 		}
-		location.href = "ptlist?page=1&category="+categoryNum+"&time="+timeNum;
+		urlMapping();
 		//$("#pt_list_page_time_div").css("border", '1px solid rgba(75, 77, 178, 0.3)');
 		//$("#pt_list_page_time_list").css("height", "0px");
 		//$("#pt_list_page_time_list").css("border-color", "rgba(75, 77, 178, 0.0)");
@@ -503,6 +506,25 @@
 		}
 		$("#pt_list_page_time_div p").text(timeTemp);
 	});
+	
+	$("#pt_list_page_text").keydown(function(event) {
+		var searchStr = $(this).val().trim();
+		if(searchStr == "") {
+			return;
+		}
+		if(event.keyCode == 13) {
+			location.href = "ptlist?page=1&category="+categoryNum+"&time="+timeNum + "&search="+$(this).val();
+		}
+	});
+	
+	$("#pt_list_page_text_btn").click(function() {
+		location.href = "ptlist?page=1&category="+categoryNum+"&time="+timeNum + "&search="+$(this).next().val();
+	});
+	
+	function urlMapping() {
+		var searchStr = $("#pt_list_page_text").val().trim();
+		location.href = "ptlist?page=1&category="+categoryNum+"&time="+timeNum + "&search="+searchStr;
+	};
 	
 	</script>
 </body>

@@ -39,4 +39,26 @@ public class PaymentDao {
 		}
 		return result;
 	}
+	
+	public int updatePayment(Connection conn, int prevPtCalendarNo, int ptCalendarNo) {
+		int result = 0;
+		String sql = "update tb_payment "
+				+ " set pt_calendar_no = ? "
+				+ " where pt_calendar_no = ?";
+
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, ptCalendarNo);
+			pstmt.setInt(2, prevPtCalendarNo);
+			
+			result = pstmt.executeUpdate();
+			System.out.println("dao result : " + result);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }

@@ -11,12 +11,54 @@ public class PtCalendarVo {
 	private String ptName;
 	private String memberName;
 	private String memberId;
+	private String gymName;
+	private String gymLocation;
+	private int ptPrice;
+	
 	
 	@Override
 	public String toString() {
 		return "PtCalendarVo [ptCalendarNo=" + ptCalendarNo + ", ptNo=" + ptNo + ", memberNo=" + memberNo + ", ptCalendarStartTime=" + ptCalendarStartTime + ", ptCalendarReservationState="
-				+ ptCalendarReservationState + ", ptName=" + ptName + ", memberName=" + memberName + ", memberId=" + memberId + "]";
+				+ ptCalendarReservationState + ", ptName=" + ptName + ", memberName=" + memberName + ", memberId=" + memberId + ", gymName=" + gymName + ", gymLocation=" + gymLocation + ", ptPrice="
+				+ ptPrice + "]";
 	}
+
+	
+
+	public String getGymName() {
+		return gymName;
+	}
+
+
+
+	public void setGymName(String gymName) {
+		this.gymName = gymName;
+	}
+
+
+
+	public String getGymLocation() {
+		return gymLocation;
+	}
+
+
+
+	public void setGymLocation(String gymLocation) {
+		this.gymLocation = gymLocation;
+	}
+
+
+
+	public int getPtPrice() {
+		return ptPrice;
+	}
+
+
+
+	public void setPtPrice(int ptPrice) {
+		this.ptPrice = ptPrice;
+	}
+
 
 
 	public String getMemberId() {

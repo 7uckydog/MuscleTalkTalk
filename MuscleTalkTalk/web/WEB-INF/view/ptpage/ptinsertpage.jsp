@@ -14,6 +14,11 @@
 <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css' rel='stylesheet' />
 </head>
 <body>
+	<div id="pt_insert_regist_modal_div">
+		<div id="modal_spin_div">
+			<i class="fa-solid fa-spinner fa-spin-pulse" id="modal_spin"></i>
+		</div>
+	</div>
 	<div id="pt_insert_calendar_modal_div">
 		<div id="pt_insert_calendar_input_div">
 			<div id="calendar"></div>
@@ -31,9 +36,9 @@
 					<div class="col_25">
 						<label for="pt_name">프로그램 명</label>
 					</div>
-					<div class="col_75">
+					<div class="col_75 position_relative">
 						<input class="pt_write_input_text" type="text" id="pt_name" name="pt_name" autocomplete="off">
-						<p id="pt_name_textCount">00/30자</p>
+						<p id="pt_name_textCount" class="pt_insert_textCount">00/30자</p>
 					</div>
 				</div>
 				<div class="row">
@@ -54,20 +59,13 @@
 					<div class="col_25">
 						<label for="">카테고리 (종류)</label>
 					</div>
-					<div class="col_75">
+					<div class="col_75 position_none">
 						<div id="pt_category_div">
 							<p>카테고리 선택</p>
 							<i class="fa-solid fa-sort-up pt_category_arrow"></i> <i class="fa-solid fa-sort-down pt_category_arrow"></i>
 						</div>
 						<div id="pt_category_list">
 							<ul id="pt_category_list_box">
-								<li>웨이트</li>
-								<li>다이어트</li>
-								<li>재활</li>
-							</ul>
-						</div>
-						<div id="pt_list_page_category_list">
-							<ul id="pt_list_page_category_list_box">
 								<li>웨이트</li>
 								<li>다이어트</li>
 								<li>재활</li>
@@ -80,40 +78,45 @@
 					<div class="col_25">
 						<label for="">프로그램 간단 설명</label>
 					</div>
-					<div class="col_75">
+					<div class="col_75 position_relative">
 						<textarea class="pt_write_textarea" name="pt_introduce" id="pt_introduce" cols="30" rows="10"></textarea>
+						<p id="pt_introduce_textCount" class="pt_insert_textCount2">000/500자</p>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col_25">
 						<label for="">프로그램 상세 설명</label>
 					</div>
-					<div class="col_75">
+					<div class="col_75 position_relative">
 						<textarea class="pt_write_textarea" name="pt_information" id="pt_information" cols="30" rows="10"></textarea>
+						<p id="pt_information_textCount" class="pt_insert_textCount2">000/500자</p>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col_25">
 						<label for="">수업 추천 회원</label>
 					</div>
-					<div class="col_75">
+					<div class="col_75 position_relative">
 						<textarea class="pt_write_textarea" name="pt_target_student" id="pt_target_student" cols="30" rows="10"></textarea>
+						<p id="pt_target_student_textCount" class="pt_insert_textCount2">000/150자</p>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col_25">
 						<label for="">트레이너 소개</label>
 					</div>
-					<div class="col_75">
+					<div class="col_75 position_relative">
 						<textarea class="pt_write_textarea" name="pt_trainer_info" id="pt_trainer_info" cols="30" rows="10"></textarea>
+						<p id="pt_trainer_info_textCount" class="pt_insert_textCount2">000/150자</p>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col_25">
 						<label for="">유의사항</label>
 					</div>
-					<div class="col_75">
+					<div class="col_75 position_relative">
 						<textarea class="pt_write_textarea" name="pt_notice" id="pt_notice" cols="30" rows="10"></textarea>
+						<p id="pt_notice_textCount" class="pt_insert_textCount2">000/150자</p>
 					</div>
 				</div>
 				<div class="row">
@@ -178,6 +181,7 @@
 					</div>
 					<div class="col_75">
 						<input class="pt_write_input_text" type="text" id="pt_price" name="pt_price" autocomplete="off">
+						<p id="pt_time_notice">*최소 1,000원 부터 최대 1,000,000원 까지 가능</p>
 					</div>
 				</div>
 				<div class="row">
@@ -246,8 +250,9 @@
 		}
 
 		//인풋 글자수 체크
-		$("#pt_name").keydown(function(e) {
+		$("#pt_name").on('input',function(e) {
 			let content = $(this).val();
+			
 			if (content.length == 0 || content == '') {
 				$("#pt_name_textCount").text('00/30자');
 			} else if (content.length < 10) {
@@ -255,7 +260,72 @@
 			} else {
 				$("#pt_name_textCount").text(content.length + '/30자');
 			}
-		})
+			
+			if(content.length > 30) {
+				alert("30글자까지 가능합니다.");
+				$(this).val($(this).val().substr(0, 30));
+				content = $(this).val();
+				if (content.length == 0 || content == '') {
+					$("#pt_name_textCount").text('00/30자');
+				} else if (content.length < 10) {
+					$("#pt_name_textCount").text('0' + content.length + '/30자');
+				} else {
+					$("#pt_name_textCount").text(content.length + '/30자');
+				}
+			} 
+			
+		});
+		
+		$('.pt_write_textarea').on('input', textCountFunction);
+		
+		function textCountFunction(event) {
+			let $this = $(this);
+			var $nextP = $(this).next();
+			var maxLengthTemp = $(this).next().text().substr(4,3);
+			let content = $this.val();
+			
+			if (content.length == 0 || content == '') {
+				$nextP.text('000/'+maxLengthTemp+'자');
+			} else if (content.length < 10) {
+				$nextP.text('00' + content.length + '/'+maxLengthTemp+'자');
+			} else if (content.length < 100) {
+				$nextP.text('0' + content.length + '/'+maxLengthTemp+'자');
+			} else {
+				$nextP.text(content.length + '/'+maxLengthTemp+'자');
+			}
+			
+			if(content.length > maxLengthTemp) {
+				alert(maxLengthTemp+"글자까지 가능합니다.");
+				$(this).val($(this).val().substr(0, maxLengthTemp));
+				content = $(this).val();
+				if (content.length == 0 || content == '') {
+					$nextP.text('000/'+maxLengthTemp+'자');
+				} else if (content.length < 10) {
+					$nextP.text('00' + content.length + '/'+maxLengthTemp+'자');
+				} else if (content.length < 100) {
+					$nextP.text('0' + content.length + '/'+maxLengthTemp+'자');
+				} else {
+					$nextP.text(content.length + '/'+maxLengthTemp+'자');
+				}
+			} 
+		}
+		
+		$("#pt_price").on('blur', function() {
+			$(this).val();
+			var priceTest = /^[0-9]{4,7}$/;
+			if(priceTest.test($(this).val())) {
+				if($(this).val() > 1000000) {
+					alert("PT 프로그램 가격은 최소 1,000원 부터 최대 1,000,000원 까지 가능");
+				} else {
+					$(this).val($(this).val().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원");
+				}
+			} else {
+				alert("PT 프로그램 가격은 최소 1,000원 부터 최대 1,000,000원 까지 가능");
+				$(this).val('');
+			}
+		});
+		
+		
 
 		//포커스일때 border 애니메이션 추가
 		$("#pt_write_content input").focus(function() {
@@ -541,12 +611,13 @@
 					"#pt_category_list_box li, #pt_day_list_box li, #pt_start_time_list_box li, #pt_end_time_list_box li")
 					.click(
 							function() {
-								console.log($(this).parents().eq(1).prev()
-										.children('p'));
-								$(this).parents().eq(1).prev().children('p')
-										.text($(this).text());
-								$(this).parents().eq(1).prev().children('p')
-										.css("color", "black");
+								$(this).parents().eq(1).prev().children('p').text($(this).text());
+								$(this).parents().eq(1).prev().children('p').css("color", "black");
+								$(this).parents().eq(1).css({
+									height : '0px',
+									border : '1px solid rgba(75, 77, 178, 0.0)'
+								});
+								$(this).parents().eq(1).prev().css('border','1px solid rgba(75, 77, 178, 0.3)');
 							});
 			$("#pt_category_list_box li").click(function() {
 				if ($(this).text() == "웨이트") {
@@ -569,6 +640,22 @@
 							var day = $(".pt_time_div p").eq(0).text();
 							var startTime = $(".pt_time_div p").eq(1).text();
 							var endTime = $(".pt_time_div p").eq(2).text();
+							if(Number(startTime.split(":")[0]) >= Number(endTime.split(":")[0])) {
+								alert('종료 시간은 시작 시간 이후 여야 합니다.');
+								return;
+							}
+							if(day == '요일 선택') {
+								alert('요일을 선택해주세요.');
+								return;
+							}
+							if(startTime == '시작 시간 선택') {
+								alert('시작 시간을 선택해주세요.');
+								return;
+							}
+							if(endTime == '종료 시간 선택') {
+								alert('종료 시간을 선택해주세요.');
+								return;
+							}
 							if (day != '요일 선택' && startTime != '시작 시간 선택'
 									&& endTime != '종료 시간 선택') {
 								for (var i = 0; i < $(".time_info_div").length; i++) {
@@ -659,7 +746,44 @@
 		$("#pt_submit_button").click(ptSubmit);
 
 		function ptSubmit() {
-			console.log("제출");
+			if(Number($("#pt_name_textCount").text().substr(0,2)) == 0) {
+				alert('PT 프로그램 명을 입력해주세요.');
+				return;
+			}
+			for(var i = 0 ; i < 3; i++) {				
+				if($('.input_ptimg_file').eq(i)[0].files.length == 0) {
+					alert(i+1+'번째 커버 이미지를 등록해주세요.');
+					return;
+				}
+			}
+			if($("#pt_category_div p").text() == '카테고리 선택') {
+				alert('카테고리를 선택해주세요.');
+				return;
+			}
+			if(Number($('#pt_introduce_textCount').text().substr(0,3)) == 0) {
+				alert('프로그램 간단 설명을 입력해주세요.');
+				return;
+			}
+			if(Number($('#pt_information_textCount').text().substr(0,3)) == 0) {
+				alert('프로그램 상세 설명을 입력해주세요.');
+				return;
+			}
+			if(Number($('#pt_target_student_textCount').text().substr(0,3)) == 0) {
+				alert('수업 추천 회원을 입력해주세요.');
+				return;
+			}
+			if(Number($('#pt_trainer_info_textCount').text().substr(0,3)) == 0) {
+				alert('트레이너 소개를 입력해주세요.');
+				return;
+			}
+			if(Number($('#pt_notice_textCount').text().substr(0,3)) == 0) {
+				alert('유의사항을 입력해주세요.');
+				return;
+			}
+			if($('.time_info_div').length == 0 ) {
+				alert('수업 요일, 시작 시간, 종료 시간을 입력해주세요.');
+				return;
+			}
 			$("#pt_time_info").val("test");
 			console.log($("#pt_time_info").val());
 			console.log($('.time_info_div'));
@@ -678,11 +802,13 @@
 				}
 			}
 			$("#pt_time_info").val(time_info_str);
+			$("#pt_price").val($("#pt_price").val().replace(/[^\d]+/g, "").replace("원", ""));
 			
 			var frm = document.pt_time_form;
 			frm.action = "ptinsert.do";
 			frm.method = "post";
 			frm.submit();
+			$('#pt_insert_regist_modal_div').css("display", 'block');
 		}
 
 
@@ -835,6 +961,12 @@
 							$("#pt_insert_calendar_modal_div").css("display","none");
 							$("#pt_start_date_input").val(getFormatDate(info.date));
 							dateTypeOption = 0;
+							console.log("test");
+							if($("#pt_end_date").text() <= $("#pt_start_date").text()) {
+								info.date.setDate(info.date.getDate() + 1);
+								$("#pt_end_date").text(getFormatDate(info.date));
+							}
+							console.log("test");
 						}
 					} else if(dateTypeOption == 2) {
 						var dateSplitArray = $('#pt_start_date').text().split("-");

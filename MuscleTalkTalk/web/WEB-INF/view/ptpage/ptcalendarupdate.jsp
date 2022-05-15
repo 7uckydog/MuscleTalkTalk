@@ -16,7 +16,7 @@
 <body>
 	<div id="pt_calendar_modal_div">
 		<div id="pt_calendar_modal">
-			<p id="pt_calendar_modal_content">정말 결제하시겠습니까?</p>
+			<p id="pt_calendar_modal_content">정말 예약을 변경 하시겠습니까?</p>
 			<button type="button" class="btn" id="pt_calendar_modal_cancle">아니오</button>
 			<button type="button" class="btn" id="pt_calendar_modal_check">예</button>
 		</div>
@@ -33,10 +33,10 @@
 				</div>
 				<div id="pt_calendar_time_info"></div>
 			</div>
-			<hr id="pt_calendar_hr">
-			<div id="pt_calendar_summary">
-				<p id="pt_calendar_summary_timtle">예약 정보</p>
-				<div id="pt_calendar_summary_container">
+			<hr id="pt_calendar_hr2">
+			<div id="pt_calendar_prev">
+				<p class="pt_calendar_summary_timtle">변경전 예약 정보</p>
+				<div class="pt_calendar_summary_container">
 					<p class="summary_left">예약자</p>
 					<p class="summary_right">${ssMvo.memberName }</p>
 					<p class="summary_left">예약일</p>
@@ -53,7 +53,27 @@
 					<p class="summary_right"></p>
 				</div>
 			</div>
-			<div id="pt_calendar_trade_wrap"><button id="pt_calendar_tarde_btn" type="button">결제하기</button></div>
+			<hr id="pt_calendar_hr">
+			<div id="pt_calendar_summary">
+				<p class="pt_calendar_summary_timtle">변경후 예약 정보</p>
+				<div class="pt_calendar_summary_container">
+					<p class="summary_left">예약자</p>
+					<p class="summary_right">${ssMvo.memberName }</p>
+					<p class="summary_left">예약일</p>
+					<p class="summary_right"></p>
+					<p class="summary_left">예약시간</p>
+					<p class="summary_right"></p>
+					<p class="summary_left">프로그램명</p>
+					<p class="summary_right">${pVo.ptName }</p>
+					<p class="summary_left">헬스장명</p>
+					<p class="summary_right">${pVo.ptGymName }</p>
+					<p class="summary_left">헬스장 주소</p>
+					<p class="summary_right">${pVo.ptLocation }</p>
+					<p class="summary_left">가격(1시간 / 1회)</p>
+					<p class="summary_right"></p>
+				</div>
+			</div>
+			<div id="pt_calendar_trade_wrap"><button id="pt_calendar_tarde_btn" type="button">예약 변경하기</button></div>
 		</div>
 	</section>
 	<%@ include file="/WEB-INF/view/footer.jsp"%>
@@ -211,7 +231,7 @@
 									splitTempStrTemp = "0" + splitTempStrTemp;
 								}
 								var splitReservationTime = splitTempStr + ':00 ~ ' + splitTempStrTemp + ':00'
- 								$('.summary_right').eq(2).text(splitReservationTime);
+ 								$('.summary_right').eq(9).text(splitReservationTime);
  								console.log($('.pt_calendar_time_info_str').eq(i).text().split("시"));
 							} else {
 								chkArray[i] = false;
@@ -219,8 +239,8 @@
 						}
 						var splitDateStrArray = $('#pt_calendar_time_info_title').text().split(" ");
 						var splitDateStr = splitDateStrArray[0] + ' ' + splitDateStrArray[1] + ' ' + splitDateStrArray[2];
- 						$('.summary_right').eq(1).text(splitDateStr);
-						$('.summary_right').eq(6).text(numberWithCommas('${pVo.ptPrice}') + '원');
+ 						$('.summary_right').eq(8).text(splitDateStr);
+						$('.summary_right').eq(13).text(numberWithCommas('${pVo.ptPrice}') + '원');
 						$('#pt_calendar_summary').css("display", "block");
 						$('#pt_calendar_hr').css("display", "block");
 						$('#pt_calendar_trade_wrap').css("display", "block");
@@ -291,7 +311,7 @@
 		});
 		$('#pt_calendar_modal_check').click(function() {
 			var checkDate = "";
-			var yearMontDateTemp = $('.summary_right').eq(1).text().split(" ");
+			var yearMontDateTemp = $('.summary_right').eq(8).text().split(" ");
 			for(var i = 0; i < yearMontDateTemp.length; i++) {
 				checkDate += numberReg(yearMontDateTemp[i]);
 				if(i != 2) {
@@ -300,7 +320,7 @@
 					checkDate += ' ';
 				}
 			}
-			checkDate += numberReg($('.summary_right').eq(2).text().split(':')[0]);
+			checkDate += numberReg($('.summary_right').eq(9).text().split(':')[0]);
 			checkDate += ':00:00.0'
 			var ptCalendarNo = 0;
 			for(var i = 0; i < ptCalendarVoJs.length; i++) {
@@ -312,23 +332,24 @@
 			var memberNo = ${ssMvo.memberNo};
 			var ptPrice = ${pVo.ptPrice};
 			$.ajax({
-				url  : 'ptreservaton.ax',
+				url  : 'ptcalupdate.ax',
 				type : 'post',
 				data : 
 				{
+					prevPtCalendarNo : ${ptCalendarNo},
 					memberNo : memberNo,
 					ptPrice : ptPrice,
 					ptCalendarNo : ptCalendarNo
 				},
 				success : function(result) {
 					console.log(result);
-					console.log(result == 'success');
-					if(result == 'success') {
-						alert("결제가 완료되었습니다.")
-						location.href = "ptlist";
+					console.log(result == '1');
+					if(result == 1) {
+						alert("예약 변경이 완료되었습니다.");
+						location.href = "calendar";
 					} else {
-						alert("결제가 실패했습니다.")
-						location.href = "ptlist";
+						alert("예약 변경이 실패했습니다.");
+						location.href = "calendar";
 					}
 				},
 				error : function(request, status, error) {
@@ -349,7 +370,23 @@
 			return result;
 		}
 		
-
+		$(function() {
+			var dateTemp = new Date('${ptCalendarVo.ptCalendarStartTime}');
+			var startTemp = dateTemp.getHours();
+			var endTemp = startTemp + 1;
+			console.log(startTemp);
+			console.log(endTemp);
+			if(startTemp < 10) {
+				startTemp = "0" + startTemp;
+			}
+			if(endTemp < 10) {
+				endTemp = "0" + endTemp;
+			}
+			var splitReservationTime = startTemp + ':00 ~ ' + endTemp + ':00'
+			$('.summary_right').eq(2).text(splitReservationTime);
+			$('.summary_right').eq(1).text(formateDateTitle(dateTemp).substring(0, formateDateTitle(dateTemp).length - 4));
+			$('.summary_right').eq(6).text(numberWithCommas('${ptCalendarVo.ptPrice}') + '원');
+		});
 	</script>
 </body>
 </html>

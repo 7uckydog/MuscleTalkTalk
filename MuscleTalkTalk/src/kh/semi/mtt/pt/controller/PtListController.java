@@ -62,7 +62,8 @@ public class PtListController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		int pageSize = 8;
+		String searchStr = request.getParameter("search");
+		int pageSize = 2;
 		int pageBlock = 5;
 		
 		int startPage = 0;
@@ -70,7 +71,7 @@ public class PtListController extends HttpServlet {
 		int startRnum = 0;
 		int endRnum = 0;
 		
-		int totalCnt = new PtService().countPt(categoryInt, timeInt);
+		int totalCnt = new PtService().countPt(categoryInt, timeInt, searchStr);
 		
 		int totalpageCnt = (totalCnt / pageSize) + (totalCnt % pageSize == 0 ? 0 : 1);
 		if (pageInt % pageBlock == 0) {
@@ -91,7 +92,7 @@ public class PtListController extends HttpServlet {
 		
 		
 		
-		ArrayList<PtVo> ptVoList = new PtService().readAllPt(categoryInt, timeInt, startRnum, endRnum); 
+		ArrayList<PtVo> ptVoList = new PtService().readAllPt(categoryInt, timeInt, searchStr, startRnum, endRnum); 
 		System.out.println("/ptlist doGet ptVoList 결과:  " + ptVoList);
 		ArrayList<PtFavoriteVo> ptFavoriteVoList = null;
 		if(request.getSession().getAttribute("ssMvo") != null) {
@@ -115,6 +116,9 @@ public class PtListController extends HttpServlet {
 		request.setAttribute("pageInt", pageInt);
 		request.setAttribute("categoryInt", categoryInt);
 		request.setAttribute("timeInt", timeInt);
+		if(searchStr != null) {			
+			request.setAttribute("search", searchStr);
+		}
 		System.out.println("startPage : " + startPage);
 		System.out.println("endPage : " + endPage);
 		request.getRequestDispatcher("WEB-INF/view/ptpage/ptlistpage.jsp").forward(request, response);

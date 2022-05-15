@@ -155,7 +155,7 @@
 		
 		$(function () {
 			for(var i = 0; i < boardVoList.length; i++) {
-				$("#board_input_div").append('<p class="board_input_title font_THEmpgtM font_12px font_color_rgb"><span>'+boardVoList[i].boardTitle +'['+boardVoList[i].boardNo+']</span></p>');
+				$("#board_input_div").append('<p class="board_input_title font_THEmpgtM font_12px font_color_rgb"><span>'+boardVoList[i].boardTitle +'['+boardVoList[i].rCnt+']</span></p>');
 				$('.board_input_title span').eq(i).click(function() {
 					location.href = "boardread?bno=" + boardVoList[$('.board_input_title span').index(this)].boardNo;
 				});

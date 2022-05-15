@@ -63,6 +63,10 @@ a:visited {
   font-family: 'THEmpgtM';
 }
 
+.position_relative {
+	position: relative;
+}
+
 #pt_name {
   padding: 0;
   border: none;
@@ -125,6 +129,10 @@ a:visited {
   transition: all .3s ease-in-out;
   transition-property: background-color;
   transition-duration: 0.3s ase-in-out;
+}
+
+.input_ptimg_file {
+	display: none;
 }
 
 .pt_write_listbox {
@@ -205,13 +213,24 @@ a:visited {
 	font-size: 0;
 }
 
-#pt_name_textCount {
+.pt_insert_textCount {
 	position: absolute;
 	top: 0;
-	left: 80%;
+	left: 310px;
 	margin: 0;
 	height: 30px;
 	line-height: 30px;
+	font-size: 12px;
+	box-sizing: border-box;
+}
+
+.pt_insert_textCount2 {
+	position: absolute;
+	top: 0;
+	left: 427px;
+	margin: 0;
+	height: 18px;
+	line-height: 18px;
 	font-size: 12px;
 	box-sizing: border-box;
 }
@@ -281,8 +300,8 @@ a:visited {
 	height: 0px;
 	width: 300px;
 	position: absolute;
-	top: 0;
-	left: 0;
+	top: 0px;
+	left: 0px;
 	z-index: 2;
 	transition-property: height, border-color;
 	transition-duration: 0.3s;
@@ -521,6 +540,34 @@ a:visited {
 	display: none;
 }
 
+#modal_spin_div {
+	width: 100px;
+	height: 100px;
+	position: absolute;
+ 	top: 50%;
+  	left: 50%;
+  	transform: translate(-50%,-50%);
+}
+
+#modal_spin {
+	font-size: 100px;
+	color : #4B4DB2;
+}
+
+#pt_insert_regist_modal_div {
+	z-index: 2;
+	background-color: rgba(128, 128, 128, 0.356);
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	font-family:'THEmpgtM';
+	font-size: 12px;
+	display: none;
+}
+
 #pt_insert_calendar_input_div {
 	background-color: white;
 	border: 1px solid rgba(75, 77, 178, 0.7);
@@ -641,7 +688,7 @@ a:visited {
 }
 
 #pt_list_page_location_div {
-	display: inline-block;
+	display: none;
 	border: 1px solid rgba(75, 77, 178, 0.3);
 	width: 100px;
 	height: 30px;
@@ -769,6 +816,7 @@ a:visited {
 	background-color: #e0e0e0;
 	float: right;
 	margin-left: 10px;
+	cursor : pointer;
 }
 
 #pt_list_page_container{
@@ -1123,6 +1171,9 @@ a:visited {
 .font_12px {
 	font-size: 12px;
 }
+.font_20px {
+	font-size: 20px;
+}
 #pt_reservation_time_info_modal_div {
 	z-index: 2;
 	background-color: rgba(128, 128, 128, 0.356);
@@ -1314,18 +1365,25 @@ a:visited {
 	margin: 50px 0;
 	display: none;
 }
+#pt_calendar_hr2 {
+	margin: 50px 0;
+}
 
 #pt_calendar_summary {
 	display: none;
 }
 
-#pt_calendar_summary_timtle {
+#pt_calendar_prev {
+	display: block;
+}
+
+.pt_calendar_summary_timtle {
 	font-size: 15px;
 	font-family:'THEmpgtB';
 	margin-bottom: 10px;
 }
 
-#pt_calendar_summary_container {
+.pt_calendar_summary_container {
 	margin: 0 auto;
 	width: 500px;
 	display: grid;
@@ -1334,12 +1392,12 @@ a:visited {
 	text-align: center;
 }
 
-#pt_calendar_summary_container .summary_left{
+.pt_calendar_summary_container .summary_left{
 	font-size: 12px;
 	font-family:'THEmpgtM';
 }
 
-#pt_calendar_summary_container .summary_right{
+.pt_calendar_summary_container .summary_right{
 	font-size: 12px;
 	font-family:'THEmpgtB';
 }
