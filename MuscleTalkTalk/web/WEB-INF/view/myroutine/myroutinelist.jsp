@@ -676,7 +676,6 @@ ${revolist.get(revolist.size() - 1).routineWeek } --%>
 
   //루틴상세보기 모달 이벤트
     $(function(){ //모달
-        // const eleModal = document.getElementsByClassName("modal")[0];
         const eleModal = document.querySelector(".routine_modal");
         const bagModal = document.querySelector(".modal");
 
@@ -697,8 +696,10 @@ ${revolist.get(revolist.size() - 1).routineWeek } --%>
             			 routineDayWeekTemp = 'week';
             				if(voList[i].routineWeek != routineIndexTemp) {
 	            			routineIndexTemp = voList[i].routineWeek;
-	            			$('.weekDiv').append('<input type="radio" class="weekradio" name="weekradio" id="weekradio'+routineIndexTemp+'" value="'+routineIndexTemp+'">');
-	            			$('.weekDiv').append('<label for="weekradio'+routineIndexTemp+'">'+routineIndexTemp+'주차</label>');
+	            			$('.weekDiv').append
+	            			('<input type="radio" class="weekradio" name="weekradio" id="weekradio'+routineIndexTemp+'" value="'+routineIndexTemp+'">');
+	            			$('.weekDiv').append
+	            			('<label for="weekradio'+routineIndexTemp+'">'+routineIndexTemp+'주차</label>');
 	            			$('#modal_RoutineMemo').text(voList[i].routineContent);
 	            			routineExerciseDayTemp = 0;
 	            			$thisTemp1 = $('.weekradio').eq($('.weekradio').length - 1);

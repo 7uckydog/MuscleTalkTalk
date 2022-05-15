@@ -15,6 +15,15 @@ public class RoutineBoardService {
 	
 	
 	
+	public int deleteRoutineBoard(RoutineBoardVo rvo) {
+		Connection conn = null;
+		conn = getConnection();
+		int result = dao.deleteRoutineBoard(conn, rvo);
+		close(conn);
+		return result;
+		
+	}
+	
 	
 	public Map<String, Object> readRoutineBoardRouintenInformation(int routineboardNo) {
 		

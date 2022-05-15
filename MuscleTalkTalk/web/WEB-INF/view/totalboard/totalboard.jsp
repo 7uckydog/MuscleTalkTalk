@@ -377,13 +377,13 @@ section {
 		<div class="Pageing">
 			<p>
 				<c:if test="${startPage > 1 }">
-					<a class="Page" href="BoardReadAll?page=${startPage-1 }">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;
+					<a class="Page" href="totalboardreadall?page=${startPage-1 }">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;
 			</c:if>
 				<c:forEach begin="${startPage }" end="${endPage }" var="p">
-					<a class="Page" id="xxx" href="BoardReadAll?page=${p }">${p }</a>&nbsp;&nbsp;&nbsp;&nbsp;
+					<a class="Page" id="xxx" href="totalboardreadall?page=${p }">${p }</a>&nbsp;&nbsp;&nbsp;&nbsp;
 			</c:forEach>
 				<c:if test="${endPage < totalpageCnt}">
-					<a class="Page" href="BoardReadAll?page=${endPage+1 }">다음</a>
+					<a class="Page" href="totalboardreadall?page=${endPage+1 }">다음</a>
 				</c:if>
 			</p>
 		</div>

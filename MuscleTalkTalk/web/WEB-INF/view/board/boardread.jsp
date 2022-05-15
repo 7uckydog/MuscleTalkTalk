@@ -59,6 +59,10 @@ button {
 	margin-right: 65px;
 	float: right;
 	font-size: 12px;
+	color: black;
+}
+a{
+color: black;
 }
 
 #board_note {

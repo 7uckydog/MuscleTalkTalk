@@ -40,18 +40,18 @@ public class RoutineDao {
 		
 		String sql = "insert all"
 				+ "	    into tb_routine (ROUTINE_NO, MEMBER_NO, ROUTINE_NAME, ROUTINE_DISABLE, ROUTINE_TARGET,"
-				+ "	                        ROUTINE_CONTENT, ROUTINE_EXPLANATION)"
-				+ "	            values ((select nvl(max(ROUTINE_NO),0)+1 from tb_routine), ?, ?, 'F', ?, ?, 'default')"
+				+ "	                     ROUTINE_CONTENT, ROUTINE_EXPLANATION)"
+				+ "	    values ((select nvl(max(ROUTINE_NO),0)+1 from tb_routine), ?, ?, 'F', ?, ?, 'default')"
 				+ "	    ";
 		int routineExerciseNo = 1;
 		for(RoutineExerciseVo reVo : rouExerVoList) {
-			sql +=  "	    into tb_routine_exercise(ROUTINE_EXERCISE_NO, EXERCISE_NO, ROUTINE_NO, ROUTINE_EXERCISE_DAY, "
-					+ "	            ROUTINE_WEEK, ROUTINE_DAY, ROUTINE_EXERCISE_SET, ROUTINE_EXERCISE_REPEAT, ROUTINE_EXERCISE_WEIGHT, ROUTINE_EXERCISE_TIME,"
-					+ "	            ROUTINE_EXERCISE_DISTANCE, ROUTINE_EXERCISE_PERFORM_DAY, ROUTINE_EXERCISE_D_DAY, ROUTINE_EXERCISE_SEQUENCE, ROUTINE_EXERCISE_COPY)"   //4			8				  10
-					+ "	            values ((select nvl(max(ROUTINE_EXERCISE_NO),0)+"+(routineExerciseNo++)+" from TB_ROUTINE_EXERCISE), (select EXERCISE_NO"
-					+ "    			from tb_exercise"
-					+ "    			where exercise_name = ?),(select nvl(max(ROUTINE_NO),0)+1 from tb_routine)"
-					+ "				, ?, ?, null, ?, ?, ?, null, null, null ,null, ?, 'F') ";
+			sql +=  "into tb_routine_exercise(ROUTINE_EXERCISE_NO, EXERCISE_NO, ROUTINE_NO, ROUTINE_EXERCISE_DAY, "
+					+ "	ROUTINE_WEEK, ROUTINE_DAY, ROUTINE_EXERCISE_SET, ROUTINE_EXERCISE_REPEAT, ROUTINE_EXERCISE_WEIGHT, ROUTINE_EXERCISE_TIME,"
+					+ "	ROUTINE_EXERCISE_DISTANCE, ROUTINE_EXERCISE_PERFORM_DAY, ROUTINE_EXERCISE_D_DAY, ROUTINE_EXERCISE_SEQUENCE, ROUTINE_EXERCISE_COPY)"   //4			8				  10
+					+ "	values ((select nvl(max(ROUTINE_EXERCISE_NO),0)+"+(routineExerciseNo++)+" from TB_ROUTINE_EXERCISE), (select EXERCISE_NO"
+					+ " from tb_exercise"
+					+ " where exercise_name = ?),(select nvl(max(ROUTINE_NO),0)+1 from tb_routine)"
+					+ "	, ?, ?, null, ?, ?, ?, null, null, null ,null, ?, 'F') ";
 		}
 		sql += "select * from dual";
 		try {

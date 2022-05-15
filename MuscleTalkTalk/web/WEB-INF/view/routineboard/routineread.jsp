@@ -742,7 +742,15 @@
         z-index: 1;
         background-color: rgba(128, 128, 128, .5);
         }
-		
+.btn_delete{
+	width: 100px;
+	height: 30px;
+	float: right;
+	margin-right: 65px;
+	color: #4B4DB2;
+	background-color: white;
+	border: 1px solid #4B4DB2;
+}
 		
 		
 		
@@ -891,6 +899,9 @@
         	<c:if test="${not empty ssMvo }">
             <button id="board_cancel">글 신고하기</button>
             </c:if>
+            <c:if test = "${ssMvo.memberNickname ==  bvo.memberNickname}">
+            <button type="button" class="btn_delete">글삭제</button>
+            </c:if>
             <button onclick = "location.href = 'routineboardreadall'" id="board_register">확인</button>
         </div>
         		<div class="report_modal">
@@ -928,8 +939,6 @@
 			
 			totalViewCnt++;
 		}
-		console.log(itemCnt);
-		console.log(totalViewCnt);
 		$(".btn_more_recomment").click(
 				function() {
 					var nowViewCnt = totalViewCnt;
@@ -947,7 +956,6 @@
 						$(".more_recomment").eq(i).show();
 						totalViewCnt++;
 					}
-					console.log(totalViewCnt);
 				});
 	});
         // 게시판 선택시 색변경

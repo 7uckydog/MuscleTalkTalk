@@ -1080,31 +1080,18 @@ table {
 			var $tagetValueThis = $(this);
             var partBtnIndex = 0;
             for(var i = 0; i<$(".taget_value").length; i++){
-                if($(".taget_value").eq(i)[0]==$(this)[0]){  //왜 .eq(i)[0] 이렇게 써야하는지 .eq(i)로 비교하면 안되는지
+                if($(".taget_value").eq(i)[0]==$(this)[0]){
                     partBtnIndex = i;
-/* 		            console.log($(".taget_value").eq(i)[0]);
-		            console.log($(this)[0]);
-		            console.log("파트어레이1"+!($(partArray)[partBtnIndex])); */
-
                 }
             }
             partArray[partBtnIndex] = !partArray[partBtnIndex];
-            /* console.log("파트어레이2"+$(partArray)[1]); */
-            
-            
             //부위 선택 
-           
        	   	$.ajax({
        	   		url:"exerciseread",
        	   		type:"post",
        	   		dataType: 'json',
        	   		data:{tagetValue:$(this).val()},
        	   		success: function(result) {
-       				console.log("부위에이작스 성공시");
-       				/* console.log(result); */
-       				/* console.log($(this)[0]);
-       				console.log($(partArray).eq(0)[0]);
-       				console.log($(partArray).length); */
        				var exerciseNameEqual = false;
        				var workoutAllListLength = $('.workout_AllList p').length;
        				// 운동 추가 
@@ -1143,9 +1130,7 @@ table {
        			 	$(".workout_AllList p").off('click');
 	       			$(".workout_AllList p").on({
 	       	            click : function(){
-	       	                // console.log($(this));
-	       	                // console.log($(this).position());
-	       	                // console.log($(this).index());
+
 	       	            $('.workoutSettingName').text($(this).text());
 	       	            }
 	       	       });
@@ -1159,17 +1144,11 @@ table {
         // show -요일 - 부위 -위를 토대로 선택부위를 보여줌
         // 추가버튼 클릭 이벤트 - 요일, - 추가된 운동명
         $(".workout_inputBtn").on("click",function(){
-/*             console.log($(".routine_daySelect").val());
-            console.log(partArray);
-            console.log($(".taget_value")[0]); */
             if($(".routine_daySelect").val()=="none" && $(".dayroutine_daySelect").val()=="none"){
                 alert("일자/요일을 선택해주세요");
                 return;
             }
-
- 
             var arrayLength = $(".workoutSettingTr").length;
-/*             console.log($(".workoutSettingTr").length); */
             var chkEqualDay = true;
             var dayTemp = -1;
             if($(".addworkoutAllDiv").length ==0){
@@ -1183,35 +1162,43 @@ table {
                     }
                 }
                 if(chkEqualDay) {
-                    $('.addworkoutDiv').eq($('.addworkoutDiv').length-1).after('<div class="addworkoutAllDiv name="addworkoutAllDiv""><div class="addworkoutAllDivTop" name="addworkoutAllDivTop"></div></div>');
+                    $('.addworkoutDiv').eq($('.addworkoutDiv').length-1).after
+                    ('<div class="addworkoutAllDiv name="addworkoutAllDiv""><div class="addworkoutAllDivTop" name="addworkoutAllDivTop"></div></div>');
                 }
             }
             if($(".dayroutine_daySelect").val()=="none"){ //요일
                 if(chkEqualDay) {
-                    $(".addworkoutAllDivTop").eq($(".addworkoutAllDivTop").length-1).append('<div class="addworkoutDay" name="addworkoutDay">'+($(".routine_weekSelect").val())+'&nbsp;'+'&nbsp;'+'&nbsp;'+($(".routine_daySelect").val())+'</div>');
+                    $(".addworkoutAllDivTop").eq($(".addworkoutAllDivTop").length-1).append
+                    ('<div class="addworkoutDay" name="addworkoutDay">'+
+                    		($(".routine_weekSelect").val())+'&nbsp;'+'&nbsp;'+'&nbsp;'+($(".routine_daySelect").val())+'</div>');
                     
                 }
             }else if($(".routine_daySelect").val()=="none"){ //1,2,3day
-                $(".addworkoutAllDivTop").eq($(".addworkoutAllDivTop").length-1).append('<div class="addworkoutDay" name="addworkoutDay">'+($(".dayroutine_daySelect").val())+'</div>');
+                $(".addworkoutAllDivTop").eq($(".addworkoutAllDivTop").length-1).append
+                ('<div class="addworkoutDay" name="addworkoutDay">'+($(".dayroutine_daySelect").val())+'</div>');
              	// day 인풋생성 및 담기
-                $('.addworkoutAllDivTop').eq($(".addworkoutAllDivTop").length-1).append('<input class=addworkoutDayinput name="addworkoutoneDay"></input>');
+                $('.addworkoutAllDivTop').eq($(".addworkoutAllDivTop").length-1).append
+                ('<input class=addworkoutDayinput name="addworkoutoneDay"></input>');
                 $('.addworkoutDayinput').eq($(".addworkoutAllDivTop").length-1).val($(".dayroutine_daySelect").val());
             }
             
             if(chkEqualDay) {
                 for(var i = 0; i < partArray.length; i++){
                     if(partArray[i]){
-                        $(".addworkoutAllDivTop").eq($(".addworkoutAllDivTop").length-1).append('<div class="addworkoutPart" name="addworkoutPart">'+($(".taget_value").eq(i).text())+'</div>');
+                        $(".addworkoutAllDivTop").eq($(".addworkoutAllDivTop").length-1).append
+                        ('<div class="addworkoutPart" name="addworkoutPart">'+($(".taget_value").eq(i).text())+'</div>');
                     }
                 }
-                $(".addworkoutAllDivTop").eq($(".addworkoutAllDivTop").length-1).after('<div class="addworkoutDiv" name="addworkoutDiv"><table class="addworkoutTable" name="addworkoutTable"></table></div>');
+                $(".addworkoutAllDivTop").eq($(".addworkoutAllDivTop").length-1).after
+                ('<div class="addworkoutDiv" name="addworkoutDiv"><table class="addworkoutTable" name="addworkoutTable"></table></div>');
             } else {
                 var $divTopPark = $(".addworkoutAllDivTop").eq(dayTemp).children('.addworkoutPart');
                 for(var i = 0; i < partArray.length; i++){
                     if(partArray[i]){
                         for(var j = 0; j < $divTopPark.length; j++) {
                             if($divTopPark.eq(j).text() != $(".taget_value").eq(i).text()) {
-                                $(".addworkoutAllDivTop").eq(dayTemp).append('<div class="addworkoutPart" name="addworkoutPart">'+($(".taget_value").eq(i).text())+'</div>');
+                                $(".addworkoutAllDivTop").eq(dayTemp).append
+                                ('<div class="addworkoutPart" name="addworkoutPart">'+($(".taget_value").eq(i).text())+'</div>');
                             }
                         }
                     }

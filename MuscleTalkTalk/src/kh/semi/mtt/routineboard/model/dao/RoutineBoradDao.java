@@ -67,6 +67,28 @@ public class RoutineBoradDao {
 		
 	}
 	
+
+
+
+
+	public int deleteRoutineBoard(Connection conn,RoutineBoardVo rvo) {
+		int result = 0;
+		String sql = "delete from tb_routine_board where routine_board_no = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rvo.getRoutineboardNo());
+			result = pstmt.executeUpdate();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 	public ArrayList<RoutineBoardVo> mainRoutineBoard(Connection conn) {
 		ArrayList<RoutineBoardVo> rvolist = null;
 		
