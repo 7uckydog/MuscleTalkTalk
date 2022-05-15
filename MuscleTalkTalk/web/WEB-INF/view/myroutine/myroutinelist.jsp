@@ -452,7 +452,7 @@ ${revolist.get(revolist.size() - 1).routineWeek } --%>
                        	
                        	</div>
                     </div>
-                    <textarea id="modal_RoutineMemo" name="" readonly>루틴메모내용</textarea>
+                    <textarea id="modal_RoutineMemo" name="">루틴메모내용</textarea>
                     <div class="routineBtnDiv">
                         <button type="button" class="routineModalUpdateBtn">
                             수정
