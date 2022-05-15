@@ -199,17 +199,20 @@ public class MemberDao {
 			}
 			close(rs);
 			close(pstmt);
-			String sql2 = "select max(c.pt_calendar_start_time) max"
-					+ "    from tb_trainer t inner join tb_pt p on t.trainer_no = p.trainer_no"
-					+ "    inner join tb_pt_calendar c on p.pt_no = c.pt_no"
-					+ "    where pt_calendar_reservation_state = 'T' and trainer_etr ='I' and t.trainer_no = ?"
-					+ "    group by t.trainer_no";
-			pstmt = conn.prepareStatement(sql2);
-			pstmt.setInt(1, retVo.getTrainerNo());
-			rs = pstmt.executeQuery();
-			if(rs!=null) {
-				if(rs.next()) {
-					retVo.setWithdrawalDate(rs.getTimestamp("max"));
+			if(retVo != null && retVo.getTrainerNo() != 0) {
+				String sql2 = "select max(c.pt_calendar_start_time) max"
+						+ "    from tb_trainer t inner join tb_pt p on t.trainer_no = p.trainer_no"
+						+ "    inner join tb_pt_calendar c on p.pt_no = c.pt_no"
+						+ "    where pt_calendar_reservation_state = 'T' and trainer_etr ='I' and t.trainer_no = ?"
+						+ "    group by t.trainer_no";
+				
+				pstmt = conn.prepareStatement(sql2);
+				pstmt.setInt(1, retVo.getTrainerNo());
+				rs = pstmt.executeQuery();
+				if(rs!=null) {
+					if(rs.next()) {
+						retVo.setWithdrawalDate(rs.getTimestamp("max"));
+					}
 				}
 			}
 		} 
