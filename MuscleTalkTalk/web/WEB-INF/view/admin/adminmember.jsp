@@ -164,7 +164,7 @@ a, a:visited, a:link {
 
 
 #pageing_all {
-	margin: 45px auto 60px auto;
+	margin: 45px auto 20px auto;
 	text-align: center;
 	font-family: 'THEmpgtM';
 	font-size: 0px;

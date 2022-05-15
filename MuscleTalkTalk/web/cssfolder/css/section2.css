@@ -4,8 +4,9 @@
 	background-color: white;
 	border-radius: 10px 10px 0 0;
 	width: 780px;
-	height: 2000px;
+	min-height: 550px;
 	float: left;
+	padding-bottom: 65px;
 }
 
 #section2 {

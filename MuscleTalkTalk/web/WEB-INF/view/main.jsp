@@ -111,7 +111,12 @@
 		});
 		
 		$("#main_mypage_btn").click(function() {
-			location.href = "membermypage";
+			<c:if test="${not empty ssMvo && ssMvo.memberNo < 11}">
+     		location.href= "dashboard";
+    		</c:if>
+     		<c:if test="${not empty ssMvo && ssMvo.memberNo > 10}">
+     		location.href= "membermypage";
+    		</c:if>
 		});
 		
 		var boardVoList = [];

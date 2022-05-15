@@ -13,7 +13,7 @@
 
 <style>
 section{
-font-family:'THEmpgtM';
+font-family:'THEmpgtM'; 
 }
 a, a:visited, a:link{
     color: rgb(94, 94, 94);
@@ -43,9 +43,24 @@ a, a:visited, a:link{
 	clear: both;
 }
 
-
 .board_top{
 	position: relative;
+}
+#sort {
+	width: 105px;
+	height: 30px;
+	margin-top: 10px;
+	margin-bottom: 0px;
+	margin-right: 65px;
+	float: right;
+	font-size: 12px;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	border-color: rgb(200, 200, 200);
+	color: #404299;
+	border-radius: 3px;
+	font-family: 'THEmpgtM'
 }
  #memeber_main {
 	padding-top: 65px;
@@ -89,9 +104,6 @@ a, a:visited, a:link{
 	font-size: 12px;
 }
 
-
-
-
 #btn_search {
 	height: 27px;
 	width: 63px;
@@ -115,16 +127,6 @@ a, a:visited, a:link{
 
 #input_search:focus {
 	outline: none;
-}
-
-#sort {
-	width: 94.5px;
-	height: 32px;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	margin-right: 65px;
-	float: right;
-	font-size: 12px;
 }
 
 .table_line {
@@ -156,7 +158,7 @@ a, a:visited, a:link{
 }
 
 #pageing_all {
-	margin: 45px auto 60px auto;
+	margin: 45px auto 20px auto;
 	text-align: center;
 	font-family: 'THEmpgtM';
 	font-size: 0px;
@@ -186,11 +188,11 @@ a, a:visited, a:link{
 	<%@ include file="/WEB-INF/view/template.jsp" %>
 	<section id="section1">
 		<div class="board_top">
-	
 			<div id="memeber_main">문의 확인</div>
-			<div id="memeber_top_button">
-				<button onclick="location.href = 'memeberinsert';" id="write_btn">임시자리</button>
-			</div>
+			<select id="sort">
+				<option class="Filter" name="Filter" value="1">최신순</option>
+				<option class="Filter" name="Filter" value="2">답변 여부 N</option>
+			</select>
 		</div>
 		<table id="memeber_table">
 			<tr>
@@ -267,7 +269,7 @@ a, a:visited, a:link{
 				<li id="li_2"><a href="adminboard">게시물 관리</a></li>
 				<li id="li_3"><a href="admincomment">댓글 관리</a></li>
 				<li id="li_4"><a href="adminnotice">공지사항 관리</a></li>
-				<li id="li_5"><a href="adminmemeber">회원 관리</a></li>
+				<li id="li_5"><a href="adminmember">회원 관리</a></li>
 				<li id="li_6"><a href="admintrainer">트레이너 관리</a></li>
 				<li id="li_7"><a href="admininquiry">문의 확인</a></li>
 			</ul>
