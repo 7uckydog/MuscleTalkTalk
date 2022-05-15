@@ -11,7 +11,9 @@ import java.util.Map;
 
 import static kh.semi.mtt.common.jdbc.JdbcTemplate.*;
 
+import kh.semi.mtt.board.model.vo.BoardVo;
 import kh.semi.mtt.exercise.model.vo.ExerciseVo;
+import kh.semi.mtt.member.model.vo.MemberVo;
 import kh.semi.mtt.routine.model.vo.RoutineVo;
 import kh.semi.mtt.routineboard.model.vo.RoutineBoardVo;
 import kh.semi.mtt.routineexercise.model.vo.RoutineExerciseVo;
@@ -64,6 +66,63 @@ public class RoutineBoradDao {
 		return rvolist;
 		
 	}
+	
+	public int insertRoutineboard (Connection conn, RoutineBoardVo rvo, MemberVo mvo) {
+		
+		int result = 0;
+		int routineboard_count = 0;
+		
+		String sql = "INSERT INTO TB_ROUTINE_BOARD ("
+				+ "        ROUTINE_BOARD_NO, MEMBER_NO, "
+				+ "        ROUTINE_NO, ROUTINE_BOARD_TITLE, ROUTINE_BOARD_CONTENT, ROUTINE_BOARD_COUNT, "
+				+ "        ROUTINE_BOARD_DATE,ROUTINE_BOARD_SHARE, BOARD_CATEGORY_NO)"
+				+ "    VALUES ("
+				+ "        (SELECT nvl(max(routine_board_no),0)+1 from tb_routine_board), ?,"
+				+ "        ?, ?, ?, "+routineboard_count+" ,"
+				+ "        DEFAULT, DEFAULT, DEFAULT"
+				+ "    ) ";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, mvo.getMemberNo());
+			pstmt.setInt(2, rvo.getRoutineNo());
+			pstmt.setString(3, rvo.getRoutineboardTitle());
+			pstmt.setString(4, rvo.getRoutineboardContent());
+			result = pstmt.executeUpdate();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+		
+	}
+	public int routineBoardViewCount(Connection conn ,RoutineBoardVo rvo) {
+		String sql = "update tb_routine_board set routine_board_count = routine_board_count+1 where routine_board_no=?";
+		
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rvo.getRoutineboardNo());
+			result = pstmt.executeUpdate();
+			
+			System.out.println("조회수 1증가");
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(conn);
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	
+	
+	
 	
 	public RoutineBoardVo readRoutineBoard(Connection conn, int routineboardNo) {
 		RoutineBoardVo rvo = null;

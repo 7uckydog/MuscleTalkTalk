@@ -460,7 +460,7 @@ ${revolist.get(revolist.size() - 1).routineWeek } --%>
                         <button type="button" class="routineCalendarBtn">
                             캘린더로 보내기
                         </button>
-                        <button onclick="location.href = 'boardinsert';" type="button" class="routineshareBtn">
+                        <button type="button" class="routineshareBtn">
                             루틴 공유
                         </button>
                     </div>
@@ -604,6 +604,7 @@ ${revolist.get(revolist.size() - 1).routineWeek } --%>
 			htmlText += '</tr>';
 			$(".myRoutineListTable").eq(tableIndex).append(htmlText);
 			$(".myRoutineListTable").eq(tableIndex).after('<p class="DeleteP">'+"삭제하기"+'</p>');
+			$(".myRoutineListTable").eq(tableIndex).after('<input type = "hidden" class="routinte_name_hidden" value="'+voList[tableIndex].routineName+'">');
 			$(".myRoutineListTable").eq(tableIndex).after('<input type = "hidden" class="routinte_no_hidden" value="'+voList[tableIndex].routineNo+'">');
     	} else {
     		return;
@@ -655,6 +656,7 @@ ${revolist.get(revolist.size() - 1).routineWeek } --%>
 				htmlText += '</tr>';
 				$(".myRoutineListTable").eq(tableIndex).append(htmlText);
 				$(".myRoutineListTable").eq(tableIndex).after('<p class="DeleteP">'+"삭제하기"+'</p>');
+				$(".myRoutineListTable").eq(tableIndex).after('<input type = "hidden" class="routinte_name_hidden" value="'+voList[voListIndex].routineName+'">');
 				$(".myRoutineListTable").eq(tableIndex).after('<input type = "hidden" class="routinte_no_hidden" value="'+currTemp+'">');
 			}
 			
@@ -682,7 +684,9 @@ ${revolist.get(revolist.size() - 1).routineWeek } --%>
             bagModal.style.display ="block";
             eleModal.style.display ="block";
             var routineNo = $(this).parents('.myRoutineListTable').next().val();
+            var routineName = $(this).parents('.myRoutineListTable').next().next().val();
             console.log("루틴no에 담긴 디스부모값"+routineNo);
+            console.log("루틴name에 담긴 디스부모값"+routineName);
             var routineDayWeekTemp = "";
             var routineIndexTemp = 0;
             var routineExerciseDayTemp = 0;
@@ -741,6 +745,49 @@ ${revolist.get(revolist.size() - 1).routineWeek } --%>
       			modal_exercise_input()
     		});
             modal_exercise_input();
+            
+            
+            
+            
+          	//루틴공유 - 게시물 등록
+          	$(".routineshareBtn").on("click",function(){
+          		console.log("공유버튼눌림");
+          		console.log(routineNo);
+          		console.log("공유버튼눌림2222");
+          		console.log(routineName);
+          		console.log("공유버튼눌림333메모");
+          		console.log($('#modal_RoutineMemo').text());
+          		var routineMemo = $('#modal_RoutineMemo').text();
+          		
+          		
+            		$.ajax({
+          			url:"insertroutineboard",
+          			type:"post",
+          			data:{routineNo:$(".routinte_no_hidden").val(),routineName,routineMemo
+          				},
+          			
+          			success:function(result){
+          				console.log("공유버튼에이작스 성공");
+          				location.href="routineboardreadall";
+          				return;
+          			},
+          			
+          			error:function(result){
+          				console.log("공유에이작스에러"+error);
+          			}
+          			
+          		});
+          	});
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
         };        
         function closeModalHandler(){
             bagModal.style.display ="none";
@@ -847,6 +894,36 @@ ${revolist.get(revolist.size() - 1).routineWeek } --%>
 			$('.modalDay').text("일요일");
 		}
 	}
+  	
+  	//루틴공유 - 게시물 등록
+/*    	$(".routineshareBtn").on("click",function(){
+  		console.log("공유버튼눌림");
+  		var routineNo = $(this).parents('.myRoutineListTable').next().val();
+  		console.log(routineNo);
+  		console.log("공유버튼눌림2222");
+  		var routineName = $('.routinte_name_hidden').val();
+  		console.log(routineName);
+    		$.ajax({
+  			url:"insertroutineboard",
+  			type:"post",
+  			data:{routineNo:$(".routinte_no_hidden").val()
+  				},
+  			
+  			success:function(result){
+  				console.log("공유버튼에이작스 성공");
+  				location.href="routineboardreadall";
+  				return;
+  			},
+  			
+  			error:function(result){
+  				console.log("공유에이작스에러"+error);
+  			}
+  			
+  		}); 
+  	}); 
+  	 */
+  	
+  	
   	
 
 	</script>

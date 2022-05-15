@@ -25,7 +25,7 @@ section {
 	background-color: white;
 	border-radius: 10px 10px 0 0;
 	width: 930px;
-	height: 2000px;
+	height: auto;
 	position: relative;
 	font-size: 12px;
 	font-family: 'THEmpgtM';
@@ -268,9 +268,6 @@ button {
 .set_time_title2 {
 	margin-left: 92px;
 }
-
-
-
 
 .workout_main {
 	margin: 45px 65px 0 65px;
@@ -547,8 +544,9 @@ table {
 	border: 1px solid #4B4DB2;
 	text-align: center;
 }
-.addworkoutset{
-border-left: 0px !important;
+
+.addworkoutset {
+	border-left: 0px !important;
 }
 
 .addworkoutTable td:nth-child(2), .addworkoutTable td:nth-child(3),
@@ -604,16 +602,18 @@ border-left: 0px !important;
 }
 
 .Btn_cancel_inset {
-	margin-top: 62px;
+	margin-top: 70px;
 	text-align: center;
+	padding-bottom: 70px;
 }
 
 .workout_AllList p {
 	width: auto;
 	cursor: pointer;
 }
+
 .addworkoutAllDiv input {
-	display: none; 
+	display: none;
 }
 </style>
 </head>
@@ -635,16 +635,15 @@ border-left: 0px !important;
 					수행 요일</span> <span class="routine_day2">루틴 수행 일자</span>
 			</div>
 			<div>
-				<input type="text" name="routine_nameBox" class="routine_nameBox" placeholder="루틴명을 입력하세요." required>
-				<select name="routine_tagetName"
-					class="routine_tagetSelect">
+				<input type="text" name="routine_nameBox" class="routine_nameBox"
+					placeholder="루틴명을 입력하세요." required> <select
+					name="routine_tagetName" class="routine_tagetSelect">
 					<option value="N" selected>전체</option>
 					<option value="M">근비대</option>
 					<option value="D">다이어트</option>
 					<option value="S">스트랭스</option>
 					<option value="B">맨몸운동</option>
-				</select>
-			 <select name="dayroutine_tagetName" class="dayroutine_tagetSelect">
+				</select> <select name="dayroutine_tagetName" class="dayroutine_tagetSelect">
 					<option value="N" selected>전체</option>
 					<option value="M">근비대</option>
 					<option value="D">다이어트</option>
@@ -679,38 +678,51 @@ border-left: 0px !important;
 			</div>
 			<div class="taget_timeDiv">
 				<span class="taget_btn">운동 부위 선택</span> <span class="set_time_title">세트별
-					휴식시간</span> <span class="set_time_title2">운동별 휴식시간</span> 
+					휴식시간</span> <span class="set_time_title2">운동별 휴식시간</span>
 
 				<div class="taget_sort">
-					<input type="checkbox" name="taget_sort" value="B" id="taget_value1"> <input
-						type="checkbox" name="taget_sort" value="C" id="taget_value2"> <input
-						type="checkbox" name="taget_sort" value="S" id="taget_value3"> <input
-						type="checkbox" name="taget_sort" value="L" id="taget_value4"> <input
-						type="checkbox" name="taget_sort" value="A" id="taget_value5"> <input
-						type="checkbox" name="taget_sort" value="E" id="taget_value6"> <input
-						type="checkbox" name="taget_sort" value="H" id="taget_value7"> <input
-						type="checkbox" name="taget_sort" value="T" id="taget_value8">
-					<button type="button" name="taget_sort" class="taget_value" value="B">등</button>
-					<button type="button" name="taget_sort" class="taget_value" value="C">가슴</button>
-					<button type="button" name="taget_sort" class="taget_value" value="S">어깨</button>
-					<button type="button" name="taget_sort" class="taget_value" value="L">하체</button>
+					<input type="checkbox" name="taget_sort" value="B"
+						id="taget_value1"> <input type="checkbox"
+						name="taget_sort" value="C" id="taget_value2"> <input
+						type="checkbox" name="taget_sort" value="S" id="taget_value3">
+					<input type="checkbox" name="taget_sort" value="L"
+						id="taget_value4"> <input type="checkbox"
+						name="taget_sort" value="A" id="taget_value5"> <input
+						type="checkbox" name="taget_sort" value="E" id="taget_value6">
+					<input type="checkbox" name="taget_sort" value="H"
+						id="taget_value7"> <input type="checkbox"
+						name="taget_sort" value="T" id="taget_value8">
+					<button type="button" name="taget_sort" class="taget_value"
+						value="B">등</button>
+					<button type="button" name="taget_sort" class="taget_value"
+						value="C">가슴</button>
+					<button type="button" name="taget_sort" class="taget_value"
+						value="S">어깨</button>
+					<button type="button" name="taget_sort" class="taget_value"
+						value="L">하체</button>
 					<!-- 세트별 시간 -->
 					<input type='button' class="set_timeup" onclick='count("plus")'
-						value='+'> <input type="text" name="settime" maxlength="4" min="0초"
-						id='count_settime' value="0초"> <input type='button'
-						class="set_timedawn" onclick='count("minus")' value='-'>
+						value='+'> <input type="text" name="settime" maxlength="4"
+						min="0초" id='count_settime' value="0초"> <input
+						type='button' class="set_timedawn" onclick='count("minus")'
+						value='-'>
 					<!-- 운동별 시간 -->
 					<input type='button' class="set_timeup2" onclick='count2("plus2")'
-						value='+'> <input type="text" name="worktime" maxlength="4"
-						id='count_settime2' value="0초"> <input type='button'
-						class="set_timedawn2" onclick='count2("minus2")' value='-'>
+						value='+'> <input type="text" name="worktime"
+						maxlength="4" id='count_settime2' value="0초"> <input
+						type='button' class="set_timedawn2" onclick='count2("minus2")'
+						value='-'>
 
 				</div>
 				<div class="taget_sort">
-					<button type="button" name="taget_sort" class="taget_value" value="A">복근</button>
-					<button type="button" name="taget_sort" class="taget_value" value="E">팔</button>
-					<button type="button" name="taget_sort" class="taget_value" value="H">엉덩이</button>
-					<button type="button" name="taget_sort" class="taget_value" value="T">유산소</button>
+					<button type="button" name="taget_sort" class="taget_value"
+						value="A">복근</button>
+					<button type="button" name="taget_sort" class="taget_value"
+						value="E">팔</button>
+					<button type="button" name="taget_sort" class="taget_value"
+						value="H">엉덩이</button>
+					<button type="button" name="taget_sort" class="taget_value"
+						value="T">유산소</button>
 				</div>
 			</div>
 			<div class="workout_main">
@@ -721,7 +733,7 @@ border-left: 0px !important;
 			</div>
 			<div class="workout_category">
 				<input type="radio" name="tab" id="category1" value="1" checked>
-<!-- 				<input type="radio" name="tab" id="category2" value="2"> <input
+				<!-- 				<input type="radio" name="tab" id="category2" value="2"> <input
 					type="radio" name="tab" id="category3" value="3"> <input
 					type="radio" name="tab" id="category4" value="4"> <input
 					type="radio" name="tab" id="category5" value="5"> -->
@@ -811,28 +823,29 @@ border-left: 0px !important;
 				<table id="workoutSettingTable">
 					<tr class="workoutSettingTr">
 						<td class="workoutSettingName" name="workoutSettingName">운동명</td>
-						<td><input maxlength="5" class="workoutSettingWeight" name="workoutSettingWeight"
-							value="0kg"></td>
-						<td><input maxlength="3" class="workoutSettingNumber" name="workoutSettingNumber"
-							value="0회"></td>
+						<td><input maxlength="5" class="workoutSettingWeight"
+							name="workoutSettingWeight" value="0kg"></td>
+						<td><input maxlength="3" class="workoutSettingNumber"
+							name="workoutSettingNumber" value="0회"></td>
 					</tr>
 				</table>
 			</div>
 			<div class="timesettingBtn">
 				<input type='button' class="set_timeup3" onclick='count3("plus3")'
 					value='+'> <input type="text" readonly maxlength="10"
-					min="1세트" id='count_settime3' name="setNumber" value="1세트"> <input
-					type='button' class="set_timedawn3" onclick='count3("minus3")'
-					value='-'> <input class="allsettingBtn" type="button"
-					value="일괄적용"> <input type="button" class="workout_inputBtn"
-					value="추가">
+					min="1세트" id='count_settime3' name="setNumber" value="1세트">
+				<input type='button' class="set_timedawn3"
+					onclick='count3("minus3")' value='-'> <input
+					class="allsettingBtn" type="button" value="일괄적용"> <input
+					type="button" class="workout_inputBtn" value="추가">
 			</div>
 
 			<hr class="hr2">
 			<div class="addworkoutTitle">추가된 운동</div>
 			<hr class="hr2">
 			<div class="MemoTitle">메모</div>
-			<textarea id="routineMemo" name="routineMemo" placeholder="내용을 입력하세요."></textarea>
+			<textarea id="routineMemo" name="routineMemo"
+				placeholder="내용을 입력하세요."></textarea>
 			<div class="Btn_cancel_inset">
 				<button id="routineinsertcancelBtn" type="button">취소</button>
 				<button id="routineinsertBtn" type="button" onclick="formSubmit()">루틴

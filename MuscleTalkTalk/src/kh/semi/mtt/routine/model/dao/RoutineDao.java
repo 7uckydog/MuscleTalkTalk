@@ -41,7 +41,7 @@ public class RoutineDao {
 		String sql = "insert all"
 				+ "	    into tb_routine (ROUTINE_NO, MEMBER_NO, ROUTINE_NAME, ROUTINE_DISABLE, ROUTINE_TARGET,"
 				+ "	                        ROUTINE_CONTENT, ROUTINE_EXPLANATION)"
-				+ "	            values ((select nvl(max(ROUTINE_NO),0)+1 from tb_routine), ?, ?, 'f', ?, ?, 'default')"
+				+ "	            values ((select nvl(max(ROUTINE_NO),0)+1 from tb_routine), ?, ?, 'F', ?, ?, 'default')"
 				+ "	    ";
 		int routineExerciseNo = 1;
 		for(RoutineExerciseVo reVo : rouExerVoList) {

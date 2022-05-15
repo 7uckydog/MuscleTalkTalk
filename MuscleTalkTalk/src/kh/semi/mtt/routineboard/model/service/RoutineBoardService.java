@@ -6,6 +6,7 @@ import java.util.Map;
 
 import static kh.semi.mtt.common.jdbc.JdbcTemplate.*;
 
+import kh.semi.mtt.member.model.vo.MemberVo;
 import kh.semi.mtt.routineboard.model.dao.RoutineBoradDao;
 import kh.semi.mtt.routineboard.model.vo.RoutineBoardVo;
 
@@ -47,6 +48,32 @@ public class RoutineBoardService {
 		
 		
 	}
+	
+	
+	public int insertRoutineboard (RoutineBoardVo rvo, MemberVo mvo) {
+		Connection conn = null;
+		conn = getConnection();
+		
+		int result = dao.insertRoutineboard(conn, rvo, mvo);
+		close(conn);
+		return result;
+	}
+	
+	public int routineBoardViewCount(RoutineBoardVo rvo) {
+		Connection conn = null;
+		conn = getConnection();
+		
+		int result = dao.routineBoardViewCount(conn, rvo);
+		close(conn);
+		return result;
+		
+		
+	}
+	
+	
+	
+	
+	
 	
 	public int countRoutineBoard() {
 		Connection conn = null;

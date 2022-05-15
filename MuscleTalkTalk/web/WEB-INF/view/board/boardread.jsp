@@ -20,7 +20,6 @@
 body {
 	width: 1200px;
 	margin: 0 auto;
-	src: url("./fonts/THEmpgtM.woff");
 }
 
 * {
@@ -417,7 +416,7 @@ hr {
 	<section>
 		<div id="board_main">자유 게시물 상세보기</div>
 		<div id="board_category">
-			<a href="totalboard">통합 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="BoardReadAll">자유 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
+			<a href="totalboardreadall">통합 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="BoardReadAll">자유 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
 				href="routineboardreadall">루틴 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="">공지사항</a>
 		</div>
 		<div id="board_note">
@@ -601,7 +600,7 @@ hr {
 				//$(".modal").hide();
 				//$(".report_modal").hide();
 			}
-		})
+		});
 	</script>
 
 </body>

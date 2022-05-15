@@ -663,6 +663,90 @@
 		.myRoutineListTableDiv{
 		display: none;
 		}
+		.report_modal{
+    display: none;
+    width: 350px;
+    height: 300px;
+    border: #4B4DB2 solid 1px;
+    background-color: white;
+    position: fixed;  
+    top: 40%;
+    left: 50%;
+    transform: translate(-25%,-25%); 
+    /* position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%); */
+    z-index: 2;
+    
+}
+.btn_close{
+    text-align: right;
+    box-sizing: border-box;
+}
+.modal_content{
+    box-sizing: content-box;
+}
+.report_title{
+	margin-top: 30px;
+    text-align: center;
+}
+.report_content{
+	margin-top: 30px;
+    text-align: center;
+    color: gray;
+}
+.report_reason{
+    text-align: center;
+}
+.report_selete{
+    width: 240px;
+    margin-top: 30px;
+    height: 40px;
+    border: #4B4DB2 solid .5px;
+    margin-bottom: 25px
+}
+.report_cancel{
+    height: 50px;
+    width: 175px;
+    font-size: 12px;
+    color: #4B4DB2;
+    background-color: white;
+    outline: 0;
+    border: 0;
+    border-top: #4B4DB2 solid 1px;
+}
+.btn_closeX{
+	width: 30px;
+	height: 35px;
+}
+.report_ok{
+    width: 175px;
+    height: 50px;
+    font-size: 12px;
+    color: white;
+    background-color: #4B4DB2;
+    outline: 0;
+    border: 0;
+    border-left: #4B4DB2 solid 1px;
+    border-top: #4B4DB2 solid 1px;
+}
+.btn_cancel_ok{
+    margin-top: 38px;
+    border-bottom: #4B4DB2 solid 1px;
+}
+.modal{
+        display: none;
+        position: fixed; top: 0; left: 0; 
+        width: 100%; height: 100%;
+        z-index: 1;
+        background-color: rgba(128, 128, 128, .5);
+        }
+		
+		
+		
+		
+		
     </style>
 </head>
 <body bgcolor=" #ECECEC">
@@ -681,7 +765,7 @@
            루틴 게시판 상세 조회
         </div>
         <div id="board_category">
-            <a href="">통합 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="">자유 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="">루틴 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="">공지사항</a>
+            <a href="totalboardreadall">통합 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="BoardReadAll">자유 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="routineboardreadall">루틴 게시판</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="">공지사항</a>
         </div>
         <div id="board_note">
             <div id="note_title">게시판 유의사항</div>
@@ -808,6 +892,25 @@
             <button id="board_cancel">글 신고하기</button>
             </c:if>
             <button onclick = "location.href = 'routineboardreadall'" id="board_register">확인</button>
+        </div>
+        		<div class="report_modal">
+            <div class="modal_report_content">
+                <!-- 모달창내용작성 -->
+                <div class="btn_close"><button class="btn_closeX">&#9932;</button></div>
+                    <p class="report_title">글 신고하기</p>
+                    <p class="report_content">게시글을 신고하기 위해 사유를 선택해 주세요.</p>
+                    <p class="report_reason"><select name="" class="report_selete">
+                        <option value="" selected disabled hidden>사유선택</option>
+                        <option value="부적절한 내용">부적절한 내용</option>
+                        <option value="개인 정보 노출">개인 정보 노출</option>
+                        <option value="욕설/비하/비방 발언">욕설/비하/비방 발언</option>
+                        <option value="스팸 홍보/도배">스팸 홍보/도배</option>
+                        <option value="기타">기타</option>
+                    </select></p>
+                    <div class="btn_cancel_ok"><button class="report_cancel">취소</button><button type="button" class="report_ok">신고하기</button></div>
+            </div>
+        </div>      
+        <div class="modal">
         </div>
     </section>
 
@@ -1159,6 +1262,73 @@
 			$('.modalDay').text("일요일");
 		}
 	}
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+	$(function(){ //모달
+        // const eleModal = document.getElementsByClassName("modal")[0];
+        const eleModal = document.querySelector(".report_modal");
+        const bagModal = document.querySelector(".modal");
+
+        function openModalHandler(){
+            bagModal.style.display ="block";
+            eleModal.style.display ="block";
+        };        
+        function closeModalHandler(){
+            bagModal.style.display ="none";
+            eleModal.style.display ="none";
+        };
+        function closeModalWindowHandler(){
+        	console.log(this);
+            console.log(event.target);
+            if(event.target == this){
+                bagModal.style.display ="none";
+                eleModal.style.display ="none";
+               console.log(this);
+               console.log(event.target);
+            }
+        }
+        
+    document.querySelector("#board_cancel").addEventListener("click",openModalHandler);
+    document.querySelector(".btn_closeX").addEventListener("click",closeModalHandler); 
+    document.querySelector(".report_modal").addEventListener("click",closeModalWindowHandler);
+    document.querySelector(".modal").addEventListener("click",closeModalWindowHandler);
+    $(".report_ok").click(function(){
+        eleModal.style.display="none"
+        bagModal.style.display ="none"
+        alert("신고되었습니다")
+        $.ajax({
+			url:"boardreport",
+			type:"post",
+			data:{boardNo:${bvo.routineboardNo}, reportContent:$(".report_selete").val()}
+			
+		});
+        
+    });
+    $(".report_cancel").click(function(){
+        eleModal.style.display="none"
+        bagModal.style.display ="none"
+    })
+});
+/* 		$(".report_ok").click(function() {
+	
+}); */
+
+
+
+
+$(window).click(function(event) {
+	console.log(event.target);
+	if(event.target == $(".modal")[0]) {
+		//$(".modal").hide();
+		//$(".report_modal").hide();
+	}
+});
     
     </script>
 
