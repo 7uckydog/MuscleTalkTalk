@@ -328,7 +328,7 @@ section {
 			</tr>
 			<c:forEach items="${routineboardreadall}" var="rvo">
 				<tr class="table_content">
-					<td><a href="routineboardread?bno=${rvo.routineboardNo}">${rvo.routineboardNo }</a></td>
+					<td><a href="routineboardread?bno=${rvo.routineboardNo}">${rvo.routineboardR }</a></td>
 					<td><a href="routineboardread?bno=${rvo.routineboardNo }">${rvo.routineboardTitle }</a></td>
 					<td>${rvo.routineboardDate }</td>
 					<td>&nbsp;&nbsp;&nbsp;${rvo.routineboardCount }</td>

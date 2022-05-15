@@ -7,10 +7,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kh.semi.mtt.routineboard.model.service.RoutineBoardService;
+import kh.semi.mtt.routineboard.model.vo.RoutineBoardVo;
+
 /**
  * Servlet implementation class deleteRoutineBoardController
  */
-@WebServlet("/deleteRoutineBoardController")
+@WebServlet("/deleteroutineboardcontroller")
 public class deleteRoutineBoardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -25,17 +28,18 @@ public class deleteRoutineBoardController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		// TODO Auto-generated method stub
+//		response.getWriter().append("Served at: ").append(request.getContextPath());
+//	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		int result = -1;
+		RoutineBoardVo rvo = new RoutineBoardVo();
+		rvo.setRoutineboardNo(Integer.parseInt(request.getParameter("routineboardNo")));
+		result = new RoutineBoardService().deleteRoutineBoard(rvo);
+		if(result == -1) {
+			System.out.println("-1값임");
+		}
 	}
 
 }

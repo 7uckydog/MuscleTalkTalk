@@ -1017,6 +1017,32 @@
             console.log($(this).next().remove());
             $(this).remove();
         });
+        
+        $(".btn_delete").on("click",function(){
+        	console.log("삭제 에이작스");
+        	
+        	console.log(${bvo.routineboardNo});
+         	$.ajax({
+        		url:"deleteroutineboardcontroller",
+        		type:"post",
+        		data:{routineboardNo:${bvo.routineboardNo}},
+        		success:function(result){
+        			location.href = "routineboardreadall";
+        			return
+        		},
+        		error:function(result){
+        			console.log("에이작스에러");
+        		}
+        	}); 
+        	
+        });
+        
+        
+        
+        
+        
+        
+        
     </script>
     <script type="text/javascript">
 	var voList = [];

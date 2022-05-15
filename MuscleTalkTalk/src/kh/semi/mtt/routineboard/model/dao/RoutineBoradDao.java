@@ -30,8 +30,9 @@ public class RoutineBoradDao {
 				+ "	(select rownum r, t1.* from (select b1.*,(select count(*) from "
 				+ "	tb_comment r1 where r1.ROUTINE_BOARD_NO = b1.ROUTINE_BOARD_NO) r_cnt "
 				+ "	from tb_routine_board b1 order by ROUTINE_BOARD_NO desc) t1)tba join tb_member tbm on tba.member_no = tbm.member_no "
-				+ "	where r between ? and ?"
-				+ "	order by ROUTINE_BOARD_DATE desc";
+				+ " JOIN TB_ROUTINE TR1 ON TR1.ROUTINE_NO = tba.ROUTINE_NO "
+				+ "	where r between ? and ? and TR1.routine_disable = 'F' "
+				+ "	order by R DESC ,ROUTINE_BOARD_DATE desc ";
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
@@ -44,6 +45,7 @@ public class RoutineBoradDao {
 				rvolist = new ArrayList<RoutineBoardVo>();
 				while(rs.next()) {
 					RoutineBoardVo rvo = new RoutineBoardVo();
+					rvo.setRoutineboardR(rs.getInt("r"));
 					rvo.setRoutineboardNo(rs.getInt("ROUTINE_BOARD_NO"));
 					rvo.setRoutineboardDate(rs.getDate("ROUTINE_BOARD_DATE"));
 					rvo.setRoutineboardTitle(rs.getString("ROUTINE_BOARD_TITLE"));
@@ -67,10 +69,7 @@ public class RoutineBoradDao {
 		
 	}
 	
-
-
-
-
+	
 	public int deleteRoutineBoard(Connection conn,RoutineBoardVo rvo) {
 		int result = 0;
 		String sql = "delete from tb_routine_board where routine_board_no = ?";
