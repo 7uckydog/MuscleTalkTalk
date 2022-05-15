@@ -632,8 +632,7 @@
  		    							// 이메일 번호 전송을 위한 난수 insert - ajax
  		    				            $.ajax({
  		    				               url: "insertmailforjoin",
- 		    				               type: "post",
- 		    				
+ 		    				               type: "post",		
                					               data:{email_certification_email: $("#member_email").val()},
  		    				               success: function(result){
  		    				                  console.log("난수 insert 성공");
@@ -805,7 +804,7 @@
 	    		chkHeight = true;
 	    	}
 	    }));
-     // 신장
+     	// 몸무게
         $("#member_weight").on("input", (function(){
 			var weightVal = $("#member_weight").val();
 			var weight = /^[0-9]{1,3}$/;
