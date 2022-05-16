@@ -206,10 +206,41 @@
 											routineNoTemp = routineList[i].routineNo;
 											console.log(routineNoTemp);
 											console.log(routineList[i]);
+											var tempTarget;
+											switch (routineList[i].routineTarget) {
+											case 'N':
+												tempTarget = '전체';
+												break;
+											case 'M':
+												tempTarget = '근비대';
+												break;
+											case 'D':
+												tempTarget = '다이어트';
+												break;
+											case 'S':
+												tempTarget = '스트랭스';
+												break;
+											case 'B':
+												tempTarget = '맨몸운동';
+												break;
+
+											default:
+												break;
+											}
+											
+											
+											var maxWeek = 0;
+											for(var j = 0; j < revoList.length; j++) {
+												if(revoList[j].routineNo == routineNoTemp) {
+													if(maxWeek < revoList[j].routineWeek) {
+														maxWeek = revoList[j].routineWeek;
+													}
+												}
+											}
 											$("#modal_grid").append('<p class="font_THEmpgtM font_12px routine_title routine_border routine_border_left">'+routineList[i].routineName+'</p>');
-											$("#modal_grid").append('<p class="font_THEmpgtM font_12px routine_title routine_border">'+routineList[i].routineName+'</p>');
-											$("#modal_grid").append('<p class="font_THEmpgtM font_12px routine_title routine_border">'+routineList[i].routineName+'</p>');
-											$("#modal_grid").append('<p class="font_THEmpgtM font_12px routine_title routine_border">'+routineList[i].routineName+'</p>');
+											$("#modal_grid").append('<p class="font_THEmpgtM font_12px routine_title routine_border">'+tempTarget+'</p>');
+											$("#modal_grid").append('<p class="font_THEmpgtM font_12px routine_title routine_border">'+maxWeek+'주</p>');
+											$("#modal_grid").append('<p class="font_THEmpgtM font_12px routine_title routine_border">주간</p>');
 											$("#modal_grid").append('<button type="button" class="routine_import_btn">불러오기</button>');
 											$("#modal_grid").append('<input type="hidden" value="'+routineNoTemp+'">');
 										}
@@ -248,6 +279,7 @@
 				eventClick : function(info) {
 					ptMember(info);
 					ptTrainer(info);
+					routineModalFnc(info);
 				}
 
 				
@@ -558,6 +590,72 @@
 					}
 				}		
 			}
+		}
+		
+		function routineModalFnc(info) {
+			console.log(info);
+			console.log($(info.el));
+			var classList = $(info.el).attr('class').split(" ");
+			if(classList.includes("event_routine")) {
+				var indexTemp = classList.indexOf("event_routine");
+				var routineNoTemp = classList[indexTemp+1].split("-")[1];
+				var routineExerciseNoTemp = classList[indexTemp+2].split("-")[1];
+				var dayTemp = 0;
+				var weekTemp = 0;
+				indexTemp = 0;
+				for(var i = 0; i < revolistInput.length; i++) {
+					if(revolistInput[i].routineExerciseNo == routineExerciseNoTemp) {
+						dayTemp = revolistInput[i].routineExerciseDay;
+						weekTemp = revolistInput[i].routineWeek;
+						indexTemp = i;
+					}
+				}
+				var dayTempStr;
+				switch (dayTemp) {
+				case 1:
+					dayTempStr = '월요일';
+					break;
+				case 2:
+					dayTempStr = '화요일';
+					break;
+				case 3:
+					dayTempStr = '수요일';
+					break;
+				case 4:
+					dayTempStr = '목요일';
+					break;
+				case 5:
+					dayTempStr = '금요일';
+					break;
+				case 6:
+					dayTempStr = '토요일';
+					break;
+				case 7:
+					dayTempStr = '일요일';
+					break;
+
+				default:
+					break;
+				}
+				$('#modal_title').text('루틴 상세 조회');
+				$('#modal_grid').css("grid-template-columns", "120px 120px 120px 120px");
+				$('#modal_grid').css("padding-left", "10px");
+				$("#modal_grid").append('<p class="font_THEmpgtM font_12px routine_content_title routine_border routine_border_left">'+rvolistInput[indexTemp].routineName+'</p>');
+				$("#modal_grid").append('<p class="font_THEmpgtM font_12px routine_content_title routine_border routine_border_left">'+weekTemp+'주차</p>');
+				$("#modal_grid").append('<p class="font_THEmpgtM font_12px routine_content_title routine_border routine_border_left">'+dayTempStr+'</p>');
+				for(var i = 0; i < revolistInput.length; i++) {
+					if(revolistInput[i].routineNo == routineNoTemp && revolistInput[i].routineExerciseDay == dayTemp && revolistInput[i].routineWeek == weekTemp) {
+						console.log(revolistInput[i]);
+						$("#modal_grid").append('<p class="font_THEmpgtM font_12px routine_content routine_border routine_border_left">'+evolistInput[i].exerciseName+'</p>');
+						$("#modal_grid").append('<p class="font_THEmpgtM font_12px routine_content routine_border">'+revolistInput[i].routineExerciseWeight+'kg</p>');
+						$("#modal_grid").append('<p class="font_THEmpgtM font_12px routine_content routine_border">'+revolistInput[i].routineExerciseRepeat+'회</p>');
+						$("#modal_grid").append('<p class="font_THEmpgtM font_12px routine_content routine_border">'+revolistInput[i].routineExerciseSet+'세트</p>');
+					}
+				}
+				
+			}
+			funcModal();
+			//closeModal();
 		}
 		
 		function funcModal() {

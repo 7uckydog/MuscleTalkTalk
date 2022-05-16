@@ -159,8 +159,8 @@
 .routine_title {
 	height: 30px;
 	line-height: 28px;
-	text-align: left;
-	padding-left: 20px;
+	/* text-align: left;
+	padding-left: 20px; */
 	box-sizing: border-box;
 }
 .routine_import_btn {
@@ -189,4 +189,15 @@
 
 .routine_border_left {
 	border-left: 1px solid #4B4DB2;
+}
+
+.routine_content {
+	height : 30px;
+	line-height : 28px;
+}
+
+.routine_content_title {
+	grid-column: 1 / 5;
+	height : 30px;
+	line-height: 28px;
 }
