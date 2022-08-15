@@ -126,6 +126,6 @@
         + 주간 / 일간 루틴 조회, 생성, 수정, 삭제
         + 루틴 공유
 ## 최종발표자료
-    [최종발표자료(pdf링크)](https://github.com/JaeMinPark0224/MuscleTalkTalk/blob/main/muscleTalkTalk_%EC%B5%9C%EC%A2%85%EB%B0%9C%ED%91%9C.pdf)
+[최종발표자료(pdf링크)](https://github.com/JaeMinPark0224/MuscleTalkTalk/blob/main/muscleTalkTalk_%EC%B5%9C%EC%A2%85%EB%B0%9C%ED%91%9C.pdf)
 ## 스토리보드
-    [스토리보드(pdf링크)](https://github.com/JaeMinPark0224/MuscleTalkTalk/blob/main/muscleTalkTalk_%EC%8A%A4%ED%86%A0%EB%A6%AC%EB%B3%B4%EB%93%9C.pdf)  
+[스토리보드(pdf링크)](https://github.com/JaeMinPark0224/MuscleTalkTalk/blob/main/muscleTalkTalk_%EC%8A%A4%ED%86%A0%EB%A6%AC%EB%B3%B4%EB%93%9C.pdf)  
