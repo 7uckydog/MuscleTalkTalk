@@ -23,24 +23,21 @@
     + Ajax
     + jQuery
     + Servlet 4.0
-    + jsp 2.0
+    + jsp 3.1
     + ojdbc6
-    + gson 2.9.0
+    + gson 2.8.6
     + jstl 1.2
     + cos 20.08
-    + Chart.js
     + FullCalendar
     + Cloudinary
     + SMTP
-    + jsTree
-    + jOrgChart
-    + websocket
+    + CKEditor
 + **DB Tool**
     + sqldeveloper
 + **IDE**
-    + Spring Tool Suite 3
+    + Eclipse IDE for Enterprise Java Developers
 + **Compare Tool**
-    + Beyond Compare 4
+    + Beyond Compare
 + **Prototyping Tool**
     + OvenApp
 + **ER Diagram Tool**
@@ -49,11 +46,12 @@
     + VSCode
 + **Configuration Management Tool**
     + Git
-    + GitHub
     + GitHub Desktop
 ## 프로젝트 설계주안점
-+ 프로젝트 단위의 업무를 수행하는 기업을 대상으로한 그룹웨어 개발
-+ 업무, 프로젝트, 일정관리, 근태 관리, 사내 결재 시스템등의 즉각적이고 편리한 시스템이 가능해짐으로써 업무 효율을 증가시킨다.
++ 운동 계획과 운동 결과를 캘린더로 제공
++ 다른 사용자가 올린 루틴을 가져오거나 또는 내 루틴을 공유
++ 구체적인 운동을 원하는 사용자를 위해 트레이너 연결 시스템을 제공
++ 운동을 보다 쉽고 간편하게 할 수 있도록 도와주는 웹 사이트
 
 ## 구현 기능
 + **프로젝트 단위 업무 관리**
