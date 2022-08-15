@@ -6,7 +6,7 @@
 [3. 구현 기능](#구현-기능)  
 [4. 팀원 및 주 담당 기능](#팀원-및-주-담당-기능)  
 [5. 최종발표자료](https://github.com/JaeMinPark0224/MuscleTalkTalk/blob/main/muscleTalkTalk_%EC%B5%9C%EC%A2%85%EB%B0%9C%ED%91%9C.pdf) 
-[5. 스토리보드](https://github.com/JaeMinPark0224/MuscleTalkTalk/blob/main/muscleTalkTalk_%EC%8A%A4%ED%86%A0%EB%A6%AC%EB%B3%B4%EB%93%9C.pdf)  
+[6. 스토리보드](https://github.com/JaeMinPark0224/MuscleTalkTalk/blob/main/muscleTalkTalk_%EC%8A%A4%ED%86%A0%EB%A6%AC%EB%B3%B4%EB%93%9C.pdf)  
 
 ## 개발환경
 + **Language**
